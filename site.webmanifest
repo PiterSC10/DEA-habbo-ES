@@ -1,0 +1,23 @@
+{
+  "name": "DEA-HABBO-ES",
+  "short_name": "DEA ES",
+  "description": "Plataforma de la agencia DEA en Habbo.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#060e1c",
+  "theme_color": "#071426",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

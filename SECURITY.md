@@ -1,29 +1,14 @@
-# Seguridad de DEA-HABBO_ES
+# Seguridad · DEA-HABBO-ES
 
-## Estado actual
+**Estado V4: prototipo visual, no apto para gestión real de agentes.**
 
-**Este repositorio contiene exclusivamente un prototipo visual.** La navegación privada es una simulación accesible sin autenticación. No debe utilizarse para información real ni presentarse como una intranet protegida.
-
-## Reglas para el futuro sistema
-
-- **Autenticación:** Discord OAuth implementado en servidor, con `state`, PKCE cuando corresponda, sesiones protegidas, expiración y revocación. Nunca pedir la contraseña de Discord en la web.
-- **Verificación de Habbo:** comprobar manualmente el nickname; el login con Discord no acredita por sí solo la propiedad de una cuenta Habbo.
-- **Autorización:** denegar por defecto; comprobar cada acción en servidor, incluyendo acceso por expediente, departamento y rol.
-- **Separación de funciones:** nadie aprueba sus propias nóminas, ascensos extraordinarios ni cambios de privilegios.
-- **Ascensos:** validar rango, fecha, autorizaciones y verificación manual de presencia. Registrar transacciones atómicas.
-- **Auditoría:** registrar actor, acción, objetivo, marca temporal, valores anteriores/nuevos y resultado; no permitir borrar/editar auditoría desde la interfaz normal. Enviar copia a almacenamiento independiente con retención protegida.
-- **Copias de seguridad:** programadas, cifradas, independientes del proveedor principal y probadas mediante restauraciones periódicas.
-- **Secretos:** solo variables seguras del proveedor, nunca en código, commits, archivos `.env` subidos o mensajes públicos.
-- **Administración:** 2FA en GitHub/Cloudflare, acceso mínimo, revisiones de permisos y registro de accesos.
-- **Despliegue:** primero entorno de pruebas; pruebas de permisos y seguridad antes de aceptar datos reales.
-- **Privacidad:** recopilar el mínimo de datos, definir períodos de conservación y acceso por necesidad.
-
-## Limitaciones
-
-Ni Discord ni GitHub sustituyen una base de datos transaccional y auditada. GitHub protege el código y su historial, pero no conserva por sí solo los datos de actividad.
-
-La protección frente a administradores con control total de infraestructura requiere copias y registros fuera de su alcance. No existe garantía absoluta de invulnerabilidad ni de disponibilidad del 100 %.
-
-## Reporte de incidencias
-
-Hasta que exista un canal oficial, comunicar cualquier incidencia de forma privada a los Founders. No publicar credenciales, datos de miembros ni detalles de vulnerabilidades en incidencias públicas.
+- Los botones VIP y Agentes NO autentican ni conceden acceso real. Nunca utilizar el HTML como control de seguridad.
+- Los cuatro Founders se identificarán mediante Discord OAuth y una lista de identidades verificada en el backend, no por nickname editable.
+- El usuario normal solo podrá leer su propia ficha, comprobando el ID de Discord y el vínculo con Habbo en cada consulta del servidor.
+- Delegar ascensos por permisos específicos, no por acceso general al panel VIP.
+- Registrar movimientos de ascenso con fecha, rango previo, nuevo rango, responsable y motivo; no sobrescribir historial.
+- Verificación de presencia en Habbo siempre manual hasta que exista un mecanismo autorizado y fiable.
+- Separar permisos de ascensos, nóminas, RR. HH., administración y auditoría.
+- Mantener secretos en Cloudflare, nunca en GitHub ni en el navegador.
+- Habilitar protección de ramas y copias independientes de registros y base de datos.
+- El código cliente no debe mostrar datos privados reales ni contener tokens.

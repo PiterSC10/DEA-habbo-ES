@@ -1,28 +1,35 @@
-# DEA-HABBO-ES · V4.1 (demo local)
+> **V4.2 corregida:** se ha reparado el bloqueo de JavaScript por el botón ausente de salida de demo, la superposición de la portada sobre el menú, el encuadre del águila y el control del menú lateral.
 
-Plataforma de demostración de la agencia ficticia DEA en Habbo. **No está desplegada.**
+# DEA-HABBO-ES · Prototipo V4.2
 
-## Probar
+Web pública e intranet conceptual de la agencia ficticia DEA de Habbo. **Diseño aprobado: azul marino, negro y dorado.**
 
-Abre `index.html` en tu navegador. Para compartirla por Internet primero debes publicarla en un hosting. No subas credenciales.
+## Probar localmente
 
-## Diseño aprobado
+Abre `index.html` en un navegador junto a los archivos de imagen en la misma carpeta. No hace falta instalar paquetes. Para probar metadatos y rutas en un servidor local: `python -m http.server 8000` y abre `http://localhost:8000`.
 
-- **Logo DEA · ES 3D** (`logo-dea-es-original.png`): identidad de aplicación, favicon, menú izquierdo y vista previa social.
-- **Águila original** (`aguila-dea-original.jpg`): protagonista de la portada y del portal cinematográfico, sin alteraciones.
-- **Único menú lateral izquierdo**, fijo y plegable al pulsar las tres rayas. En móvil se despliega sobre el contenido.
-- Rutas de navegación clicables y botones atrás/adelante de la demo.
-- Jerarquía R1–R10: 35 rangos internos conocidos en R1–R6. R7–R10 pendientes de confirmación.
-- Pie: Designed by **10PEDRO — YourDesignGPT**, enlazado a https://yourdesigngpt.netlify.app/.
+## Qué incluye
 
-## Limitaciones honestas
+- Portada cinematográfica con el **águila original** (sin alterar el águila ni las letras), destello y resplandor suave.
+- Accesos VIP / Agentes / Web pública; **solo demostraciones**.
+- Un solo menú lateral fijo a la izquierda con logo DEA · ES; apertura/cierre mediante tres rayitas, rutas clicables y botones de historial.
+- Jerarquía desplegable R1–R10, 35 rangos internos confirmados de R1–R6; R7–R10 pendientes.
+- Ficha de agente, ascensos, nóminas y administración ficticios, sin escrituras.
+- Favicon, iconos para iOS/Android, imagen de compartir 1200×630, manifiesto web.
+- Pie: Designed by 10PEDRO — [YourDesignGPT](https://yourdesigngpt.netlify.app/).
 
-Los accesos de agente y VIP son **vistas de demostración, no zonas protegidas**. No hay OAuth, base de datos, control de permisos, nóminas reales ni envío de formularios. No usar con datos privados.
+## IMPORTANTE: No hay autenticación real
 
-## WhatsApp / Discord
+Cualquiera que abra el HTML puede visitar la demostración VIP. **No es un panel privado real**, no hay Discord OAuth, base de datos ni controles de autorización. No introducir datos personales o reales. El acceso a producción debe implementarse en servidor con Cloudflare Workers + D1 y Discord OAuth, y con comprobaciones de rol en cada petición.
 
-La imagen `og-image.jpg` mide 1200 × 630. Al publicar, cambia `og:image` y `twitter:image` en `index.html` por su URL HTTPS **absoluta** y accesible, por ejemplo `https://tu-dominio/og-image.jpg`. La vista previa depende también de la caché de cada plataforma.
+## Compartir en WhatsApp / Discord
 
-## GitHub
+`og-image.jpg` está preparado en formato 1200×630. Para que las redes muestren la miniatura, la web debe estar publicada y las etiquetas `og:image` y `twitter:image` deben apuntar a una **URL HTTPS absoluta**, no relativa. Actualiza el dominio antes de publicar; las apps pueden cachear miniaturas antiguas.
 
-Todos los archivos están en la raíz del ZIP, sin carpetas. Puedes subirlos a un repositorio privado. **No se ha publicado ni desplegado nada automáticamente.**
+## Estructura
+
+Todos los archivos del paquete se encuentran **en la raíz**, sin carpetas. Subir el contenido del ZIP a la raíz de un repositorio GitHub privado. No subir el ZIP dentro del repositorio como sustituto de sus archivos.
+
+## Créditos
+
+Proyecto independiente de fans; no afiliado oficialmente a Habbo ni a Sulake. Diseño: 10PEDRO — YourDesignGPT.

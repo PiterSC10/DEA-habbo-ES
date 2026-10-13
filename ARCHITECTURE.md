@@ -1,7 +1,11 @@
-# Arquitectura
+# Arquitectura prevista
 
-**Estado actual:** una web estática en `index.html` con estilos y JS integrados, recursos gráficos en la raíz y navegación por fragmentos URL.
+**Actual V4:** sitio estático HTML/CSS/JS; logo e iconos locales. No hay servidor ni datos.
 
-**No hay backend ni conexión con Discord.** Las áreas VIP y Agentes son demostraciones.
+**Fase futura:** GitHub privado → Cloudflare Workers (API, permisos y sesiones) + D1 (datos) + Discord OAuth (identificación). Discord para notificaciones, no como base de datos principal. Todos los accesos y operaciones deben comprobarse en el backend.
 
-**Evolución prevista:** Cloudflare Workers + D1 (u otra infraestructura validada), OAuth de Discord en servidor, permisos por rol, gestión de expediente, ascensos, nóminas y auditoría.
+**Rutas actuales:** navegación SPA por fragmentos `#/...` dentro de `index.html`. No requieren reglas de rewrite en alojamiento estático.
+
+**Modelo conceptual:** usuarios, vínculo Habbo, categorías/rangos, ascensos append-only, presencia verificada, nóminas, permisos, auditoría, documentación.
+
+**Privacidad:** hasta desplegar el backend, usar únicamente datos ficticios.

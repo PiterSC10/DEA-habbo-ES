@@ -1,15 +1,16 @@
-# Hoja de ruta DEA
+# Roadmap DEA-HABBO-ES
 
-- [x] Identidad visual DEA · ES y favicon.
-- [x] Portal cinematográfico, acceso VIP y agentes en modo demostración.
-- [x] Menú lateral, migas de pan, historial y navegación adaptable.
-- [x] Desplegables R1–R10 y rangos confirmados R1–R6.
-- [x] Imagen social para compartir.
-- [ ] Confirmar rangos internos R7–R10.
-- [ ] Confirmar permanencia mínima en sala por ascenso y normas de nómina.
-- [ ] Conectar Discord OAuth y verificar vínculo Habbo.
-- [ ] Implementar base de datos D1 y backend de autorización.
-- [ ] Crear ficha real de solo lectura por agente.
-- [ ] Crear ascensos con permisos delegados, aprobaciones y auditoría.
-- [ ] Configurar dominio y URL absoluta para Open Graph.
-- [ ] Auditoría de seguridad y pruebas antes de habilitar datos reales.
+## Demo V4.1
+- [x] Dos logos: águila original para portada; DEA ES 3D para aplicación.
+- [x] Menú lateral izquierdo único y plegable, sin menú superior ni segundo sidebar de intranet.
+- [x] Rutas de navegación y navegación interna.
+- [x] R1–R10 con datos confirmados, sin inventar rangos pendientes.
+- [x] Vista previa social, favicon, iconos de instalación y footer YourDesignGPT.
+
+## Futuro (no implementado)
+- [ ] Discord OAuth verificado en backend.
+- [ ] Vinculación segura del nickname Habbo.
+- [ ] Roles Founder, RRHH y agente con autorización del servidor.
+- [ ] Base de datos persistente, registros de auditoría y backups.
+- [ ] Formularios y flujos de nóminas/ascensos reales.
+- [ ] URL de despliegue para metadatos Open Graph absolutos.

@@ -1,8 +1,9 @@
 {
-  "name": "DEA-HABBO-ES",
-  "short_name": "DEA ES",
-  "description": "Plataforma de la agencia DEA en Habbo.",
-  "start_url": "./index.html",
+  "name": "DEA-HABBO-ES | Agencia de Agentes",
+  "short_name": "DEA-HABBO-ES",
+  "description": "Plataforma DEA-HABBO-ES (demostración)",
+  "start_url": "./index.html#/inicio",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#060e1c",
   "theme_color": "#071426",

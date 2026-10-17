@@ -1,35 +1,54 @@
-> **V4.2 corregida:** se ha reparado el bloqueo de JavaScript por el botón ausente de salida de demo, la superposición de la portada sobre el menú, el encuadre del águila y el control del menú lateral.
+# DEA HABBO ES · V6 — Portal operativo
 
-# DEA-HABBO-ES · Prototipo V4.2
+**Archivo de entrada: `index.html`** (exactamente ese nombre). Archivos de entrega directamente en la raíz; no crear carpetas dentro del repositorio.
 
-Web pública e intranet conceptual de la agencia ficticia DEA de Habbo. **Diseño aprobado: azul marino, negro y dorado.**
+## Diseño aprobado
 
-## Probar localmente
+- Escudo **DEA · ES 3D** original en la esquina, en el favicon, los accesos de móvil/escritorio y la vista previa para WhatsApp.
+- **Águila dorada y azul original** de fondo en la portada. Destello breve y modo de movimiento reducido.
+- **Portada sin menús ni navegación duplicada**, solo tres accesos: **ACCESO VIP**, **ÚNETE A DEA** y **WEB PÚBLICA**.
+- **Un menú lateral único** solo dentro de las secciones; botón de tres rayas para plegar/desplegar. Móvil: panel lateral superpuesto.
+- Migas de pan con enlaces de regreso y contraste propio, no otra barra de menú.
+- Fondo azul noche, VIP dorado, navegación pública azul/cian, bordes con contraste y tarjetas separadas.
+- Marca y título: **DEA HABBO ES**, con referencia a **Habbo Hotel** (proyecto de fans independiente).
+- Firma al pie: **Designed by 10PEDRO — YourDesignGPT**, enlace a https://yourdesigngpt.netlify.app/.
 
-Abre `index.html` en un navegador junto a los archivos de imagen en la misma carpeta. No hace falta instalar paquetes. Para probar metadatos y rutas en un servidor local: `python -m http.server 8000` y abre `http://localhost:8000`.
+## Qué se puede usar ahora, sin conectar servicios
 
-## Qué incluye
+- Web pública: información institucional, jerarquía R1–R10, departamentos, normativa, Founders en orden alfabético e instrucciones de ingreso.
+- Pantallas de **demo claramente señaladas**: Centro VIP, aprobaciones, directorio, simulación de ascensos, edición de tablas de rangos, nóminas, extras del sábado y auditoría. Para abrir la demostración pulsa «Ver demo del Centro VIP». **No son operaciones reales ni tienen permisos reales.**
+- Los cambios de demostración se mantienen en la sesión de este navegador si el almacenamiento está permitido; no se sincronizan con otros usuarios ni pasan a los datos reales.
+- Descarga de **CSV** de ejemplo (los abre Excel y Google Sheets). No se ha conectado ninguna hoja online.
 
-- Portada cinematográfica con el **águila original** (sin alterar el águila ni las letras), destello y resplandor suave.
-- Accesos VIP / Agentes / Web pública; **solo demostraciones**.
-- Un solo menú lateral fijo a la izquierda con logo DEA · ES; apertura/cierre mediante tres rayitas, rutas clicables y botones de historial.
-- Jerarquía desplegable R1–R10, 35 rangos internos confirmados de R1–R6; R7–R10 pendientes.
-- Ficha de agente, ascensos, nóminas y administración ficticios, sin escrituras.
-- Favicon, iconos para iOS/Android, imagen de compartir 1200×630, manifiesto web.
-- Pie: Designed by 10PEDRO — [YourDesignGPT](https://yourdesigngpt.netlify.app/).
+## Modelo aprobado de la agencia
 
-## IMPORTANTE: No hay autenticación real
+**Formación R1 sin ficha online:** Cadete → Aspirante a Operador a los 15 min → Operador en Práctica a los 30 min → tras 45 min, primer rango oficial R2 · Agente de Enlace, con presencia y misión verificadas por sala.
 
-Cualquiera que abra el HTML puede visitar la demostración VIP. **No es un panel privado real**, no hay Discord OAuth, base de datos ni controles de autorización. No introducir datos personales o reales. El acceso a producción debe implementarse en servidor con Cloudflare Workers + D1 y Discord OAuth, y con comprobaciones de rol en cada petición.
+**Alta web a partir de R2:** el agente inicia sesión con Discord, da nickname Habbo exacto, presenta solicitud. Un Founder verifica en la sala y aprueba; se crea la ficha en D1, asociada a ese Discord. El agente puede consultar su ficha, pero no editarla.
 
-## Compartir en WhatsApp / Discord
+**Dirección:** 10PEDRO (CEO · DIRECTOR DE WEB), KietsyAndrea (por determinar), lesslie.ar (por determinar), XPE_34 (CEO · DIRECTOR DE MARKETING). Cuatro Founders con tarjetas idénticas, orden A–Z, mismas facultades iniciales.
 
-`og-image.jpg` está preparado en formato 1200×630. Para que las redes muestren la miniatura, la web debe estar publicada y las etiquetas `og:image` y `twitter:image` deben apuntar a una **URL HTTPS absoluta**, no relativa. Actualiza el dominio antes de publicar; las apps pueden cachear miniaturas antiguas.
+**Nóminas:** miércoles y domingo, importe/horas según categoría. El sábado paga extra variable decidida por Founders, solo para asistencia verificada. La web no mueve créditos en Habbo; requiere entrega y confirmación humana.
 
-## Estructura
+## Componentes técnicos
 
-Todos los archivos del paquete se encuentran **en la raíz**, sin carpetas. Subir el contenido del ZIP a la raíz de un repositorio GitHub privado. No subir el ZIP dentro del repositorio como sustituto de sus archivos.
+`index.html`, `styles.css`, `app.js`: web sin dependencias externas. `logo-dea-es.png`, `aguila-dea-original.jpg` y recursos sociales/iconos: originales aprobados. `worker.js`: servidor Cloudflare Workers; `schema.sql`: tablas D1; `wrangler.toml`: referencia sin configurar a la futura D1; `build.mjs`: copia **solo** los recursos públicos a `dist/`; `test.mjs`: pruebas del servidor y las reglas base.
 
-## Créditos
+Las tablas SQL incluyen cuentas Discord, agentes, solicitudes, ascensos, reglas, nóminas, sesiones de extra y auditoría. El backend contiene rutas para guardar/consultar estos movimientos; la integración externa **aún no está activada ni probada con cuentas reales**.
 
-Proyecto independiente de fans; no afiliado oficialmente a Habbo ni a Sulake. Diseño: 10PEDRO — YourDesignGPT.
+**Pendientes de puesta en marcha:** cuenta Cloudflare y D1, app Discord OAuth, cuatro IDs reales de Founders, despliegue, pruebas con cuentas y permisos, enlace al servidor Discord, webhook del tablón y sincronización con hojas online. La web pública puede mostrarse antes; nunca permitas registrar datos personales en modo demo.
+
+## Revisión / vista previa
+
+1. Descarga y descomprime el ZIP, manteniendo todos los archivos en la misma ubicación.
+2. Abre `index.html` en un navegador. Para mejor compatibilidad puedes ejecutar `python -m http.server 8000` desde esa carpeta y visitar `http://localhost:8000`.
+3. Para verificar el backend local (con Node 20+): `npm run check`, `npm run build`. La carpeta `dist/` es generada localmente y está ignorada por Git.
+4. Para subir a un GitHub privado, añade los archivos de la raíz, con `index.html` y `app.js`/`styles.css` junto a los logos. No subas contraseñas ni tokens.
+
+## Publicación real posterior
+
+Consulta `ACTIVAR_CUANDO_QUIERAS.md`. Para la miniatura de WhatsApp, necesitarás una URL HTTPS pública; en Cloudflare Workers el servidor reescribe `og:image` al dominio publicado. Evita inventar enlaces antes de disponer de él.
+
+## Precio
+
+Diseñado para operar en los planes gratuitos de GitHub, Cloudflare Workers/D1 y Discord. **Coste previsto 0 €/mes dentro de las cuotas de cada servicio**, nunca capacidad ilimitada garantizada. No se ha hecho ninguna compra ni despliegue.

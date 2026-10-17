@@ -1,5 +1,9 @@
-# Seguridad
+# Seguridad · DEA HABBO ES V6
 
-Este ZIP es una **demo estática**: los botones de acceso VIP y agentes NO autentican usuarios. Ningún elemento visual del frontend puede sustituir controles de acceso del servidor. No introduzcas datos personales reales.
+La web está preparada para demostrar funcionalidades; **la demo no representa un permiso real ni un almacén oficial de datos**. No confiar en el botón «Ver demo del Centro VIP» como autenticación.
 
-Para un servicio real: Discord OAuth con validación de `state` y PKCE, sesiones seguras, base de datos en backend, comprobación de permisos en cada operación, auditoría append-only, protección contra XSS/CSRF, control de abuso y copias de seguridad. Nunca almacenes secretos en `index.html`.
+En producción, el servidor usa Discord OAuth y sesiones HttpOnly, comprueba los IDs de los cuatro Founders (secret `FOUNDER_DISCORD_IDS`) y rechaza acciones no autorizadas. Los permisos delegados de ascensos también requieren validación en servidor. El agente solo ve su expediente propio. No debe poder editar rangos ni pagos.
+
+Los registros de promociones, pagos y auditoría son inmutables mediante triggers D1. Cambios de normas generan eventos con valor anterior/nuevo y responsable. No subir `DISCORD_CLIENT_SECRET`, webhooks, tokens o backups personales a GitHub. Exportaciones y copias contienen información privada y deben almacenarse de forma segura.
+
+No se ha realizado una auditoría de seguridad independiente ni pruebas de producción. Se requieren pruebas de OAuth, permisos cruzados, concurrencia en aprobaciones, duplicados, recuperación y registros antes de abrir inscripciones reales.

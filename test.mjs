@@ -44,3 +44,13 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
  assert.match(html,/\.\/styles\.css/);
  assert.match(html,/https:\/\/pitersc10\.github\.io\/DEA-habbo-ES\/og-image\.jpg/);
 });
+
+test('Ingreso distingue identidad Discord y nick de Habbo, sin permitir acceso VIP directo',()=>{
+ const join=page('unete');
+ assert.match(join,/nombre de Habbo, aunque sea diferente/);
+ assert.match(join,/ID de Discord/);
+ assert.match(join,/pendiente de confirmación por un Founder/);
+ const vip=page('vip');
+ assert.match(vip,/Entrar con Discord/);
+ assert.doesNotMatch(vip,/data-action="approve"|data-action="demo-/);
+});

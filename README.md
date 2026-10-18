@@ -1,4 +1,4 @@
-# DEA HABBO ES · V6 — Portal operativo
+# DEA HABBO ES · V6 — Edición Inauguración (interfaz)
 
 **Archivo de entrada: `index.html`** (exactamente ese nombre). Archivos de entrega directamente en la raíz; no crear carpetas dentro del repositorio.
 
@@ -16,9 +16,10 @@
 ## Qué se puede usar ahora, sin conectar servicios
 
 - Web pública: información institucional, jerarquía R1–R10, departamentos, normativa, Founders en orden alfabético e instrucciones de ingreso.
-- Pantallas de **demo claramente señaladas**: Centro VIP, aprobaciones, directorio, simulación de ascensos, edición de tablas de rangos, nóminas, extras del sábado y auditoría. Para abrir la demostración pulsa «Ver demo del Centro VIP». **No son operaciones reales ni tienen permisos reales.**
-- Los cambios de demostración se mantienen en la sesión de este navegador si el almacenamiento está permitido; no se sincronizan con otros usuarios ni pasan a los datos reales.
-- Descarga de **CSV** de ejemplo (los abre Excel y Google Sheets). No se ha conectado ninguna hoja online.
+- Secciones, botones y formularios de dirección **preparados**; no son accesibles sin sesión Discord de Founder confirmada por el servidor.
+- El acceso VIP **permanece cerrado** mientras el backend Cloudflare / Discord no esté operativo. No se ofrece entrada por modo demo.
+- El escudo superior izquierdo devuelve a la portada y las acciones clicables se distinguen con borde dorado y realce.
+- CSV de exportación desde las vistas autorizadas una vez disponibles los registros reales. No se ha conectado ninguna hoja online.
 
 ## Modelo aprobado de la agencia
 
@@ -36,7 +37,7 @@
 
 Las tablas SQL incluyen cuentas Discord, agentes, solicitudes, ascensos, reglas, nóminas, sesiones de extra y auditoría. El backend contiene rutas para guardar/consultar estos movimientos; la integración externa **aún no está activada ni probada con cuentas reales**.
 
-**Pendientes de puesta en marcha:** cuenta Cloudflare y D1, app Discord OAuth, cuatro IDs reales de Founders, despliegue, pruebas con cuentas y permisos, enlace al servidor Discord, webhook del tablón y sincronización con hojas online. La web pública puede mostrarse antes; nunca permitas registrar datos personales en modo demo.
+**Pendientes de puesta en marcha:** cuenta Cloudflare y D1, app Discord OAuth, cuatro IDs reales de Founders, despliegue, pruebas con cuentas y permisos, enlace al servidor Discord, webhook del tablón y sincronización con hojas online. La web pública puede mostrarse antes. No abrir el VIP ni registrar datos personales hasta comprobar el backend, los permisos y la base D1.
 
 ## Revisión / vista previa
 
@@ -47,7 +48,7 @@ Las tablas SQL incluyen cuentas Discord, agentes, solicitudes, ascensos, reglas,
 
 ## Publicación real posterior
 
-Consulta `ACTIVAR_CUANDO_QUIERAS.md`. Para la miniatura de WhatsApp, necesitarás una URL HTTPS pública; en Cloudflare Workers el servidor reescribe `og:image` al dominio publicado. Evita inventar enlaces antes de disponer de él.
+Consulta `INAUGURACION_V6.md` y `ACTIVAR_CUANDO_QUIERAS.md`. Para la miniatura de WhatsApp, necesitarás una URL HTTPS pública; en Cloudflare Workers el servidor reescribe `og:image` al dominio publicado. Evita inventar enlaces antes de disponer de él.
 
 ## Precio
 

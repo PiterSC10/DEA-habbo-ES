@@ -35,3 +35,22 @@ test('El HTML publicado recibe automáticamente la vista previa absoluta',async(
  assert.equal(response.status,200);
  assert.match(await response.text(),/https:\/\/dea\.test\/og-image\.jpg/);
 });
+
+test('V6: acceso VIP no ofrece ningún botón demo y usa identidad de servidor',async()=>{
+ const {readFile}=await import('node:fs/promises');
+ const front=await readFile(new URL('./app.js',import.meta.url),'utf8');
+ assert.match(front,/function isVip\(\)\{return !!identity\?\.founder\}/);
+ assert.doesNotMatch(front,/data-action="demo-/);
+ assert.doesNotMatch(front,/AgenteEjemplo|InstructorDemo|NuevoEjemplo/);
+ assert.match(front,/href="\/auth\/login"/);
+ assert.match(front,/aria-label="DEA HABBO ES, volver al inicio"/);
+ assert.match(front,/data-action="logout"/);
+});
+test('V6: resalte interactivo en acciones VIP, no en todas las tarjetas',async()=>{
+ const {readFile}=await import('node:fs/promises');
+ const front=await readFile(new URL('./app.js',import.meta.url),'utf8');
+ const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
+ assert.match(front,/class="tile action-tile"/);
+ assert.match(css,/\.action-tile:hover/);
+ assert.match(css,/\.brand-home:hover/);
+});

@@ -24,9 +24,11 @@ test('Siete páginas públicas sin errores de renderizado',()=>{
  for(const p of ['publico','publico/agencia','publico/jerarquia','publico/departamentos','publico/founders','publico/ingreso','publico/normativa'])
   assert.ok(page(p).length>1000,p);
 });
-test('Entradas privadas apuntan a Apps Script',()=>{
- for(const p of ['vip','vip/solicitudes','unete','ficha','ficha/pagos'])
-  assert.match(page(p),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
+test('Entradas privadas pasan por identificación intermedia',()=>{
+ for(const [p,next] of [['vip','vip'],['vip/solicitudes','vip'],['unete','alta'],['ficha','agente'],['ficha/pagos','agente']]){
+  assert.match(page(p),new RegExp('href="#/identificacion/'+next+'"'));
+  assert.match(page('identificacion/'+next),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
+ }
 });
 test('No se publica lógica anterior de Cloudflare ni demo',()=>{
  assert.doesNotMatch(src,/Cloudflare|wrangler|\/api\/|\/auth\/login|sessionStorage|demo\.agents|ASCENSO_DEMO|NOMINA_DEMO/);

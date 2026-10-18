@@ -1,15 +1,12 @@
 name: DEA V6 checks
-
 on:
   push:
     branches:
       - main
-      - feature/v6-inauguracion-acceso-seguro
+      - lanzamiento-google-apps-script
   pull_request:
-
 permissions:
   contents: read
-
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -18,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate JS and tests
+      - name: Validate public V6
         run: npm run check
-      - name: Build public files
+      - name: Build GitHub Pages assets
         run: npm run build

@@ -1,26 +1,18 @@
-# DEA HABBO ES · Activación real posterior (no desplegada)
+# DEA HABBO ES · Instalación oficial sin Cloudflare
 
-**NO hay que activar Cloudflare ahora para poder mostrar la nueva portada y la web pública.** El panel VIP real y la inscripción real sí requieren servidor y Discord.
+**Atención:** esta rama contiene una propuesta de publicación. No fusionar con `main` antes de validar la instalación privada.
 
-1. Crear cuenta gratuita de Cloudflare; seleccionar Workers y D1 Free.
-2. Crear aplicación en Discord Developer Portal con OAuth2 / scope `identify`; no crear contraseñas propias para agentes.
-3. Obtener **ID numérico de Discord** de cada Founder: 10PEDRO, KietsyAndrea, lesslie.ar y XPE_34. **Nunca usar solo el nickname** para asignar permiso de dirección.
-4. En el equipo local instalar Node.js 20+, ejecutar `npm install` y `npm run check`.
-5. `npx wrangler login`; `npx wrangler d1 create dea_habbo_db` y copiar el ID devuelto a `wrangler.toml` sustituyendo `REEMPLAZAR_POR_TU_D1_DATABASE_ID`.
-6. `npx wrangler d1 execute dea_habbo_db --remote --file=schema.sql` (inicializa las tablas con las reglas conocidas; si ya existía, prueba primero en una base de ensayo).
-7. Determinar la URL HTTPS real de Workers y añadir **exactamente** `https://TU-DOMINIO/auth/callback` entre las Redirect URIs de Discord.
-8. Guardar los secretos mediante `npx wrangler secret put DISCORD_CLIENT_ID`, `npx wrangler secret put DISCORD_CLIENT_SECRET` y `npx wrangler secret put FOUNDER_DISCORD_IDS` (IDs separados por comas). No escribirlos en README, JS, HTML ni GitHub. Añadir `DISCORD_ASCENSOS_WEBHOOK` solo cuando decidas enviar avisos de ascenso a un canal privado.
-9. **No ejecutar `npm run deploy` sin autorización explícita para publicar**. Al autorizarlo, el comando compilará la parte pública a `dist/` y desplegará el Worker con D1.
-10. Realizar pruebas con dos cuentas reales diferentes (Founder y agente): iniciar sesión, solicitar alta a R2, verificar Habbo, aprobar, consultar expediente propio, ascender tras plazo, pagar jornada válida, bloquear pagos duplicados, revisar auditoría y descargar backup.
+1. Trabaja con la cuenta Google **DEA HABBO Departamento Web** y el proyecto Apps Script **DEA HABBO ES - SISTEMA CENTRAL**.
+2. Guarda respaldo del código anterior y de la hoja (copia de Sheets realizada).
+3. Instala los archivos oficiales `Code.gs`, `DiscordOAuth.gs`, `Solicitudes.gs`, `Operaciones.gs` y `Portal.html` en Apps Script, **sustituyendo** las funciones antiguas de pruebas sin autenticación.
+4. En **Propiedades de secuencia de comandos** verifica `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET` y `DISCORD_REDIRECT_URI`. El Client Secret es secreto y no debe figurar en GitHub, documentos ni mensajes.
+5. Discord Developer Portal → OAuth2: la URL Redirect registrada debe ser **exactamente** la URL /exec de Apps Script definida en `DISCORD_REDIRECT_URI`.
+6. Implementar aplicación web (Google Apps Script) y copiar la dirección `/exec` vigente. Revisar el acceso correcto para iniciar sesión desde Discord; **NO abrir acciones sensibles sin sesiones y permisos del servidor**.
+7. Probar con la identidad Discord del Founder 10PEDRO. Comprobar su estado autorizado en FOUNDERS y una cuenta sin privilegios; verificar que no pueda escribir ni consultar expedientes ajenos.
+8. Ejecutar prueba completa: solicitud R2, revisión, aprobación, expediente, ascenso, nómina, paga extra, duplicados, auditoría, cierre de sesión. No usar expedientes reales hasta terminar.
+9. En GitHub, la rama `lanzamiento-google-apps-script` mantiene la interfaz y enlaza el portal /exec. Si la implementación devuelve una URL nueva, **actualizar `DEA_PORTAL` antes de publicar**.
+10. Revisar `npm run check` y la página en móvil, luego fusionar el PR y comprobar GitHub Pages.
 
-### Qué queda pendiente después de activar el backend
+**No utilizar Cloudflare.** La administración se hace desde el portal privado alojado por Apps Script; la web pública no expone operaciones administrativas.
 
-- Enlace verificable a la sala / servidor Discord (no se ha suministrado su URL).
-- Integrar notificaciones privadas de **todos** los tipos de movimientos (ahora está preparado el webhook opcional para ascensos; no hay garantía de reintentos si Discord falla).
-- Sincronización de dos documentos online: **ascensos** y **nóminas/extras**. Los CSV de ejemplo ya están disponibles; una hoja online vinculada aún no existe.
-- Procedimientos especiales para R8–R10 (no hay nombres internos ni automatización de promociones por mérito).
-- Políticas de corrección de pagos y respaldo periódico verificado. Los eventos históricos actuales son inmutables; las rectificaciones formales están por diseñar.
-
-### Seguridad y privacidad
-
-No te fíes de ninguna pantalla de administración mostrada por el navegador si no existe un Worker que compruebe el ID de Discord. El modo demo no tiene permisos ni registros oficiales. No recolectes datos innecesarios; los identificadores de Discord y expedientes son privados. La base D1 mantiene los originales, los CSV son copias opcionales.
+Más detalles en `SECURITY.md` y `LANZAMIENTO_GOOGLE.md`.

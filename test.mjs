@@ -54,3 +54,28 @@ test('Ingreso distingue identidad Discord y nick de Habbo, sin permitir acceso V
  assert.match(vip,/Entrar con Discord/);
  assert.doesNotMatch(vip,/data-action="approve"|data-action="demo-/);
 });
+
+
+test('VIP tiene pantalla intermedia con dos opciones sin acceso automático',()=>{
+ const vip=page('vip');
+ assert.match(vip,/href="#\/identificacion\/vip"/);
+ assert.doesNotMatch(vip,/href="https:\/\/script\.google\.com/);
+ const gate=page('identificacion/vip');
+ assert.match(gate,/OPCIÓN 1 · ACCESO DIRECTO/);
+ assert.match(gate,/OPCIÓN 2 · INDICAR USUARIO/);
+ assert.match(gate,/Continuar directamente con Discord/);
+ assert.match(gate,/Aceptar y verificar con Discord/);
+ assert.match(gate,/type="email"/);
+ assert.match(gate,/name="discord_user"/);
+ assert.doesNotMatch(gate,/type="password"/);
+ assert.match(gate,/Discord comprobará tu identidad/);
+});
+test('Registro y expediente también usan puerta de Discord; sin conceder permisos por texto',()=>{
+ assert.match(page('unete'),/href="#\/identificacion\/alta"/);
+ assert.match(page('ficha'),/href="#\/identificacion\/agente"/);
+ for(const route of ['identificacion/vip','identificacion/alta','identificacion/agente']){
+  const html=page(route);
+  assert.match(html,/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
+  assert.doesNotMatch(html,/access_token=|DISCORD_CLIENT_SECRET|data-action="grant-vip"/);
+ }
+});

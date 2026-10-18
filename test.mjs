@@ -1,56 +1,46 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import app,{RANKS,nextEligibility} from './worker.js';
-
-test('Existen 35 rangos internos confirmados de R1 a R6, sin inventar R7–R10',()=>{
- assert.equal(RANKS.length,35);
- assert.equal(RANKS[0].name,'Cadete');
- assert.equal(RANKS[34].name,'Jefe de Dirección');
- assert.equal(RANKS.filter(x=>x.category==='R3').length,8);
+import {readFile, access} from 'node:fs/promises';
+import {runInNewContext} from 'node:vm';
+const src=await readFile(new URL('./app.js',import.meta.url),'utf8');
+const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
+const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
+function page(route){
+ const root={innerHTML:'',addEventListener(){}};
+ const location={hash:'#/inicio'};
+ const document={getElementById(){return root},title:''};
+ const window={addEventListener(){}};
+ const app=runInNewContext(src+'\n({render})',{document,location,window});
+ location.hash='#/'+route;app.render();return root.innerHTML;
+}
+test('Portada tiene las tres ventanas y no una barra lateral',()=>{
+ const h=page('inicio');
+ for(const name of ['ACCESO VIP','ÚNETE A DEA','WEB PÚBLICA']) assert.match(h,new RegExp(name));
+ assert.equal((h.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
+ assert.doesNotMatch(h,/class="side/);
+ assert.match(h,/aguila-dea-original\.jpg/);
 });
-test('Un cadete no puede ascender antes de 15 min',()=>{
- const a={rank_index:0,last_promoted_at:'2026-10-14T08:00:00.000Z'};
- assert.equal(nextEligibility(a,Date.parse('2026-10-14T08:14:59.000Z')).eligible,false);
- assert.equal(nextEligibility(a,Date.parse('2026-10-14T08:15:00.000Z')).eligible,true);
+test('Siete páginas públicas sin errores de renderizado',()=>{
+ for(const p of ['publico','publico/agencia','publico/jerarquia','publico/departamentos','publico/founders','publico/ingreso','publico/normativa'])
+  assert.ok(page(p).length>1000,p);
 });
-test('R2 necesita 2 horas; R5 necesita 5 días',()=>{
- let a={rank_index:3,last_promoted_at:'2026-10-14T08:00:00.000Z'};
- assert.equal(nextEligibility(a,Date.parse('2026-10-14T09:59:00.000Z')).eligible,false);
- assert.equal(nextEligibility(a,Date.parse('2026-10-14T10:00:00.000Z')).eligible,true);
- a={rank_index:20,last_promoted_at:'2026-10-14T08:00:00.000Z'};
- assert.equal(RANKS[20].category,'R5');
- assert.equal(nextEligibility(a,Date.parse('2026-10-19T07:59:00.000Z')).eligible,false);
- assert.equal(nextEligibility(a,Date.parse('2026-10-19T08:00:00.000Z')).eligible,true);
+test('Entradas privadas apuntan a Apps Script',()=>{
+ for(const p of ['vip','vip/solicitudes','unete','ficha','ficha/pagos'])
+  assert.match(page(p),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
 });
-test('El rango 35 no permite avances a categorías aún no definidas',()=>{
- assert.equal(nextEligibility({rank_index:34,last_promoted_at:'2026-01-01T00:00:00Z'},Date.parse('2026-10-14T12:00:00Z')).eligible,false);
+test('No se publica lógica anterior de Cloudflare ni demo',()=>{
+ assert.doesNotMatch(src,/Cloudflare|wrangler|\/api\/|\/auth\/login|sessionStorage|demo\.agents|ASCENSO_DEMO|NOMINA_DEMO/);
 });
-test('El acceso API sin D1 no finge persistencia',async()=>{
- const res=await app.fetch(new Request('https://dea.test/api/health'),{},{});
- assert.equal(res.status,503);
- assert.match((await res.json()).error,/D1/);
+test('Jerarquía R1-R10 visible y nombres oficiales',()=>{
+ const h=page('publico/jerarquia');
+ for(let i=1;i<=10;i++)assert.match(h,new RegExp('R'+i+' · '));
+ assert.match(h,/Agente de Enlace/);
+ assert.match(h,/Jefe de Dirección/);
 });
-test('El HTML publicado recibe automáticamente la vista previa absoluta',async()=>{
- const response=await app.fetch(new Request('https://dea.test/'),{ASSETS:{fetch:async()=>new Response('<meta property="og:image" content="./og-image.jpg">',{headers:{'content-type':'text/html'}})}},{});
- assert.equal(response.status,200);
- assert.match(await response.text(),/https:\/\/dea\.test\/og-image\.jpg/);
-});
-
-test('V6: acceso VIP no ofrece ningún botón demo y usa identidad de servidor',async()=>{
- const {readFile}=await import('node:fs/promises');
- const front=await readFile(new URL('./app.js',import.meta.url),'utf8');
- assert.match(front,/function isVip\(\)\{return !!identity\?\.founder\}/);
- assert.doesNotMatch(front,/data-action="demo-/);
- assert.doesNotMatch(front,/AgenteEjemplo|InstructorDemo|NuevoEjemplo/);
- assert.match(front,/href="\/auth\/login"/);
- assert.match(front,/aria-label="DEA HABBO ES, volver al inicio"/);
- assert.match(front,/data-action="logout"/);
-});
-test('V6: resalte interactivo en acciones VIP, no en todas las tarjetas',async()=>{
- const {readFile}=await import('node:fs/promises');
- const front=await readFile(new URL('./app.js',import.meta.url),'utf8');
- const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
- assert.match(front,/class="tile action-tile"/);
- assert.match(css,/\.action-tile:hover/);
- assert.match(css,/\.brand-home:hover/);
+test('Imágenes originales y estilos en la distribución pública',async()=>{
+ for(const f of ['styles.css','aguila-dea-original.jpg','logo-dea-es.png','og-image.jpg','icon-192.png','icon-512.png'])
+  await access(new URL('./'+f,import.meta.url));
+ assert.match(css,/\.shell-home/);
+ assert.match(html,/\.\/styles\.css/);
+ assert.match(html,/https:\/\/pitersc10\.github\.io\/DEA-habbo-ES\/og-image\.jpg/);
 });

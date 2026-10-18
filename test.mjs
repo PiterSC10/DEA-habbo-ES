@@ -24,9 +24,11 @@ test('Siete páginas públicas sin errores de renderizado',()=>{
  for(const p of ['publico','publico/agencia','publico/jerarquia','publico/departamentos','publico/founders','publico/ingreso','publico/normativa'])
   assert.ok(page(p).length>1000,p);
 });
-test('Entradas privadas apuntan a Apps Script',()=>{
- for(const p of ['vip','vip/solicitudes','unete','ficha','ficha/pagos'])
-  assert.match(page(p),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
+test('Entradas privadas pasan por identificación intermedia',()=>{
+ for(const [p,next] of [['vip','vip'],['vip/solicitudes','vip'],['unete','alta'],['ficha','agente'],['ficha/pagos','agente']]){
+  assert.match(page(p),new RegExp('href="#/identificacion/'+next+'"'));
+  assert.match(page('identificacion/'+next),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
+ }
 });
 test('No se publica lógica anterior de Cloudflare ni demo',()=>{
  assert.doesNotMatch(src,/Cloudflare|wrangler|\/api\/|\/auth\/login|sessionStorage|demo\.agents|ASCENSO_DEMO|NOMINA_DEMO/);
@@ -53,4 +55,29 @@ test('Ingreso distingue identidad Discord y nick de Habbo, sin permitir acceso V
  const vip=page('vip');
  assert.match(vip,/Entrar con Discord/);
  assert.doesNotMatch(vip,/data-action="approve"|data-action="demo-/);
+});
+
+
+test('VIP tiene pantalla intermedia con dos opciones sin acceso automático',()=>{
+ const vip=page('vip');
+ assert.match(vip,/href="#\/identificacion\/vip"/);
+ assert.doesNotMatch(vip,/href="https:\/\/script\.google\.com/);
+ const gate=page('identificacion/vip');
+ assert.match(gate,/OPCIÓN 1 · ACCESO DIRECTO/);
+ assert.match(gate,/OPCIÓN 2 · INDICAR USUARIO/);
+ assert.match(gate,/Continuar directamente con Discord/);
+ assert.match(gate,/Aceptar y verificar con Discord/);
+ assert.match(gate,/type="email"/);
+ assert.match(gate,/name="discord_user"/);
+ assert.doesNotMatch(gate,/type="password"/);
+ assert.match(gate,/Discord comprobará tu identidad/);
+});
+test('Registro y expediente también usan puerta de Discord; sin conceder permisos por texto',()=>{
+ assert.match(page('unete'),/href="#\/identificacion\/alta"/);
+ assert.match(page('ficha'),/href="#\/identificacion\/agente"/);
+ for(const route of ['identificacion/vip','identificacion/alta','identificacion/agente']){
+  const html=page(route);
+  assert.match(html,/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
+  assert.doesNotMatch(html,/access_token=|DISCORD_CLIENT_SECRET|data-action="grant-vip"/);
+ }
 });

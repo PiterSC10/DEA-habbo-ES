@@ -25,3 +25,9 @@ GitHub Pages aloja únicamente la interfaz pública. El portal privado y los for
 **Datos:** La hoja original está restringida. Los registros `DEMO-*` y acciones `PRUEBA_*` se limpiaron el 18/10/2026 y se conserva copia previa de seguridad privada. No introducir datos personales reales hasta completar las verificaciones.
 
 **Coste:** Google Apps Script y Google Sheets tienen cuotas gratuitas; esta arquitectura no usa Cloudflare, pero no puede prometer recursos ilimitados.
+
+## Identidad Discord ≠ nombre Habbo (requisito oficial)
+
+El ID numérico de Discord identifica de forma estable la cuenta con la que se inicia sesión. El usuario puede tener un **nombre de Discord diferente de su nick de Habbo**. Después del login, se muestran username e ID Discord, y el usuario puede solicitar el registro de su nick Habbo. Ese nick será el **nombre principal en el panel**, inicialmente marcado como «Pendiente de aprobación». La autorización presencial de un Founder crea el expediente activo R2. A partir de ese momento el encabezado muestra el nick Habbo confirmado, manteniendo visible el Discord ID.
+
+El backend Apps Script necesita el paquete actualizado `DEA_HABBO_ES_V6_IDENTIDAD_DISCORD_HABBO_APPS_SCRIPT.zip` (archivos `DiscordOAuth.gs`, `Operaciones.gs` y `Portal.html` actualizados) y una nueva implementación /exec. Los archivos del servidor contienen detalles de implementación privada y NO se suben a la web pública. No basta con actualizar solo `app.js`.

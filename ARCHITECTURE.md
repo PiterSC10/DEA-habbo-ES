@@ -1,13 +1,29 @@
-# Arquitectura DEA HABBO ES V6
+# Arquitectura DEA HABBO ES V6 · Definitiva
 
-Vista pública sin inicio de sesión; Únete a DEA con OAuth2 de Discord; expediente solo lectura; Centro VIP para Founders identificado por IDs numéricos verificados servidor.
+**Sin Cloudflare ni D1.** Mantener el diseño original: tres ventanas en portada y un menú interno plegable.
 
-**Frontend**: `index.html` + `app.js` + `styles.css` + dos logos. Tres accesos en la portada. Navegación interna mediante hash y breadcrumbs. Modo demo sobre datos de ejemplo en memoria/sesión local, nunca de producción.
+```text
+GitHub Pages (sitio público, sin datos privados)
+    ├── Web pública, jerarquía, Founders y normativa
+    ├── Únete a DEA ──────────────┐
+    └── ACCESO VIP ───────────────┤
+                                 ↓
+                     Google Apps Script /exec
+                        ├── Discord OAuth2 identify
+                        ├── sesión y autorización por acción
+                        ├── control Founder y expedientes R2
+                        ├── ascensos, nóminas y extras
+                        └── auditoría de operaciones
+                                 ↓
+                Google Sheets restringido (base oficial)
+```
 
-**Servidor futuro**: Cloudflare Worker, cookies de sesión HttpOnly Secure SameSite, OAuth2 Discord `identify`, origen de solicitudes validado, permisos de Founder en Worker, D1 SQLite parametrizada. El frontend invoca `/api/*` cuando se despliega la infraestructura. `build.mjs` excluye de archivos públicos `worker.js`, `schema.sql`, los secretos y la documentación.
+OAuth Discord aporta identidad, **no** autorización automática. La sesión y todos los permisos se validan en el servidor; nunca confiar en JavaScript ni en nombres de usuario. Los Founders figuran en la pestaña FOUNDERS por su ID numérico y estado activo. Los agentes acceden a su ficha propia, en modo lectura.
 
-**D1**: users; sessions; agents (R2=rank_index 3 inicial); applications; promotions (inmutables); promotion_permissions; rank_rules (con registro de modificación); payments (pagos inmutables con unicidad por agente/jornada); extra_sessions (una extra por sábado); audit_events (inmutables). Relaciones y restricciones descritas en `schema.sql`.
+**Requisito de despliegue:** retirar funciones públicas antiguas `google.script.run` sin comprobación de sesión; proteger todas las operaciones administrativas; verificar sesión, estado y autorización de cada escritura o lectura privada; asegurar revocación/caducidad de sesión y controles CSRF.
 
-**Registros**: D1 fuente oficial → API de consulta → CSV exportable para Excel / Google Sheets. La sincronización automática de Excel online todavía no existe. Discord puede recibir webhooks opcionales pero no es base de datos. Si el webhook falla, D1 conserva el registro. El enlace automático de otras operaciones a Discord queda pendiente.
+**Datos:** INICIO, SOLICITUDES, AGENTES, ASCENSOS, NOMINAS, PAGAS_EXTRA, RANGOS, FOUNDERS, AUDITORIA, CONFIG. Guardar con bloqueo cuando la operación necesite atomicidad; comprobar duplicados con reglas del servidor. Las modificaciones de normas se auditan y los eventos sensibles no se borran silenciosamente.
 
-**No automatizar en Habbo**: medición de presencia, concesión de misiones ni transferencia de créditos. Son operaciones humanas autorizadas.
+**Pruebas obligatorias antes de producción:** ID Founder real, login de agente, rechazo sin sesión, controles de acceso cruzado, alta desde R2, ascensos con plazo y presencia presencial, nóminas, extra de sábado y auditoría. La prueba de GitHub Pages no prueba estos permisos.
+
+La entrega de créditos, aprobación de misión y presencia en Habbo se verifican por personas.

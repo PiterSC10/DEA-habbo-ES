@@ -4,4 +4,4 @@ import {join} from 'node:path';
 const allow=new Set(['index.html','app.js','styles.css','site.webmanifest','aguila-dea-original.jpg','logo-dea-es.png','og-image.jpg','favicon.ico','apple-touch-icon.png','icon-192.png','icon-512.png','favicon-16.png','favicon-32.png','favicon-48.png','favicon-64.png']);
 await rm('dist',{recursive:true,force:true});await mkdir('dist');
 for(const name of await readdir('.'))if(allow.has(name))await copyFile(name,join('dist',name));
-console.log(`Preparados ${allow.size} archivos web públicos. Código y estructura D1 fuera de dist/.`);
+console.log(`Preparados ${allow.size} archivos web públicos. Backend Apps Script, datos privados y secretos fuera de dist/.`);

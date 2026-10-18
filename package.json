@@ -1,1 +1,10 @@
-{"name":"dea-habbo-es","version":"6.0.0","private":true,"type":"module","scripts":{"build":"node build.mjs","dev":"npm run build && wrangler dev","deploy":"npm run build && wrangler deploy","check":"node --check app.js && node --check worker.js && node --check build.mjs && node --test test.mjs"},"devDependencies":{"wrangler":"^4.0.0"}}
+{
+  "name": "dea-habbo-es",
+  "version": "6.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check app.js && node --check build.mjs && node --test test.mjs",
+    "build": "node build.mjs"
+  }
+}

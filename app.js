@@ -20,7 +20,7 @@ function esc(x){return String(x??'').replaceAll('&','&amp;').replaceAll('<','&lt
 function date(){return new Date().toISOString().slice(0,10)}
 function time(){return new Date().toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'})}
 const DEMO_KEY='dea-v6-demo-only';
-function seed(){return {agents:[{id:1,habbo:'AgenteEjemplo',discord:'Cuenta de prueba',rank:3,date:'2026-10-10',last:'2026-10-10'},{id:2,habbo:'InstructorDemo',discord:'Cuenta de prueba',rank:7,date:'2026-10-09',last:'2026-10-11'}],requests:[{id:1,habbo:'NuevoEjemplo',discord:'Discord de prueba',state:'pendiente',date:'2026-10-15'}],promotions:[],payments:[],extra:[],audit:[],rules:Object.fromEntries(GROUPS.map(g=>[g.id,{period:g.period,pay:g.pay,hours:g.hours}])),seq:3}}
+function seed(){return {agents:[],requests:[],promotions:[],payments:[],extra:[],audit:[],rules:Object.fromEntries(GROUPS.map(g=>[g.id,{period:g.period,pay:g.pay,hours:g.hours}])),seq:1}}
 let demo=null;try{demo=JSON.parse(sessionStorage.getItem(DEMO_KEY))}catch{} if(!demo)demo=seed();
 const demoMode=false;let connected=false,identity=null,sidebarOpen=true,mobileOpen=false,filter='',selectedAgent='',joinNick='',lastError='';
 const pathname=()=>decodeURI(location.hash.replace(/^#\/?/,'').split('?')[0]||'').replace(/^\//,'')||'inicio';

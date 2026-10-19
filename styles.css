@@ -144,3 +144,12 @@
  .dea-preview-container{margin:8px auto 18px}.dea-preview-illustration{height:105px}
  .dea-preview-surface{padding:22px 19px}.dea-preview-surface>p{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.dea-preview-illustration,.dea-preview-page{animation:none!important}}
+
+/* V6 · Tarjetas informativas de rangos de compra (solo datos públicos). */
+.rank-purchase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:17px 0}
+.rank-purchase-card{display:flex;flex-direction:column;gap:10px;padding:20px 16px;border-radius:15px;background:linear-gradient(145deg,#122a40,#071b2f);border:1px solid #b08a4877;box-shadow:inset 0 1px 0 #f8d58a1c}
+.rank-purchase-card>strong{font-size:20px;color:#f7d68b;letter-spacing:.02em}
+.rank-purchase-card>span{color:#bfd7e5;line-height:1.35;font-size:13px}
+.rank-purchase-card b{color:#f2f7fc}
+.rank-purchase-total{margin-top:auto;padding-top:12px;border-top:1px solid #c7a56955;font-weight:850;color:#f7d68b;font-size:21px}
+@media(max-width:780px){.rank-purchase-grid{grid-template-columns:1fr}}

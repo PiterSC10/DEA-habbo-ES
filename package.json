@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check app.js && node --check build.mjs && node --test test.mjs",
+    "check": "node --check founder-app.js && node --check app.js && node --check build.mjs && node --test test.mjs",
     "build": "node build.mjs"
   }
 }

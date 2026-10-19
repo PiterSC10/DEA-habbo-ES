@@ -144,3 +144,49 @@
  .dea-preview-container{margin:8px auto 18px}.dea-preview-illustration{height:105px}
  .dea-preview-surface{padding:22px 19px}.dea-preview-surface>p{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.dea-preview-illustration,.dea-preview-page{animation:none!important}}
+
+/* DEA V6 · Dos pestañas neón dentro de la web pública. La portada original no cambia. */
+.dea-public-neon-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:5px 0 27px}
+.dea-neon-link{--neon:#6cd2ff;display:flex;align-items:center;gap:12px;min-height:96px;padding:16px 19px;border:1.5px solid var(--neon);border-radius:15px;background:linear-gradient(130deg,#12364f,#0b2236);box-shadow:0 0 17px #35bdff38,inset 0 0 17px #39bbef1b;color:#fff;text-decoration:none;transition:transform .18s,box-shadow .18s}
+.dea-neon-link.placas{--neon:#f2c577;background:linear-gradient(130deg,#332d22,#142437);box-shadow:0 0 17px #e5b45a3a,inset 0 0 17px #e5b45a21}
+.dea-neon-link svg:first-child{color:var(--neon);width:30px;flex-shrink:0}
+.dea-neon-link svg:last-child{color:var(--neon);margin-left:auto;flex-shrink:0}
+.dea-neon-link span{display:flex;flex-direction:column;gap:5px;min-width:0}
+.dea-neon-link strong{font-size:13px;letter-spacing:.06em;color:#fff}
+.dea-neon-link small{font-size:11px;color:#b3ccdc}
+.dea-neon-link:hover,.dea-neon-link:focus-visible,.dea-neon-link.selected{transform:translateY(-2px);box-shadow:0 0 25px var(--neon);outline-offset:3px}
+.dea-catalog-window{border:1px solid #527c95;border-radius:15px;background:linear-gradient(145deg,#10283e,#081c2c);box-shadow:0 11px 32px #0006;padding:0 22px 25px;overflow:hidden}
+.dea-catalog-window-bar{margin:0 -22px 24px;padding:13px 21px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#14364c;border-bottom:1px solid #4b7595;color:#c6deed;font-size:11px;font-weight:750;letter-spacing:.035em}
+.dea-catalog-window-bar span,.dea-window-close{display:flex;align-items:center;gap:7px}
+.dea-window-close{color:#f7d391;text-decoration:none;white-space:nowrap}
+.dea-window-close:hover,.dea-window-close:focus-visible{text-decoration:underline}
+.dea-table-scroll{max-width:100%;overflow:auto;margin-top:23px;border:1px solid #406887;border-radius:12px}
+.dea-rank-table{width:100%;min-width:930px;border-collapse:collapse;text-align:left;font-size:12px}
+.dea-rank-table caption{text-align:left;caption-side:top;padding:12px 14px;background:#18394c;color:#c2e7ff}
+.dea-rank-table th{background:#20445d;color:#edd59e;padding:12px 10px;position:sticky;top:0;z-index:1}
+.dea-rank-table td{padding:10px;border-top:1px solid #31536c;color:#d8e6ef;vertical-align:top}
+.dea-rank-table tbody tr:nth-child(even){background:#142f42}
+.dea-rank-table tbody tr:hover{background:#22475f}
+.dea-rank-table td small{display:block;margin-top:3px;font-size:10px;color:#95b8d2}
+.dea-rank-chip{display:inline-block;color:#ffdc97;border:1px solid #b48b57;border-radius:7px;padding:3px 8px;background:#342b27}
+.dea-catalog-warning{background:#1a3649;border-left:3px solid #dcb36e;border-radius:6px;padding:14px 17px;margin:20px 0;color:#d6e5ef;font-size:12px;line-height:1.8}
+.dea-tariff-info{padding:20px;margin-top:25px;background:#143043;border:1px solid #517087;border-radius:14px}
+.dea-tariff-info h2{font-size:18px;color:#f4d290;margin:0 0 10px}
+.dea-tariff-info p{font-size:12px;line-height:1.85;color:#c5d9e8}
+.dea-tariff-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:15px}
+.dea-tariff{display:flex;flex-direction:column;gap:7px;background:#24354a;border:1px solid #947044;border-radius:12px;padding:17px}
+.dea-tariff small{font-size:10px;color:#f3d6a2}
+.dea-tariff strong{color:#fff;font-size:15px}.dea-tariff b{font-size:22px;color:#f7d08a}
+.dea-plaque-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin:24px 0}
+.dea-plaque-card{display:flex;flex-direction:column;gap:10px;min-width:0;background:#132d42;border:1px solid #527a97;border-radius:15px;padding:15px;color:#d0e2ee}
+.dea-plaque-image{height:154px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px dashed #587e9c;background:radial-gradient(circle,#25455f,#0a2437)}
+.dea-plaque-image img{width:82px;height:82px;object-fit:contain;opacity:.65}
+.dea-plaque-image span{position:absolute;left:9px;bottom:8px;background:#0b253b;border:1px solid #6787a0;border-radius:7px;padding:3px 6px;color:#cbdde9;font-size:9px}
+.dea-plaque-card h3{font-size:16px;color:#fff;margin:2px 0}
+.dea-plaque-price{font-size:17px;color:#f7d08c}
+.dea-plaque-card p{font-size:12px;color:#c3d8e6;line-height:1.55;margin:0}
+.dea-plaque-card>small{font-size:10px;color:#91b0c8;line-height:1.5;margin-top:auto}
+@media(max-width:1000px){.dea-plaque-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:710px){.dea-public-neon-nav{gap:8px}.dea-neon-link{padding:10px;min-height:80px;gap:7px;border-radius:11px}.dea-neon-link svg:first-child{width:21px}.dea-neon-link svg:last-child{display:none}.dea-neon-link strong{font-size:10px;letter-spacing:0}.dea-neon-link small{font-size:9px}.dea-catalog-window{padding:0 12px 20px}.dea-catalog-window-bar{margin:0 -12px 18px;padding:10px 12px;font-size:10px}.dea-plaque-grid{gap:10px}.dea-plaque-card{padding:11px}.dea-plaque-image{height:109px}.dea-plaque-image img{width:65px;height:65px}.dea-plaque-card h3{font-size:13px}.dea-plaque-price{font-size:14px}.dea-tariff-grid{grid-template-columns:1fr}}
+@media(max-width:380px){.dea-neon-link svg:first-child{display:none}.dea-plaque-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.dea-neon-link{transition:none!important}}

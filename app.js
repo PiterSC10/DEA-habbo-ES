@@ -92,7 +92,47 @@ async function validatePreview(form){
  }else{previewError='Usuario o contraseña incorrectos.';render()}
 }
 
-function render(){if(!previewUnlocked()){ROOT.innerHTML=previewShell();document.title='Preinauguración | DEA HABBO ES';return}const p=pathname(),a=area(p);if(a==='inicio'){ROOT.innerHTML=layoutHome();return}const body=p.startsWith('identificacion/')?loginGate(p):a==='publico'?publicContent(p):a==='unete'?loginGate('identificacion/alta'):a==='vip'?vipPage():agentPage();ROOT.innerHTML=internalShell(p,body);document.title=`${({publico:'Web pública',vip:'Acceso VIP',unete:'Únete a DEA',ficha:'Mi expediente'})[a]||'Inicio'} | DEA HABBO ES`}
+// Titulares y descripciones editoriales de secciones preparadas para SEO.
+// Durante la preinauguración permanecen excluidas de la indexación.
+const PAGE_SEO={
+ inicio:['DEA HABBO ES | Agencia Habbo, rangos y formación','Conoce DEA HABBO ES, comunidad independiente de Habbo Hotel. Formación, rangos e ingreso gratuito.'],
+ publico:['DEA HABBO ES | Agencia Habbo y comunidad','Descubre DEA HABBO ES, su organización, normas, rangos y actividades en Habbo Hotel.'],
+ 'publico/agencia':['La agencia DEA HABBO ES | Habbo Hotel','Conoce el Departamento Especial de Agentes, comunidad independiente de Habbo Hotel.'],
+ 'publico/jerarquia':['Jerarquía y rangos | DEA HABBO ES','Consulta los rangos y categorías oficiales de DEA HABBO ES, desde la formación R1 hasta la dirección.'],
+ 'publico/departamentos':['Departamentos de DEA HABBO ES','Descubre los departamentos y la organización de nuestra comunidad dentro de Habbo Hotel.'],
+ 'publico/ingreso':['Cómo unirse gratis a DEA HABBO ES','Consulta cómo ingresar en DEA HABBO ES y comenzar la formación dentro de Habbo Hotel.'],
+ 'publico/normativa':['Normativa de DEA HABBO ES | Habbo','Conoce las normas y el funcionamiento de DEA HABBO ES.'],
+ 'publico/founders':['Founders de DEA HABBO ES','Información sobre la dirección de DEA HABBO ES.'],
+ vip:['Acceso VIP privado | DEA HABBO ES','Zona privada de Founders autorizados.'],
+ 'identificacion/vip':['Identificación VIP | DEA HABBO ES','Identificación privada de Founders mediante Discord.'],
+ 'identificacion/alta':['Registro de agentes | DEA HABBO ES','Identificación de agentes mediante Discord para iniciar una solicitud.'],
+ 'identificacion/agente':['Mi expediente | DEA HABBO ES','Acceso privado al expediente individual de un agente.']
+};
+function updatePageSeo(path){
+ const [title,description]=PAGE_SEO[path]||['DEA HABBO ES | Comunidad Habbo','DEA HABBO ES, comunidad independiente de Habbo Hotel.'];
+ document.title=title;
+ // Mejora la navegación y el texto compartido por visitantes; la indexación sigue bloqueada.
+ if(typeof document.querySelector==='function'){
+  const meta=document.querySelector('meta[name="description"]');
+  if(meta)meta.setAttribute('content',description);
+ }
+}
+function render(){
+ if(!previewUnlocked()){
+  ROOT.innerHTML=previewShell();
+  document.title='Preinauguración | DEA HABBO ES';
+  if(typeof document.querySelector==='function'){
+   const meta=document.querySelector('meta[name="description"]');
+   if(meta)meta.setAttribute('content','DEA HABBO ES está preparando su inauguración. Acceso temporal reservado a personas invitadas.');
+  }
+  return;
+ }
+ const p=pathname(),a=area(p);
+ if(a==='inicio'){ROOT.innerHTML=layoutHome();updatePageSeo('inicio');return}
+ const body=p.startsWith('identificacion/')?loginGate(p):a==='publico'?publicContent(p):a==='unete'?loginGate('identificacion/alta'):a==='vip'?vipPage():agentPage();
+ ROOT.innerHTML=internalShell(p,body);
+ updatePageSeo(PAGE_SEO[p]?p:a);
+}
 ROOT.addEventListener('click',e=>{const el=e.target.closest('[data-route],[data-action]');if(!el)return;if(el.dataset.route){e.preventDefault();route(el.dataset.route);mobileOpen=false;render();return}switch(el.dataset.action){case 'toggle-sidebar':if(innerWidth<711){mobileOpen=!mobileOpen}else sidebarOpen=!sidebarOpen;break;case 'mobile-menu':mobileOpen=!mobileOpen;break;case 'close-mobile':mobileOpen=false;break;case 'exit-preview':try{sessionStorage.removeItem(PREVIEW_SESSION_KEY)}catch{}previewError='';location.hash='#/inicio';break;}render()});
 ROOT.addEventListener('submit',e=>{if(!e.target.matches('[data-preview-login]'))return;e.preventDefault();void validatePreview(e.target)});
 window.addEventListener('hashchange',()=>{mobileOpen=false;window.scrollTo(0,0);render()});

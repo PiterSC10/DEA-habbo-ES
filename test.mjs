@@ -51,7 +51,8 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
 
 test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
  const join=page('unete');
- assert.match(join,/nick de Habbo y tu ID de Discord/);
+ assert.match(join,/nick de Habbo como nombre principal/);
+ assert.match(join,/tu ID de Discord/);
  assert.match(join,/ENTRAR DIRECTAMENTE CON DISCORD/);
  assert.match(join,/ACEPTAR Y VERIFICAR CON DISCORD/);
  const nav=join.match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1];

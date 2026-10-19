@@ -1,6 +1,6 @@
 # DEA HABBO ES · V6 oficial
 
-Sitio web: https://pitersc10.github.io/DEA-habbo-ES/
+Sitio web principal (Vercel): https://dea-habbo-es.vercel.app/\n\nRespaldo (GitHub Pages): https://pitersc10.github.io/DEA-habbo-ES/\n\nSEO: dominio canónico Vercel y metadatos preparados; **noindex sigue activo durante preinauguración**. Ver `SEO_LANZAMIENTO_VERCEL.md`.
 
 Proyecto independiente de aficionados a Habbo Hotel.
 
@@ -11,7 +11,7 @@ Proyecto independiente de aficionados a Habbo Hotel.
 - Cuatro Founders en igualdad, sin crear permisos basados en el nombre visible.
 
 ## Arquitectura acordada (sin Cloudflare)
-- **GitHub Pages:** sitio público estático (`index.html`, `app.js`, `styles.css` y gráficos).
+- **Vercel:** dominio principal y distribución estática desde GitHub (`index.html`, `app.js`, `styles.css` y gráficos).\n- **GitHub Pages:** respaldo del mismo sitio; no es el dominio canónico para buscadores.
 - **Google Apps Script:** portal privado, identificación OAuth2 con Discord y validación de permisos del lado del servidor.
 - **Google Sheets restringido:** base de datos central con INICIO, SOLICITUDES, AGENTES, ASCENSOS, NOMINAS, PAGAS_EXTRA, RANGOS, FOUNDERS, AUDITORIA y CONFIG.
 - **Discord OAuth2 `identify`:** confirma el ID numérico. Los agentes consultan únicamente su ficha; los Founders pueden gestionar funciones autorizadas.

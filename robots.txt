@@ -1,0 +1,7 @@
+# DEA HABBO ES V6: preinauguracion.
+# Permitimos el rastreo para que los buscadores lean las directivas NOINDEX
+# de index.html y de las cabeceras X-Robots-Tag de Vercel.
+# Esto NO concede acceso al panel privado.
+# No declarar Sitemap hasta publicar paginas publicas realmente indexables.
+User-agent: *
+Allow: /

@@ -47,7 +47,7 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
   await access(new URL('./'+f,import.meta.url));
  assert.match(css,/\.shell-home/);
  assert.match(html,/\.\/styles\.css/);
- assert.match(html,/https:\/\/pitersc10\.github\.io\/DEA-habbo-ES\/og-image\.jpg/);
+ assert.match(html,/https:\/\/dea-habbo-es\.vercel\.app\/og-image\.jpg/);
 });
 
 test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
@@ -165,4 +165,44 @@ test('Ninguna página visible incluye créditos personales en pie o marca de agu
  assert.doesNotMatch(gate,/10PEDRO|YourDesignGPT|yourdesigngpt\.netlify\.app|Designed by|Diseñado por/);
  assert.match(gate,/DEA HABBO ES · Preinauguración/);
  assert.match(page('inicio'),/© DEA HABBO ES · Comunidad independiente/);
+});
+
+test('SEO de preinauguración: canónica Vercel y fichas sociales sin datos personales',async()=>{
+ assert.match(html,/<link rel="canonical" href="https:\/\/dea-habbo-es\.vercel\.app\/"/);
+ assert.match(html,/<meta property="og:url" content="https:\/\/dea-habbo-es\.vercel\.app\/"/);
+ assert.match(html,/<meta property="og:image" content="https:\/\/dea-habbo-es\.vercel\.app\/og-image\.jpg"/);
+ assert.match(html,/<meta name="twitter:image" content="https:\/\/dea-habbo-es\.vercel\.app\/og-image\.jpg"/);
+ assert.match(html,/<meta property="og:locale" content="es_ES"/);
+ assert.doesNotMatch(html,/pitersc10\.github\.io|YourDesignGPT|10PEDRO/);
+ const match=html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+ assert.ok(match,'JSON-LD existente');
+ const ld=JSON.parse(match[1]);
+ assert.equal(ld['@type'],'WebSite');
+ assert.equal(ld.url,'https://dea-habbo-es.vercel.app/');
+ assert.equal(ld.name,'DEA HABBO ES');
+});
+
+test('Preinauguración permanece explícitamente fuera de Google, sin sitemap abierto',async()=>{
+ const vercel=JSON.parse(await readFile(new URL('./vercel.json',import.meta.url),'utf8'));
+ const headers=vercel.headers.flatMap(h=>h.headers);
+ const robots=headers.find(h=>h.key.toLowerCase()==='x-robots-tag');
+ assert.match(robots.value,/noindex/);
+ assert.match(html,/<meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/);
+ const crawler=await readFile(new URL('./robots.txt',import.meta.url),'utf8');
+ assert.match(crawler,/User-agent: \*/);
+ assert.match(crawler,/Allow: \/\s*$/m);
+ assert.doesNotMatch(crawler,/^Sitemap:/m);
+ const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ assert.match(build,/robots\.txt/);
+ assert.match(src,/PREVIEW_SESSION_KEY/);
+});
+
+test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portada',()=>{
+ assert.match(src,/const PAGE_SEO=/);
+ for(const item of ['publico/agencia','publico/jerarquia','publico/ingreso','publico/normativa']){
+  assert.ok(src.includes("'"+item+"'"),item);
+ }
+ assert.match(src,/document\.title='Preinauguración \| DEA HABBO ES'/);
+ assert.match(page('inicio',false),/PREINAUGURACIÓN/);
+ assert.equal((page('inicio',true).match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
 });

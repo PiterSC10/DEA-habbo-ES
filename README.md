@@ -2,7 +2,7 @@
 
 Sitio web: https://pitersc10.github.io/DEA-habbo-ES/
 
-Proyecto independiente de aficionados a Habbo Hotel. Diseño y coordinación: **10PEDRO — YourDesignGPT**.
+Proyecto independiente de aficionados a Habbo Hotel.
 
 ## Diseño original, sin cambios
 - Portada **sin menú**, con tres ventanas: **ACCESO VIP**, **ÚNETE A DEA**, **WEB PÚBLICA**.

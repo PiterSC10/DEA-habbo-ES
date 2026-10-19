@@ -1,0 +1,29 @@
+name: DEA V6 - QA público
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validacion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verificar JavaScript y pruebas
+        run: npm run check
+      - name: Compilar sitio estático
+        run: npm run build
+      - name: Comprobar salida de preinauguración
+        run: |
+          test -f dist/catalogo-publico.js
+          test -f dist/app.js
+          test -f dist/robots.txt
+          grep -q 'noindex,nofollow,noarchive,nosnippet' dist/index.html
+          test ! -e dist/sitemap.xml
+          test ! -e dist/test.mjs
+          test ! -e dist/README.md

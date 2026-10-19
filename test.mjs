@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile, access} from 'node:fs/promises';
 import {runInNewContext} from 'node:vm';
 const src=await readFile(new URL('./app.js',import.meta.url),'utf8');
+const catalogs=await readFile(new URL('./catalogo-publico.js',import.meta.url),'utf8');
 const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
 function page(route,unlocked=true){
@@ -11,7 +12,7 @@ function page(route,unlocked=true){
  const document={getElementById(){return root},title:''};
  const window={addEventListener(){}};
  const sessionStorage={getItem(){return unlocked?'yes':null},setItem(){},removeItem(){}};
- const app=runInNewContext(src+'\n({render})',{document,location,window,sessionStorage});
+ const app=runInNewContext(catalogs+'\n'+src+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
 test('Portada tiene las tres ventanas y no una barra lateral',()=>{
@@ -38,7 +39,7 @@ test('No se publica lógica anterior de Cloudflare ni demo',()=>{
 });
 test('Jerarquía R1-R10 visible y nombres oficiales',()=>{
  const h=page('publico/jerarquia');
- for(let i=1;i<=10;i++)assert.match(h,new RegExp('R'+i+' · '));
+ for(let i=1;i<=10;i++)assert.ok(h.includes('class="dea-rank-chip">R'+i+'</strong>'),'R'+i);
  assert.match(h,/Agente de Enlace/);
  assert.match(h,/Jefe de Dirección/);
 });
@@ -145,7 +146,7 @@ test('Con sesión temporal se ven exactamente tres ventanas originales y todos l
  assert.equal((home.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
  assert.match(page('identificacion/vip',true),/Identificación VIP/);
  assert.match(page('identificacion/alta',true),/Identificación de agentes/);
- assert.match(page('publico/jerarquia',true),/Jerarquía R1–R10/);
+ assert.match(page('publico/jerarquia',true),/Rangos y ascensos/);
 });
 test('La contraseña no figura en claro en JavaScript y la puerta no suplanta Discord',()=>{
  assert.match(src,/PREVIEW_DIGEST='[a-f0-9]{64}'/);
@@ -205,4 +206,32 @@ test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portad
  assert.match(src,/document\.title='Preinauguración \| DEA HABBO ES'/);
  assert.match(page('inicio',false),/PREINAUGURACIÓN/);
  assert.equal((page('inicio',true).match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
+});
+
+test('Neones en parte superior de área pública, sin cambiar portada',()=>{
+ const h=page('publico');
+ assert.equal(h.split('class="dea-neon-link ').length-1,2);
+ for(const p of ['publico/jerarquia','publico/placas'])assert.ok(h.includes('href="#/'+p+'"'));
+ assert.ok(!page('inicio').includes('dea-public-neon-nav'));
+ assert.ok(!page('vip').includes('dea-public-neon-nav'));
+});
+test('Tabla completa: 35 rangos individuales y cuatro categorías pendientes',()=>{
+ const h=page('publico/jerarquia');
+ assert.equal(h.split('class="dea-rank-chip"').length-1,39);
+ for(const x of ['Cadete','Agente de Enlace','Instructor en Jefe','Estratega en División','Supervisor de Unidad','Jefe de Dirección','R7','R8','R9','R10','130 c','240 c','500 c'])assert.ok(h.includes(x),x);
+ assert.ok(h.includes('Cerrar ventana'));
+});
+test('Catálogo de placas: seis espacios provisionales, sin precios ficticios',()=>{
+ const h=page('publico/placas');
+ assert.equal(h.split('class="dea-plaque-card"').length-1,6);
+ for(const x of ['Precio por definir','Beneficio por definir','Emblema DEA provisional','No está a la venta'])assert.ok(h.includes(x),x);
+ assert.ok(!h.includes('checkout'));
+});
+test('Preinauguración protege ambas vistas; noindex preservado',()=>{
+ for(const p of ['publico/jerarquia','publico/placas']){
+  const h=page(p,false);
+  assert.ok(h.includes('PREINAUGURACIÓN'));
+  assert.ok(!h.includes('dea-catalog-window'));
+ }
+ assert.ok(html.includes('noindex,nofollow,noarchive,nosnippet'));
 });

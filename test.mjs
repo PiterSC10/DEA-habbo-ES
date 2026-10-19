@@ -58,21 +58,22 @@ test('Ingreso distingue identidad Discord y nick de Habbo, sin permitir acceso V
 });
 
 
-test('VIP tiene pantalla intermedia con dos opciones sin acceso automático',()=>{
+test('VIP muestra Discord directo y debajo usuario y correo obligatorio',()=>{
  const vip=page('vip');
  assert.match(vip,/href="#\/identificacion\/vip"/);
  assert.doesNotMatch(vip,/href="https:\/\/script\.google\.com/);
  const gate=page('identificacion/vip');
- assert.match(gate,/OPCIÓN 1 · ACCESO DIRECTO/);
- assert.match(gate,/OPCIÓN 2 · INDICAR USUARIO/);
- assert.match(gate,/Continuar directamente con Discord/);
- assert.match(gate,/Aceptar y verificar con Discord/);
- assert.match(gate,/type="email"/);
- assert.match(gate,/name="discord_user"/);
+ assert.match(gate,/ENTRAR DIRECTAMENTE CON DISCORD/);
+ assert.match(gate,/ACEPTAR Y VERIFICAR CON DISCORD/);
+ assert.match(gate,/name="discord_username"/);
+ assert.match(gate,/name="discord_email"/);
+ assert.match(gate,/type="email"[^>]*required/);
+ assert.match(gate,/method="post"/);
+ assert.match(gate,/name="login_mode" value="manual"/);
+ assert.match(gate,/Discord te pedirá que autorices la identidad/);
  assert.doesNotMatch(gate,/type="password"/);
- assert.match(gate,/Discord comprobará tu identidad/);
 });
-test('Registro y expediente también usan puerta de Discord; sin conceder permisos por texto',()=>{
+test('VIP, registro y expediente requieren validación en Apps Script',()=>{
  assert.match(page('unete'),/href="#\/identificacion\/alta"/);
  assert.match(page('ficha'),/href="#\/identificacion\/agente"/);
  for(const route of ['identificacion/vip','identificacion/alta','identificacion/agente']){

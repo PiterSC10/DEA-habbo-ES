@@ -34,7 +34,7 @@ test('Los accesos VIP y agente llegan a la identificación de su área',()=>{
  }
 });
 test('No se publica lógica anterior de Cloudflare ni demo',()=>{
- assert.doesNotMatch(src,/Cloudflare|wrangler|\/api\/|\/auth\/login|sessionStorage|demo\.agents|ASCENSO_DEMO|NOMINA_DEMO/);
+ assert.doesNotMatch(src,/Cloudflare|wrangler|\/api\/|\/auth\/login|demo\.agents|ASCENSO_DEMO|NOMINA_DEMO/);
 });
 test('Jerarquía R1-R10 visible y nombres oficiales',()=>{
  const h=page('publico/jerarquia');

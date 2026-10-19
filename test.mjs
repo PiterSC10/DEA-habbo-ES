@@ -206,3 +206,52 @@ test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portad
  assert.match(page('inicio',false),/PREINAUGURACIÓN/);
  assert.equal((page('inicio',true).match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
 });
+
+test('Normativa actualizada: nóminas miércoles y sábados, sin domingo',()=>{
+ const html=page('publico/normativa');
+ assert.match(html,/MIÉRCOLES y SÁBADOS/);
+ assert.doesNotMatch(html,/miércoles y domingo|Miércoles y domingo|Pago(?:s)? ordinarios miércoles y domingo/i);
+ assert.match(html,/pagas extraordinarias tienen un registro separado/);
+ assert.match(html,/SOLO los Founders pueden vender/);
+ assert.match(html,/comprobación en sala/i);
+});
+
+test('Tarifas de compra supervisada y entrada gratuita: sin ventas automáticas',()=>{
+ const html=page('publico/compra-rangos');
+ for(const v of ['Supervisor','Director','Delegado','60 c','150 c','360 c','130 créditos','240 créditos','500 créditos','Founders / CEO'])assert.ok(html.includes(v),v);
+ assert.match(html,/no procesa ni autoriza compras automáticas/);
+ const ingreso=page('publico/ingreso');
+ assert.match(ingreso,/Ingreso gratuito/);
+ assert.match(ingreso,/Consultar compra de rango/);
+ assert.match(ingreso,/publico\/compra-rangos/);
+});
+
+test('Las placas requieren aprobación Founder, caducidad y catálogo todavía sin precios',()=>{
+ const html=page('publico/placas');
+ assert.match(html,/SOLO un Founder puede vender/);
+ assert.match(html,/caducidad/);
+ assert.match(html,/banderín/);
+ assert.match(html,/necesitan instalarse y probarse en Google Apps Script/);
+ assert.doesNotMatch(html,/data-form="placa"\/|creditos=\d+/);
+});
+
+test('Eventos con CEO actualizado y sin calendario inventado',()=>{
+ const found=page('publico/founders');
+ const eventos=page('publico/eventos');
+ assert.match(found,/XPE_34/);
+ assert.match(found,/CEO · EVENTOS/);
+ assert.doesNotMatch(found,/CEO · DIRECTOR DE MARKETING/);
+ assert.match(eventos,/XPE_34 — CEO de Eventos/);
+ assert.match(eventos,/No hay eventos con fechas publicadas/);
+});
+
+test('Las nuevas secciones son solo públicas: VIP y agentes no obtienen controles',()=>{
+ const nav=page('publico/placas').match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1]||'';
+ for(const p of ['publico/compra-rangos','publico/placas','publico/eventos'])assert.ok(nav.includes(p),p);
+ for(const p of ['identificacion/vip','identificacion/alta']){
+  const pageHtml=page(p);
+  assert.doesNotMatch(pageHtml,/data-form="placa"|data-form="venta"|data-form="pago-rango"/);
+ }
+ for(const p of ['publico/compra-rangos','publico/placas','publico/eventos'])
+  assert.match(page(p,false),/data-preview-login/);
+});

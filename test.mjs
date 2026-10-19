@@ -154,3 +154,15 @@ test('La contraseña no figura en claro en JavaScript y la puerta no suplanta Di
  assert.match(src,/crypto\.subtle\.digest/);
  assert.match(src,/Discord se comprueban después/);
 });
+
+
+test('Ninguna página visible incluye créditos personales en pie o marca de agua',()=>{
+ for(const p of ['inicio','vip','identificacion/vip','unete','ficha','publico','publico/jerarquia']){
+  const screen=page(p);
+  assert.doesNotMatch(screen,/YourDesignGPT|yourdesigngpt\.netlify\.app|Designed by|Diseñado por/);
+ }
+ const gate=page('inicio',false);
+ assert.doesNotMatch(gate,/10PEDRO|YourDesignGPT|yourdesigngpt\.netlify\.app|Designed by|Diseñado por/);
+ assert.match(gate,/DEA HABBO ES · Preinauguración/);
+ assert.match(page('inicio'),/© DEA HABBO ES · Comunidad independiente/);
+});

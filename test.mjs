@@ -208,17 +208,14 @@ test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portad
 });
 
 
+
 test('Informe técnico V6 en pie sin modificar el diseño original',async()=>{
  const report=await readFile(new URL('./informe-tecnico.js',import.meta.url),'utf8');
  const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
- assert.match(html,/informe-tecnico\\.js/);
- assert.match(build,/informe-tecnico\\.js/);
- assert.match(report,/MutationObserver/);
- assert.match(report,/dea-preview-footer/);
- assert.match(report,/Informe técnico · V6/);
- assert.match(report,/Just Design GPT/);
- assert.match(report,/4\\.050 € \\+ IVA/);
- assert.match(report,/135/);
- assert.match(report,/OAuth2 ni seguridad del backend/);
- assert.doesNotMatch(report,/DISCORD_CLIENT_SECRET\\s*=/);
+ assert.ok(html.includes('informe-tecnico.js'));
+ assert.ok(build.includes('informe-tecnico.js'));
+ for(const needle of ['MutationObserver','dea-preview-footer','Informe técnico · V6','Just Design GPT','4.050 € + IVA','135','OAuth2 ni seguridad del backend']){
+  assert.ok(report.includes(needle),needle);
+ }
+ assert.ok(!report.includes('DISCORD_CLIENT_SECRET='));
 });

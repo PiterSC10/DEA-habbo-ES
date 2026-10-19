@@ -60,3 +60,14 @@ Los secretos, historiales privados, copias de Sheets y credenciales **no deben s
 - `#/publico/placas`: ventana de fichas visuales con campo de logo, nombre, precio, beneficio y duración. Como `CATALOGO_PLACAS` está vacío, se muestran seis plazas provisionales (sin precio/beneficio oficial ni compra habilitada).
 - Los datos públicos aprobados pueden publicarse en el array `PLACAS_PUBLICAS` de `catalogo-publico.js`, manteniendo las solicitudes, pagos, aprobaciones y expedientes **exclusivamente privados en Apps Script y Sheets**. Nunca exponer la hoja privada ni un token a JavaScript cliente.
 - Se mantiene `noindex`, robots y formulario de preinauguración. Un workflow en GitHub comprueba `npm run check` y `npm run build` antes de fusionar.
+
+## DEA CONTROL APP FOUNDER (NO COMPARTIR)
+Cuatro accesos directos personales, sin pasar por portada, al mismo proyecto Vercel:
+- 10PEDRO Master: https://dea-habbo-es.vercel.app/founder-10pedro.html
+- KietsyAndrea: https://dea-habbo-es.vercel.app/founder-kietsyandrea.html
+- lesslie.ar: https://dea-habbo-es.vercel.app/founder-lesslie-ar.html
+- XPE_34: https://dea-habbo-es.vercel.app/founder-xpe-34.html
+
+Los lanzadores muestran únicamente información de perfil pública (nick, rango, keko) y accesos a formularios alojados en el Apps Script privado. Antes de operar se requiere OAuth2 Discord real y Founder activo en Sheets; la URL no concede permisos. No se comparten secretos ni archivos .gs en el GitHub público. La miniapp del Master dispone de enlaces adicionales.
+
+**PENDIENTE INSTALAR:** el ZIP privado DEA_CONTROL_APP_FOUNDER_V6_BACKEND_PRIVADO.zip actualiza OAuth, bloquea sesiones anteriores, vincula cada perfil al Discord real, ofrece formularios append-only de incidencias y cobros y corrige nóminas a miércoles/sábado. Debe instalarse y desplegarse en el Apps Script original, no se instala desde GitHub ni Vercel. Los tres Founders sin Discord ID activo deberán vincularse antes de operar. Los cobros de placas permanecen sin habilitar hasta tener catálogo aprobado.

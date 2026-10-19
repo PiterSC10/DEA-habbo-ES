@@ -84,7 +84,7 @@ async function validatePreview(form){
  const user=String(form.elements.preview_user.value||'').trim().toLowerCase();
  const pass=String(form.elements.preview_password.value||'');
  const combined=new TextEncoder().encode(user+'\n'+pass);
- if(!crypto?.subtle){previewError='No se puede comprobar el acceso en este navegador. Utiliza una conexión HTTPS.';render();return}
+ if(typeof crypto==='undefined'||!crypto.subtle){previewError='No se puede comprobar el acceso en este navegador. Utiliza una conexión HTTPS.';render();return}
  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',combined))).map(b=>b.toString(16).padStart(2,'0')).join('');
  if(digest===PREVIEW_DIGEST){
   try{sessionStorage.setItem(PREVIEW_SESSION_KEY,'yes')}catch{}

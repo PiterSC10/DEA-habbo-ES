@@ -93,3 +93,36 @@ test('VIP, registro y expediente requieren validación en Apps Script',()=>{
   assert.doesNotMatch(html,/access_token=|DISCORD_CLIENT_SECRET|data-action="grant-vip"/);
  }
 });
+
+
+test('Tres entradas oficiales permanecen claramente diferenciadas sin crear una cuarta',()=>{
+ const h=page('inicio');
+ assert.equal((h.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
+ assert.match(h,/class="choice vip"/);
+ assert.match(h,/class="choice join"/);
+ assert.match(h,/class="choice public"/);
+ assert.match(h,/href="#\/vip" class="choice vip"/);
+ assert.match(h,/href="#\/identificacion\/alta" class="choice join"/);
+ assert.match(h,/href="#\/publico" class="choice public"/);
+ assert.match(h,/Zona reservada a Founders/);
+ assert.match(h,/Sin permisos de dirección/);
+ assert.match(h,/Información abierta/);
+});
+test('Colores y neón de cada acceso, estados accesibles y respeto al movimiento reducido',()=>{
+ for(const sel of ['.choice.vip{--choice-accent:', '.choice.join{--choice-accent:', '.choice.public{--choice-accent:', '.choice:hover,.choice:focus-visible', '.choice:active', '.app-layout .side-item:hover', '@media(prefers-reduced-motion:reduce)']){
+  assert.ok(css.includes(sel),sel);
+ }
+ assert.match(css,/\.choice\.vip\{--choice-accent:#f4cb78/);
+ assert.match(css,/\.choice\.join\{--choice-accent:#6edbff/);
+ assert.match(css,/\.choice\.public\{--choice-accent:#7ce5c0/);
+});
+test('La navegación no mezcla un Founder con las fichas de los agentes',()=>{
+ const vip=page('identificacion/vip');
+ const agent=page('identificacion/alta');
+ const menu=v=>v.match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1]||'';
+ assert.match(menu(vip),/Acceso seguro/);
+ assert.doesNotMatch(menu(vip),/Acceso de agentes|Mi expediente/);
+ assert.match(menu(agent),/Acceso de agentes/);
+ assert.match(menu(agent),/Mi expediente/);
+ assert.doesNotMatch(menu(agent),/Acceso VIP|Acceso seguro/);
+});

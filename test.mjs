@@ -24,10 +24,12 @@ test('Siete páginas públicas sin errores de renderizado',()=>{
  for(const p of ['publico','publico/agencia','publico/jerarquia','publico/departamentos','publico/founders','publico/ingreso','publico/normativa'])
   assert.ok(page(p).length>1000,p);
 });
-test('Entradas privadas pasan por identificación intermedia',()=>{
- for(const [p,next] of [['vip','vip'],['vip/solicitudes','vip'],['unete','alta'],['ficha','agente'],['ficha/pagos','agente']]){
-  assert.match(page(p),new RegExp('href="#/identificacion/'+next+'"'));
-  assert.match(page('identificacion/'+next),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
+test('Los accesos VIP y agente llegan a la identificación de su área',()=>{
+ assert.match(page('vip'),/href="#\/identificacion\/vip"/);
+ assert.match(page('ficha'),/href="#\/identificacion\/agente"/);
+ assert.match(page('inicio'),/href="#\/identificacion\/alta" class="choice join"/);
+ for(const p of ['unete','identificacion/vip','identificacion/alta','identificacion/agente']){
+  assert.match(page(p),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
  }
 });
 test('No se publica lógica anterior de Cloudflare ni demo',()=>{
@@ -47,17 +49,25 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
  assert.match(html,/https:\/\/pitersc10\.github\.io\/DEA-habbo-ES\/og-image\.jpg/);
 });
 
-test('Ingreso distingue identidad Discord y nick de Habbo, sin permitir acceso VIP directo',()=>{
+test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
  const join=page('unete');
- assert.match(join,/nombre de Habbo, aunque sea diferente/);
- assert.match(join,/ID de Discord/);
- assert.match(join,/pendiente de confirmación por un Founder/);
- const vip=page('vip');
- assert.match(vip,/Entrar con Discord/);
- assert.doesNotMatch(vip,/data-action="approve"|data-action="demo-/);
+ assert.match(join,/nick de Habbo y tu ID de Discord/);
+ assert.match(join,/ENTRAR DIRECTAMENTE CON DISCORD/);
+ assert.match(join,/ACEPTAR Y VERIFICAR CON DISCORD/);
+ const nav=join.match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1];
+ assert.ok(nav);
+ assert.match(nav,/Acceso de agentes/);
+ assert.match(nav,/Mi expediente/);
+ assert.doesNotMatch(nav,/Acceso VIP|identificacion\/vip|CENTRO VIP/);
 });
-
-
+test('El área de Founders está separada y no anuncia registro ni fichas de agentes',()=>{
+ for(const path of ['vip','identificacion/vip','vip/solicitudes']){
+  const view=page(path), nav=view.match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1];
+  assert.ok(nav,path);
+  assert.match(nav,/Acceso seguro/);
+  assert.doesNotMatch(nav,/Ingreso R2|Acceso de agentes|Expediente personal|Mi expediente|identificacion\/alta|identificacion\/agente/);
+ }
+});
 test('VIP muestra Discord directo y debajo usuario y correo obligatorio',()=>{
  const vip=page('vip');
  assert.match(vip,/href="#\/identificacion\/vip"/);
@@ -74,7 +84,7 @@ test('VIP muestra Discord directo y debajo usuario y correo obligatorio',()=>{
  assert.doesNotMatch(gate,/type="password"/);
 });
 test('VIP, registro y expediente requieren validación en Apps Script',()=>{
- assert.match(page('unete'),/href="#\/identificacion\/alta"/);
+ assert.match(page('unete'),/ENTRAR DIRECTAMENTE CON DISCORD/);
  assert.match(page('ficha'),/href="#\/identificacion\/agente"/);
  for(const route of ['identificacion/vip','identificacion/alta','identificacion/agente']){
   const html=page(route);

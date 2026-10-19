@@ -235,3 +235,27 @@ test('Preinauguración protege ambas vistas; noindex preservado',()=>{
  }
  assert.ok(html.includes('noindex,nofollow,noarchive,nosnippet'));
 });
+
+test('Cuatro páginas Founder individuales, visibles directamente sin la portada',async()=>{
+ for(const [nick,base] of [['10PEDRO','founder-10pedro'],['KietsyAndrea','founder-kietsyandrea'],['lesslie.ar','founder-lesslie-ar'],['XPE_34','founder-xpe-34']]){
+  const raw=await readFile(new URL('./'+base+'.html',import.meta.url),'utf8');
+  const manifest=JSON.parse(await readFile(new URL('./'+base+'.webmanifest',import.meta.url),'utf8'));
+  assert.match(raw,/DEA CONTROL APP FOUNDER \(NO COMPARTIR\)/);
+  assert.match(raw,/NO COMPARTIR ESTE ENLACE/);
+  assert.ok(raw.includes('data-founder="'+nick+'"'));
+  assert.ok(!raw.includes('dea_v7_session'));
+  assert.equal(manifest.start_url,'./'+base+'.html');
+  assert.equal(manifest.display,'standalone');
+ }
+});
+test('Lanzadores sin tokens y con enlace por Founder a Discord/Apps Script',async()=>{
+ const js=await readFile(new URL('./founder-app.js',import.meta.url),'utf8');
+ assert.match(js,/script\.google\.com\/macros\/s\//);
+ assert.match(js,/\?founder=/);
+ assert.match(js,/&tab=/);
+ assert.doesNotMatch(js,/DISCORD_CLIENT_SECRET|access_token|password|localStorage|sessionStorage/);
+ const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ assert.match(build,/founder-10pedro.html/);
+ assert.match(build,/founder-app.js/);
+ assert.doesNotMatch(build,/FounderControl\.gs|Code\.gs|Portal\.html/);
+});

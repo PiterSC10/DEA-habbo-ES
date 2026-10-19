@@ -162,6 +162,39 @@
     }],
     ["Discord, Sheets y operaciones privadas",async()=>({state:"warn",details:"Arquitectura y esquemas documentados. Autorización, expedientes, ascensos y nóminas requieren pruebas de extremo a extremo."})]
   ];
+  tasks.splice(3,0,
+    ["Accesos y rutas principales",async()=>{
+      const src=await get("./app.js");
+      const entries=["ACCESO VIP","ÚNETE A DEA","WEB PÚBLICA"];
+      return {state:entries.every(x=>src.includes(x))?"ok":"warn",details:"Portada SPA con tres accesos diferenciados: VIP, agentes y contenido público."};
+    }],
+    ["Páginas institucionales",async()=>{
+      const src=await get("./app.js");
+      const routes=["publico/agencia","publico/jerarquia","publico/departamentos","publico/founders","publico/ingreso","publico/normativa"];
+      const found=routes.filter(x=>src.includes(x)).length;
+      return {state:found===routes.length?"ok":"warn",details:`${found}/${routes.length} rutas institucionales encontradas en JavaScript.`};
+    }],
+    ["Jerarquía y modelo de rangos",async()=>{
+      const src=await get("./app.js");
+      const found=Array.from({length:10},(_,i)=>"id:'R"+(i+1)+"'").filter(x=>src.includes(x)).length;
+      return {state:found===10?"ok":"warn",details:`Definiciones R1–R10: ${found}/10; los rangos sin aprobar se mantienen pendientes.`};
+    }],
+    ["Preinauguración y acceso temporal",async()=>{
+      const src=await get("./app.js");
+      const present=src.includes("PREVIEW_SESSION_KEY")&&src.includes("crypto.subtle.digest");
+      return {state:present?"ok":"warn",details:"Pantalla de vista previa detectada. Control visual cliente; no es seguridad de servidor."};
+    }],
+    ["Accesibilidad y movimiento reducido",async()=>{
+      const css=await get("./styles.css");
+      const ok=css.includes("focus-visible")&&css.includes("prefers-reduced-motion");
+      return {state:ok?"ok":"warn",details:"Indicadores de foco y estilos para usuarios que prefieren menos animación."};
+    }],
+    ["Adaptación móvil y metadatos viewport",async()=>{
+      const css=await get("./styles.css");
+      const breakpoints=(css.match(/@media/g)||[]).length;
+      return {state:breakpoints>0&&!!q('meta[name="viewport"]')?"ok":"warn",details:`${breakpoints} reglas @media detectadas; etiqueta viewport presente.`};
+    }]
+  );
   async function scan(){
     if(running)return;
     running=true;runBtn.disabled=true;

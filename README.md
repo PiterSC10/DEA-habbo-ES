@@ -53,3 +53,10 @@ Los secretos, historiales privados, copias de Sheets y credenciales **no deben s
 - El backend privado Apps Script para lotes de nómina, placas y compra presencial se entrega **fuera del repositorio público**. No se considera instalado ni verificado en producción hasta probar una nueva implementación de Apps Script.
 - `noindex` del HTML y de las cabeceras Vercel se mantiene; el acceso de preinauguración no se modifica.
 - Borrador de sitemap en `seo-preparacion/sitemap-candidato.xml`: **no se incluye en el build ni se anuncia en robots.txt**, porque las rutas HTML finales todavía no existen.
+
+## Web pública: pestañas neón RANGOS Y ASCENSOS / PLACAS DE BENEFICIO
+- Dos pestañas aparecen en la parte superior de toda la zona pública `#/publico`, sin introducir una cuarta entrada en la portada original.
+- `#/publico/jerarquia`: ventana con tabla individual de 35 rangos definidos (R1–R6), cuatro categorías pendientes (R7–R10), siguientes ascensos, tiempos de progreso, horas y créditos de nómina. Se documentan tarifas de compra de rango comunicadas, sin activar ventas.
+- `#/publico/placas`: ventana de fichas visuales con campo de logo, nombre, precio, beneficio y duración. Como `CATALOGO_PLACAS` está vacío, se muestran seis plazas provisionales (sin precio/beneficio oficial ni compra habilitada).
+- Los datos públicos aprobados pueden publicarse en el array `PLACAS_PUBLICAS` de `catalogo-publico.js`, manteniendo las solicitudes, pagos, aprobaciones y expedientes **exclusivamente privados en Apps Script y Sheets**. Nunca exponer la hoja privada ni un token a JavaScript cliente.
+- Se mantiene `noindex`, robots y formulario de preinauguración. Un workflow en GitHub comprueba `npm run check` y `npm run build` antes de fusionar.

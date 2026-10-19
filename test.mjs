@@ -39,7 +39,7 @@ test('No se publica lógica anterior de Cloudflare ni demo',()=>{
 });
 test('Jerarquía R1-R10 visible y nombres oficiales',()=>{
  const h=page('publico/jerarquia');
- for(let i=1;i<=10;i++)assert.match(h,new RegExp('R'+i+' · '));
+ for(let i=1;i<=10;i++)assert.ok(h.includes('class="dea-rank-chip">R'+i+'</strong>'),'R'+i);
  assert.match(h,/Agente de Enlace/);
  assert.match(h,/Jefe de Dirección/);
 });

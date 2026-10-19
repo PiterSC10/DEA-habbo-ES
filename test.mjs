@@ -5,12 +5,13 @@ import {runInNewContext} from 'node:vm';
 const src=await readFile(new URL('./app.js',import.meta.url),'utf8');
 const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
-function page(route){
+function page(route,unlocked=true){
  const root={innerHTML:'',addEventListener(){}};
  const location={hash:'#/inicio'};
  const document={getElementById(){return root},title:''};
  const window={addEventListener(){}};
- const app=runInNewContext(src+'\n({render})',{document,location,window});
+ const sessionStorage={getItem(){return unlocked?'yes':null},setItem(){},removeItem(){}};
+ const app=runInNewContext(src+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
 test('Portada tiene las tres ventanas y no una barra lateral',()=>{
@@ -125,4 +126,31 @@ test('La navegación no mezcla un Founder con las fichas de los agentes',()=>{
  assert.match(menu(agent),/Acceso de agentes/);
  assert.match(menu(agent),/Mi expediente/);
  assert.doesNotMatch(menu(agent),/Acceso VIP|Acceso seguro/);
+});
+
+test('Antes de iniciar sesión sólo aparece el escudo, águila y formulario de preinauguración',()=>{
+ for(const route of ['inicio','vip','identificacion/vip','identificacion/alta','publico/jerarquia']){
+  const screen=page(route,false);
+  assert.match(screen,/PREINAUGURACIÓN/);
+  assert.match(screen,/logo-dea-es\.png/);
+  assert.match(screen,/aguila-dea-original\.jpg/);
+  assert.match(screen,/data-preview-login/);
+  assert.match(screen,/type="password"/);
+  assert.doesNotMatch(screen,/class="choice (?:vip|join|public)"/);
+  assert.doesNotMatch(screen,/Centro de Control DEA|discord_username|discord_email/);
+ }
+});
+test('Con sesión temporal se ven exactamente tres ventanas originales y todos los accesos',()=>{
+ const home=page('inicio',true);
+ assert.equal((home.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
+ assert.match(page('identificacion/vip',true),/Identificación VIP/);
+ assert.match(page('identificacion/alta',true),/Identificación de agentes/);
+ assert.match(page('publico/jerarquia',true),/Jerarquía R1–R10/);
+});
+test('La contraseña no figura en claro en JavaScript y la puerta no suplanta Discord',()=>{
+ assert.match(src,/PREVIEW_DIGEST='[a-f0-9]{64}'/);
+ assert.doesNotMatch(src,/DEA-vc2pCQJ6P85lp3eqhKGRRMENKdu_YA/);
+ assert.match(src,/PREVIEW_SESSION_KEY/);
+ assert.match(src,/crypto\.subtle\.digest/);
+ assert.match(src,/Discord se comprueban después/);
 });

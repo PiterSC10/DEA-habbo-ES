@@ -323,7 +323,7 @@ test('Dos miniapps generales de Directores y Managers con límites acumulativos 
  }
  const launcher=await readFile(new URL('./dea-cargos.js',import.meta.url),'utf8');
  assert.match(launcher,/role==='director'/);
- assert.match(launcher,/role==='manager'/);
+ assert.match(launcher,/\['director','manager'\]\.includes\(role\)/);
  assert.match(launcher,/\?start=direct&panel=/);
  assert.doesNotMatch(launcher,/client_secret|DISCORD_CLIENT_SECRET|access_token|sessionStorage|localStorage/);
  const stylesheet=await readFile(new URL('./dea-cargos.css',import.meta.url),'utf8');

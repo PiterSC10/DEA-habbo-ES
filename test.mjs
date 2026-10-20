@@ -336,3 +336,38 @@ test('Dos miniapps generales de Directores y Managers con límites acumulativos 
   assert.ok(build.includes(file),file);
  assert.doesNotMatch(build,/RoleControl\.gs|Code\.gs|Portal\.html/);
 });
+
+test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página nueva',async()=>{
+ const module=await readFile(new URL('./web-check-scan.js',import.meta.url),'utf8');
+ const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ const packageJson=await readFile(new URL('./package.json',import.meta.url),'utf8');
+ assert.match(html,/<script src="\.\/web-check-scan\.js" defer><\/script>/);
+ assert.match(build,/'web-check-scan\.js'/);
+ assert.match(packageJson,/node --check web-check-scan\.js/);
+ assert.match(module,/\.home-foot,#app \.foot/);
+ assert.doesNotMatch(module,/#app \.home-foot,#app \.foot,#app \.dea-preview-footer/);
+ assert.match(module,/WEB CHECK SCAN/);
+ assert.match(module,/role="dialog" aria-modal="true"/);
+ assert.match(module,/data-dea-tech-close/);
+ assert.match(module,/RUN SCAN AGAIN/);
+ assert.match(module,/runBtn\.disabled=false/);
+ assert.match(module,/prefers-reduced-motion:reduce/);
+ assert.match(module,/@media\(max-width:630px\)/);
+ for(const term of ['FRONTEND & DESIGN','WEB APPLICATION','INTEGRATIONS & DATABASE','INFRASTRUCTURE','SYSTEM REVIEW COMPLETED','Public Components Reviewed','PROJECT DEVELOPMENT REPORT'])assert.ok(module.includes(term),term);
+ for(const term of ['HTML5 Structure','CSS3 Responsive Framework','JavaScript Application','Navigation System','Corporate Visual Identity','Mobile Compatibility','Public Information Portal','R1–R10 Rank Structure','Promotion Rules','Benefit Badge Catalog','Founder Access Launchers','Directors WebApp','Managers WebApp','Discord OAuth2 Configuration','Google Apps Script Connection','Google Sheets Data Structure','Agent Records System','Promotion Management','Payroll & Extra Payments','Audit Log Architecture','GitHub Repository','Vercel Deployment','GitHub Pages Backup','SEO Metadata','PWA Manifest','Website Resource Integrity'])assert.ok(module.includes(term),term);
+ assert.match(module,/PRIVATE VALIDATION REQUIRED/);
+ assert.match(module,/No constituye auditoría|No constituye auditoría externa|no constituye auditoría externa/i);
+ assert.match(module,/180 h/);
+ assert.match(module,/5\.400 € \+ IVA/);
+ assert.match(module,/6\.900 € \+ IVA/);
+ assert.doesNotMatch(module,/4\.050 €|135 h|client_secret|DISCORD_CLIENT_SECRET|apiKey|access_token/);
+ assert.match(module,/https:\/\/yourdesigngpt\.netlify\.app\//);
+ assert.match(module,/Designed &amp; Developed by/);
+ assert.match(module,/No es presupuesto aceptado, factura ni certificación/);
+ assert.doesNotMatch(module,/https:\/\/script\.google\.com\/macros/);
+ for(const route of ['inicio','publico','publico/jerarquia','publico/placas']){
+  assert.ok(page(route,true).includes('dea-credit-main'),route);
+ }
+ assert.doesNotMatch(page('inicio',false),/WEB CHECK SCAN/);
+ assert.match(page('inicio',false),/DEA HABBO ES · Preinauguración/);
+});

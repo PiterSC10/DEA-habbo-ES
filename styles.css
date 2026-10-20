@@ -219,3 +219,8 @@
 .dea-ascension-permission p{font-size:12px;line-height:1.7;color:#cbdce9;margin:0}
 .dea-ascension-permissions-note{margin:16px 0 0;padding:12px 14px;border-left:3px solid #e8be72;border-radius:6px;background:#0c2435;font-size:11px;line-height:1.85;color:#c6dceb}
 @media(max-width:770px){.dea-ascension-permissions-grid{grid-template-columns:1fr}.dea-ascension-permission{padding:13px}.dea-ascension-permission strong{font-size:19px}.dea-ascension-permissions{padding:14px}}
+
+/* SEO: enlaces discretos a páginas institucionales indexables, sin alterar la portada. */
+.dea-seo-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 13px;margin:13px auto 2px;font-size:11px;line-height:1.6;max-width:900px}
+.dea-seo-links a{color:#b7d6ed;text-decoration:underline;text-decoration-color:#426687;text-underline-offset:3px}
+.dea-seo-links a:hover,.dea-seo-links a:focus-visible{color:#ead090;text-decoration-color:#ead090}

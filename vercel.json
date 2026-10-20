@@ -8,16 +8,66 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive, nosnippet"
-        },
-        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/founder-10pedro.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/founder-kietsyandrea.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/founder-lesslie-ar.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/founder-xpe-34.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/directores-deawebapp.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/managers-deawebapp.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
         }
       ]
     }

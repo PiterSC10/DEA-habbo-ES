@@ -83,3 +83,11 @@ Los lanzadores muestran únicamente información de perfil pública (nick, rango
 Se ha confirmado la jerarquía **acumulativa por categoría de destino**: Directores hasta R5, Managers hasta R7, Founders hasta R10. R1 continúa siendo formación presencial en Habbo; las fichas web empiezan en R2. En la sección final de la tabla pública «RANGOS Y ASCENSOS» se explican los límites; el último campo de la tabla indica cargos autorizados en vez de atribuir todo únicamente a Founders. R7–R10 conservan sus rangos internos como pendientes sin inventar nombres ni habilitar operaciones.
 
 La web estática **solo informa**. Cualquier permiso real de ascenso requiere actualización/verificación en Google Apps Script: identificación Discord, cargo confirmado en registros y límites comprobados en servidor (no en JS público). Los accesos a miniapps no modifican autorización por sí mismos.
+
+## Miniapps de Directores y Managers (20/10/2026)
+- Dos pantallas públicas de **acceso** (no contienen datos privados ni autentican por sí solas): `directores-deawebapp.html` y `managers-deawebapp.html`.
+- Dos enlaces generales propuestos: `/DIRECTORES-DEAWEBAPP` y `/MANAGERS-DEAWEBAPP`, destinados a esas pantallas.
+- **Directores R6** con acceso confirmado vía Discord y expediente activo pueden autorizar destinos hasta R5; **Managers R10** pueden autorizar destinos hasta R7; **Founders** mantienen hasta R10. El cargo se verifica en Apps Script contra ID Discord y la hoja privada AGENTES, nunca por enlace o valores de interfaz.
+- R10 carece actualmente de rangos internos oficiales en RANGOS, por lo que el backend preparado bloquea el acceso Manager hasta que estén aprobados y registrados. También bloquea ascensos hacia rangos sin nombre oficial.
+- El paquete **privado, no incluido en GitHub** `DEA_DIRECTIVOS_MANAGERS_V6_BACKEND_PRIVADO.zip` contiene integración de Code.gs + Portal.html y guía para que Work revise el backend V5 realmente instalado, conserve funciones existentes, publique misma implementación `/exec` y haga pruebas de autorizaciones.
+- **No confundir publicación de HTML en Vercel con backend funcional.** Las operaciones de ascenso no se anuncian activas hasta validar Apps Script y usuarios reales. No añadir una segunda portada ni cambiar diseño original.

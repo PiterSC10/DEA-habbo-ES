@@ -78,3 +78,8 @@ Los lanzadores muestran únicamente información de perfil pública (nick, rango
 - Aviso: proyecto independiente no afiliado ni patrocinado por Habbo o Sulake; las marcas son de sus titulares.
 - **No tocar la pantalla previa de contraseña**: conserva su pie «DEA HABBO ES · Preinauguración» sin créditos adicionales.
 - Pendiente de una futura iteración: sección pública «LA SALA» con imagen de la sala oficial, enlace válido Habbo, descripción, acceso y normas aprobadas; no se publica una pestaña vacía hoy.
+
+## Autoridad de ascensos (20/10/2026)
+Se ha confirmado la jerarquía **acumulativa por categoría de destino**: Directores hasta R5, Managers hasta R7, Founders hasta R10. R1 continúa siendo formación presencial en Habbo; las fichas web empiezan en R2. En la sección final de la tabla pública «RANGOS Y ASCENSOS» se explican los límites; el último campo de la tabla indica cargos autorizados en vez de atribuir todo únicamente a Founders. R7–R10 conservan sus rangos internos como pendientes sin inventar nombres ni habilitar operaciones.
+
+La web estática **solo informa**. Cualquier permiso real de ascenso requiere actualización/verificación en Google Apps Script: identificación Discord, cargo confirmado en registros y límites comprobados en servidor (no en JS público). Los accesos a miniapps no modifican autorización por sí mismos.

@@ -301,3 +301,34 @@ test('Lanzadores sin tokens y con enlace por Founder a Discord/Apps Script',asyn
  assert.match(build,/founder-app.js/);
  assert.doesNotMatch(build,/FounderControl\.gs|Code\.gs|Portal\.html/);
 });
+
+test('Dos miniapps generales de Directores y Managers accesibles sin exponer credenciales',async()=>{
+ const configs=[['directores-deawebapp.html','DIRECTORES','R5','director'],['managers-deawebapp.html','MANAGERS','R7','manager']];
+ const js=await readFile(new URL('./directivo-app.js',import.meta.url),'utf8');
+ const css=await readFile(new URL('./directivo-app.css',import.meta.url),'utf8');
+ const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ for(const [file,title,cap,kind] of configs){
+   const page=await readFile(new URL('./'+file,import.meta.url),'utf8');
+   assert.ok(page.includes('DEA CONTROL APP '+title),file);
+   assert.ok(page.includes(cap),file);
+   assert.ok(page.includes('data-dea-directivo="'+kind+'"'),file);
+   assert.match(page,/Entrar con mi Discord/);
+   assert.match(page,/Los cargos pendientes de registrar o vincular/);
+   assert.match(page,/noindex,nofollow/);
+   assert.ok(build.includes(file),file);
+   assert.doesNotMatch(page,/DISCORD_CLIENT_SECRET|access_token|sessionToken/);
+ }
+ assert.match(js,/d-directores/);
+ assert.match(js,/m-managers/);
+ assert.match(js,/https:\/\/script\.google\.com\/macros\/s\//);
+ assert.doesNotMatch(js,/DISCORD_CLIENT_SECRET|access_token|localStorage|sessionStorage|password/);
+ assert.match(css,/\.directivo-intro/);
+ assert.ok(build.includes('directivo-app.js')&&build.includes('directivo-app.css'));
+ assert.doesNotMatch(build,/Code\.gs|Portal\.html|BACKEND_PRIVADO/);
+});
+test('Las miniapps de gestión no afectan portada, placas ni las cuatro Founder',()=>{
+ assert.equal((page('inicio').match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
+ assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,2);
+ assert.match(page('publico/placas'),/PLACAS DE BENEFICIO/);
+ assert.doesNotMatch(page('inicio',false),/DIRECTORES-DEAWEBAPP|MANAGERS-DEAWEBAPP/);
+});

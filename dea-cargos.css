@@ -1,0 +1,27 @@
+/* Paneles Directores / Managers: mismas bases DEA, sin formularios públicos. */
+.dea-role-director{--role-accent:#6dd2ff;--role-panel:#133852}
+.dea-role-manager{--role-accent:#f2c577;--role-panel:#342e2b}
+.dea-role-profile{display:flex;gap:24px;align-items:center;margin:23px 0;padding:25px;border:1px solid var(--role-accent);border-radius:18px;background:linear-gradient(130deg,var(--role-panel),#092237);box-shadow:0 15px 45px #0006}
+.dea-role-icon{display:grid;place-items:center;flex:none;width:116px;height:116px;border-radius:18px;background:#081c32;border:1px solid var(--role-accent);font-size:56px}
+.dea-role-kicker{color:var(--role-accent);font-size:11px;font-weight:850;letter-spacing:.10em}
+.dea-role-profile h1{font-size:clamp(25px,4vw,40px);margin:4px 0 8px}
+.dea-role-profile p{color:#c7dfed;font-size:13px;line-height:1.75;margin:0 0 10px}
+.dea-role-max{display:inline-block;padding:7px 11px;border:1px solid var(--role-accent);border-radius:8px;font-size:12px;color:#c9e1eb;background:#061e31}
+.dea-role-max strong{color:var(--role-accent);font-size:17px}
+.dea-role-max span{font-size:11px}
+.dea-role-heading{font-size:19px;margin:21px 0 14px}
+.dea-role-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dea-role-tile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;border:1px solid #4da5cb;padding:18px 20px;border-radius:14px;background:#0f3148;min-width:0}
+.dea-role-tile>span{font-size:24px}
+.dea-role-tile strong{font-size:16px}
+.dea-role-tile small{font-size:12px;color:#aecddd;line-height:1.65}
+.dea-role-tile.write{border-color:#dcb469;background:#302d26}
+.dea-role-tile.write strong{color:#f6d99d}
+.dea-role-login{display:block;text-align:center;background:#b38a49;color:#061728;font-weight:850;letter-spacing:.04em;border-radius:12px;padding:16px;margin:23px auto;text-decoration:none}
+.dea-role-login:hover,.dea-role-login:focus-visible{background:#f0cf90;color:#062034}
+.dea-role-help{border:1px solid #456880;border-radius:13px;background:#102c41;padding:18px 20px;line-height:1.7}
+.dea-role-help strong{color:#fff}
+.dea-role-help p{font-size:12px;color:#c1d8e7;margin:8px 0 0}
+.dea-role-help .dea-role-activation{color:#f1d29d}
+.dea-role-footer{max-width:940px;margin:20px auto 0;text-align:center;padding:22px 18px;border-top:1px solid #345872}
+@media(max-width:700px){.dea-role-profile{flex-direction:column;align-items:flex-start;padding:18px}.dea-role-icon{width:80px;height:80px;font-size:36px}.dea-role-grid{grid-template-columns:1fr}.dea-role-max span{display:block}}

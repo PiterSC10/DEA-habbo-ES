@@ -83,3 +83,12 @@ Los lanzadores muestran únicamente información de perfil pública (nick, rango
 Se ha confirmado la jerarquía **acumulativa por categoría de destino**: Directores hasta R5, Managers hasta R7, Founders hasta R10. R1 continúa siendo formación presencial en Habbo; las fichas web empiezan en R2. En la sección final de la tabla pública «RANGOS Y ASCENSOS» se explican los límites; el último campo de la tabla indica cargos autorizados en vez de atribuir todo únicamente a Founders. R7–R10 conservan sus rangos internos como pendientes sin inventar nombres ni habilitar operaciones.
 
 La web estática **solo informa**. Cualquier permiso real de ascenso requiere actualización/verificación en Google Apps Script: identificación Discord, cargo confirmado en registros y límites comprobados en servidor (no en JS público). Los accesos a miniapps no modifican autorización por sí mismos.
+
+## Miniapps generales Directores y Managers (20/10/2026)
+Nuevos lanzadores estáticos independientes de las cuatro miniapps Founder:
+- /directores-deawebapp.html — Directores: autorizaciones hacia R2–R5 después de la formación presencial R1.
+- /managers-deawebapp.html — Managers: acumulativamente hacia R2–R7.
+- Founders: acumulativamente hasta R10, mediante sus miniapps existentes.
+Los permisos dependen de una VINCULACIÓN ADMINISTRATIVA segura entre Discord ID y cargo aprobada por Master Founder, nunca del enlace ni de un nickname autodeclarado. Se mantiene R7–R10 internos pendientes de definir.
+**Importante:** Los lanzadores no gestionan ni consultan datos personales y NO conceden ascensos. La implementación del backend privado Apps Script v5 debe ser ampliada antes de activar operaciones: validar OAuth, rol autoritativo en cada petición, progresión consecutiva, plazo, asistencia, bloqueo de rangos sin definir y auditoría. Este repositorio público no contiene secretos ni el código Apps Script de producción.
+El enlace a Discord incluye `?start=direct&panel=director|manager` como contexto de navegación, pero la versión anterior de Apps Script puede ignorar `panel`; no confundir una página que abre con un panel de ascensos operativo.

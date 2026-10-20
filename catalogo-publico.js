@@ -17,9 +17,9 @@ function ascensionApprover(groupId){
 }
 function ascensionAuthorizationGuide(){
  const cards=[
-  {name:'DIRECTORES',range:'Hasta R5',detail:'Pueden autorizar ascensos hacia R2, R3, R4 y R5, tras la formación inicial R1.',tone:'director'},
-  {name:'MANAGERS',range:'Hasta R7',detail:'Incluye las autorizaciones de Directores y además R6 y R7.',tone:'manager'},
-  {name:'FOUNDERS',range:'Hasta R10',detail:'Pueden autorizar ascensos hacia cualquier categoría R2–R10.',tone:'founder'}
+  {name:'DIRECTORES',range:'Ascensos hasta R5 incluido',detail:'Pueden autorizar ascensos hacia R2, R3, R4 y R5, tras la formación inicial R1.',tone:'director'},
+  {name:'MANAGERS',range:'Ascensos hasta R7 incluido',detail:'Incluye las autorizaciones de Directores y además R6 y R7.',tone:'manager'},
+  {name:'FOUNDERS',range:'Ascensos hasta R10 incluido',detail:'Pueden autorizar ascensos hacia cualquier categoría R2–R10.',tone:'founder'}
  ];
  return `<section class="dea-ascension-permissions" aria-labelledby="dea-ascension-permissions-title"><div class="dea-ascension-permissions-head"><span class="dea-rank-chip">NORMATIVA DE ASCENSOS</span><h2 id="dea-ascension-permissions-title">¿Quién puede ascender a quién?</h2><p>Permisos <strong>acumulativos</strong> según el cargo del responsable y la <strong>categoría de destino</strong> del agente.</p></div><div class="dea-ascension-permissions-grid">${cards.map(x=>`<article class="dea-ascension-permission ${x.tone}"><span>${esc(x.name)}</span><strong>${esc(x.range)}</strong><p>${esc(x.detail)}</p></article>`).join('')}</div><p class="dea-ascension-permissions-note"><strong>R1:</strong> formación de 45 minutos gestionada en la sala de Habbo; el expediente web empieza en R2. <strong>R7, R8, R9 y R10:</strong> sus rangos internos siguen pendientes de confirmación y no deben activarse ascensos a nombres sin definir. Todos los ascensos exigen comprobación presencial, cumplimiento del plazo y <strong>verificación del permiso en el servidor mediante Discord</strong>; conocer el enlace de una miniapp no concede autorización.</p></section>`;
 }

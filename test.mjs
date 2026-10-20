@@ -371,3 +371,17 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  assert.doesNotMatch(page('inicio',false),/WEB CHECK SCAN/);
  assert.match(page('inicio',false),/DEA HABBO ES · Preinauguración/);
 });
+
+test('Search Console: archivo de propiedad disponible sin activar indexación',async()=>{
+ const verification=await readFile(new URL('./google8fa052a4ee6eb69c.html',import.meta.url),'utf8');
+ const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ const vercel=await readFile(new URL('./vercel.json',import.meta.url),'utf8');
+ const robots=await readFile(new URL('./robots.txt',import.meta.url),'utf8');
+ assert.equal(verification.trim(),'google-site-verification: google8fa052a4ee6eb69c.html');
+ assert.ok(build.includes("'google8fa052a4ee6eb69c.html'"),'El build debe publicarlo en la raíz');
+ assert.ok(html.includes('noindex,nofollow,noarchive,nosnippet'));
+ assert.ok(vercel.includes('X-Robots-Tag'));
+ assert.ok(vercel.includes('noindex, nofollow, noarchive, nosnippet'));
+ assert.ok(robots.includes('User-agent: *'));
+ assert.ok(!build.includes("'sitemap.xml'"),'Sin sitemap hasta la inauguración');
+});

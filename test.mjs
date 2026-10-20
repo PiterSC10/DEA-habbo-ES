@@ -242,13 +242,19 @@ test('Neones en parte superior de área pública, sin cambiar portada',()=>{
  assert.ok(!page('inicio').includes('dea-public-neon-nav'));
  assert.ok(!page('vip').includes('dea-public-neon-nav'));
 });
-test('Tabla completa: 35 rangos individuales y cuatro categorías pendientes',()=>{
+test('Tabla completa: 61 rangos internos oficiales R1–R10',()=>{
  const h=page('publico/jerarquia');
  const table=h.match(/<table class="dea-rank-table">([\s\S]*?)<\/table>/)?.[1];
  assert.ok(table,'Falta la tabla R1–R10');
- assert.equal(table.split('class="dea-rank-chip"').length-1,39);
+ assert.equal(table.split('class="dea-rank-chip"').length-1,61);
  for(const x of ['Cadete','Agente de Enlace','Instructor en Jefe','Estratega en División','Supervisor de Unidad','Jefe de Dirección','R7','R8','R9','R10','130 c','240 c','500 c'])assert.ok(h.includes(x),x);
  assert.ok(h.includes('Cerrar ventana'));
+});
+test('Escalafón PDF: 26 nuevos rangos R7–R10 visibles',()=>{
+ const h=page('publico/jerarquia');
+ const names=['Delegado Dir. Cadetes','Delegado Dir. Agentes','Delegado Dir. Elite','Delegado Dir. Logística','Delegado Dir. Base','Delegado Dir. Advisor','Delegado Dir. General','Delegado Dir. Jefe','Secretario Base','Secretario Advisor I','Secretario Advisor II','Secretario Advisor III','Secretario Coord. I','Secretario Coord. II','Secretario Coord. III','Secretario General','Secretario en Jefe','Líder en Formación','Líder de Base','Líder de Division','Líder de General','Líder de Coorp','Mánager en Formación','Mánager de PBL','Mánager de RRHH','Mánager MKT'];
+ assert.equal(names.length,26);
+ for(const n of names)assert.ok(h.includes(n),'Falta: '+n);
 });
 test('Rangos y ascensos: autoridad acumulativa hasta R5, R7 y R10 en tabla y sección final',()=>{
  const view=page('publico/jerarquia');
@@ -261,7 +267,7 @@ test('Rangos y ascensos: autoridad acumulativa hasta R5, R7 y R10 en tabla y sec
  assert.match(view,/Directores · Managers · Founders/);
  assert.match(view,/Managers · Founders/);
  assert.match(view,/Formación presencial en Habbo/);
- assert.match(view,/R7, R8, R9 y R10:[\s\S]*?pendientes de confirmación/);
+ assert.match(view,/R7, R8, R9 y R10:[\s\S]*?nombres internos ya están publicados/);
  assert.match(view,/verificación del permiso en el servidor mediante Discord/);
  assert.ok(view.indexOf('Ingreso gratuito o compra presencial')<view.indexOf('¿Quién puede ascender a quién?'),'La normativa queda al final');
 });

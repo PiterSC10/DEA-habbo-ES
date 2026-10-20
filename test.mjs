@@ -157,15 +157,34 @@ test('La contraseña no figura en claro en JavaScript y la puerta no suplanta Di
 });
 
 
-test('Ninguna página visible incluye créditos personales en pie o marca de agua',()=>{
- for(const p of ['inicio','vip','identificacion/vip','unete','ficha','publico','publico/jerarquia']){
-  const screen=page(p);
-  assert.doesNotMatch(screen,/YourDesignGPT|yourdesigngpt\.netlify\.app|Designed by|Diseñado por/);
+test('Pie 2026 visible en todas las vistas posteriores al acceso, con Powered by enlazado y los cuatro Founders',()=>{
+ for(const p of ['inicio','vip','identificacion/vip','identificacion/alta','identificacion/agente','unete','ficha','publico','publico/agencia','publico/jerarquia','publico/placas','publico/departamentos','publico/founders','publico/ingreso','publico/normativa']){
+  const screen=page(p,true);
+  assert.match(screen,/© 2026 DEA HABBO ES/);
+  assert.match(screen,/Powered by <a href="https:\/\/yourdesigngpt\.netlify\.app\/"/);
+  assert.match(screen,/YourDesignGPT<\/a>[^<]*<span[^>]*>·<\/span> 10PEDRO/);
+  for(const nick of ['10PEDRO','KietsyAndrea','lesslie.ar','XPE_34'])assert.ok(screen.includes(nick),p+' missing '+nick);
+  assert.match(screen,/No afiliada, patrocinada ni respaldada por Habbo ni Sulake/);
  }
- const gate=page('inicio',false);
- assert.doesNotMatch(gate,/10PEDRO|YourDesignGPT|yourdesigngpt\.netlify\.app|Designed by|Diseñado por/);
- assert.match(gate,/DEA HABBO ES · Preinauguración/);
- assert.match(page('inicio'),/© DEA HABBO ES · Comunidad independiente/);
+});
+test('En la pantalla de contraseña NO aparecen créditos, Founders ni pie editorial',()=>{
+ for(const p of ['inicio','vip','identificacion/vip','identificacion/alta','publico/jerarquia']){
+  const gate=page(p,false);
+  assert.match(gate,/DEA HABBO ES · Preinauguración/);
+  assert.doesNotMatch(gate,/© 2026|YourDesignGPT|10PEDRO|KietsyAndrea|lesslie\.ar|XPE_34|No afiliada/);
+ }
+});
+test('Los cuatro lanzadores Founder incluyen el pie 2026 sin enlazar el nombre 10PEDRO',async()=>{
+ for(const slug of ['10pedro','kietsyandrea','lesslie-ar','xpe-34']){
+  const launcher=await readFile(new URL('./founder-'+slug+'.html',import.meta.url),'utf8');
+  const footer=launcher.match(/<footer class="dea-founder-footer">([\s\S]*?)<\/footer>/)?.[1];
+  assert.ok(footer,'Falta pie en '+slug);
+  assert.match(footer,/© 2026 DEA HABBO ES/);
+  assert.match(footer,/href="https:\/\/yourdesigngpt\.netlify\.app\/"/);
+  assert.doesNotMatch(footer,/<a[^>]+>10PEDRO<\/a>/);
+  for(const nick of ['10PEDRO','KietsyAndrea','lesslie.ar','XPE_34'])assert.ok(footer.includes(nick));
+  assert.match(footer,/Habbo ni Sulake/);
+ }
 });
 
 test('SEO de preinauguración: canónica Vercel y fichas sociales sin datos personales',async()=>{

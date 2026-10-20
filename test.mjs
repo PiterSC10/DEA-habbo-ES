@@ -301,3 +301,36 @@ test('Lanzadores sin tokens y con enlace por Founder a Discord/Apps Script',asyn
  assert.match(build,/founder-app.js/);
  assert.doesNotMatch(build,/FounderControl\.gs|Code\.gs|Portal\.html/);
 });
+
+test('Dos miniapps generales de Directores y Managers con límites acumulativos y sin acceso automático',async()=>{
+ const configs=[
+  ['directores-deawebapp.html','director','Hasta R5','R2–R5'],
+  ['managers-deawebapp.html','manager','Hasta R7','R2–R7']
+ ];
+ for(const [file,role,,range] of configs){
+  const html=await readFile(new URL('./'+file,import.meta.url),'utf8');
+  assert.match(html,new RegExp('data-dea-role="'+role+'"'));
+  assert.ok(html.includes('HASTA R'+(role==='director'?5:7)));
+  assert.ok(html.includes(range));
+  assert.match(html,/IDENTIFICARME CON DISCORD/);
+  assert.match(html,/id="dea-role-enter"/);
+  assert.match(html,/La identidad y los límites se comprueban en Google Apps Script/);
+  assert.match(html,/La autorización de operaciones de este cargo debe activarse y probarse/);
+  assert.doesNotMatch(html,/name="discord_id"|role="founder"|data-form="ascenso"/);
+  assert.match(html,/© 2026 DEA HABBO ES/);
+  assert.match(html,/Habbo ni Sulake/);
+  assert.match(html,/noindex,nofollow,noarchive,nosnippet/);
+ }
+ const launcher=await readFile(new URL('./dea-cargos.js',import.meta.url),'utf8');
+ assert.match(launcher,/role==='director'/);
+ assert.match(launcher,/role==='manager'/);
+ assert.match(launcher,/\?start=direct&panel=/);
+ assert.doesNotMatch(launcher,/client_secret|DISCORD_CLIENT_SECRET|access_token|sessionStorage|localStorage/);
+ const stylesheet=await readFile(new URL('./dea-cargos.css',import.meta.url),'utf8');
+ assert.match(stylesheet,/dea-role-director/);
+ assert.match(stylesheet,/dea-role-manager/);
+ const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ for(const file of ['directores-deawebapp.html','managers-deawebapp.html','dea-cargos.js','dea-cargos.css'])
+  assert.ok(build.includes(file),file);
+ assert.doesNotMatch(build,/RoleControl\.gs|Code\.gs|Portal\.html/);
+});

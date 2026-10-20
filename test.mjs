@@ -247,9 +247,9 @@ test('Rangos y ascensos: autoridad acumulativa hasta R5, R7 y R10 en tabla y sec
  assert.match(view,/¿Quién puede ascender a quién\?/);
  assert.match(view,/Permisos <strong>acumulativos<\/strong>/);
  assert.match(view,/Quién puede autorizar/);
- assert.match(view,/DIRECTORES[\s\S]*?Hasta R5/);
- assert.match(view,/MANAGERS[\s\S]*?Hasta R7/);
- assert.match(view,/FOUNDERS[\s\S]*?Hasta R10/);
+ assert.match(view,/DIRECTORES[\s\S]*?Ascensos hasta R5 incluido/);
+ assert.match(view,/MANAGERS[\s\S]*?Ascensos hasta R7 incluido/);
+ assert.match(view,/FOUNDERS[\s\S]*?Ascensos hasta R10 incluido/);
  assert.match(view,/Directores · Managers · Founders/);
  assert.match(view,/Managers · Founders/);
  assert.match(view,/Formación presencial en Habbo/);

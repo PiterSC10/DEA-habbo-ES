@@ -236,10 +236,33 @@ test('Neones en parte superior de área pública, sin cambiar portada',()=>{
 });
 test('Tabla completa: 35 rangos individuales y cuatro categorías pendientes',()=>{
  const h=page('publico/jerarquia');
- assert.equal(h.split('class="dea-rank-chip"').length-1,39);
+ const table=h.match(/<table class="dea-rank-table">([\s\S]*?)<\/table>/)?.[1];
+ assert.ok(table,'Falta la tabla R1–R10');
+ assert.equal(table.split('class="dea-rank-chip"').length-1,39);
  for(const x of ['Cadete','Agente de Enlace','Instructor en Jefe','Estratega en División','Supervisor de Unidad','Jefe de Dirección','R7','R8','R9','R10','130 c','240 c','500 c'])assert.ok(h.includes(x),x);
  assert.ok(h.includes('Cerrar ventana'));
 });
+test('Rangos y ascensos: autoridad acumulativa hasta R5, R7 y R10 en tabla y sección final',()=>{
+ const view=page('publico/jerarquia');
+ assert.match(view,/¿Quién puede ascender a quién\?/);
+ assert.match(view,/Permisos <strong>acumulativos<\/strong>/);
+ assert.match(view,/Quién puede autorizar/);
+ assert.match(view,/DIRECTORES[\s\S]*?Hasta R5/);
+ assert.match(view,/MANAGERS[\s\S]*?Hasta R7/);
+ assert.match(view,/FOUNDERS[\s\S]*?Hasta R10/);
+ assert.match(view,/Directores · Managers · Founders/);
+ assert.match(view,/Managers · Founders/);
+ assert.match(view,/Formación presencial en Habbo/);
+ assert.match(view,/R7, R8, R9 y R10:[\s\S]*?pendientes de confirmación/);
+ assert.match(view,/verificación del permiso en el servidor mediante Discord/);
+ assert.ok(view.indexOf('Ingreso gratuito o compra presencial')<view.indexOf('¿Quién puede ascender a quién?'),'La normativa queda al final');
+});
+test('Normativa no invade Placas, preinauguración ni la portada principal',()=>{
+ for(const route of ['inicio','publico/placas','vip'])assert.doesNotMatch(page(route),/dea-ascension-permissions/);
+ assert.doesNotMatch(page('publico/jerarquia',false),/dea-ascension-permissions/);
+ assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,2);
+});
+
 test('Catálogo de placas: seis espacios provisionales, sin precios ficticios',()=>{
  const h=page('publico/placas');
  assert.equal(h.split('class="dea-plaque-card"').length-1,6);

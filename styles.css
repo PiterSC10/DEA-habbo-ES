@@ -202,3 +202,20 @@
 .dea-credit-disclaimer{font-size:10.5px;line-height:1.7;color:#91a9bf;max-width:920px;margin:5px auto 0}
 .home-foot,.foot{padding:18px 16px 22px}
 @media(max-width:560px){.dea-credit-main{font-size:11px}.dea-credit-founders{font-size:10.5px}.dea-credit-disclaimer{font-size:10px}}
+
+/* DEA: niveles acumulativos de autorizacion al final de Rangos y Ascensos. */
+.dea-ascension-permissions{margin:25px 0 0;padding:20px;border:1px solid #5b8099;border-radius:14px;background:linear-gradient(145deg,#102f46,#102539);color:#deebf5}
+.dea-ascension-permissions-head h2{font-size:20px;color:#f4e1b4;margin:10px 0 7px}
+.dea-ascension-permissions-head p{color:#c3d8e9;font-size:12px;line-height:1.8;margin:0 0 16px}
+.dea-ascension-permissions-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.dea-ascension-permission{display:flex;flex-direction:column;gap:7px;min-width:0;padding:17px;border-radius:12px;border:1px solid #547a9b;background:#163349}
+.dea-ascension-permission.director{border-color:#54b7e9}
+.dea-ascension-permission.manager{border-color:#f2c577;background:#302d2c}
+.dea-ascension-permission.founder{border-color:#96d8b6;background:#173a3e}
+.dea-ascension-permission span{font-size:11px;letter-spacing:.09em;font-weight:850;color:#cfebff}
+.dea-ascension-permission.manager span{color:#f6d799}
+.dea-ascension-permission.founder span{color:#a6edc7}
+.dea-ascension-permission strong{color:#fff;font-size:21px}
+.dea-ascension-permission p{font-size:12px;line-height:1.7;color:#cbdce9;margin:0}
+.dea-ascension-permissions-note{margin:16px 0 0;padding:12px 14px;border-left:3px solid #e8be72;border-radius:6px;background:#0c2435;font-size:11px;line-height:1.85;color:#c6dceb}
+@media(max-width:770px){.dea-ascension-permissions-grid{grid-template-columns:1fr}.dea-ascension-permission{padding:13px}.dea-ascension-permission strong{font-size:19px}.dea-ascension-permissions{padding:14px}}

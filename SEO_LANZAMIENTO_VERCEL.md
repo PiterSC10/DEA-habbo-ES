@@ -1,4 +1,19 @@
-# DEA HABBO ES — SEO técnico de preinauguración (Vercel)
+# DEA HABBO ES — SEO público y registro histórico de preinauguración (Vercel)
+
+## ESTADO ACTUAL · APERTURA PÚBLICA PARA GOOGLE (20/10/2026)
+
+**La dirección del proyecto ha autorizado ahora la indexación pública.** Las fases anteriores de este documento conservan el historial de preinauguración, pero ya no describen el estado deseado.
+
+- La portada institucional `/` deja de pedir la contraseña de vista previa. Se mantienen sus tres accesos y el diseño original. El VIP y los expedientes siguen en Apps Script, con Discord OAuth2 y comprobación de permisos del servidor.
+- Se retira el `noindex` GLOBAL únicamente de la web institucional; los **seis lanzadores privados** mantienen meta `noindex` y cabeceras X-Robots-Tag por archivo. El portal Apps Script privado no se modifica.
+- Se publican seis páginas estáticas originales con URL amigable: `/agencia-habbo/`, `/rangos-habbo/`, `/departamentos/`, `/unirse-a-dea/`, `/normativa/` y `/founders/`; en total siete URLs incluyendo portada.
+- Se publica `/sitemap.xml` para páginas públicas y se referencia en `robots.txt`. No se incluyen miniapps, datos personales, paneles ni catálogos de placas pendientes.
+- El archivo HTML de verificación de Search Console se conserva intacto.
+- Tras publicar, enviar `https://dea-habbo-es.vercel.app/sitemap.xml` en Google Search Console y solicitar indexación de la URL principal y de las páginas relevantes. Google decide el rastreo y la posición, sin garantías de plazos ni resultados.
+
+---
+
+
 
 **Dominio principal:** https://dea-habbo-es.vercel.app/
 

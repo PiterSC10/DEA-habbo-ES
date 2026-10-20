@@ -1,7 +1,5 @@
-# DEA HABBO ES V6: preinauguracion.
-# Permitimos el rastreo para que los buscadores lean las directivas NOINDEX
-# de index.html y de las cabeceras X-Robots-Tag de Vercel.
-# Esto NO concede acceso al panel privado.
-# No declarar Sitemap hasta publicar paginas publicas realmente indexables.
+# DEA HABBO ES · web institucional pública. Acceso administrativo protegido por Discord OAuth2 y servidor.
 User-agent: *
 Allow: /
+
+Sitemap: https://dea-habbo-es.vercel.app/sitemap.xml

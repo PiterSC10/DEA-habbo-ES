@@ -323,7 +323,9 @@
       button.setAttribute("aria-label","Abrir WEB CHECK SCAN V6");
       button.setAttribute("aria-haspopup","dialog");
       button.addEventListener("click",show);
-      foot.append(button);
+      // Integración discreta junto al copyright, antes de los avisos legales.
+      const credits=foot.querySelector(".dea-credit-main");
+      (credits||foot).append(button);
     }
   }
   decorateFooter();

@@ -12,7 +12,8 @@ function page(route,unlocked=true){
  const document={getElementById(){return root},title:''};
  const window={addEventListener(){}};
  const sessionStorage={getItem(){return unlocked?'yes':null},setItem(){},removeItem(){}};
- const app=runInNewContext(catalogs+'\n'+src+'\n({render})',{document,location,window,sessionStorage});
+ const runtime=src.replace('const PUBLIC_SITE_LIVE=true','const PUBLIC_SITE_LIVE='+String(unlocked));
+ const app=runInNewContext(catalogs+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
 test('Portada tiene las tres ventanas y no una barra lateral',()=>{
@@ -202,19 +203,26 @@ test('SEO de preinauguración: canónica Vercel y fichas sociales sin datos pers
  assert.equal(ld.name,'DEA HABBO ES');
 });
 
-test('Preinauguración permanece explícitamente fuera de Google, sin sitemap abierto',async()=>{
+test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
  const vercel=JSON.parse(await readFile(new URL('./vercel.json',import.meta.url),'utf8'));
- const headers=vercel.headers.flatMap(h=>h.headers);
- const robots=headers.find(h=>h.key.toLowerCase()==='x-robots-tag');
- assert.match(robots.value,/noindex/);
- assert.match(html,/<meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/);
+ const global=vercel.headers.find(h=>h.source==='/(.*)');
+ assert.ok(global);
+ assert.ok(!global.headers.some(h=>h.key==='X-Robots-Tag'),'Nunca noindex global');
+ assert.ok(html.includes('content="index,follow,max-image-preview:large"'));
+ const privateFiles=['founder-10pedro.html','founder-kietsyandrea.html','founder-lesslie-ar.html','founder-xpe-34.html','directores-deawebapp.html','managers-deawebapp.html'];
+ for(const f of privateFiles){
+  const entry=vercel.headers.find(x=>x.source==='/'+f);
+  assert.ok(entry&&entry.headers.some(h=>h.key==='X-Robots-Tag'&&h.value.includes('noindex')),f);
+  const privateHtml=await readFile(new URL('./'+f,import.meta.url),'utf8');
+  assert.ok(privateHtml.includes('noindex,nofollow,noarchive,nosnippet'),f);
+ }
  const crawler=await readFile(new URL('./robots.txt',import.meta.url),'utf8');
- assert.match(crawler,/User-agent: \*/);
- assert.match(crawler,/Allow: \/\s*$/m);
- assert.doesNotMatch(crawler,/^Sitemap:/m);
- const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
- assert.match(build,/robots\.txt/);
- assert.match(src,/PREVIEW_SESSION_KEY/);
+ assert.ok(crawler.includes('User-agent: *'));
+ assert.ok(crawler.includes('Sitemap: https://dea-habbo-es.vercel.app/sitemap.xml'));
+ assert.ok(src.includes('const PUBLIC_SITE_LIVE=true'));
+ assert.ok(page('inicio',true).includes('class="choice vip"'));
+ assert.ok(page('publico/jerarquia',true).includes('dea-catalog-window'));
+ assert.ok(!page('inicio',true).includes('data-preview-login'));
 });
 
 test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portada',()=>{
@@ -269,13 +277,13 @@ test('Catálogo de placas: seis espacios provisionales, sin precios ficticios',(
  for(const x of ['Precio por definir','Beneficio por definir','Emblema DEA provisional','No está a la venta'])assert.ok(h.includes(x),x);
  assert.ok(!h.includes('checkout'));
 });
-test('Preinauguración protege ambas vistas; noindex preservado',()=>{
+test('La puerta de preinauguración existe para vista previa heredada, pero no en producción',()=>{
  for(const p of ['publico/jerarquia','publico/placas']){
   const h=page(p,false);
   assert.ok(h.includes('PREINAUGURACIÓN'));
   assert.ok(!h.includes('dea-catalog-window'));
  }
- assert.ok(html.includes('noindex,nofollow,noarchive,nosnippet'));
+ assert.ok(html.includes('index,follow,max-image-preview:large'));
 });
 
 test('Cuatro páginas Founder individuales, visibles directamente sin la portada',async()=>{
@@ -372,16 +380,28 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  assert.match(page('inicio',false),/DEA HABBO ES · Preinauguración/);
 });
 
-test('Search Console: archivo de propiedad disponible sin activar indexación',async()=>{
+test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
  const verification=await readFile(new URL('./google8fa052a4ee6eb69c.html',import.meta.url),'utf8');
  const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
- const vercel=await readFile(new URL('./vercel.json',import.meta.url),'utf8');
- const robots=await readFile(new URL('./robots.txt',import.meta.url),'utf8');
+ const sitemap=await readFile(new URL('./sitemap.xml',import.meta.url),'utf8');
+ const cssSEO=await readFile(new URL('./seo-public.css',import.meta.url),'utf8');
  assert.equal(verification.trim(),'google-site-verification: google8fa052a4ee6eb69c.html');
- assert.ok(build.includes("'google8fa052a4ee6eb69c.html'"),'El build debe publicarlo en la raíz');
- assert.ok(html.includes('noindex,nofollow,noarchive,nosnippet'));
- assert.ok(vercel.includes('X-Robots-Tag'));
- assert.ok(vercel.includes('noindex, nofollow, noarchive, nosnippet'));
- assert.ok(robots.includes('User-agent: *'));
- assert.ok(!build.includes("'sitemap.xml'"),'Sin sitemap hasta la inauguración');
+ assert.ok(build.includes("'google8fa052a4ee6eb69c.html'"));
+ assert.ok(build.includes("'sitemap.xml'"));
+ assert.ok(build.includes("'seo-public.css'"));
+ assert.ok(cssSEO.includes('@media(max-width:640px)'));
+ assert.ok(sitemap.includes('https://dea-habbo-es.vercel.app/'));
+ for(const slug of ['agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders']){
+  const p=await readFile(new URL('./'+slug+'/index.html',import.meta.url),'utf8');
+  assert.ok(sitemap.includes('https://dea-habbo-es.vercel.app/'+slug+'/'),slug);
+  assert.ok(p.includes('<meta name="robots" content="index,follow'),slug);
+  assert.ok(p.includes('<link rel="canonical" href="https://dea-habbo-es.vercel.app/'+slug+'/">'),slug);
+  assert.ok(p.includes('<h1>'),slug);
+  assert.ok(p.includes('DEA HABBO ES'),slug);
+  assert.ok(!p.includes('DISCORD_CLIENT_SECRET')&&!p.includes('google.script.run'),slug);
+  assert.ok(build.includes("'"+slug+"'"),slug);
+ }
+ assert.ok(page('inicio',true).includes('/rangos-habbo/'));
+ assert.ok(html.includes('index,follow,max-image-preview:large'));
 });
+

@@ -18,12 +18,22 @@ jobs:
         run: npm run check
       - name: Compilar sitio estático
         run: npm run build
-      - name: Comprobar salida de preinauguración
+      - name: Comprobar salida pública indexable y privacidad
         run: |
           test -f dist/catalogo-publico.js
           test -f dist/app.js
           test -f dist/robots.txt
-          grep -q 'noindex,nofollow,noarchive,nosnippet' dist/index.html
-          test ! -e dist/sitemap.xml
+          grep -q 'index,follow,max-image-preview:large' dist/index.html
+          test -f dist/sitemap.xml
+          test -f dist/google8fa052a4ee6eb69c.html
+          test -f dist/seo-public.css
+          for folder in agencia-habbo rangos-habbo departamentos unirse-a-dea normativa founders; do
+            test -f "dist/$folder/index.html"
+            grep -q 'index,follow,max-image-preview:large' "dist/$folder/index.html"
+          done
+          for file in founder-10pedro founder-kietsyandrea founder-lesslie-ar founder-xpe-34 directores-deawebapp managers-deawebapp; do
+            grep -q 'noindex,nofollow,noarchive,nosnippet' "dist/$file.html"
+          done
           test ! -e dist/test.mjs
           test ! -e dist/README.md
+          test ! -e dist/Code.gs

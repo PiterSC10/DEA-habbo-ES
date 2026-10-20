@@ -215,7 +215,7 @@
       ["Navigation System",async()=>{const s=await read("./app.js");return hasAll(s,["ACCESO VIP","ÚNETE A DEA","WEB PÚBLICA"])?verified("Tres accesos originales y navegación SPA documentados.","MODULE DETECTED"):inconclusive("Revisar el código de navegación.");}],
       ["Corporate Visual Identity",async()=>{const x=await Promise.allSettled([read("./logo-dea-es.png","check"),read("./aguila-dea-original.jpg","check")]);const num=x.filter(a=>a.status==="fulfilled").length;return num===2?verified("Escudo y águila originales accesibles: 2/2.","CHECK COMPLETED"):inconclusive("Recursos visuales accesibles: "+num+"/2.");}],
       ["Mobile Compatibility",async()=>{const s=await read("./styles.css");return q('meta[name="viewport"]')&&s.includes("@media")?verified("Viewport y media queries presentes; prueba real en dispositivo no incluida.","CONFIGURED"):inconclusive("Faltan viewport o reglas de adaptación.");}]
-    ],
+    ]],
     ["WEB APPLICATION",[
       ["Public Information Portal",async()=>{const s=await read("./app.js");return hasAll(s,["publico/agencia","publico/jerarquia","publico/founders","publico/normativa"])?verified("Secciones institucionales y rutas declaradas.","MODULE DETECTED"):inconclusive("No se encontraron todas las secciones públicas.");}],
       ["R1–R10 Rank Structure",async()=>{const s=await read("./app.js");const total=Array.from({length:10},(_,i)=>"id:'R"+(i+1)+"'").filter(id=>s.includes(id)).length;return total===10?verified("Diez categorías detectadas; detalles internos R7–R10 aún por confirmar.","MODULE DETECTED"):inconclusive("Se detectaron "+total+" de las 10 categorías.");}],
@@ -224,7 +224,7 @@
       ["Founder Access Launchers",async()=>{const files=["founder-10pedro.html","founder-kietsyandrea.html","founder-lesslie-ar.html","founder-xpe-34.html"];const x=await Promise.allSettled(files.map(v=>read("./"+v,"check")));const n=x.filter(y=>y.status==="fulfilled").length;return n===4?verified("Cuatro lanzadores públicos accesibles. No prueba permisos Founder.","CHECK COMPLETED"):inconclusive("Lanzadores accesibles: "+n+"/4.");}],
       ["Directors WebApp",async()=>await read("./directores-deawebapp.html","check")?documented("Lanzador de Directores disponible; la operación de ascensos R5 requiere validación privada."):inconclusive("No se encontró el lanzador.")],
       ["Managers WebApp",async()=>await read("./managers-deawebapp.html","check")?documented("Lanzador de Managers disponible; la operación de ascensos R7 requiere validación privada."):inconclusive("No se encontró el lanzador.")]
-    ],
+    ]],
     ["INTEGRATIONS & DATABASE",[
       ["Discord OAuth2 Configuration",async()=>pending("Configuración indicada en documentación; no se verifica sesión, callback ni autorización OAuth2.")],
       ["Google Apps Script Connection",async()=>pending("Enlace de integración documentado; no se realiza petición a la implementación privada.")],
@@ -233,7 +233,7 @@
       ["Promotion Management",async()=>pending("Exige pruebas con identidades reales: Director R5/R6, Manager R7/R8 y Founder R10.")],
       ["Payroll & Extra Payments",async()=>pending("Las nóminas y pagas extraordinarias requieren validación de operaciones en Apps Script.")],
       ["Audit Log Architecture",async()=>pending("Los registros y la trazabilidad requieren inspección autorizada del backend.")]
-    ],
+    ]],
     ["INFRASTRUCTURE",[
       ["GitHub Repository",async()=>documented("Repositorio público DEA-habbo-ES documentado; GitHub externo no consultado en esta revisión.")],
       ["Vercel Deployment",async()=>location.hostname.endsWith(".vercel.app")?verified("Página servida desde un hostname de Vercel; no equivale a prueba de todos los endpoints.","MODULE DETECTED"):documented("Despliegue en Vercel documentado; entorno actual no confirmado por dominio.")],

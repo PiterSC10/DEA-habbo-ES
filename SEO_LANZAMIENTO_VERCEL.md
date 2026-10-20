@@ -53,3 +53,11 @@ Estas rutas son **propuestas, no están publicadas**. Crear contenido original y
 - No se ha creado ni enviado una propiedad en Google Search Console; hace falta verificar titularidad y contar con páginas HTML reales y aptas para indexación.
 - Validar previamente: seis URL públicas deben devolver HTTP 200 y HTML propio, contenido visible para Google, canonical individual, ausencia de gate exclusivo al visitar la página pública tras inauguración y separación estricta del portal VIP.
 - Se mantiene sin cambios la pantalla original de preinauguración y las directivas de exclusión global. El sitemap aprobado se moverá a `dist/sitemap.xml` **solo el día del lanzamiento**, tras la autorización explícita del responsable.
+
+## Verificación de titularidad en Google Search Console (20/10/2026)
+
+Se incorpora el archivo `google8fa052a4ee6eb69c.html` facilitado por Search Console y se publica en la raíz del dominio Vercel mediante la lista blanca `build.mjs`. URL de comprobación: https://dea-habbo-es.vercel.app/google8fa052a4ee6eb69c.html
+
+La propiedad de tipo **Prefijo de URL** deberá verificarse desde Google Search Console mediante el método **Archivo HTML**. No eliminar el archivo tras la verificación para conservar la titularidad.
+
+**No inicia indexación:** se conservan `noindex`, `X-Robots-Tag` y preinauguración; no se publica un sitemap hasta el lanzamiento aprobado. No se modifica OAuth, Apps Script ni el panel privado.

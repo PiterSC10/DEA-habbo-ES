@@ -190,3 +190,15 @@
 @media(max-width:710px){.dea-public-neon-nav{gap:8px}.dea-neon-link{padding:10px;min-height:80px;gap:7px;border-radius:11px}.dea-neon-link svg:first-child{width:21px}.dea-neon-link svg:last-child{display:none}.dea-neon-link strong{font-size:10px;letter-spacing:0}.dea-neon-link small{font-size:9px}.dea-catalog-window{padding:0 12px 20px}.dea-catalog-window-bar{margin:0 -12px 18px;padding:10px 12px;font-size:10px}.dea-plaque-grid{gap:10px}.dea-plaque-card{padding:11px}.dea-plaque-image{height:109px}.dea-plaque-image img{width:65px;height:65px}.dea-plaque-card h3{font-size:13px}.dea-plaque-price{font-size:14px}.dea-tariff-grid{grid-template-columns:1fr}}
 @media(max-width:380px){.dea-neon-link svg:first-child{display:none}.dea-plaque-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.dea-neon-link{transition:none!important}}
+
+
+/* Pie editorial DEA 2026. No se aplica a la pantalla de contraseña de preinauguración. */
+.dea-credit-main{font-size:12px;font-weight:750;line-height:1.8;color:#dbeeff}
+.dea-credit-main a{color:#ebc87c;text-decoration:underline;text-underline-offset:3px}
+.dea-credit-main a:hover,.dea-credit-main a:focus-visible{color:#fff0c4}
+.dea-credit-main span{margin:0 .3em;color:#6e9abd}
+.dea-credit-founders{font-size:11px;line-height:1.65;color:#b6cce0;margin-top:4px}
+.dea-credit-founders strong{font-weight:750;color:#ebd4a0}
+.dea-credit-disclaimer{font-size:10.5px;line-height:1.7;color:#91a9bf;max-width:920px;margin:5px auto 0}
+.home-foot,.foot{padding:18px 16px 22px}
+@media(max-width:560px){.dea-credit-main{font-size:11px}.dea-credit-founders{font-size:10.5px}.dea-credit-disclaimer{font-size:10px}}

@@ -12,7 +12,7 @@ function page(route,unlocked=true){
  const document={getElementById(){return root},title:''};
  const window={addEventListener(){}};
  const sessionStorage={getItem(){return unlocked?'yes':null},setItem(){},removeItem(){}};
- const runtime=src.replace('const PUBLIC_SITE_LIVE=true','const PUBLIC_SITE_LIVE='+String(unlocked));
+ const runtime=src;
  const app=runInNewContext(catalogs+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
@@ -219,7 +219,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
  const crawler=await readFile(new URL('./robots.txt',import.meta.url),'utf8');
  assert.ok(crawler.includes('User-agent: *'));
  assert.ok(crawler.includes('Sitemap: https://dea-habbo-es.vercel.app/sitemap.xml'));
- assert.ok(src.includes('const PUBLIC_SITE_LIVE=true'));
+ assert.ok(src.includes('const PUBLIC_SITE_LIVE=false'));
  assert.ok(page('inicio',true).includes('class="choice vip"'));
  assert.ok(page('publico/jerarquia',true).includes('dea-catalog-window'));
  assert.ok(!page('inicio',true).includes('data-preview-login'));
@@ -283,7 +283,7 @@ test('Catálogo de placas: seis espacios provisionales, sin precios ficticios',(
  for(const x of ['Precio por definir','Beneficio por definir','Emblema DEA provisional','No está a la venta'])assert.ok(h.includes(x),x);
  assert.ok(!h.includes('checkout'));
 });
-test('La puerta de preinauguración existe para vista previa heredada, pero no en producción',()=>{
+test('La puerta de preinauguración está activa antes de los tres accesos',()=>{
  for(const p of ['publico/jerarquia','publico/placas']){
   const h=page(p,false);
   assert.ok(h.includes('PREINAUGURACIÓN'));

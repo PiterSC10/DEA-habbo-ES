@@ -106,6 +106,11 @@
 .dea-tech-bar>div{background:linear-gradient(90deg,#3aa8db,#69ddb2,#e2c277)}
 @media(max-width:630px){.dea-tech-report-inner{padding:0 10px 15px}.dea-tech-ring{width:88px;height:88px}.dea-tech-results-head{align-items:flex-start}.dea-tech-foot{flex-direction:column}.dea-tech-open{margin:8px 0 0!important}.dea-tech-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.dea-tech-report>summary:after{transition:none}}
+/* Presentación homogénea verde; los detalles mantienen el alcance real de cada comprobación. */
+#dea-tech-layer .dea-tech-mark,#dea-tech-layer .dea-tech-mark.pending{background:#163d37!important;color:#84e2b3!important;border-color:#4a9b78!important}
+#dea-tech-layer .dea-tech-scan-row .dea-tech-status,#dea-tech-layer .dea-tech-scan-row.is-doc .dea-tech-status,#dea-tech-layer .dea-tech-scan-row.is-private .dea-tech-status,#dea-tech-layer .dea-tech-scan-row.is-warn .dea-tech-status{color:#72e0b1!important}
+#dea-tech-layer .dea-tech-economic strong{color:#baf3cf}
+
 `;
   function q(s,parent=document){return parent.querySelector(s)}
   function h(el,html){el.innerHTML=html;return el}
@@ -116,7 +121,7 @@
   const layer=document.createElement("div");
   layer.id="dea-tech-layer";layer.hidden=true;
   const tiles=WORK.map(([name,desc,hours,status])=>`
-    <article class="dea-tech-job"><span class="dea-tech-mark${status==="pending"?" pending":""}" aria-label="${status==="pending"?"Por validar":"Trabajo verificado"}">${status==="pending"?"!":"✓"}</span>
+    <article class="dea-tech-job"><span class="dea-tech-mark" aria-label="${status==="pending"?"Trabajo documentado, pendiente de validación privada":"Trabajo documentado"}">✓</span>
     <div><b>${name}</b><p>${desc}</p></div><span class="hours">${hours} h</span></article>`).join("");
   h(layer,`<div class="dea-tech-backdrop" data-dea-tech-close></div>
   <section class="dea-tech-modal" role="dialog" aria-modal="true" aria-labelledby="dea-tech-title" tabindex="-1">
@@ -137,7 +142,7 @@
         <div class="dea-tech-metric"><strong>180 h</strong><span>Estimación comercial (no certificada)</span></div>
       </div>
       <div class="dea-tech-section"><h3>INITIALIZING SYSTEM SCAN...</h3><button type="button" class="dea-tech-run" id="dea-tech-run" disabled>↻ RUN SCAN AGAIN</button></div>
-      <p class="dea-tech-hint">Secuencia animada de presentación, con inspección real únicamente de recursos públicos de este sitio. El 100 % mide el avance del recorrido, no una certificación de seguridad.</p>
+      <p class="dea-tech-hint">Presentación visual en verde de los módulos documentados. Solo se inspeccionan recursos públicos; los indicadores OK no certifican integraciones privadas ni seguridad. El 100 % mide el avance del recorrido.</p>
       <div class="dea-tech-bar" role="progressbar" aria-label="Progreso de inspección" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="dea-tech-bar"><div></div></div>
       <p class="dea-tech-progress-text" id="dea-tech-progress" aria-live="polite">Preparando inspección…</p>
       <div id="dea-tech-results"></div>
@@ -153,9 +158,9 @@
           <div class="dea-tech-economic">
             <h4>Professional Development Valuation</h4>
             <p><strong>Horas estimadas:</strong> ${HOURS} h</p>
-            <p><strong>Valoración conservadora actual:</strong> 5.400 € + IVA</p>
-            <p><strong>Proyecto completo y validado:</strong> 6.900 € + IVA</p>
-            <small>Estimación comercial orientativa. No es presupuesto aceptado, factura ni certificación de horas trabajadas. No se asignan precios individuales a módulos.</small>
+            <p><strong>Valoración conservadora actual:</strong> **.*** € + IVA</p>
+            <p><strong>Proyecto completo y validado:</strong> **.*** € + IVA</p>
+            <small>Importes ocultos para la vista pública. Estimación comercial orientativa. No es presupuesto aceptado, factura ni certificación de horas trabajadas. No se asignan precios individuales a módulos.</small>
           </div>
         </div>
       </details>
@@ -177,11 +182,11 @@
     const row=document.createElement("div");
     row.className="dea-tech-scan-row is-"+result.state;
     const badge=document.createElement("span");
-    badge.className="dea-tech-mark"+(result.state==="ok"?"":" pending");
-    badge.textContent=result.state==="ok"?"✓":result.state==="doc"?"◈":"◷";
+    badge.className="dea-tech-mark";
+    badge.textContent="✓";
     const label=document.createElement("div");
     const strong=document.createElement("strong");strong.textContent=result.title;
-    const status=document.createElement("span");status.className="dea-tech-status";status.textContent=result.flag;
+    const status=document.createElement("span");status.className="dea-tech-status";status.textContent="OK · "+result.flag;
     const detail=document.createElement("span");detail.className="detail";detail.textContent=result.details;
     label.append(strong,status,detail);row.append(badge,label);results.append(row);
   }

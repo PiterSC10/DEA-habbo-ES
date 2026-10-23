@@ -1,0 +1,19 @@
+/* DEA RADIO — panel independiente del render de la SPA, sin reproducción ficticia. */
+(()=>{'use strict';
+const stations=[
+{name:'Colombia Lounge',style:'Chillout · Relax',url:'https://retunefm.com/radio/colombia-lounge/',icon:'🌴'},
+{name:'1.FM Chillout',style:'Lounge · Ambient',url:'https://ondacast.com/es/station/1-fm-chillout-lounge-radio',icon:'🎧'},
+{name:'Chillout Lounge',style:'Downtempo · Lounge',url:'https://tv.radiodune.com/station/chillout-lounge-radio',icon:'🌅'},
+{name:'Chilltrax',style:'Electrónica · Chill',url:'https://www.chilltrax.com/',icon:'🌙'}
+];let selected=0;
+const wrap=document.createElement('aside');wrap.className='dea-radio';wrap.setAttribute('aria-label','Radio DEA');
+wrap.innerHTML='<div class="dea-radio-mini"><span class="dea-radio-mark" aria-hidden="true">🎙</span><span class="dea-radio-identity"><strong>RADIO <em>DEA</em></strong><small data-dea-station>Colombia Lounge</small></span><button type="button" class="dea-radio-action" data-radio-list aria-label="Elegir emisora">☷</button><button type="button" class="dea-radio-action dea-radio-main" data-radio-open aria-label="Escuchar emisora seleccionada">▶</button><button type="button" class="dea-radio-action" data-radio-toggle aria-label="Abrir Radio DEA" aria-expanded="false">⌃</button></div><section class="dea-radio-panel" id="dea-radio-panel" hidden><header class="dea-radio-hero"><div><div class="dea-radio-emblem" aria-hidden="true">🎙</div><h2>RADIO <span>DEA</span></h2><p>TU MÚSICA MIENTRAS NAVEGAS POR DEA</p></div><div class="dea-radio-pixel" aria-hidden="true"><span>▥</span><span>♫</span><span>▥</span></div></header><p class="dea-radio-hint">Elige una emisora y escucha desde su reproductor oficial. La radio se abre en otra pestaña para que puedas seguir navegando por DEA.</p><div class="dea-radio-grid" data-radio-grid></div><div class="dea-radio-footer"><div><strong data-radio-current>Colombia Lounge</strong><small data-radio-style>Chillout · Relax</small></div><a data-radio-link href="https://retunefm.com/radio/colombia-lounge/" target="_blank" rel="noopener noreferrer">▶ Escuchar radio ↗</a></div><button type="button" class="dea-radio-close" data-radio-close aria-label="Cerrar panel de radio">×</button></section>';
+document.body.append(wrap);
+const grid=wrap.querySelector('[data-radio-grid]');grid.innerHTML=stations.map((s,i)=>'<button type="button" class="dea-radio-card" data-radio-choice="'+i+'"><span class="dea-radio-art" aria-hidden="true">'+s.icon+'</span><span><strong>'+s.name+'</strong><small>'+s.style+'</small></span><span class="dea-radio-eq" aria-hidden="true">▂▅▃▇▅</span></button>').join('');
+const panel=wrap.querySelector('.dea-radio-panel');const toggle=wrap.querySelector('[data-radio-toggle]');
+function select(i){selected=i;const s=stations[i];wrap.querySelector('[data-dea-station]').textContent=s.name;wrap.querySelector('[data-radio-current]').textContent=s.name;wrap.querySelector('[data-radio-style]').textContent=s.style;wrap.querySelector('[data-radio-link]').href=s.url;wrap.querySelectorAll('[data-radio-choice]').forEach((b,n)=>{b.classList.toggle('is-selected',n===i);b.setAttribute('aria-pressed',String(n===i))})}
+function expand(value){panel.hidden=!value;toggle.setAttribute('aria-expanded',String(value));toggle.textContent=value?'⌄':'⌃'}
+wrap.addEventListener('click',e=>{const choice=e.target.closest('[data-radio-choice]');if(choice){select(Number(choice.dataset.radioChoice));return}if(e.target.closest('[data-radio-toggle],[data-radio-list]')){expand(panel.hidden);return}if(e.target.closest('[data-radio-close]')){expand(false);return}if(e.target.closest('[data-radio-open]')){window.open(stations[selected].url,'_blank','noopener,noreferrer')}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)expand(false)});
+select(0);
+})();

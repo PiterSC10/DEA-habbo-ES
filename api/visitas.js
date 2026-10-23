@@ -22,11 +22,18 @@ export function createHandler({storage={get,list,put},clock=Date.now,configured=
  async function count(){const previous=await baseline(),today=dayOf(clock()),files=await scan(PREFIX);const data={total:previous.total+files.length,hoy:(previous.days[today]||0)+files.filter(b=>b.pathname.startsWith(PREFIX+today+'/')).length,fecha:today,zona:'Europe/Madrid',criterio:'Cada entrada o recarga de la página cuenta una visita'};cached={data,at:clock()};return data}
  return async function handler(req,res){
   function send(status,data){res.status(status);res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');if(status===200&&req.method==='GET')res.setHeader('Vercel-CDN-Cache-Control','public, s-maxage=60');res.end(JSON.stringify(data))}
-  if(!['GET','POST'].includes(req.method)){res.setHeader('Allow','GET, POST');return send(405,{error:'Método no permitido'})}
+    const origin=req.headers?.origin,allowed=!origin||origin==='https://dea-habbo-es.vercel.app'||origin==='https://pitersc10.github.io'||origin==='https://'+req.headers?.host;
+  if(!allowed)return send(403,{error:'Origen no permitido'});
+  // Public totals only; no credentials, user records or private panel data.
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers','Content-Type');
+  res.setHeader('Access-Control-Max-Age','86400');
+  if(req.method==='OPTIONS'){res.status(204);return res.end()}
+  if(!['GET','POST'].includes(req.method)){res.setHeader('Allow','GET, POST, OPTIONS');return send(405,{error:'Método no permitido'})}
   if(!configured())return send(503,{error:'Contador no configurado'});
   const token=req.body?.session;
   if(req.method==='POST'&&(typeof token!=='string'||!/^[a-f0-9]{32}$/.test(token)))return send(400,{error:'Identificador inválido'});
-  if(req.method==='POST'&&req.headers?.origin&&req.headers.origin!=='https://'+req.headers.host)return send(403,{error:'Origen no permitido'});
   try{
    if(req.method==='GET')return send(200,cached&&clock()-cached.at<60000&&cached.data.fecha===dayOf(clock())?cached.data:await count());
    await baseline(); // Never add a visit if its historical baseline cannot be read.

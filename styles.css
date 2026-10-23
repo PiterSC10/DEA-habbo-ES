@@ -394,3 +394,15 @@ html,body,#app{max-width:100%;min-width:0}
 .dea-plate .dea-stat-row{grid-template-columns:44px minmax(0,1fr) 38px;gap:5px;font-size:10px}
 .dea-plate [data-stat-since]{display:block;font-size:9px;line-height:1.5;color:#b7c8d9;margin-top:8px;overflow-wrap:anywhere}
 @media(max-width:710px){.dea-plate .dea-stats-inline{padding-top:7px}.dea-plate .dea-stats-bars{max-height:190px}}
+
+/* Compact chart inside DEA plate: weekday and DD/MM under every bar. */
+.dea-plate .dea-stats-bars{max-height:none!important;display:block!important;overflow:hidden!important}
+.dea-plate .dea-chart-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;padding:4px 0 8px;scrollbar-width:thin}
+.dea-plate .dea-chart-grid{display:grid;align-items:end;height:148px;gap:2px;min-width:100%}
+.dea-plate .dea-chart-item{height:148px;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:2px;color:#d9e6f3}
+.dea-plate .dea-chart-plot{height:100px;width:75%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.dea-plate .dea-chart-plot i{display:block;width:100%;max-width:26px;min-height:2px;border-radius:4px 4px 1px 1px;background:linear-gradient(180deg,#f5d18b,#b78338)}
+.dea-plate .dea-chart-value{font-size:9px;line-height:11px;color:#eacb93;white-space:nowrap}
+.dea-plate .dea-chart-day{font-size:9px;line-height:12px;white-space:nowrap;font-weight:700}
+.dea-plate .dea-chart-date{font-size:9px;line-height:12px;color:#adc5d8;white-space:nowrap}
+@media(max-width:710px){.dea-plate .dea-chart-grid,.dea-plate .dea-chart-item{height:142px}.dea-plate .dea-chart-plot{height:94px}}

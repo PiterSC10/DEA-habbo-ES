@@ -379,3 +379,18 @@ html,body,#app{max-width:100%;min-width:0}
 .dea-stat-track{height:12px;background:#25425b;border-radius:5px;overflow:hidden}
 .dea-stat-track i{display:block;height:100%;background:linear-gradient(90deg,#ba8b3e,#f9d48d);border-radius:5px;min-width:0}
 .dea-stats-modal footer{font-size:10px;color:#a5b8c9;margin-top:14px;line-height:1.5}
+
+/* Statistics belong inside the counter plate; never float or cover content. */
+.dea-plate:has(.dea-stats-inline){display:flex!important;flex-wrap:wrap!important;align-items:center}
+.dea-plate .dea-stats-inline{flex:0 0 100%;width:100%;min-width:0;max-width:100%;margin-top:8px;padding-top:8px;border-top:1px solid #b994514d;box-sizing:border-box}
+.dea-plate .dea-stats-trigger{display:flex;width:100%;margin:0;justify-content:space-between;border-radius:8px;padding:7px 10px;font-size:10px;line-height:1.4;white-space:normal}
+.dea-plate .dea-stats-content{width:100%;min-width:0;max-width:100%;margin-top:9px;box-sizing:border-box;overflow:hidden}
+.dea-plate .dea-stats-content[hidden]{display:none!important}
+.dea-plate .dea-stats-content nav{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px}
+.dea-plate .dea-stats-content nav button{flex:1 1 auto;min-width:0;border:1px solid #66819a;border-radius:7px;background:#18354d;color:#f4e4c7;font-size:10px;padding:7px 5px;cursor:pointer}
+.dea-plate .dea-stats-content nav button[aria-pressed=true]{background:#c89c50;color:#071a2b;font-weight:800}
+.dea-plate .dea-stats-summary{font-size:11px;margin:8px 0}
+.dea-plate .dea-stats-bars{max-height:230px;overflow-y:auto;overflow-x:hidden;display:grid;gap:5px}
+.dea-plate .dea-stat-row{grid-template-columns:44px minmax(0,1fr) 38px;gap:5px;font-size:10px}
+.dea-plate [data-stat-since]{display:block;font-size:9px;line-height:1.5;color:#b7c8d9;margin-top:8px;overflow-wrap:anywhere}
+@media(max-width:710px){.dea-plate .dea-stats-inline{padding-top:7px}.dea-plate .dea-stats-bars{max-height:190px}}

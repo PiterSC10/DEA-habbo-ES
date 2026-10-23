@@ -299,4 +299,4 @@ html,body{overflow-x:clip}
 /* Colores oficiales de chat: SOLO las palabras, sin pastillas ni fondos. */
 .dea-chat-label,.dea-role-meta .dea-chat-label,.dea-role summary .dea-chat-label{display:inline!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;margin:0!important;color:var(--chat-ink)!important;font-weight:700!important;font-size:inherit!important;line-height:inherit!important;box-shadow:none!important;text-shadow:none!important}
 /* El chat negro necesita contraste sobre el fondo oscuro, solo alrededor de las letras. */
-.dea-chat-label[style*="--chat-ink:#111111"]{background:#dce4ea!important;border-radius:2px!important;padding:0 3px!important}
+.dea-chat-label[style*="--chat-ink:#111111"]{background:transparent!important;border-radius:0!important;padding:0!important;text-shadow:-1px -1px 0 #dce4ea,1px -1px 0 #dce4ea,-1px 1px 0 #dce4ea,1px 1px 0 #dce4ea!important}

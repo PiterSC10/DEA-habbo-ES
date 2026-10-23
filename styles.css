@@ -431,3 +431,19 @@ html,body,#app{max-width:100%;min-width:0}
 .dea-footer-directory a{font-size:12px!important;line-height:1.45;color:#b9d1e3;text-decoration:none!important;border-bottom:1px solid transparent}
 .dea-footer-directory a:hover,.dea-footer-directory a:focus-visible{color:#f3d493;border-bottom-color:#f3d493}
 @media(max-width:440px){.dea-footer-directory{gap:12px;padding:16px 8px}.dea-footer-directory a{font-size:11px!important}}
+
+/* Home access hierarchy: public first, room guidance second, private founder last. */
+.dea-home-choices{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+.dea-home-choices .choice{min-height:275px;gap:11px;position:relative;overflow:hidden}
+.dea-home-choices .choice.public{background:linear-gradient(150deg,#124c72,#0a263d);border:1px solid #3c9ad0}
+.dea-home-choices .choice.join{background:linear-gradient(150deg,#43321d,#221d19);border:1px solid #c99b4e}
+.dea-home-choices .choice.vip{background:linear-gradient(150deg,#191b20,#0d1118);border:1px solid #aa874c}
+.dea-home-choices .choice.public .icon{color:#8bdcff}.dea-home-choices .choice.join .icon{color:#f5c772}.dea-home-choices .choice.vip .icon{color:#eac879}
+.dea-home-choices .dea-choice-tag{font-size:10px;letter-spacing:.08em;font-weight:800;color:#bde9ff}
+.dea-home-choices .choice.join .dea-choice-tag{color:#ffda90}.dea-home-choices .choice.vip .dea-choice-tag{color:#d5c39d}
+.dea-home-choices .choice strong{color:#fff}.dea-home-choices .choice.vip strong{color:#f4d593}.dea-home-choices .choice.join strong{color:#ffdda1}
+.dea-home-choices .dea-choice-alert{display:block;border-radius:9px;background:#1e1a17;border:1px solid #8e6c36;padding:10px;color:#f4ca7d;font-size:11px;line-height:1.5;font-weight:800}
+.dea-home-choices .dea-choice-alert em{display:block;color:#dcc8a6;font-size:11px;font-weight:400;font-style:normal;margin-top:5px}
+.dea-home-choices .dea-choice-cta{margin-top:auto;border-radius:8px;padding:10px 9px;background:#218ac4;color:#fff;font-size:11px;font-weight:850;text-align:center;letter-spacing:.03em}
+.dea-home-choices .choice.join .dea-choice-cta{background:#b98a42;color:#181d23}.dea-home-choices .choice.vip .dea-choice-cta{background:#3b3225;border:1px solid #957447;color:#f2d18c}
+@media(max-width:850px){.dea-home-choices{grid-template-columns:1fr;max-width:620px;margin-left:auto;margin-right:auto}.dea-home-choices .choice{min-height:0}}

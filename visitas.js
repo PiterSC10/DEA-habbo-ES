@@ -13,9 +13,9 @@
  async function request(){const s=session(),now=Date.now();if(s.registered&&latest&&now-lastRead<60000){paint();return;}
   const response=await fetch('/api/visitas',s.registered?{method:'GET'}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:s.id})});
   if(!response.ok)throw Error('status '+response.status);const data=await response.json();if(!Number.isSafeInteger(data.total)||!Number.isSafeInteger(data.hoy)||data.total<0||data.hoy<0)throw Error('invalid');
-  latest=data;lastRead=Date.now();retryAfter=0;
+  const previous=load()?.counts;if(previous&&Number.isSafeInteger(previous.total)&&Number.isSafeInteger(previous.hoy)&&typeof previous.fecha==='string'){const newer=previous.fecha>data.fecha?previous:data;latest={...newer,total:Math.max(data.total,previous.total),hoy:previous.fecha===data.fecha?Math.max(data.hoy,previous.hoy):newer.hoy}}else latest=data;lastRead=Date.now();retryAfter=0;
   // Mark acknowledged only after success; failed writes retry the SAME random ID.
-  const current=load();if(current?.id===s.id){current.registered=true;save(current)}paint();
+  const current=load();if(current?.id===s.id){current.registered=true;current.counts=latest;save(current)}paint();
  }
  async function sync(){if(inflight||document.hidden||Date.now()<retryAfter)return;inflight=true;try{if(navigator.locks?.request)await navigator.locks.request('dea-visit-register',request);else await request()}catch(e){retryAfter=Date.now()+15000;console.warn('DEA: contador no disponible',e);paint()}finally{inflight=false}}
  const root=document.getElementById('app');if(root)new MutationObserver(paint).observe(root,{childList:true,subtree:false});
@@ -23,5 +23,5 @@
  for(const type of ['pointerdown','keydown','scroll'])document.addEventListener(type,activity,{passive:true});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void sync()});window.addEventListener('focus',()=>void sync());
  // No polling and no timer-created visits. Navigation only repaints the shared count.
- void sync();
+ latest=load()?.counts||null;paint();void sync();
 })();

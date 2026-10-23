@@ -45,7 +45,7 @@ const src=await readFile(new URL('./visitas.js',import.meta.url),'utf8');
 function client(shared=new Map(),start=1000000, fail=false){
  let now=start;const events={},requests=[];const doc={hidden:false,getElementById:()=>null,querySelectorAll:()=>[],addEventListener:(type,fn)=>events[type]=fn};
  const clock=class extends Date {static now(){return now;}};
- runInNewContext(src,{Intl,Uint8Array,crypto:webcrypto,Date:clock,Number,JSON,console:{warn(){}},document:doc,window:{addEventListener:(t,f)=>events[t]=f},navigator:{},localStorage:{getItem:k=>shared.get(k)||null,setItem:(k,v)=>shared.set(k,v)},sessionStorage:{getItem:()=>null},fetch:async(url,opts)=>{requests.push({url,...opts});if(fail)throw Error('network');return {ok:true,json:async()=>({total:1,hoy:1})}}});
+ runInNewContext(src,{Intl,Uint8Array,crypto:webcrypto,Date:clock,Number,JSON,console:{warn(){}},document:doc,window:{addEventListener:(t,f)=>events[t]=f},navigator:{},localStorage:{getItem:k=>shared.get(k)||null,setItem:(k,v)=>shared.set(k,v)},sessionStorage:{getItem:()=>null},fetch:async(url,opts)=>{requests.push({url,...opts});if(fail)throw Error('network');return {ok:true,json:async()=>({total:1,hoy:1,fecha:"2026-10-23"})}}});
  return {requests,events,shared,tick:ms=>{now+=ms;},flush:()=>new Promise(r=>setImmediate(r)),setFail:v=>{fail=v;}};
 }
 test('Cliente: primera entrada POST; recarga y navegación no escriben; inactividad exacta',async()=>{
@@ -57,4 +57,9 @@ test('Cliente: primera entrada POST; recarga y navegación no escriben; inactivi
 test('Actividad continua conserva sesión y un fallo reintenta el mismo ID',async()=>{
  const c=client(new Map(),1000000,true);await c.flush();const id=JSON.parse(c.requests[0].body).session;c.tick(16000);c.setFail(false);c.events.pointerdown();await c.flush();assert.equal(JSON.parse(c.requests[1].body).session,id);
  for(let i=0;i<10;i++){c.tick(240000);c.events.scroll();await c.flush();}assert.equal(c.requests.length,2);
+});
+
+test('La caché de lectura no hace retroceder una cifra confirmada al recargar',async()=>{
+ const shared=new Map([['dea-visit-session-v3',JSON.stringify({id:'a'.repeat(32),last:1000000,registered:true,counts:{total:8,hoy:5,fecha:'2026-10-23'}})]]);
+ const c=client(shared);await c.flush();const state=JSON.parse(shared.get('dea-visit-session-v3'));assert.equal(state.counts.total,8);assert.equal(state.counts.hoy,5);assert.equal(c.requests[0].method,'GET');
 });

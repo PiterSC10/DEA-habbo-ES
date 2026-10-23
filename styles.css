@@ -421,3 +421,5 @@ html,body,#app{max-width:100%;min-width:0}
 .dea-preview-counter .dea-plate{width:100%;max-width:100%;box-sizing:border-box;margin:0!important}
 .dea-preview-counter .dea-plate-classified>div:first-of-type strong,.dea-preview-counter .dea-plate-classified>div:first-of-type span{filter:blur(8px)!important}
 @media(max-width:700px){.dea-preview-counter{margin-top:15px}}
+
+.habbo-official-link{gap:9px!important}.habbo-official-logo{display:block;object-fit:contain;width:49px;height:25px;flex:none}.habbo-official-link small{display:inline-block;color:#f0c86e;font-size:10px;margin-left:4px}

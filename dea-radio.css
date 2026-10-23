@@ -12,3 +12,12 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 #dea-radio .dr-dock{backdrop-filter:blur(14px)}
 #dea-radio button:focus-visible,#dea-radio a:focus-visible{outline:3px solid #ffd66e;outline-offset:3px}
 @media(max-width:650px){body{padding-bottom:calc(82px + env(safe-area-inset-bottom))}#dea-radio .dr-dock{max-width:calc(100vw - 16px)}}
+
+/* Radio DEA v3: in document flow, never overlays the page or seasonal controls. */
+.dea-radio{display:none!important}
+#dea-radio{position:relative!important;inset:auto!important;right:auto!important;bottom:auto!important;z-index:1!important;width:100%;max-width:none!important;margin:18px auto 22px!important;padding:0 14px!important;display:flex;justify-content:center;clear:both}
+#dea-radio .dr-dock{width:min(420px,100%);max-width:100%;justify-content:center}
+#dea-radio .dr-brand{flex:1}
+#dea-radio .dr-modal{z-index:1200}
+body{padding-bottom:0!important}
+@media(max-width:650px){#dea-radio{margin:14px auto 86px!important;padding:0 12px!important}#dea-radio .dr-dock{width:100%;max-width:420px}#dea-radio .dr-sub{max-width:145px}}

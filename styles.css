@@ -224,3 +224,11 @@
 .dea-seo-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 13px;margin:13px auto 2px;font-size:11px;line-height:1.6;max-width:900px}
 .dea-seo-links a{color:#b7d6ed;text-decoration:underline;text-decoration-color:#426687;text-underline-offset:3px}
 .dea-seo-links a:hover,.dea-seo-links a:focus-visible{color:#ead090;text-decoration-color:#ead090}
+
+/* DEA public home: six compact links below the two main neon tabs. */
+.dea-public-quick-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0 28px}
+.dea-public-quick-link{min-width:0;min-height:82px;padding:13px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;text-decoration:none;border:1px solid #3d617e;border-radius:13px;background:linear-gradient(145deg,#142c43,#102237);color:#e7f1fb;transition:border-color .18s,background .18s,transform .18s}
+.dea-public-quick-link svg{width:23px;height:23px;color:#e9c477;flex-shrink:0}
+.dea-public-quick-link span{font-size:12px;font-weight:750;line-height:1.3;overflow-wrap:anywhere}
+.dea-public-quick-link:hover,.dea-public-quick-link:focus-visible{border-color:#e9c477;background:#1a3850;transform:translateY(-1px);outline-offset:2px}
+@media(max-width:420px){.dea-public-quick-links{gap:7px}.dea-public-quick-link{padding:10px 5px;min-height:78px}.dea-public-quick-link span{font-size:11px}}

@@ -7,7 +7,7 @@ const stations=[
 ['FieraMix','Bachata · Merengue','https://c11.radioboss.fm:18269/stream'],
 ['Chilltrax','Electrónica · Chill','https://streamssl.chilltrax.com/'],
 ['Cadena Dial','Música española','https://playerservices.streamtheworld.com/api/livestream-redirect/CADENADIAL.mp3'],
-['Flow Radio','Trap · Urbano','https://st1.urbanrevolution.es:8445/flow.mp3'],
+['TRAP RADIO','Trap · Hip-hop','https://trapradio.streamingmedia.it/play'],
 ['Ibiza Global Radio','House · Electrónica · Ibiza','https://listenssl.ibizaglobalradio.com:8024/stream'],
 ['Capital London','Pop · Éxitos británicos','https://media-ssl.musicradio.com/CapitalMP3']
 ];
@@ -17,7 +17,7 @@ const details=[
 ['Internacional','Global','fieramix.com'],
 ['Estados Unidos','EE. UU.','chilltrax.com'],
 ['España','España','cadenadial.com'],
-['España','España','urbanrevolution.es'],
+['Estados Unidos','Nueva York','trap.radio'],
 ['España','Ibiza','ibizaglobalradio.com'],
 ['Reino Unido','Londres','capitalfm.com']
 ];

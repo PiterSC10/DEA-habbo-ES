@@ -462,3 +462,18 @@ html,body,#app{max-width:100%;min-width:0}
 
 /* Public preview sections: sala and banderines */
 .dea-coming-layout{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-top:20px}.dea-coming-layout .panel{min-width:0}.dea-coming-tag{display:inline-block;border:1px solid #c8a35f;color:#f2d28e;border-radius:30px;padding:5px 12px;font-size:11px;font-weight:800;letter-spacing:.1em;margin-bottom:12px}@media(max-width:720px){.dea-coming-layout{grid-template-columns:1fr}}
+
+/* Stable navigation and mobile-safe coming-soon indicators. */
+.side-scroll{scrollbar-gutter:stable;overscroll-behavior:contain;min-height:0}
+.side-item{box-sizing:border-box;min-height:46px;flex-shrink:0;transition:background-color .15s,border-color .15s,color .15s}
+.side-item svg,.side-item .icon{flex-shrink:0}
+.side-item .dea-menu-soon{display:none}
+.side.expanded .side-item .dea-menu-soon,.side.mobile-open .side-item .dea-menu-soon{display:inline-block;flex-shrink:0;margin-left:auto;font-size:8px;line-height:1.2;letter-spacing:.02em;color:#f0cf8d;border:1px solid #9d8050;background:#3c3022;border-radius:5px;padding:3px 4px}
+.side.expanded .side-item span,.side.mobile-open .side-item span{flex:1;min-width:0;white-space:normal;overflow-wrap:anywhere}
+.side.expanded .side-item,.side.mobile-open .side-item{gap:7px;padding-left:10px;padding-right:7px}
+.dea-public-quick-link{position:relative;transition:background-color .18s,border-color .18s}
+.dea-public-quick-link:hover,.dea-public-quick-link:focus-visible{transform:none}
+.dea-public-quick-link .dea-menu-soon{font-size:9px;line-height:1.15;letter-spacing:.03em;color:#f0d394;background:#433522;border:1px solid #a78c55;border-radius:5px;padding:4px 6px;max-width:100%}
+.dea-news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+@media(max-width:710px){.side{transition:none}.side.mobile-open{width:min(88vw,310px);max-width:100vw}.side.mobile-open .side-item{font-size:12px}.main{width:100%;min-width:0}.main-body{min-width:0;overflow-wrap:anywhere}.dea-public-quick-links{grid-template-columns:repeat(2,minmax(0,1fr))}.dea-news-grid{grid-template-columns:1fr}.topbar{min-width:0}.topbar .switch-head{min-width:0}.topbar-sub{overflow-wrap:anywhere}}
+@media(max-width:380px){.side.mobile-open{width:min(92vw,300px)}.dea-public-quick-link{min-height:94px}.dea-public-quick-link span{font-size:11px}}

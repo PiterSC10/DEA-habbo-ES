@@ -42,7 +42,8 @@ export function createHandler({storage = {get, list, put}, clock = Date.now, con
     if (!result) return legacy();
     const state = await new Response(result.stream).json();
     if (state.version !== 3 || !Number.isSafeInteger(state.total) || state.total < 0 || !state.days || !state.sessions || !result.blob.etag) throw Error('Invalid visit aggregate');
-    return {state, etag:result.blob.etag};
+    // HTTP compression can weaken the read ETag; conditional writes require its strong form.
+    return {state, etag:result.blob.etag.replace(/^W\//i,'')};
   }
   function remember(state) { cached = {state, at:clock()}; }
   function result(state, registered) {

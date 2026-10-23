@@ -92,3 +92,8 @@ test('Un navegador que rechaza Web Locks puede consultar y registrar igualmente'
 test('Una petición bloqueada vence y permite recuperarse sin duplicar el ID',async()=>{
  const c=recoveryClient({pending:true});const timeout=[...c.timers].find(([,t])=>t.ms===12000);timeout[1].fn();await c.flush();assert.equal(c.strong.textContent,'12');assert.equal(c.button.hidden,false);c.retry();await c.flush();const posts=c.requests.filter(r=>r.method==='POST');assert.equal(posts[0].body,posts[1].body);assert.equal(c.button.hidden,true);
 });
+
+test('Las revisiones HTTP débiles se normalizan sin perder protección de concurrencia',async()=>{
+ const f=fixture(),read=f.storage.get;await f.call(f.handler(),'a'.repeat(32));f.storage.get=async()=>{const result=await read();if(result)result.blob.etag='W/'+result.blob.etag;return result};
+ const replies=await Promise.all(['b','c','b'].map(x=>f.call(f.handler(),x.repeat(32))));assert.ok(replies.every(x=>x.status===200));assert.equal(f.state.total,3);assert.equal(f.writes,3);
+});

@@ -72,3 +72,11 @@
 #dea-radio .dr-tile .dr-logo{width:36px;height:36px;flex-basis:36px}
 #dea-radio .dr-dropdown{min-width:0!important;width:min(330px,calc(100vw - 32px));max-width:calc(100vw - 32px);left:0;right:auto}
 @media(max-width:700px){#dea-radio .dr-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#dea-radio .dr-panel{padding:12px}#dea-radio .dr-tile{padding:10px;min-height:126px}}
+
+/* Compact single radio dock without redundant volume row. */
+#dea-radio .dr-dock{grid-template-areas:"top bottom"!important;row-gap:0!important;padding:7px 12px!important}
+#dea-radio .dr-mark{width:36px;height:36px}
+#dea-radio .dr-play{width:39px!important;height:39px!important;flex:0 0 39px!important;font-size:19px}
+#dea-radio .dr-picker{padding:6px 8px!important}
+#dea-radio .dr-expand{width:35px!important;height:35px!important;flex:0 0 35px!important;font-size:17px}
+@media(max-width:800px){#dea-radio .dr-dock{grid-template-areas:"top" "bottom"!important;gap:5px!important;padding:7px 10px!important}#dea-radio .dr-top{gap:7px!important}}

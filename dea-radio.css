@@ -45,3 +45,11 @@ body{padding-bottom:0!important}
 #dea-radio .dr-station[aria-pressed=true]{box-shadow:0 0 0 2px #ffca6b,0 0 20px #ffcb4d40}
 body{padding-bottom:0!important}
 @media(max-width:650px){#dea-radio{padding:5px 8px!important;margin:0!important}#dea-radio .dr-dock{min-height:43px;padding:4px 6px;gap:5px}#dea-radio .dr-logo{width:31px;height:31px;font-size:17px}#dea-radio .dr-title{font-size:11px}#dea-radio .dr-sub{max-width:92px;font-size:9px}#dea-radio .dr-select{width:88px;max-width:26vw;font-size:10px;padding:5px 2px}#dea-radio .dr-play{width:31px;height:31px;font-size:15px}#dea-radio .dr-open{padding:3px;font-size:19px}#dea-radio .dr-station .dr-art{height:88px}#dea-radio .dr-panel{max-height:90dvh}}
+
+/* DEA volume dial: compact, accessible 0–100 rotary control. */
+#dea-radio .dr-volume-knob{--volume-angle:13.5deg;--volume-fill:148.5deg;width:43px;height:43px;flex:0 0 43px;border-radius:50%;position:relative;touch-action:none;cursor:grab;user-select:none;display:grid;place-items:center;background:conic-gradient(from 225deg,#f6c66b 0deg,#f6c66b var(--volume-fill),#354e68 var(--volume-fill),#354e68 270deg,transparent 270deg);box-shadow:0 2px 9px #0009;border:2px solid #0b2038}
+#dea-radio .dr-volume-knob:before{content:'';position:absolute;inset:5px;border-radius:50%;background:radial-gradient(circle at 35% 25%,#365675,#0a1729);border:1px solid #8196a8}
+#dea-radio .dr-knob-marker{position:absolute;width:3px;height:9px;top:5px;left:calc(50% - 1.5px);background:#fff0c2;border-radius:4px;transform-origin:1.5px 16.5px;transform:rotate(var(--volume-angle));z-index:2}
+#dea-radio .dr-knob-value{position:relative;z-index:3;font-size:10px;font-weight:800;color:#ffe4a3}
+#dea-radio .dr-volume-knob:focus-visible{outline:3px solid #ffd66e;outline-offset:3px}
+@media(max-width:650px){#dea-radio .dr-volume-knob{width:35px;height:35px;flex-basis:35px}#dea-radio .dr-knob-marker{top:4px;transform-origin:1.5px 12.5px}#dea-radio .dr-knob-value{font-size:9px}}

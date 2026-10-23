@@ -415,3 +415,9 @@ html,body,#app{max-width:100%;min-width:0}
 .dea-plate .dea-classified-notice{flex:0 0 100%;width:100%;padding:10px 5px;margin-top:8px;border-top:1px solid #b9945166;text-align:center;display:flex;flex-direction:column;gap:5px}
 .dea-plate .dea-classified-notice strong{font-size:11px;color:#e9bd72;letter-spacing:.04em}
 .dea-plate .dea-classified-notice small{font-size:10px;color:#b9c9d8}
+
+/* Classified counter belongs directly below preview login, never hidden in footer. */
+.dea-preview-counter{width:100%;max-width:100%;margin:20px auto 0;box-sizing:border-box}
+.dea-preview-counter .dea-plate{width:100%;max-width:100%;box-sizing:border-box;margin:0!important}
+.dea-preview-counter .dea-plate-classified>div:first-of-type strong,.dea-preview-counter .dea-plate-classified>div:first-of-type span{filter:blur(8px)!important}
+@media(max-width:700px){.dea-preview-counter{margin-top:15px}}

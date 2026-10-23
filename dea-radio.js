@@ -7,14 +7,16 @@ const stations=[
 ['FieraMix','Bachata · Merengue','https://c11.radioboss.fm:18269/stream'],
 ['Chilltrax','Electrónica · Chill','https://streamssl.chilltrax.com/'],
 ['Cadena Dial','Música española','https://playerservices.streamtheworld.com/api/livestream-redirect/CADENADIAL.mp3'],
-['Flow Radio','Trap · Urbano','https://st1.urbanrevolution.es:8445/flow.mp3']
+['Flow Radio','Trap · Urbano','https://st1.urbanrevolution.es:8445/flow.mp3'],
+['Ibiza Global Radio','House · Electrónica · Ibiza','https://listenssl.ibizaglobalradio.com:8024/stream'],
+['Capital London','Pop · Éxitos británicos','https://media-ssl.musicradio.com/CapitalMP3']
 ];
 const root=document.createElement('section');root.id='dea-radio';root.setAttribute('aria-label','DEA Radio Station');
 root.innerHTML=`<div class="dr-dock">
 <div class="dr-top"><div class="dr-identity"><span class="dr-mark">DEA</span><div class="dr-brand"><strong>DEA RADIO STATION</strong><small data-current-name>01 · Colombia Lounge</small></div></div><button type="button" class="dr-play" data-play aria-label="Reproducir emisora">▶</button></div>
-<div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las seis emisoras" title="Ver seis emisoras">6</button></div>
+<div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las ocho emisoras" title="Ver ocho emisoras">8</button></div>
 <div class="dr-volume"><span class="dr-volume-icon" aria-hidden="true">◖</span><input type="range" data-volume min="0" max="100" value="55" step="1" aria-label="Volumen de radio de 0 a 100"><output data-volume-label>55%</output></div></div>
-<div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Seis emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 6 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
+<div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Ocho emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 8 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
 const app=document.getElementById('app');if(app)document.body.insertBefore(root,app);else document.body.appendChild(root);
 const audio=new Audio();audio.preload='none';audio.volume=.55;
 let selected=0,playing=false,request=0,focusBefore=null;

@@ -8,13 +8,13 @@ export default async function handler(req,res){
  const today=new Date().toISOString().slice(0,10);
  try{
   if(req.method==='POST'){
-   const token=String(req.body?.visitor||'');
+   const token=String(req.body?.session||'');
    if(!/^[a-f0-9]{32}$/.test(token))return respond(res,400,{error:'Identificador inválido'});
-   const path='dea-visitas/v1/'+today+'/'+token+'.json';
+   const path='dea-visitas/v2/'+today+'/'+token+'.json';
    let exists=false;try{await head(path);exists=true}catch(e){if(e?.status!==404&&e?.statusCode!==404&&e?.name!=='BlobNotFoundError')throw e}
    if(!exists){try{await put(path,JSON.stringify({day:today}),{access:'private',addRandomSuffix:false,allowOverwrite:false,contentType:'application/json'})}catch(e){if(e?.status!==409&&e?.statusCode!==409&&e?.name!=='BlobAlreadyExistsError')throw e}}
   }
-  const [total,hoy]=await Promise.all([count('dea-visitas/v1/'),count('dea-visitas/v1/'+today+'/')]);
-  return respond(res,200,{total,hoy,fecha:today,criterio:'Un navegador por día UTC'});
+  const [oldTotal,oldToday,totalNew,todayNew]=await Promise.all([count('dea-visitas/v1/'),count('dea-visitas/v1/'+today+'/'),count('dea-visitas/v2/'),count('dea-visitas/v2/'+today+'/')]);const total=oldTotal+totalNew,hoy=oldToday+todayNew;
+  return respond(res,200,{total,hoy,fecha:today,criterio:'Una nueva sesión tras 5 minutos de inactividad'});
  }catch(e){console.error('DEA visits',e?.message||e);return respond(res,503,{error:'No se pudieron consultar las visitas'})}
 }

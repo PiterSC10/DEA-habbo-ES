@@ -77,3 +77,48 @@ body.dea-hw-v2 .rank-row,body.dea-hw-v2 .panel,body.dea-hw-v2 .choice{overflow-w
  #dea-hw-switch{bottom:max(8px,env(safe-area-inset-bottom));right:max(8px,env(safe-area-inset-right));font-size:11px;min-height:40px;padding:8px 12px}
  body.dea-hw-v2 #dea-hw-ribbon{padding:6px 4px;font-size:10px;letter-spacing:0}
 }
+
+/* HABBOWEEN V3: consistent scenery on EVERY public route and every navigation element. */
+body.dea-hw-v2 .app-layout{position:relative;isolation:isolate;min-height:100vh;background:linear-gradient(180deg,#0d1020bb,#0b1324ed 370px),url('./habboween-skyline.svg') center top / 100% auto no-repeat!important}
+body.dea-hw-v2 .app-area-publico .side,body.dea-hw-v2 .app-area-unete .side{background:linear-gradient(#17152ae8,#111a2cf2),url('./habboween-skyline.svg') center top / auto 240px no-repeat!important;border-right:2px solid #a9745c!important;box-shadow:5px 0 30px #05071288}
+body.dea-hw-v2 .side-head{position:relative;border-bottom:2px solid #a76b62!important;background:linear-gradient(90deg,#301c39,#121d31)!important}
+body.dea-hw-v2 .side-head:before{content:"";position:absolute;top:0;left:0;width:80px;height:80px;background:url('./habboween-web.svg') top left/contain no-repeat;pointer-events:none;opacity:.85}
+body.dea-hw-v2 .side-head:after{content:"";position:absolute;bottom:0;right:10px;width:32px;height:32px;background:url('./habboween-pumpkin.svg') center/contain no-repeat;pointer-events:none}
+body.dea-hw-v2 .side-group{color:#f5b977!important;border-bottom:1px solid #b06b544a}
+body.dea-hw-v2 .side-item{position:relative;isolation:isolate;margin:3px 5px;border:1px solid #b2754438!important;border-radius:9px;background:linear-gradient(90deg,#3b213644,#171b2b22)!important}
+body.dea-hw-v2 .side-item:after{content:"";position:absolute;right:6px;top:50%;transform:translateY(-50%);width:16px;height:16px;background:url('./habboween-bat.svg') center/contain no-repeat;opacity:.45;pointer-events:none}
+body.dea-hw-v2 .side-item.active{border-color:#ec9b52!important;background:linear-gradient(90deg,#59304088,#25213e88)!important;box-shadow:inset 3px 0 #e99855,0 0 12px #d0793c44}
+body.dea-hw-v2 .side-item.active:after{background-image:url('./habboween-pumpkin.svg');opacity:.9;width:23px;height:23px}
+body.dea-hw-v2 .side-bottom{border-top:1px solid #b4764d!important}
+body.dea-hw-v2 .app-area-publico .main,body.dea-hw-v2 .app-area-publico .content,body.dea-hw-v2 .app-area-unete .main,body.dea-hw-v2 .app-area-unete .content{background:transparent!important}
+body.dea-hw-v2 .app-area-publico .topbar,body.dea-hw-v2 .app-area-unete .topbar{background:linear-gradient(90deg,#1a1b32,#42233d,#161e33)!important;border-bottom:2px solid #df8954!important}
+body.dea-hw-v2 .app-area-publico .topbar:after,body.dea-hw-v2 .app-area-unete .topbar:after{content:"";display:block;position:absolute;right:5px;top:0;width:65px;height:65px;background:url('./habboween-web.svg') center/contain no-repeat;opacity:.55;pointer-events:none}
+body.dea-hw-v2 .app-area-publico .page-head,body.dea-hw-v2 .app-area-publico .page-header,body.dea-hw-v2 .app-area-publico .section-head,body.dea-hw-v2 .app-area-unete .page-head,body.dea-hw-v2 .app-area-unete .page-header{position:relative;border-bottom:1px solid #c5795266;padding-bottom:12px}
+body.dea-hw-v2 .app-area-publico .page-head:after,body.dea-hw-v2 .app-area-publico .page-header:after,body.dea-hw-v2 .app-area-publico .section-head:after,body.dea-hw-v2 .app-area-unete .page-head:after{content:"";position:absolute;right:0;bottom:0;width:50px;height:50px;background:url('./habboween-candles.svg') center/contain no-repeat;pointer-events:none;opacity:.8}
+body.dea-hw-v2 .dea-public-quick-link{position:relative;padding-bottom:25px!important}
+body.dea-hw-v2 .dea-public-quick-link:after{content:"";position:absolute;bottom:4px;right:6px;width:23px;height:23px;background:url('./habboween-pumpkin.svg') center/contain no-repeat;pointer-events:none;opacity:.85}
+body.dea-hw-v2 .dea-public-quick-link:nth-child(2n):after{background-image:url('./habboween-ghost.svg')}
+body.dea-hw-v2 .dea-public-quick-link:nth-child(3n):after{background-image:url('./habboween-skull.svg')}
+body.dea-hw-v2 .dea-public-quick-link:before{content:"";position:absolute;top:0;left:0;width:40px;height:40px;background:url('./habboween-web.svg') top left/contain no-repeat;opacity:.55;pointer-events:none}
+body.dea-hw-v2 .app-area-publico .panel:nth-of-type(3n):after{background-image:url('./habboween-skull.svg');opacity:.65}
+body.dea-hw-v2 .app-area-publico .panel:nth-of-type(3n + 1):after{background-image:url('./habboween-candles.svg');width:45px;height:40px;opacity:.7}
+body.dea-hw-v2 .app-area-publico .rank-row:nth-of-type(2n):after{background-image:url('./habboween-ghost.svg')}
+body.dea-hw-v2 .app-area-publico .rank-row:nth-of-type(3n):after{background-image:url('./habboween-skull.svg')}
+body.dea-hw-v2 .app-area-publico .dea-work-feature:after{content:"";position:absolute;right:5px;bottom:5px;width:45px;height:45px;background:url('./habboween-pumpkin.svg') center/contain no-repeat;pointer-events:none}
+body.dea-hw-v2 .hw-page-scene{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(12px,5vw,70px);margin:12px auto 20px;padding:10px 14px;width:min(100%,980px);min-height:100px;border:1px solid #ac6b54;border-radius:14px;background:linear-gradient(90deg,#22142ce0,#251a3ce0,#1c172ce0),url('./habboween-skyline.svg') center 70%/cover no-repeat;box-shadow:0 6px 24px #0007;overflow:hidden;pointer-events:none}
+body.dea-hw-v2 .hw-page-scene:before,body.dea-hw-v2 .hw-page-scene:after{content:"";position:absolute;top:0;width:62px;height:62px;background:url('./habboween-web.svg') top left/contain no-repeat;opacity:.8}
+body.dea-hw-v2 .hw-page-scene:before{left:0}body.dea-hw-v2 .hw-page-scene:after{right:0;transform:scaleX(-1)}
+body.dea-hw-v2 .hw-page-scene img{display:block;width:clamp(40px,9vw,75px);height:clamp(40px,9vw,75px);object-fit:contain;filter:drop-shadow(0 0 12px #ee93564a)}
+body.dea-hw-v2 .hw-page-scene strong{color:#ffd99e;text-align:center;font:800 clamp(12px,2.6vw,20px) system-ui,sans-serif;letter-spacing:.06em;text-shadow:0 2px 7px #000}
+body.dea-hw-v2 .hw-page-scene small{display:block;color:#d7b5eb;text-align:center;font:600 11px system-ui,sans-serif}
+body.dea-hw-v2 .hw-page-scene .hw-bat{width:45px;height:40px}
+body.dea-hw-v2 .hw-page-scene[hidden]{display:none!important}
+@media(max-width:710px){
+ body.dea-hw-v2 .app-layout{background:linear-gradient(#101020c4,#0b1424 250px),url('./habboween-skyline.svg') center top/auto 260px no-repeat!important}
+ body.dea-hw-v2 .hw-page-scene{margin:8px auto 14px;padding:8px;min-height:74px;gap:10px}
+ body.dea-hw-v2 .hw-page-scene img{width:38px;height:44px}
+ body.dea-hw-v2 .hw-page-scene .hw-bat{display:none}
+ body.dea-hw-v2 .hw-page-scene strong{font-size:12px;letter-spacing:0}
+ body.dea-hw-v2 .hw-page-scene small{font-size:9px}
+ body.dea-hw-v2 .side-item:after{right:5px}
+}

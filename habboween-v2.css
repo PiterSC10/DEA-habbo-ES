@@ -27,3 +27,53 @@ body.dea-hw-v2 #dea-hw-ribbon:before,body.dea-hw-v2 #dea-hw-ribbon:after{content
 body.dea-hw-v2 #dea-tech-layer .dea-tech-dialog{border-color:#d68a51!important;box-shadow:0 0 50px #b36b452c!important}
 @media(max-width:650px){body.dea-hw-v2 .landing:before,body.dea-hw-v2 .dea-preview-container:before{width:40px;height:40px;opacity:.4}body.dea-hw-v2 .landing:after,body.dea-hw-v2 .dea-preview-container:after{width:55px;height:55px;opacity:.5}#dea-hw-switch{font-size:10px;padding:7px 10px;right:7px;bottom:7px}body.dea-hw-v2 #dea-hw-ribbon{padding:7px 9px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){body.dea-hw-v2 *{scroll-behavior:auto!important}}
+
+/* HABBOWEEN FULL SKIN 2026 — complete scene and mobile-first adjustments. */
+html,body,#app{max-width:100%}
+body.dea-hw-v2{--bg:#0d1022;--nav:#17162c;--panel:#171c35;--panel2:#22203b;--line:#985d65;--gold:#ffc878;--blue:#bd91fa;--shadow:0 15px 40px #080615a6;overflow-x:clip}
+body.dea-hw-v2 #app{background:linear-gradient(#0c1020bf,#0b1120f2 330px),url('./habboween-skyline.svg') center top / 100% auto no-repeat,radial-gradient(circle at 85% 25%,#4e224d 0%,transparent 45%),#0b1120!important}
+body.dea-hw-v2 .shell-home,body.dea-hw-v2 .dea-preview-page{background:linear-gradient(#090d1b5c,#0b1220ed 85%),url('./habboween-skyline.svg') center top / cover no-repeat!important}
+body.dea-hw-v2 .home-bar,body.dea-hw-v2 .dea-preview-top,body.dea-hw-v2 .topbar{border-bottom:2px solid #c77c4c!important;box-shadow:0 6px 28px #e78b2924}
+body.dea-hw-v2 .landing,body.dea-hw-v2 .dea-preview-container{isolation:isolate}
+body.dea-hw-v2 .hero-eagle,body.dea-hw-v2 .dea-preview-illustration{position:relative}
+body.dea-hw-v2 .landing h1,body.dea-hw-v2 .dea-preview-surface h1{line-height:1.2;overflow-wrap:anywhere;max-width:100%;font-size:clamp(26px,6vw,64px)}
+body.dea-hw-v2 .choice-grid{position:relative;isolation:isolate}
+body.dea-hw-v2 .choice,body.dea-hw-v2 .panel,body.dea-hw-v2 .rank-row,body.dea-hw-v2 .tile,body.dea-hw-v2 .public-quick-link,body.dea-hw-v2 .dea-preview-surface,body.dea-hw-v2 .founder,body.dea-hw-v2 .card{border:1px solid #b57b52!important;border-radius:12px;background-color:#131b32!important;background-image:linear-gradient(135deg,#2c1b3f70,#0e1b2b60 75%)!important;box-shadow:inset 0 0 0 1px #e4a96a1b,0 8px 28px #08071688!important}
+body.dea-hw-v2 .choice,body.dea-hw-v2 .panel,body.dea-hw-v2 .rank-row,body.dea-hw-v2 .tile,body.dea-hw-v2 .public-quick-link{min-width:0;max-width:100%}
+body.dea-hw-v2 .panel h2,body.dea-hw-v2 .panel h3,body.dea-hw-v2 .section-kicker,body.dea-hw-v2 .rank-row strong{letter-spacing:.01em}
+body.dea-hw-v2 .choice:after{width:clamp(28px,5vw,58px);height:clamp(28px,5vw,58px);bottom:6px;right:6px}
+body.dea-hw-v2 .panel:before,body.dea-hw-v2 .rank-row:before,body.dea-hw-v2 .tile:before{content:"";position:absolute;left:0;top:0;width:clamp(28px,6vw,65px);height:clamp(28px,6vw,65px);background:url('./habboween-web.svg') left top/contain no-repeat;pointer-events:none;opacity:.5}
+body.dea-hw-v2 .panel:after,body.dea-hw-v2 .rank-row:after{content:"";position:absolute;right:5px;bottom:5px;width:clamp(20px,3vw,34px);height:clamp(20px,3vw,34px);background:url('./habboween-pumpkin.svg') center/contain no-repeat;opacity:.48;pointer-events:none}
+body.dea-hw-v2 .dea-preview-surface{background:linear-gradient(135deg,#19172ce8,#171f35f2)!important}
+body.dea-hw-v2 .dea-preview-login input,body.dea-hw-v2 input,body.dea-hw-v2 select,body.dea-hw-v2 textarea{max-width:100%;border-color:#ae7a63}
+body.dea-hw-v2 .home-foot,body.dea-hw-v2 .foot,body.dea-hw-v2 footer{position:relative;border-top:2px solid #c78355!important;background-image:linear-gradient(#141326db,#101729f0),url('./habboween-skyline.svg')!important;background-size:cover!important;background-position:center bottom!important}
+body.dea-hw-v2 .home-foot:before,body.dea-hw-v2 .foot:before,body.dea-hw-v2 footer:before{content:"";position:absolute;right:10px;bottom:6px;width:clamp(55px,10vw,125px);height:clamp(42px,8vw,100px);background:url('./habboween-candles.svg') center/contain no-repeat;opacity:.65;pointer-events:none}
+body.dea-hw-v2 .dea-work-feature{background:linear-gradient(100deg,#291c3b,#39213c,#15263c)!important}
+body.dea-hw-v2 .dea-work-feature:before{background-image:url('./habboween-web.svg')!important;background-size:80px!important}
+body.dea-hw-v2 .btn,body.dea-hw-v2 .choice,body.dea-hw-v2 a{scroll-margin-top:75px}
+body.dea-hw-v2 #dea-hw-ribbon{z-index:2;background:linear-gradient(90deg,#201429,#3c1940,#211528),url('./habboween-ornament.svg') center/contain no-repeat;box-shadow:inset 0 -2px 0 #d98d4e,0 4px 20px #0008;letter-spacing:.04em;max-width:100%;overflow:hidden}
+body.dea-hw-v2 #dea-hw-ribbon:before,body.dea-hw-v2 #dea-hw-ribbon:after{flex:0 0 30px}
+#dea-hw-switch{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right));display:flex;align-items:center;gap:7px;max-width:min(280px,calc(100vw - 24px));white-space:normal;text-align:center;line-height:1.2;min-height:42px;transition:background .2s,border-color .2s}
+#dea-hw-switch[hidden]{display:none!important}
+#dea-hw-switch:hover{background:#3c2241}
+body.dea-hw-v2 .columns,body.dea-hw-v2 .tiles,body.dea-hw-v2 .choice-grid{max-width:100%}
+body.dea-hw-v2 .rank-row,body.dea-hw-v2 .panel,body.dea-hw-v2 .choice{overflow-wrap:anywhere}
+@media(max-width:800px){
+ body.dea-hw-v2 #app{background:linear-gradient(#0b1020cc,#0b1120 220px),url('./habboween-skyline.svg') center top / auto 260px no-repeat,#0b1120!important}
+ body.dea-hw-v2 .shell-home,body.dea-hw-v2 .dea-preview-page{background:linear-gradient(#0b1120a8,#0b1120ed 270px),url('./habboween-skyline.svg') center top / auto 310px no-repeat!important}
+ body.dea-hw-v2 .landing:before,body.dea-hw-v2 .landing:after,body.dea-hw-v2 .dea-preview-container:before,body.dea-hw-v2 .dea-preview-container:after{opacity:.22;z-index:-1}
+ body.dea-hw-v2 .choice-grid{gap:12px}
+ body.dea-hw-v2 #dea-hw-ribbon{font-size:clamp(10px,2.7vw,15px);min-height:40px}
+ body.dea-hw-v2 #dea-hw-ribbon:before,body.dea-hw-v2 #dea-hw-ribbon:after{width:22px;height:22px;flex-basis:22px}
+}
+@media(max-width:480px){
+ body.dea-hw-v2 .landing h1,body.dea-hw-v2 .dea-preview-surface h1{font-size:clamp(25px,8.3vw,38px)}
+ body.dea-hw-v2 .choice-grid{grid-template-columns:1fr!important}
+ body.dea-hw-v2 .choice{min-height:0}
+ body.dea-hw-v2 .choice:before{width:45px;height:45px}
+ body.dea-hw-v2 .choice:after{width:33px;height:33px}
+ body.dea-hw-v2 .panel:after,body.dea-hw-v2 .rank-row:after{width:20px;height:20px;opacity:.3}
+ body.dea-hw-v2 .home-foot:before,body.dea-hw-v2 .foot:before,body.dea-hw-v2 footer:before{opacity:.25}
+ #dea-hw-switch{bottom:max(8px,env(safe-area-inset-bottom));right:max(8px,env(safe-area-inset-right));font-size:11px;min-height:40px;padding:8px 12px}
+ body.dea-hw-v2 #dea-hw-ribbon{padding:6px 4px;font-size:10px;letter-spacing:0}
+}

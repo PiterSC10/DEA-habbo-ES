@@ -372,8 +372,8 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  assert.match(module,/PRIVATE VALIDATION REQUIRED/);
  assert.match(module,/No constituye auditoría|No constituye auditoría externa|no constituye auditoría externa/i);
  assert.match(module,/180 h/);
- assert.match(module,/5\.400 € \+ IVA/);
- assert.match(module,/6\.900 € \+ IVA/);
+ assert.match(module,/\*\*\.\*\*\* € \+ IVA/);
+ assert.doesNotMatch(module,/5\.400 €|6\.900 €/);
  assert.doesNotMatch(module,/4\.050 €|135 h|client_secret|DISCORD_CLIENT_SECRET|apiKey|access_token/);
  assert.match(module,/https:\/\/yourdesigngpt\.netlify\.app\//);
  assert.match(module,/Designed &amp; Developed by/);

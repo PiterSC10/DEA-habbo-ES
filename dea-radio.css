@@ -44,3 +44,17 @@
 #dea-radio .dr-status{color:#adc5dc;font-size:12px;margin:14px 0 0}
 @media(max-width:700px){#dea-radio .dr-dock{grid-template-columns:minmax(0,1fr);grid-template-areas:"top" "bottom" "volume";gap:9px;padding:10px 12px}#dea-radio .dr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#dea-radio .dr-top{gap:10px}#dea-radio .dr-brand strong{font-size:12px}#dea-radio .dr-play{width:48px;height:48px}#dea-radio .dr-picker{font-size:12px}#dea-radio .dr-volume{gap:8px}}
 @media(max-width:360px){#dea-radio .dr-mark{width:34px;height:34px;font-size:10px}#dea-radio .dr-brand strong{font-size:11px;letter-spacing:0}#dea-radio .dr-brand small{font-size:10px}#dea-radio .dr-tile{padding:10px}}
+
+/* Mobile-first compact radio: single column and all controls visible. */
+@media(max-width:800px){
+ #dea-radio{width:100%!important;max-width:100vw!important;overflow:visible!important;padding:7px 9px!important}
+ #dea-radio .dr-dock{display:grid!important;width:100%!important;min-width:0!important;max-width:100%!important;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"top" "bottom" "volume"!important;padding:10px!important;gap:7px!important}
+ #dea-radio .dr-top,#dea-radio .dr-bottom,#dea-radio .dr-volume{width:100%!important;min-width:0!important}
+ #dea-radio .dr-identity,#dea-radio .dr-brand{min-width:0!important;max-width:100%!important}
+ #dea-radio .dr-brand strong{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;font-size:clamp(10px,3vw,13px)!important;letter-spacing:.02em!important}
+ #dea-radio .dr-brand small{font-size:11px!important;max-width:100%!important}
+ #dea-radio .dr-play{width:50px!important;height:50px!important;flex:0 0 50px!important}
+ #dea-radio .dr-picker{width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;font-size:12px!important}
+ #dea-radio .dr-expand{width:42px!important;height:42px!important;flex:0 0 42px!important}
+ #dea-radio .dr-volume input{min-width:0!important}
+}

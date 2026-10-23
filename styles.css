@@ -357,3 +357,25 @@ html,body,#app{max-width:100%;min-width:0}
  .main-body .tiles,.main-body .tiles.three,.main-body .founders,.main-body .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
  .main-body .tile{padding:10px!important}
 }
+
+/* DEA visits: real stats, small access beside visitor counter. */
+.dea-stats-trigger{display:inline-flex;align-items:center;justify-content:center;gap:8px;max-width:100%;margin:7px 0 13px;padding:8px 13px;border:1px solid #bd9651;border-radius:10px;background:#0e2942;color:#f1cb81;font-size:11px;font-weight:800;letter-spacing:.035em;cursor:pointer}
+.dea-stats-trigger:hover{background:#1a3c58}
+.dea-stats-overlay{position:fixed;inset:0;z-index:2147483600;display:grid;place-items:center;background:#020914dc;padding:14px}
+.dea-stats-overlay[hidden]{display:none!important}
+.dea-stats-modal{width:min(450px,100%);max-height:90dvh;overflow:auto;padding:17px;border:1px solid #c69a50;border-radius:17px;background:#0b2036;color:#f1f5fb;box-shadow:0 24px 80px #000b;font-family:system-ui,sans-serif}
+.dea-stats-modal header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dea-stats-modal header strong{display:block;color:#f5c77c;font-size:14px}
+.dea-stats-modal header small{display:block;color:#b4c6d8;font-size:11px;margin-top:4px}
+.dea-stats-modal header button{background:#24415a;border:1px solid #71849b;color:white;border-radius:8px;width:34px;height:34px;font-size:24px;cursor:pointer}
+.dea-stats-modal nav{display:flex;gap:8px;margin:17px 0}
+.dea-stats-modal nav button{flex:1;padding:8px 4px;border:1px solid #4c6b83;background:#17344d;border-radius:8px;color:#e7edf6;font-size:12px;cursor:pointer}
+.dea-stats-modal nav button[aria-pressed=true]{background:#b88d46;color:#101c2c;font-weight:800}
+.dea-stats-summary{font-size:13px;margin:8px 0 14px}
+.dea-stats-summary b{color:#f7cf86}
+.dea-stats-bars{max-height:42dvh;overflow:auto;display:grid;gap:7px}
+.dea-stat-row{display:grid;grid-template-columns:42px minmax(0,1fr) 46px;align-items:center;gap:8px;font-size:11px}
+.dea-stat-row time{color:#c3d1de}.dea-stat-row b{text-align:right;color:#f6d08e}
+.dea-stat-track{height:12px;background:#25425b;border-radius:5px;overflow:hidden}
+.dea-stat-track i{display:block;height:100%;background:linear-gradient(90deg,#ba8b3e,#f9d48d);border-radius:5px;min-width:0}
+.dea-stats-modal footer{font-size:10px;color:#a5b8c9;margin-top:14px;line-height:1.5}

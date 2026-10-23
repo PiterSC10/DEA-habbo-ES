@@ -303,3 +303,36 @@ html,body{overflow-x:clip}
 
 /* Keep the mobile backdrop and sidebar in the same stacking context in both skins. */
 @media(max-width:710px){.side{height:100dvh}.side-scroll{min-height:0;overscroll-behavior:contain}.side-bottom{padding-bottom:max(10px,env(safe-area-inset-bottom))}}
+
+/* Responsive repair: preinauguration gate and authenticated second screen. */
+html,body,#app{max-width:100%;min-width:0}
+#app{overflow-x:clip}
+.dea-preview-page,.dea-preview-container,.dea-preview-surface,.app-layout,.main,.main-body,.shell-home,.landing{min-width:0;max-width:100%}
+.dea-preview-top{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.dea-preview-top span{min-width:0}
+.dea-preview-surface,.dea-preview-login,.dea-preview-login input{min-width:0}
+.main-body>*{max-width:100%}
+@media(max-width:710px){
+ .dea-preview-page{width:100%;min-height:100dvh}
+ .dea-preview-top{width:100%;padding:16px 12px 8px;gap:10px;font-size:clamp(13px,4vw,17px);letter-spacing:.03em}
+ .dea-preview-top img{width:46px;height:46px;flex:none}
+ .dea-preview-top small{font-size:clamp(7px,2.1vw,9px);letter-spacing:0}
+ .dea-preview-container{width:100%;max-width:100%;padding:0 12px;margin:8px auto 20px;gap:5px}
+ .dea-preview-illustration{width:min(310px,88vw);height:95px}
+ .dea-preview-surface{width:100%;max-width:440px;padding:18px 14px;border-radius:15px}
+ .dea-preview-surface h1{font-size:clamp(22px,7vw,32px);overflow-wrap:anywhere;letter-spacing:.02em}
+ .dea-preview-surface>p{font-size:13px;line-height:1.5}
+ .dea-preview-login input{width:100%;font-size:16px}
+ .dea-preview-login button{white-space:normal;min-width:0;line-height:1.4}
+ .shell-home,.landing,.main-body{width:100%;max-width:100%;min-width:0}
+ .home-bar,.home-brand,.home-brand span{min-width:0}
+ .home-brand{max-width:100%}
+ .hero-eagle,.landing img{max-width:100%;height:auto}
+ .landing h1{font-size:clamp(28px,10vw,43px);overflow-wrap:anywhere}
+ .choice-grid,.tiles,.founders,.columns,.steps{min-width:0;max-width:100%}
+ .choice,.tile,.founder,.panel{min-width:0}
+ .main-body{padding:15px 12px 36px}
+ .main-body img,.main-body iframe,.main-body video{max-width:100%}
+ .main-body table{max-width:100%}
+ .main-body .table-wrap,.main-body .scroll-x{max-width:100%;overflow-x:auto}
+}

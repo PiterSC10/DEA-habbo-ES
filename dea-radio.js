@@ -10,7 +10,7 @@ const stations=[
 ['TRAP RADIO','Trap · Hip-hop','https://trapradio.streamingmedia.it/play'],
 ['Ibiza Global Radio','House · Electrónica · Ibiza','https://listenssl.ibizaglobalradio.com:8024/stream'],
 ['Capital London','Pop · Éxitos británicos','https://media-ssl.musicradio.com/CapitalMP3'],
-['Loca FM Trap','Trap · España','https://audio-online.net:8014/live'],
+['Zona Rap','Rap · Hip-hop en español','https://radio.zonarap.es/listen/zona_rap_radio/radio.mp3'],
 ['LOS40 Urban','Trap latino · Reguetón','https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_URBAN.mp3'],
 ['Tomorrowland One World Radio','EDM · House · Festivales','https://playerservices.streamtheworld.com/api/livestream-redirect/OWR_INTERNATIONAL.mp3']
 ];
@@ -23,7 +23,7 @@ const details=[
 ['Estados Unidos','Nueva York','trap.radio'],
 ['España','Ibiza','ibizaglobalradio.com'],
 ['Reino Unido','Londres','capitalfm.com'],
-['España','Madrid','locafm.com'],
+['España','España','zonarap.es'],
 ['España','Madrid','los40.com'],
 ['Bélgica','Tomorrowland','tomorrowland.com']
 ];

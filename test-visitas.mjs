@@ -9,7 +9,7 @@ function fixture({baseline=original,legacy=[],records=[]}={}){
  let now=Date.parse('2026-10-23T19:00:00Z');const files=new Map(records.map(path=>[path,'{}'])),writes=[];
  const storage={async get(path){assert.equal(path,'dea-visitas/v3/contador.json');return baseline?{stream:new Response(JSON.stringify(baseline)).body}:null},async list({prefix,cursor,limit}){const all=[...legacy,...[...files.keys()].map(pathname=>({pathname}))].filter(b=>b.pathname.startsWith(prefix));const start=Number(cursor)||0;return {blobs:all.slice(start,start+limit),hasMore:start+limit<all.length,cursor:String(start+limit)}},async put(path,body,options){assert.equal(options.allowOverwrite,false);assert.equal(options.addRandomSuffix,false);assert.equal(options.access,'private');assert.ok(path.startsWith('dea-visitas/v4/'));if(files.has(path))throw Error('Blob already exists');files.set(path,body);writes.push(path)}};
  function handler(){return createHandler({storage,configured:()=>true,clock:()=>now})}
- async function call(h,token,overrides={}){let status,body;const headers={};await h({method:token?'POST':'GET',body:{session:token},headers:{},...overrides},{status(s){status=s},setHeader(k,v){headers[k]=v},end(v){body=JSON.parse(v)}});return {status,body,headers}}
+ async function call(h,token,overrides={}){let status,body;const headers={};await h({method:token?'POST':'GET',body:{session:token},headers:{},...overrides},{status(s){status=s},setHeader(k,v){headers[k]=v},end(v){body=v?JSON.parse(v):null}});return {status,body,headers}}
  return {handler,call,files,writes,set now(v){now=v}};
 }
 test('Cada carga nueva suma y conserva el total anterior sin sobrescribirlo',async()=>{
@@ -42,4 +42,12 @@ test('Cliente clásico: entrar y recargar generan IDs nuevos y una sola petició
 test('Sin reintentos automáticos, botones ni almacenamiento de sesiones',async()=>{
  const c=client({fail:true});await c.flush();assert.equal(c.requests.length,1);assert.equal(c.timers.size,0);assert.equal(c.label.textContent,'Visitas no disponibles en este momento.');assert.equal(c.total.textContent,'—');assert.doesNotMatch(src,/localStorage|sessionStorage|addEventListener|setInterval|Reintentar/);
  const app=await readFile(new URL('./app.js',import.meta.url),'utf8');assert.match(app,/CONTROL DE VISITAS DEA/);assert.doesNotMatch(app,/data-visitas-retry/);
+});
+
+test('GitHub Pages usa la API oficial: CORS permite lectura, alta y preflight sin añadir visitas',async()=>{
+ const f=fixture(),h=f.handler(),headers={origin:'https://pitersc10.github.io',host:'dea-habbo-es.vercel.app'};
+ const pre=await f.call(h,null,{method:'OPTIONS',headers});assert.equal(pre.status,204);assert.equal(pre.headers['Access-Control-Allow-Origin'],'*');assert.match(pre.headers['Access-Control-Allow-Headers'],/Content-Type/);assert.equal(f.writes.length,0);
+ const post=await f.call(h,'a'.repeat(32),{headers});assert.equal(post.status,200);assert.equal(post.body.total,13);assert.equal(post.headers['Access-Control-Allow-Origin'],'*');assert.equal(f.writes.length,1);
+ assert.equal((await f.call(h,'b'.repeat(32),{headers:{...headers,origin:'https://evil.example'}})).status,403);
+ const source=await readFile(new URL('./visitas.js',import.meta.url),'utf8');assert.match(source,/fetch\('https:\/\/dea-habbo-es\.vercel\.app\/api\/visitas'/);
 });

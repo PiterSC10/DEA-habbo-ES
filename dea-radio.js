@@ -1,5 +1,6 @@
 /* DEA RADIO STATION — one persistent player, eleven branded stations. */
 (()=>{'use strict';
+function mountRadio(){
 if(document.getElementById('dea-radio'))return;
 const stations=[
 ['Colombia Lounge','Chillout · Relax','https://play10.tikast.com/proxy/collounge?mp=/stream'],
@@ -51,4 +52,9 @@ document.addEventListener('click',e=>{if(!root.contains(e.target))closeDropdown(
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!overlay.hidden){overlay.hidden=true;focusBefore?.focus?.()}closeDropdown()}});
 
 audio.addEventListener('playing',()=>{playing=true;status.textContent='Escuchando '+stations[selected][0];paint()});audio.addEventListener('pause',()=>{playing=false;paint()});audio.addEventListener('error',()=>{playing=false;status.textContent='Señal no disponible. Prueba otra emisora.';paint()});paint();
+}
+const gate=document.getElementById('app');
+const admitted=()=>{try{return sessionStorage.getItem('dea_v6_preview_admitted')==='yes'}catch{return false}};
+if(admitted())mountRadio();
+else if(gate){const observer=new MutationObserver(()=>{if(admitted()){observer.disconnect();mountRadio()}});observer.observe(gate,{childList:true});}
 })();

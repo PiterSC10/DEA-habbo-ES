@@ -21,3 +21,27 @@ body{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 #dea-radio .dr-modal{z-index:1200}
 body{padding-bottom:0!important}
 @media(max-width:650px){#dea-radio{margin:14px auto 86px!important;padding:0 12px!important}#dea-radio .dr-dock{width:100%;max-width:420px}#dea-radio .dr-sub{max-width:145px}}
+
+/* DEA RADIO v4: a single slim header band between Habboween and DEA branding. */
+#dea-radio{position:relative!important;inset:auto!important;z-index:5!important;width:100%!important;max-width:none!important;margin:0!important;padding:7px clamp(12px,4vw,56px)!important;display:flex!important;align-items:center;justify-content:center;background:linear-gradient(90deg,#061326,#0e2845 50%,#061326);border-top:1px solid #b48b4e77;border-bottom:1px solid #c59b5977}
+#dea-radio .dr-dock{width:min(790px,100%);max-width:none;min-height:49px;padding:4px 9px;gap:9px;justify-content:space-between;border-radius:12px}
+#dea-radio .dr-brand{flex:1;min-width:0}
+#dea-radio .dr-logo{width:37px;height:37px;font-size:21px}
+#dea-radio .dr-title{font-size:13px}
+#dea-radio .dr-select{min-width:0;width:130px;max-width:24vw;background:#102944;color:#f6d38b;border:1px solid #8c744d;border-radius:8px;padding:7px 5px;font-size:12px}
+#dea-radio .dr-play{width:36px;height:36px}
+#dea-radio .dr-open{font-size:23px}
+#dea-radio .dr-modal{position:fixed!important;inset:0!important;z-index:99999!important;display:grid;place-items:center}
+#dea-radio .dr-modal[hidden]{display:none!important}
+#dea-radio .dr-hero{padding:15px;border-radius:16px;background:linear-gradient(110deg,#07152a,#183c61);border:1px solid #385d83}
+#dea-radio .dr-station{background:linear-gradient(150deg,#0b203d,#112c4d);transition:transform .15s,border-color .15s}
+#dea-radio .dr-station:hover{transform:translateY(-2px)}
+#dea-radio .dr-station .dr-art{width:100%;height:105px;position:relative;overflow:hidden;border:1px solid #6685a2;box-shadow:inset 0 0 25px #030c27a8,0 8px 20px #0006}
+#dea-radio .dr-art-character{font-size:48px;position:relative;z-index:2;filter:drop-shadow(0 5px 4px #071021)}
+#dea-radio .dr-art-0{background:radial-gradient(circle at 70% 30%,#ffe29a 0 13%,transparent 14%),linear-gradient(160deg,#1c98ab 0%,#f4aa6a 57%,#3b295e 58%,#0a2443 100%)}
+#dea-radio .dr-art-1{background:radial-gradient(circle at 48% 42%,#9d68e4,#282b75 55%,#0a1634)}
+#dea-radio .dr-art-2{background:radial-gradient(circle at 70% 30%,#ffe5a4 0 15%,transparent 16%),linear-gradient(145deg,#5e6db8,#db80a4 55%,#222f68 56%,#081d3c)}
+#dea-radio .dr-art-3{background:radial-gradient(circle at 68% 20%,#d4e9ff 0 9%,transparent 10%),linear-gradient(160deg,#142953,#264c7d 45%,#0c1738 65%,#030e23)}
+#dea-radio .dr-station[aria-pressed=true]{box-shadow:0 0 0 2px #ffca6b,0 0 20px #ffcb4d40}
+body{padding-bottom:0!important}
+@media(max-width:650px){#dea-radio{padding:5px 8px!important;margin:0!important}#dea-radio .dr-dock{min-height:43px;padding:4px 6px;gap:5px}#dea-radio .dr-logo{width:31px;height:31px;font-size:17px}#dea-radio .dr-title{font-size:11px}#dea-radio .dr-sub{max-width:92px;font-size:9px}#dea-radio .dr-select{width:88px;max-width:26vw;font-size:10px;padding:5px 2px}#dea-radio .dr-play{width:31px;height:31px;font-size:15px}#dea-radio .dr-open{padding:3px;font-size:19px}#dea-radio .dr-station .dr-art{height:88px}#dea-radio .dr-panel{max-height:90dvh}}

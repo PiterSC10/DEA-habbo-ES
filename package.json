@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check dea-cargos.js && node --check founder-app.js && node --check web-check-scan.js && node --check app.js && node --check build.mjs && node --test test.mjs",
+    "check": "node --check dea-cargos.js && node --check founder-app.js && node --check web-check-scan.js && node --check api/visitas.js && node --check visitas.js && node --check app.js && node --check build.mjs && node --test test.mjs",
     "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@vercel/blob": "^1.1.1"
   }
 }

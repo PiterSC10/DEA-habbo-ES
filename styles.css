@@ -287,3 +287,11 @@ html,body{overflow-x:clip}
 @media(max-width:710px){.dea-work-feature{gap:12px;padding:15px 13px;margin-top:-5px}.dea-work-feature-icon{width:45px;height:45px}.dea-work-feature-icon .icon{width:24px;height:24px}.dea-work-feature-copy small{font-size:9px;letter-spacing:.04em}.dea-work-feature-copy strong{font-size:clamp(15px,4.4vw,20px)}.dea-work-feature-copy>span{font-size:11px}.dea-work-feature-copy em{font-size:10px}.dea-work-feature-arrow .icon{width:18px;height:18px}.dea-sala-normas{padding:15px}.dea-sala-normas ol{padding-left:22px}}
 @media(max-width:360px){.dea-work-feature-arrow{display:none}.dea-work-feature{gap:9px}.dea-work-feature-icon{width:38px;height:38px}}
 @media(prefers-reduced-motion:reduce){.dea-work-feature,.dea-work-feature:after{transition:none!important}}
+
+/* DEA manual: official chat colors, existing subranks and promotion authority. */
+.dea-role summary{align-items:center}.dea-role-heading{min-width:0;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.dea-role-heading>strong{font-size:clamp(15px,2.8vw,19px);line-height:1.35}
+.dea-role-subranks{font-size:11px!important;color:#a9c5d8!important;line-height:1.6;overflow-wrap:anywhere}
+.dea-role-meta{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:#b9ccdc}
+.dea-role-meta .dea-chat-label{margin:0;font-size:12px}.dea-role-promoter{font-size:11px;line-height:1.5;color:#f0ce90;overflow-wrap:anywhere}
+@media(max-width:710px){.dea-role summary{padding:13px 12px}.dea-role-subranks{font-size:10px!important}.dea-role-meta{font-size:11px;gap:6px}.dea-role-promoter{font-size:10px}}

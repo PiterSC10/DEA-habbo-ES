@@ -457,3 +457,5 @@ html,body,#app{max-width:100%;min-width:0}
 
 /* Coordinadora General: visual recognition, equal Founder/CEO rank. */
 .dea-founder-coordinator{border-color:#e1ba68;box-shadow:0 0 0 1px #c79b4866,0 14px 32px #0005}.dea-founder-coordinator .dea-founder-rank{color:#ffe2a0}.dea-founder-coordinator p{color:#f3d391;font-weight:750}
+
+.dea-founder-description{display:block;margin-top:10px;color:#b6cbd9;font-size:11px;line-height:1.6;overflow-wrap:anywhere}.dea-founder-coordinator .dea-founder-description{color:#d9c9a8}

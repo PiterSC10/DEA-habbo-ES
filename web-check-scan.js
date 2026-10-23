@@ -15,7 +15,10 @@
     ["Miniapps Founder","Cuatro accesos personalizados; permisos efectivos en servidor privado.",12,"ok"],
     ["Miniapps Directores y Managers","Dos lanzadores de cargo con límites publicados R5/R7 incluidos.",10,"ok"],
     ["Catálogo de placas","Página y estructura preparadas; artículos por aprobar.",8,"ok"],
-    ["Despliegue y documentación técnica","GitHub, Vercel, controles SEO y documentación de integración.",7,"ok"]
+    ["Despliegue y documentación técnica","GitHub, Vercel, controles SEO y documentación de integración.",7,"ok"],
+    ["DEA Radio Station","Mini reproductor compacto, once emisoras y selección de radio tras acceso.",9,"ok"],
+    ["Control de visitas DEA","Contador, historial diario, filtros 7/15/30 días y gráfica compacta.",10,"ok"],
+    ["Preinauguración y privacidad visual","Pantalla de contraseña, radio diferida y contador clasificado.",6,"ok"]
   ];
   const HOURS=WORK.reduce((n,w)=>n+w[2],0);
   const CSS=`
@@ -128,7 +131,7 @@
     <header class="dea-tech-head">
       <div class="dea-tech-eyebrow">DEA HABBO ES · Powered by YourDesignGPT</div>
       <div class="dea-tech-title-line">
-        <h2 class="dea-tech-title" id="dea-tech-title">DEA HABBO ES — SYSTEM CHECK V6</h2>
+        <h2 class="dea-tech-title" id="dea-tech-title">DEA HABBO ES — SYSTEM CHECK V7</h2>
         <button type="button" class="dea-tech-close" aria-label="Cerrar diagnóstico" data-dea-tech-close>×</button>
       </div>
       <p class="dea-tech-sub">Technical Infrastructure &amp; Development Overview</p>
@@ -136,10 +139,10 @@
     </header>
     <div class="dea-tech-content">
       <div class="dea-tech-summary">
-        <div class="dea-tech-metric"><strong>V6</strong><span>DEA HABBO ES</span></div>
+        <div class="dea-tech-metric"><strong>V7</strong><span>DEA HABBO ES</span></div>
         <div class="dea-tech-metric"><strong id="dea-tech-public-count">0</strong><span>Recursos públicos examinados</span></div>
         <div class="dea-tech-metric"><strong id="dea-tech-private-count">0</strong><span>Módulos con validación pendiente</span></div>
-        <div class="dea-tech-metric"><strong>180 h</strong><span>Estimación comercial (no certificada)</span></div>
+        <div class="dea-tech-metric"><strong>${HOURS} h</strong><span>Estimación comercial (no certificada)</span></div>
       </div>
       <div class="dea-tech-section"><h3>INITIALIZING SYSTEM SCAN...</h3><button type="button" class="dea-tech-run" id="dea-tech-run" disabled>↻ RUN SCAN AGAIN</button></div>
       <p class="dea-tech-hint">Presentación visual en verde de los módulos documentados. Solo se inspeccionan recursos públicos; los indicadores OK no certifican integraciones privadas ni seguridad. El 100 % mide el avance del recorrido.</p>
@@ -148,7 +151,7 @@
       <div id="dea-tech-results"></div>
       <div class="dea-tech-results-head">
         <div id="dea-tech-ring" class="dea-tech-ring" style="--pct:0" aria-hidden="true"><div class="dea-tech-ring-inner"><div><strong id="dea-tech-percent">0%</strong><small>Review progress</small></div></div></div>
-        <div class="dea-tech-score"><h3 id="dea-tech-outcome">SYSTEM SCAN INITIALIZING</h3><p>Public Components Reviewed · DEA HABBO ES · V6</p><p id="dea-tech-summary">Revisando componentes visibles. Las integraciones privadas solo se documentan.</p></div>
+        <div class="dea-tech-score"><h3 id="dea-tech-outcome">SYSTEM SCAN INITIALIZING</h3><p>Public Components Reviewed · DEA HABBO ES · V7</p><p id="dea-tech-summary">Revisando componentes visibles. Las integraciones privadas solo se documentan.</p></div>
       </div>
       <p class="dea-tech-note"><strong>Alcance:</strong> esto es una demostración visual de inspección con comprobaciones de archivos públicos. No constituye auditoría externa, prueba de penetración ni validación de identidad, permisos Discord, Google Apps Script, Sheets o datos privados. Las funciones no publicadas y los rangos internos pendientes siguen sin certificarse.</p>
       <details class="dea-tech-report"><summary>PROJECT DEVELOPMENT REPORT</summary>
@@ -164,7 +167,7 @@
           </div>
         </div>
       </details>
-      <footer class="dea-tech-foot"><p><b>DEA HABBO ES · V6</b> · Desarrollo independiente de fans de Habbo Hotel. Sin afiliación con Habbo ni Sulake.</p>
+      <footer class="dea-tech-foot"><p><b>DEA HABBO ES · V7</b> · Desarrollo independiente de fans de Habbo Hotel. Sin afiliación con Habbo ni Sulake.</p>
         <p><b>Designed &amp; Developed by <a href="https://yourdesigngpt.netlify.app/" target="_blank" rel="noopener noreferrer">YourDesignGPT</a></b></p>
       </footer>
     </div>
@@ -229,6 +232,15 @@
       ["Founder Access Launchers",async()=>{const files=["founder-10pedro.html","founder-kietsyandrea.html","founder-lesslie-ar.html","founder-xpe-34.html"];const x=await Promise.allSettled(files.map(v=>read("./"+v,"check")));const n=x.filter(y=>y.status==="fulfilled").length;return n===4?verified("Cuatro lanzadores públicos accesibles. No prueba permisos Founder.","CHECK COMPLETED"):inconclusive("Lanzadores accesibles: "+n+"/4.");}],
       ["Directors WebApp",async()=>await read("./directores-deawebapp.html","check")?documented("Lanzador de Directores disponible; la operación de ascensos R5 requiere validación privada."):inconclusive("No se encontró el lanzador.")],
       ["Managers WebApp",async()=>await read("./managers-deawebapp.html","check")?documented("Lanzador de Managers disponible; la operación de ascensos R7 requiere validación privada."):inconclusive("No se encontró el lanzador.")]
+    ]],
+    ["RADIO & VISITOR ANALYTICS",[
+      ["DEA Radio Station · 11 stations",async()=>{const s=await read("./dea-radio.js");const names=["Zona Rap","LOS40 Urban","Tomorrowland One World Radio","Ibiza Global Radio","Cadena Dial"];return hasAll(s,names)&&s.includes("const stations=[")?verified("Reproductor y selección de emisoras presentes en el código; la señal externa depende de cada proveedor.","INSTALLED · 11 STATIONS"):inconclusive("No se detectó el catálogo esperado de emisoras.");}],
+      ["Radio gated after password",async()=>{const s=await read("./dea-radio.js");return hasAll(s,["dea_v6_preview_admitted","mountRadio","MutationObserver"])?verified("La radio se monta tras la admisión de preinauguración.","ACCESS GATE INSTALLED"):inconclusive("No se detectó el control de montaje de la radio.");}],
+      ["Compact radio UI",async()=>{const s=await read("./dea-radio.css");return hasAll(s,[".dr-dock",".dr-picker",".dr-expand"])?verified("Estilos del reproductor y selector de emisoras detectados.","RESPONSIVE INSTALLED"):inconclusive("Faltan reglas del reproductor.");}],
+      ["DEA Visitor Counter",async()=>{const s=await read("./visitas.js");return hasAll(s,["function register()","data.total","data.hoy"])?verified("Registro de accesos y lectura de totales implementados; no se certifica disponibilidad del almacenamiento.","COUNTER INSTALLED"):inconclusive("No se detectó la integración del contador.");}],
+      ["Visit History · 7/15/30/All",async()=>{const s=await read("./visitas.js");return hasAll(s,["data-period=\\\"7\\\"","data-period=\\\"15\\\"","data-period=\\\"30\\\"","data-period=\\\"all\\\""])?verified("Filtros de historial y gráfico diario/mensual detectados.","CHART INSTALLED"):inconclusive("No se detectaron todos los filtros.");}],
+      ["Classified Visitor Counter",async()=>{const s=await read("./visitas.js");return hasAll(s,["dea-plate-classified","dea-classified-notice","dea_v6_preview_admitted"])?verified("Desenfoque de cifras y mensaje clasificado hasta superar la pantalla de acceso.","VISUAL GATE INSTALLED"):inconclusive("No se detectó la censura visual del contador.");}],
+      ["Visit API",async()=>{const s=await read("./api/visitas.js");return hasAll(s,["createHandler","historial","PREFIX"])?verified("API de visitas e historial presente; comprobación de código, no auditoría del servicio.","API INSTALLED"):inconclusive("No se detectó la API esperada.");}]
     ]],
     ["INTEGRATIONS & DATABASE",[
       ["Discord OAuth2 Configuration",async()=>pending("Configuración indicada en documentación; no se verifica sesión, callback ni autorización OAuth2.")],
@@ -325,7 +337,7 @@
       const button=document.createElement("button");
       button.type="button";button.className="dea-tech-open";
       button.textContent="◉ WEB CHECK SCAN";
-      button.setAttribute("aria-label","Abrir WEB CHECK SCAN V6");
+      button.setAttribute("aria-label","Abrir WEB CHECK SCAN V7");
       button.setAttribute("aria-haspopup","dialog");
       button.addEventListener("click",show);
       // Integración discreta junto al copyright, antes de los avisos legales.

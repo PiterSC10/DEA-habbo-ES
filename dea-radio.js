@@ -1,4 +1,4 @@
-/* DEA RADIO STATION — one persistent player, eight branded stations. */
+/* DEA RADIO STATION — one persistent player, eleven branded stations. */
 (()=>{'use strict';
 if(document.getElementById('dea-radio'))return;
 const stations=[
@@ -9,7 +9,10 @@ const stations=[
 ['Cadena Dial','Música española','https://playerservices.streamtheworld.com/api/livestream-redirect/CADENADIAL.mp3'],
 ['TRAP RADIO','Trap · Hip-hop','https://trapradio.streamingmedia.it/play'],
 ['Ibiza Global Radio','House · Electrónica · Ibiza','https://listenssl.ibizaglobalradio.com:8024/stream'],
-['Capital London','Pop · Éxitos británicos','https://media-ssl.musicradio.com/CapitalMP3']
+['Capital London','Pop · Éxitos británicos','https://media-ssl.musicradio.com/CapitalMP3'],
+['Loca FM Trap','Trap · España','https://audio-online.net:8014/live'],
+['LOS40 Urban','Trap latino · Reguetón','https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_URBAN.mp3'],
+['Tomorrowland One World Radio','EDM · House · Festivales','https://playerservices.streamtheworld.com/api/livestream-redirect/OWR_INTERNATIONAL.mp3']
 ];
 const details=[
 ['Colombia','Colombia','collounge.com'],
@@ -19,16 +22,19 @@ const details=[
 ['España','España','cadenadial.com'],
 ['Estados Unidos','Nueva York','trap.radio'],
 ['España','Ibiza','ibizaglobalradio.com'],
-['Reino Unido','Londres','capitalfm.com']
+['Reino Unido','Londres','capitalfm.com'],
+['España','Madrid','locafm.com'],
+['España','Madrid','los40.com'],
+['Bélgica','Tomorrowland','tomorrowland.com']
 ];
 const logo=i=>'https://www.google.com/s2/favicons?domain='+encodeURIComponent(details[i][2])+'&sz=128';
 const badge=i=>'<span class="dr-logo"><img src="'+logo(i)+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.textContent=\'DEA\'"></span>';
 const root=document.createElement('section');root.id='dea-radio';root.setAttribute('aria-label','DEA Radio Station');
 root.innerHTML=`<div class="dr-dock">
 <div class="dr-top"><div class="dr-identity"><span class="dr-mark" data-current-logo>DEA</span><div class="dr-brand"><strong>DEA RADIO STATION</strong><small data-current-name>01 · Colombia Lounge</small></div></div><button type="button" class="dr-play" data-play aria-label="Reproducir emisora">▶</button></div>
-<div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las ocho emisoras" title="Ver ocho emisoras">8</button></div>
+<div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las once emisoras" title="Ver once emisoras">11</button></div>
 <div class="dr-volume"><span class="dr-volume-icon" aria-hidden="true">◖</span><input type="range" data-volume min="0" max="100" value="55" step="1" aria-label="Volumen de radio de 0 a 100"><output data-volume-label>55%</output></div></div>
-<div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Ocho emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 8 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
+<div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Once emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 11 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
 const app=document.getElementById('app');if(app)document.body.insertBefore(root,app);else document.body.appendChild(root);
 const audio=new Audio();audio.preload='none';audio.volume=.55;
 let selected=0,playing=false,request=0,focusBefore=null;

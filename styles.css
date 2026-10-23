@@ -303,5 +303,3 @@ html,body{overflow-x:clip}
 
 /* Keep the mobile backdrop and sidebar in the same stacking context in both skins. */
 @media(max-width:710px){.side{height:100dvh}.side-scroll{min-height:0;overscroll-behavior:contain}.side-bottom{padding-bottom:max(10px,env(safe-area-inset-bottom))}}
-
-.dea-plate [data-visitas-retry]{margin-top:6px;min-height:36px}.dea-plate [data-visitas-retry][hidden]{display:none!important}

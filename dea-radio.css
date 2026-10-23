@@ -60,3 +60,12 @@ body{padding-bottom:0!important}
 #dea-radio .dr-knob-value{font-size:11px;letter-spacing:-.3px}
 #dea-radio .dr-volume-hint{font-size:11px;color:#b9cee2}
 @media(max-width:650px){#dea-radio .dr-volume-knob{width:40px;height:40px;flex-basis:40px}#dea-radio .dr-knob-value{font-size:10px}}
+
+/* DEA six-channel identity: unmistakable opener and numbered badges. */
+#dea-radio .dr-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#dea-radio .dr-open{border:1px solid #eac46c;border-radius:9px;padding:9px 12px;background:#b88b35;color:#081b2c!important;font-weight:900;font-size:12px;white-space:nowrap;box-shadow:0 0 12px #f5c66b66}
+#dea-radio .dr-art-character{font-size:19px;font-weight:900;letter-spacing:1px;color:#fff2c5;display:flex;flex-direction:column;align-items:center;gap:4px}
+#dea-radio .dr-art-character b{font-size:36px;line-height:1;color:#fff;filter:drop-shadow(0 3px 5px #0008)}
+#dea-radio .dr-hero .dr-logo{font-size:18px;font-weight:900}
+#dea-radio .dr-brand .dr-logo{font-size:12px;font-weight:900}
+@media(max-width:650px){#dea-radio .dr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#dea-radio .dr-open{font-size:10px;padding:7px 6px}#dea-radio .dr-title{font-size:10px}#dea-radio .dr-select{width:72px;max-width:21vw}#dea-radio .dr-art-character b{font-size:30px}}

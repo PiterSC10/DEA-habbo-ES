@@ -53,3 +53,10 @@ body{padding-bottom:0!important}
 #dea-radio .dr-knob-value{position:relative;z-index:3;font-size:10px;font-weight:800;color:#ffe4a3}
 #dea-radio .dr-volume-knob:focus-visible{outline:3px solid #ffd66e;outline-offset:3px}
 @media(max-width:650px){#dea-radio .dr-volume-knob{width:35px;height:35px;flex-basis:35px}#dea-radio .dr-knob-marker{top:4px;transform-origin:1.5px 12.5px}#dea-radio .dr-knob-value{font-size:9px}}
+
+/* Dial only: brighter progressive ring and readable live percentage. */
+#dea-radio .dr-volume-knob{width:49px;height:49px;flex-basis:49px;background:conic-gradient(from 135deg,#f6c66b 0deg,#f6c66b var(--volume-fill),#263b53 var(--volume-fill),#263b53 270deg,transparent 270deg);box-shadow:0 0 14px #eebf4540,0 2px 9px #0009}
+#dea-radio .dr-knob-marker{display:none}
+#dea-radio .dr-knob-value{font-size:11px;letter-spacing:-.3px}
+#dea-radio .dr-volume-hint{font-size:11px;color:#b9cee2}
+@media(max-width:650px){#dea-radio .dr-volume-knob{width:40px;height:40px;flex-basis:40px}#dea-radio .dr-knob-value{font-size:10px}}

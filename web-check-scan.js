@@ -160,7 +160,7 @@
             <p><strong>Horas estimadas:</strong> ${HOURS} h</p>
             <p><strong>Valoración conservadora actual:</strong> **.*** € + IVA</p>
             <p><strong>Proyecto completo y validado:</strong> **.*** € + IVA</p>
-            <small>Importes ocultos para la vista pública. Estimación comercial orientativa; no es presupuesto aceptado, factura ni certificación de horas trabajadas. No se asignan precios individuales a módulos.</small>
+            <small>Importes ocultos para la vista pública. Estimación comercial orientativa. No es presupuesto aceptado, factura ni certificación de horas trabajadas. No se asignan precios individuales a módulos.</small>
           </div>
         </div>
       </details>

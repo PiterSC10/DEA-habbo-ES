@@ -33,10 +33,10 @@ const root=document.createElement('section');root.id='dea-radio';root.setAttribu
 root.innerHTML=`<div class="dr-dock">
 <div class="dr-top"><div class="dr-identity"><span class="dr-mark" data-current-logo>DEA</span><div class="dr-brand"><strong>DEA RADIO STATION</strong><small data-current-name>01 · Colombia Lounge</small></div></div><button type="button" class="dr-play" data-play aria-label="Reproducir emisora">▶</button></div>
 <div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las once emisoras" title="Ver once emisoras">11</button></div>
-<div class="dr-volume"><span class="dr-volume-icon" aria-hidden="true">◖</span><input type="range" data-volume min="0" max="100" value="55" step="1" aria-label="Volumen de radio de 0 a 100"><output data-volume-label>55%</output></div></div>
+</div>
 <div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Once emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 11 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
 const app=document.getElementById('app');if(app)document.body.insertBefore(root,app);else document.body.appendChild(root);
-const audio=new Audio();audio.preload='none';audio.volume=.55;
+const audio=new Audio();audio.preload='none';audio.volume=1;
 let selected=0,playing=false,request=0,focusBefore=null;
 const $=q=>root.querySelector(q),$$=q=>root.querySelectorAll(q);
 const picker=$('[data-picker]'),dropdown=$('[data-dropdown]'),overlay=$('[data-overlay]'),status=$('[data-status]');
@@ -49,6 +49,6 @@ function choose(i){if(!Number.isInteger(i)||i<0||i>=stations.length)return;stop(
 root.addEventListener('click',e=>{const station=e.target.closest('[data-station]');if(station){choose(Number(station.dataset.station));if(!overlay.hidden)overlay.hidden=true;return}if(e.target.closest('[data-play]')){playing?stop():void play();return}if(e.target.closest('[data-picker]')){dropdown.hidden=!dropdown.hidden;picker.setAttribute('aria-expanded',String(!dropdown.hidden));return}if(e.target.closest('[data-expand]')){closeDropdown();focusBefore=document.activeElement;overlay.hidden=false;$('[data-close]').focus();return}if(e.target.closest('[data-close]')||e.target===overlay){overlay.hidden=true;focusBefore?.focus?.()}});
 document.addEventListener('click',e=>{if(!root.contains(e.target))closeDropdown()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!overlay.hidden){overlay.hidden=true;focusBefore?.focus?.()}closeDropdown()}});
-$('[data-volume]').addEventListener('input',e=>{const n=Number(e.target.value);audio.volume=n/100;$('[data-volume-label]').textContent=n+'%';e.target.style.setProperty('--fill',n+'%')});$('[data-volume]').style.setProperty('--fill','55%');
+
 audio.addEventListener('playing',()=>{playing=true;status.textContent='Escuchando '+stations[selected][0];paint()});audio.addEventListener('pause',()=>{playing=false;paint()});audio.addEventListener('error',()=>{playing=false;status.textContent='Señal no disponible. Prueba otra emisora.';paint()});paint();
 })();

@@ -122,3 +122,10 @@ body.dea-hw-v2 .hw-page-scene[hidden]{display:none!important}
  body.dea-hw-v2 .hw-page-scene small{font-size:9px}
  body.dea-hw-v2 .side-item:after{right:5px}
 }
+
+/* Safe decoration bounds also apply while the theme changes or is disabled. */
+.hw-page-scene{display:none;max-width:100%;box-sizing:border-box}
+.hw-page-scene[hidden]{display:none!important}
+.hw-page-scene img{flex-shrink:0;max-width:75px;max-height:75px;object-fit:contain}
+.hw-page-scene>div{min-width:0;overflow-wrap:anywhere}
+@media(max-width:710px){.hw-page-scene img{max-width:38px;max-height:44px}}

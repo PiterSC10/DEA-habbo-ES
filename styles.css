@@ -300,3 +300,6 @@ html,body{overflow-x:clip}
 .dea-chat-label,.dea-role-meta .dea-chat-label,.dea-role summary .dea-chat-label{display:inline!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;margin:0!important;color:var(--chat-ink)!important;font-weight:700!important;font-size:inherit!important;line-height:inherit!important;box-shadow:none!important;text-shadow:none!important}
 /* El chat negro necesita contraste sobre el fondo oscuro, solo alrededor de las letras. */
 .dea-chat-label[style*="--chat-ink:#111111"]{background:transparent!important;border-radius:0!important;padding:0!important;text-shadow:-1px -1px 0 #dce4ea,1px -1px 0 #dce4ea,-1px 1px 0 #dce4ea,1px 1px 0 #dce4ea!important}
+
+/* Keep the mobile backdrop and sidebar in the same stacking context in both skins. */
+@media(max-width:710px){.side{height:100dvh}.side-scroll{min-height:0;overscroll-behavior:contain}.side-bottom{padding-bottom:max(10px,env(safe-area-inset-bottom))}}

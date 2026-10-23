@@ -423,3 +423,11 @@ html,body,#app{max-width:100%;min-width:0}
 @media(max-width:700px){.dea-preview-counter{margin-top:15px}}
 
 .habbo-official-link{gap:9px!important}.habbo-official-logo{display:block;object-fit:contain;width:49px;height:25px;flex:none}.habbo-official-link small{display:inline-block;color:#f0c86e;font-size:10px;margin-left:4px}
+
+/* Organized site footer: replaces the loose SEO links without altering existing pages. */
+.dea-footer-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:560px;margin:18px auto 4px;padding:18px 20px;border-top:1px solid #48647a55;text-align:left}
+.dea-footer-directory>div{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.dea-footer-directory strong{font-size:10px;letter-spacing:.11em;color:#e8c681}
+.dea-footer-directory a{font-size:12px!important;line-height:1.45;color:#b9d1e3;text-decoration:none!important;border-bottom:1px solid transparent}
+.dea-footer-directory a:hover,.dea-footer-directory a:focus-visible{color:#f3d493;border-bottom-color:#f3d493}
+@media(max-width:440px){.dea-footer-directory{gap:12px;padding:16px 8px}.dea-footer-directory a{font-size:11px!important}}

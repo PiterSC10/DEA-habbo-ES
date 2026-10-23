@@ -459,3 +459,6 @@ html,body,#app{max-width:100%;min-width:0}
 .dea-founder-coordinator{border-color:#e1ba68;box-shadow:0 0 0 1px #c79b4866,0 14px 32px #0005}.dea-founder-coordinator .dea-founder-rank{color:#ffe2a0}.dea-founder-coordinator p{color:#f3d391;font-weight:750}
 
 .dea-founder-description{display:block;margin-top:10px;color:#b6cbd9;font-size:11px;line-height:1.6;overflow-wrap:anywhere}.dea-founder-coordinator .dea-founder-description{color:#d9c9a8}
+
+/* Public preview sections: sala and banderines */
+.dea-coming-layout{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-top:20px}.dea-coming-layout .panel{min-width:0}.dea-coming-tag{display:inline-block;border:1px solid #c8a35f;color:#f2d28e;border-radius:30px;padding:5px 12px;font-size:11px;font-weight:800;letter-spacing:.1em;margin-bottom:12px}@media(max-width:720px){.dea-coming-layout{grid-template-columns:1fr}}

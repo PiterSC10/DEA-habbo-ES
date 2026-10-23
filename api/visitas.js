@@ -89,7 +89,8 @@ export function createHandler({storage = {get, list, put}, clock = Date.now, con
       }
     } catch (e) {
       console.error('DEA visits:', e?.name || 'StorageError', e?.message || 'storage failed');
-      return send(503,{error:'No se pudieron consultar las visitas'});
+      const kind=e?.constructor?.name;const known=['BlobAccessError','BlobOidcEnvironmentNotAllowedError','BlobStoreNotFoundError','BlobStoreSuspendedError','BlobServiceNotAvailable','BlobServiceRateLimited','BlobRequestAbortedError'];const codigo=conflict(e)?'WRITE_CONFLICT':known.includes(kind)?kind:/ifmatch|etag|if-match/i.test(e?.message||'')?'WRITE_CONDITION':/cachecontrol/i.test(e?.message||'')?'CACHE_POLICY':'STORAGE_ERROR';
+      return send(503,{error:'No se pudieron consultar las visitas',codigo});
     }
   };
 }

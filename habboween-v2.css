@@ -1,0 +1,29 @@
+/* DEA Habboween 2026 V2 — reversible visual theme, preserving original UI and all logic. */
+body.dea-hw-v2{--hw-gold:#ffc66d;--hw-orange:#e98236;--hw-purple:#ae78df}
+body.dea-hw-v2 #app{background:radial-gradient(ellipse at 85% 0%,#45215166,transparent 38%),radial-gradient(ellipse at 0% 65%,#7e3a1e30,transparent 46%);min-height:100vh}
+body.dea-hw-v2 .shell-home,body.dea-hw-v2 .dea-preview-page{background:radial-gradient(ellipse at 75% 10%,#41214f 0%,transparent 43%),linear-gradient(145deg,#071221,#14152a 60%,#0a1524)!important}
+body.dea-hw-v2 .home-bar,body.dea-hw-v2 .dea-preview-top,body.dea-hw-v2 .topbar,body.dea-hw-v2 .home-foot,body.dea-hw-v2 .foot{background:linear-gradient(90deg,#0a1728,#2a1a34,#101b2d)!important;border-color:#a96548!important}
+body.dea-hw-v2 .hero-eagle,body.dea-hw-v2 .dea-preview-illustration{filter:drop-shadow(0 0 20px #f39c4c4a)}
+body.dea-hw-v2 .gradient-ink,body.dea-hw-v2 .dea-preview-surface h1{background:linear-gradient(90deg,#fff0b5,#fbb35c,#e7c27d)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+body.dea-hw-v2 .landing h1:after,body.dea-hw-v2 .dea-preview-surface h1:after{content:"";display:inline-block;width:.75em;height:.75em;margin-left:.22em;vertical-align:-.06em;background:url('./habboween-pumpkin.svg') center/contain no-repeat;filter:drop-shadow(0 0 7px #f39b4a)}
+body.dea-hw-v2 .choice,body.dea-hw-v2 .panel,body.dea-hw-v2 .rank-row,body.dea-hw-v2 .tile,body.dea-hw-v2 .public-quick-link,body.dea-hw-v2 .dea-preview-surface{position:relative;border-color:#a86551!important;box-shadow:inset 0 0 0 1px #e9a45a18,0 5px 30px #08071250!important;background-image:linear-gradient(145deg,#271d363b,transparent 60%)!important}
+body.dea-hw-v2 .choice:before,body.dea-hw-v2 .dea-preview-surface:before{content:"";position:absolute;top:-5px;left:-5px;width:75px;height:75px;pointer-events:none;background:url('./habboween-web.svg') top left/contain no-repeat;opacity:.72}
+body.dea-hw-v2 .choice:after{content:"";position:absolute;right:4px;bottom:4px;width:37px;height:37px;background:url('./habboween-pumpkin.svg') center/contain no-repeat;pointer-events:none}
+body.dea-hw-v2 .choice.join:after{background-image:url('./habboween-ghost.svg')}
+body.dea-hw-v2 .choice.public:after{background-image:url('./habboween-pumpkin.svg')}
+body.dea-hw-v2 .btn:not(.ghost),body.dea-hw-v2 button:not(#dea-hw-switch):not(.dea-tech-close){border-color:#df9654;box-shadow:0 0 14px #d67a3826}
+body.dea-hw-v2 .section-kicker,body.dea-hw-v2 .hero-kicker{color:#f6bb7b!important}
+body.dea-hw-v2 .dea-work-feature{border-color:#ef9a51!important;box-shadow:0 0 25px #dd784044!important}
+body.dea-hw-v2 .dea-preview-container,body.dea-hw-v2 .landing{position:relative}
+body.dea-hw-v2 .dea-preview-container:after,body.dea-hw-v2 .landing:after{content:"";position:absolute;right:0;bottom:0;width:clamp(60px,11vw,140px);height:clamp(60px,11vw,140px);background:url('./habboween-pumpkin.svg') center/contain no-repeat;pointer-events:none;opacity:.9;filter:drop-shadow(0 0 18px #fa9e5070)}
+body.dea-hw-v2 .dea-preview-container:before,body.dea-hw-v2 .landing:before{content:"";position:absolute;left:0;bottom:2%;width:clamp(45px,8vw,90px);height:clamp(45px,8vw,90px);background:url('./habboween-ghost.svg') center/contain no-repeat;pointer-events:none;opacity:.75}
+body.dea-hw-v2 .dea-preview-surface{border:1px solid #d48b50!important}
+body.dea-hw-v2 .dea-chat-label{color:var(--chat-ink)!important}
+#dea-hw-switch{position:fixed;right:12px;bottom:12px;z-index:9000;border:1px solid #c58b51;border-radius:30px;padding:9px 14px;background:#17182bea;color:#ffdaaa;font:700 12px system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 20px #0009}
+#dea-hw-switch:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#dea-hw-ribbon{display:none}
+body.dea-hw-v2 #dea-hw-ribbon{display:flex;position:relative;justify-content:center;align-items:center;gap:10px;min-height:48px;padding:8px 20px;background:linear-gradient(90deg,#20172b,#40213d,#231827);border-bottom:2px solid #b76b46;color:#ffce88;font:800 clamp(13px,2.2vw,19px) system-ui,sans-serif;letter-spacing:.09em;text-align:center}
+body.dea-hw-v2 #dea-hw-ribbon:before,body.dea-hw-v2 #dea-hw-ribbon:after{content:"";width:30px;height:30px;background:url('./habboween-pumpkin.svg') center/contain no-repeat}
+body.dea-hw-v2 #dea-tech-layer .dea-tech-dialog{border-color:#d68a51!important;box-shadow:0 0 50px #b36b452c!important}
+@media(max-width:650px){body.dea-hw-v2 .landing:before,body.dea-hw-v2 .dea-preview-container:before{width:40px;height:40px;opacity:.4}body.dea-hw-v2 .landing:after,body.dea-hw-v2 .dea-preview-container:after{width:55px;height:55px;opacity:.5}#dea-hw-switch{font-size:10px;padding:7px 10px;right:7px;bottom:7px}body.dea-hw-v2 #dea-hw-ribbon{padding:7px 9px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){body.dea-hw-v2 *{scroll-behavior:auto!important}}

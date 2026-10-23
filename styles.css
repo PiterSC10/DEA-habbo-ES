@@ -336,3 +336,24 @@ html,body,#app{max-width:100%;min-width:0}
  .main-body table{max-width:100%}
  .main-body .table-wrap,.main-body .scroll-x{max-width:100%;overflow-x:auto}
 }
+
+/* iPhone/Android/tablet: force every public card and navigation into viewport. */
+@media(max-width:710px){
+ body,#app,.app-layout,.main,.main-body,.page-content,.public-content{width:100%!important;min-width:0!important;max-width:100%!important}
+ .main-body{overflow-x:clip!important}
+ .main-body .dea-public-neon-nav,.main-body .dea-tariff-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important;width:100%!important}
+ .main-body .tiles,.main-body .tiles.three,.main-body .founders,.main-body .steps{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important}
+ .main-body .tile,.main-body .founder,.main-body .step,.main-body .dea-neon-link{min-width:0!important;max-width:100%!important;overflow-wrap:anywhere}
+ .main-body .dea-neon-link{padding:13px!important;min-height:76px!important}
+ .main-body .dea-neon-link strong{font-size:12px!important}
+ .main-body .tile{padding:12px!important}
+ .main-body .tile strong,.main-body .tile span{overflow-wrap:anywhere}
+ .topbar{width:100%!important;min-width:0!important;max-width:100%!important;padding:10px 12px!important}
+ .topbar>*,.topbar-title{min-width:0!important;max-width:100%}
+ .topbar-title{overflow-wrap:anywhere}
+ .topbar-badge{max-width:40vw;white-space:normal;text-align:center}
+}
+@media(max-width:380px){
+ .main-body .tiles,.main-body .tiles.three,.main-body .founders,.main-body .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .main-body .tile{padding:10px!important}
+}

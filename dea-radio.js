@@ -1,4 +1,4 @@
-/* DEA RADIO STATION — one persistent player, six embedded stations. */
+/* DEA RADIO STATION — one persistent player, eight branded stations. */
 (()=>{'use strict';
 if(document.getElementById('dea-radio'))return;
 const stations=[
@@ -11,9 +11,21 @@ const stations=[
 ['Ibiza Global Radio','House · Electrónica · Ibiza','https://listenssl.ibizaglobalradio.com:8024/stream'],
 ['Capital London','Pop · Éxitos británicos','https://media-ssl.musicradio.com/CapitalMP3']
 ];
+const details=[
+['Colombia','Colombia','collounge.com'],
+['Internacional','Global','1.fm'],
+['Internacional','Global','fieramix.com'],
+['Estados Unidos','EE. UU.','chilltrax.com'],
+['España','España','cadenadial.com'],
+['España','España','urbanrevolution.es'],
+['España','Ibiza','ibizaglobalradio.com'],
+['Reino Unido','Londres','capitalfm.com']
+];
+const logo=i=>'https://www.google.com/s2/favicons?domain='+encodeURIComponent(details[i][2])+'&sz=128';
+const badge=i=>'<span class="dr-logo"><img src="'+logo(i)+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.textContent=\'DEA\'"></span>';
 const root=document.createElement('section');root.id='dea-radio';root.setAttribute('aria-label','DEA Radio Station');
 root.innerHTML=`<div class="dr-dock">
-<div class="dr-top"><div class="dr-identity"><span class="dr-mark">DEA</span><div class="dr-brand"><strong>DEA RADIO STATION</strong><small data-current-name>01 · Colombia Lounge</small></div></div><button type="button" class="dr-play" data-play aria-label="Reproducir emisora">▶</button></div>
+<div class="dr-top"><div class="dr-identity"><span class="dr-mark" data-current-logo>DEA</span><div class="dr-brand"><strong>DEA RADIO STATION</strong><small data-current-name>01 · Colombia Lounge</small></div></div><button type="button" class="dr-play" data-play aria-label="Reproducir emisora">▶</button></div>
 <div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las ocho emisoras" title="Ver ocho emisoras">8</button></div>
 <div class="dr-volume"><span class="dr-volume-icon" aria-hidden="true">◖</span><input type="range" data-volume min="0" max="100" value="55" step="1" aria-label="Volumen de radio de 0 a 100"><output data-volume-label>55%</output></div></div>
 <div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Ocho emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 8 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
@@ -22,8 +34,8 @@ const audio=new Audio();audio.preload='none';audio.volume=.55;
 let selected=0,playing=false,request=0,focusBefore=null;
 const $=q=>root.querySelector(q),$$=q=>root.querySelectorAll(q);
 const picker=$('[data-picker]'),dropdown=$('[data-dropdown]'),overlay=$('[data-overlay]'),status=$('[data-status]');
-stations.forEach((s,i)=>{const label=String(i+1).padStart(2,'0');const btn=document.createElement('button');btn.type='button';btn.className='dr-option';btn.dataset.station=String(i);btn.innerHTML='<b>'+label+'</b><span>'+s[0]+'</span>';dropdown.appendChild(btn);const tile=document.createElement('button');tile.type='button';tile.className='dr-tile';tile.dataset.station=String(i);tile.innerHTML='<span class="dr-number">DEA '+label+'</span><strong>'+s[0]+'</strong><small>'+s[1]+'</small>'; $('[data-grid]').appendChild(tile)});
-function paint(){const label=String(selected+1).padStart(2,'0')+' · '+stations[selected][0];$('[data-current-name]').textContent=label;picker.firstChild.textContent=label+' ';$('[data-play]').textContent=playing?'Ⅱ':'▶';$('[data-play]').setAttribute('aria-label',playing?'Pausar emisora':'Reproducir emisora');$$('[data-station]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.station)===selected)))}
+stations.forEach((s,i)=>{const label=String(i+1).padStart(2,'0');const btn=document.createElement('button');btn.type='button';btn.className='dr-option';btn.dataset.station=String(i);btn.innerHTML=badge(i)+'<span class="dr-option-text"><strong>'+label+' · '+s[0]+'</strong><small>'+details[i][0]+' · '+s[1]+'</small></span>';dropdown.appendChild(btn);const tile=document.createElement('button');tile.type='button';tile.className='dr-tile';tile.dataset.station=String(i);tile.innerHTML=badge(i)+'<span class="dr-number">DEA '+label+'</span><strong>'+s[0]+'</strong><small>'+details[i][0]+' · '+details[i][1]+'</small><small>'+s[1]+'</small>'; $('[data-grid]').appendChild(tile)});
+function paint(){const label=String(selected+1).padStart(2,'0')+' · '+stations[selected][0];$('[data-current-name]').textContent=label+' · '+details[selected][0];$('[data-current-logo]').innerHTML='<img src="'+logo(selected)+'" alt="" onerror="this.style.display=\'none\';this.parentNode.textContent=\'DEA\'">';picker.firstChild.textContent=label+' ';$('[data-play]').textContent=playing?'Ⅱ':'▶';$('[data-play]').setAttribute('aria-label',playing?'Pausar emisora':'Reproducir emisora');$$('[data-station]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.station)===selected)))}
 function closeDropdown(){dropdown.hidden=true;picker.setAttribute('aria-expanded','false')}
 function stop(){request++;audio.pause();playing=false;paint()}
 async function play(){const id=++request;const stream=stations[selected][2];if(audio.getAttribute('src')!==stream){audio.src=stream;audio.load()}status.textContent='Conectando con '+stations[selected][0]+'…';try{await audio.play();if(id!==request)return;playing=true;status.textContent='Escuchando '+stations[selected][0]}catch(e){if(id!==request)return;playing=false;status.textContent='La señal no está disponible. Prueba otra emisora.'}paint()}

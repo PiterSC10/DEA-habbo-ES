@@ -409,3 +409,9 @@ html,body,#app{max-width:100%;min-width:0}
 
 /* Do not stretch a chart with only a few recorded days. */
 .dea-plate .dea-chart-grid{min-width:0!important;max-width:none!important;margin-right:auto}
+
+.dea-plate.dea-plate-classified{display:flex!important;flex-wrap:wrap!important}
+.dea-plate-classified>div:first-of-type strong,.dea-plate-classified>div:first-of-type span{filter:blur(7px);user-select:none;pointer-events:none}
+.dea-plate .dea-classified-notice{flex:0 0 100%;width:100%;padding:10px 5px;margin-top:8px;border-top:1px solid #b9945166;text-align:center;display:flex;flex-direction:column;gap:5px}
+.dea-plate .dea-classified-notice strong{font-size:11px;color:#e9bd72;letter-spacing:.04em}
+.dea-plate .dea-classified-notice small{font-size:10px;color:#b9c9d8}

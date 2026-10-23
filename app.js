@@ -96,7 +96,7 @@ function previewShell(){
  <button class="btn gold" type="submit">${I('lock')} Entrar a la vista previa ${I('arrow')}</button>
  ${previewError?`<p role="alert" class="dea-preview-error">${esc(previewError)}</p>`:''}
  </form><small class="dea-preview-caption">Acceso temporal de preinauguración. Las cuentas de Discord se comprueban después, dentro de DEA.</small>
- </div></main><footer class="dea-preview-footer">DEA HABBO ES · Preinauguración</footer></div>`;
+ </div></main><footer class="dea-preview-footer">${deaPlate()}DEA HABBO ES · Preinauguración</footer></div>`;
 }
 async function validatePreview(form){
  const user=String(form.elements.preview_user.value||'').trim().toLowerCase();

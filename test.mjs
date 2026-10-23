@@ -411,3 +411,42 @@ test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
  assert.ok(html.includes('index,follow,max-image-preview:large'));
 });
 
+
+test('Menú móvil: fondo dentro del layout, abrir, cerrar, Escape y navegar',()=>{
+ const handlers={},windowHandlers={};
+ const root={innerHTML:'',addEventListener(type,fn){(handlers[type]??=[]).push(fn)},querySelector(){return null}};
+ const location={hash:'#/publico'};
+ const context={document:{getElementById(){return root}},location,window:{addEventListener(type,fn){windowHandlers[type]=fn},scrollTo(){}},innerWidth:390,sessionStorage:{getItem(){return 'yes'}}};
+ runInNewContext(catalogs+'\n'+src,context);
+ const action=name=>handlers.click.forEach(fn=>fn({target:{closest(){return {dataset:{action:name}}}}}));
+ assert.match(root.innerHTML,/^<div class="app-layout app-area-publico"><div class="mobile-overlay/);
+ action('mobile-menu');
+ assert.match(root.innerHTML,/class="mobile-overlay active"/);
+ assert.match(root.innerHTML,/class="side expanded mobile-open"/);
+ assert.match(root.innerHTML,/aria-label="Mostrar menú" aria-expanded="true"/);
+ action('close-mobile');assert.doesNotMatch(root.innerHTML,/mobile-open/);
+ action('mobile-menu');handlers.keydown.forEach(fn=>fn({key:'Escape'}));assert.doesNotMatch(root.innerHTML,/mobile-open/);
+ action('mobile-menu');location.hash='#/publico/founders';windowHandlers.hashchange();
+ assert.doesNotMatch(root.innerHTML,/mobile-open/);assert.match(root.innerHTML,/KietsyAndrea/);
+});
+
+test('Habboween: Founders públicos con adornos limitados; original y VIP sin escena',async()=>{
+ const theme=await readFile(new URL('./habboween-v2.js',import.meta.url),'utf8');
+ const events={},nodes=[],classes=new Set();let storage='habboween';
+ function element(){const el={parentNode:null,hidden:false,setAttribute(){},addEventListener(type,fn){this[type]=fn},remove(){this.parentNode=null},prepend(node){node.parentNode=this},append(node){node.parentNode=this}};nodes.push(el);return el}
+ const target=element(),root={querySelector(selector){assert.equal(selector,'.app-area-publico .main-body, .app-area-unete .main-body');return target}};
+ const body=element();body.classList={toggle(name,on){on?classes.add(name):classes.delete(name)}};
+ const location={hash:'#/publico/founders'};
+ runInNewContext(theme,{document:{createElement:element,getElementById(){return root},body,contains(el){return !!el.parentNode}},localStorage:{getItem(){return storage},setItem(k,v){storage=v}},location,window:{addEventListener(type,fn){events[type]=fn}},requestAnimationFrame(fn){fn()},MutationObserver:class{observe(){}}});
+ const scene=nodes.find(el=>el.className==='hw-page-scene'),button=nodes.find(el=>el.id==='dea-hw-switch');
+ assert.ok(classes.has('dea-hw-v2'));assert.equal(scene.parentNode,target);assert.equal(scene.hidden,false);
+ button.click();assert.equal(storage,'original');assert.equal(scene.parentNode,null);assert.equal(scene.hidden,true);
+ button.click();assert.equal(scene.parentNode,target);
+ for(const path of ['vip','vip/solicitudes','identificacion/vip','ficha','founder-10pedro']){
+  location.hash='#/'+path;events.hashchange();assert.equal(scene.parentNode,null,path);assert.equal(button.hidden,true,path);assert.equal(classes.has('dea-hw-v2'),false,path);
+ }
+ location.hash='#/publico/founders';events.hashchange();assert.equal(scene.parentNode,target);assert.equal(button.hidden,false);
+ const themeCss=await readFile(new URL('./habboween-v2.css',import.meta.url),'utf8');
+ assert.match(themeCss,/\.hw-page-scene\[hidden\]\{display:none!important\}/);
+ assert.match(themeCss,/\.hw-page-scene img\{[^}]*max-width:38px;max-height:44px/);
+});

@@ -1,5 +1,5 @@
 /* DEA V6 · Catálogos estáticos de la web pública. No acceder a Sheets privado. */
-const PLACAS_PUBLICAS=Object.freeze([]); // Rellenar solo con elementos oficiales publicados por Founders.
+const PLACAS_PUBLICAS=Object.freeze([{nombre:'[DEA] VIP',precioCreditos:35,duracion:'Permanente',estado:'Publicada',beneficio:'Ventajas VIP pendientes de descripción oficial.'}]);
 function publicNeonTabs(p){
  const r=p==='publico/jerarquia',b=p==='publico/placas';
  return `<nav class="dea-public-neon-nav" aria-label="Catálogos públicos"><a class="dea-neon-link rango${r?' selected':''}" href="#/publico/jerarquia" ${r?'aria-current="page"':''}>${I('list',true)}<span><strong>RANGOS Y ASCENSOS</strong><small>Tabla oficial R1–R10</small></span>${I('arrow')}</a><a class="dea-neon-link placas${b?' selected':''}" href="#/publico/placas" ${b?'aria-current="page"':''}>${I('spark',true)}<span><strong>PLACAS DE BENEFICIO</strong><small>Catálogo y precios</small></span>${I('arrow')}</a></nav>`;
@@ -35,15 +35,4 @@ function publicPlaqueImage(item){
  const safe=/^https:\/\/[^"' <>\s]+\.(png|jpg|jpeg|webp)$/i.test(url)||/^\.\/[a-z0-9._-]+\.(png|jpg|jpeg|webp)$/i.test(url);
  return `<img src="${esc(safe?url:'./logo-dea-es.png')}" loading="lazy" alt="${safe?'Logo oficial de '+esc(item.nombre):'Emblema DEA provisional, placa sin logo definido'}">`;
 }
-function publicPlaques(){
- const placeholder=PLACAS_PUBLICAS.length===0;
- const items=placeholder?Array.from({length:6},(_,n)=>({nombre:'Placa '+String(n+1).padStart(2,'0')})):PLACAS_PUBLICAS;
- const cards=items.map(item=>{
-  const active=!placeholder&&item.estado==='Publicada';
-  const price=active&&item.precioCreditos!==undefined?esc(item.precioCreditos)+' créditos':'Precio por definir';
-  const benefit=active&&item.beneficio?esc(item.beneficio):'Beneficio por definir';
-  const days=active&&item.duracionDias?esc(item.duracionDias)+' días':'Duración por definir';
-  return `<article class="dea-plaque-card"><div class="dea-plaque-image">${publicPlaqueImage(item)}<span>${active?'CATÁLOGO OFICIAL':'PENDIENTE'}</span></div><h3>${esc(item.nombre)}</h3><strong class="dea-plaque-price">${price}</strong><p><b>Beneficio:</b> ${benefit}</p><p><b>Duración:</b> ${days}</p><small>${active?'Venta exclusivamente por Founders con comprobación presencial en Habbo.':'Imagen provisional. No está a la venta.'}</small></article>`;
- }).join('');
- return catalogWindow('Placas de beneficio',head('CATÁLOGO DEA','Placas de beneficio','Consulta de placas, logos, precios en créditos, duración y ventajas tras su aprobación oficial por los Founders.')+`<p class="dea-catalog-warning">Las 6–8 placas están pendientes de definición. No hay placas oficiales con nombres, logos, precios o beneficios aprobados en la base de datos. Estos seis espacios son provisionales y no representan artículos disponibles.</p><div class="dea-plaque-grid">${cards}</div><section class="dea-tariff-info"><h2>Proceso de activación presencial</h2><p>Solicitud → comprobación en sala Habbo por Founders → aprobación → entrega y activación → registro de caducidad y visualización en expediente. Sin pagos automáticos.</p></section>`);
-}
+function publicPlaques(){const cards=PLACAS_PUBLICAS.map(item=>`<article class="dea-plaque-card"><div class="dea-plaque-image"><div class="dea-vip-symbol" aria-hidden="true">♛<small>VIP</small></div><span>EN VENTA</span></div><h3>${esc(item.nombre)}</h3><strong class="dea-plaque-price">${esc(item.precioCreditos)} créditos</strong><p><b>Duración:</b> ${esc(item.duracion)}</p><p><b>Beneficios:</b> Pendientes de descripción oficial.</p><small>Venta y entrega presencial en Habbo. Imagen de insignia ilustrativa; sustituir por la placa pixelada original cuando esté disponible como archivo.</small></article>`).join('');return catalogWindow('Placas de beneficio',head('CATÁLOGO DEA','Placas de beneficio','Primera placa de beneficio confirmada por DEA.')+`<div class="dea-plaque-grid">${cards}</div><section class="dea-tariff-info"><h2>Adquisición presencial</h2><p>La placa VIP tiene un precio comunicado de 35 créditos y duración permanente. Para solicitarla, consulta con la dirección de DEA en Habbo. No se realizan pagos desde esta web.</p></section>`)}

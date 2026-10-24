@@ -6,7 +6,8 @@
  const founder=root.getAttribute('data-founder');
  if(!/^[a-zA-Z0-9_.]{2,32}$/.test(founder))return;
  const isMaster=founder==='10PEDRO';
- const role=isMaster?'MASTER FOUNDER · CEO':founder==='XPE_34'?'FOUNDER · CEO DE EVENTOS':'FOUNDER · DEA HABBO ES';
+ const founderRoles={'lesslie.ar':'CEO · Coordinadora General','10PEDRO':'CEO · Coordinador de Tecnología Web','XPE_34':'CEO · Coordinador de Eventos','KietsyAndrea':'CEO · Coordinadora de RRHH'};
+ const role='FOUNDER · '+(founderRoles[founder]||'CEO');
  const title='DEA CONTROL APP FOUNDER (NO COMPARTIR)';
  const portal='https://script.google.com/macros/s/AKfycbyhGqAW8AiwHt11JBT3jmf2In5do2MRpO-H_urxftlewpJgvmWdQV3mrbQQdtOnYndNEg/exec';
  const actions=[['solicitudes','Solicitudes pendientes','clipboard-list','Revisar altas R2'],['ascensos','Registrar ascenso','trending-up','Verificación presencial'],['nominas','Pagar nóminas','wallet','Miércoles y sábado'],['extra','Paga extraordinaria','gift','Registro por asistencia'],['sanciones','Baneados / incidencias','shield-alert','Anotar sin eliminar'],['cobros','Cobros y rangos','coins','Registrar cobros reales'],['auditoria','Mi historial','history','Solo consulta y anotaciones']];

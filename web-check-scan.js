@@ -18,9 +18,16 @@
     ["Despliegue y documentación técnica","GitHub, Vercel, controles SEO y documentación de integración.",7,"ok"],
     ["DEA Radio Station","Mini reproductor compacto, once emisoras y selección de radio tras acceso.",9,"ok"],
     ["Control de visitas DEA","Contador, historial diario, filtros 7/15/30 días y gráfica compacta.",10,"ok"],
-    ["Preinauguración y privacidad visual","Pantalla de contraseña, radio diferida y contador clasificado.",6,"ok"]
+    ["Preinauguración y privacidad visual","Pantalla de contraseña, radio diferida y contador clasificado.",6,"ok"],
+    ["Founders y dirección corporativa","Cuatro perfiles CEO, responsabilidades y avatares de Habbo.",5,"ok"],
+    ["Sala DEA y banderines","Secciones públicas preparadas con contenido próximamente.",4,"ok"],
+    ["Noticias y comunicación DEA","Sección de actualidad y anuncio de preinauguración.",4,"ok"],
+    ["Navegación móvil y accesibilidad","Orden del menú, avisos y estabilidad de navegación.",5,"ok"]
   ];
   const HOURS=WORK.reduce((n,w)=>n+w[2],0);
+  const ESTIMATED_RATE_CURRENT=35;
+  const ESTIMATED_RATE_VALIDATED=50;
+  const formatEuros=n=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(n);
   const CSS=`
 #dea-tech-layer[hidden]{display:none!important}
 .dea-tech-open{font:inherit!important;display:inline-flex;align-items:center;gap:5px;margin:4px 0 0 12px;padding:5px 9px!important;border:1px solid #60758b!important;border-radius:7px;color:#c7d9e9!important;background:transparent!important;cursor:pointer;font-size:11px!important;letter-spacing:.01em;vertical-align:middle}
@@ -114,6 +121,7 @@
 #dea-tech-layer .dea-tech-scan-row .dea-tech-status,#dea-tech-layer .dea-tech-scan-row.is-doc .dea-tech-status,#dea-tech-layer .dea-tech-scan-row.is-private .dea-tech-status,#dea-tech-layer .dea-tech-scan-row.is-warn .dea-tech-status{color:#72e0b1!important}
 #dea-tech-layer .dea-tech-economic strong{color:#baf3cf}
 
+.dea-tech-valuation-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:7px 0}.dea-tech-valuation-amount{font-weight:850;color:#baf3cf;font-size:clamp(16px,3vw,21px);font-variant-numeric:tabular-nums}.dea-tech-valuation-toggle{border:1px solid #a18a55;border-radius:8px;background:#273625;color:#f1d899;padding:7px 11px;font-size:12px;font-weight:800;cursor:pointer}.dea-tech-valuation-toggle:focus-visible{outline:2px solid #a9e5ca;outline-offset:2px}
 `;
   function q(s,parent=document){return parent.querySelector(s)}
   function h(el,html){el.innerHTML=html;return el}
@@ -161,9 +169,10 @@
           <div class="dea-tech-economic">
             <h4>Professional Development Valuation</h4>
             <p><strong>Horas estimadas:</strong> ${HOURS} h</p>
-            <p><strong>Valoración conservadora actual:</strong> **.*** € + IVA</p>
-            <p><strong>Proyecto completo y validado:</strong> **.*** € + IVA</p>
-            <small>Importes ocultos para la vista pública. Estimación comercial orientativa. No es presupuesto aceptado, factura ni certificación de horas trabajadas. No se asignan precios individuales a módulos.</small>
+            <div class="dea-tech-valuation-row"><span>Valoración orientativa actual:</span><span class="dea-tech-valuation-amount" data-dea-value="current" data-value="${formatEuros(HOURS*ESTIMATED_RATE_CURRENT)}" aria-label="Importe oculto">•••••• €</span></div>
+            <div class="dea-tech-valuation-row"><span>Escenario de proyecto validado:</span><span class="dea-tech-valuation-amount" data-dea-value="validated" data-value="${formatEuros(HOURS*ESTIMATED_RATE_VALIDATED)}" aria-label="Importe oculto">•••••• €</span></div>
+            <button type="button" class="dea-tech-valuation-toggle" aria-pressed="false" aria-label="Mostrar valoración económica estimada" data-dea-valuation-toggle>◉ Ver valoración</button>
+            <small>Importes ocultos por defecto; el botón permite verlos u ocultarlos. Cálculo ilustrativo: ${ESTIMATED_RATE_CURRENT} €/h actual y ${ESTIMATED_RATE_VALIDATED} €/h como escenario validado, aplicados a las horas estimadas del inventario, sin IVA. Estimación comercial orientativa. No es presupuesto aceptado, factura ni certificación de horas trabajadas. No se asignan precios individuales a módulos.</small>
           </div>
         </div>
       </details>
@@ -173,6 +182,7 @@
     </div>
   </section>`);
   document.body.append(layer);
+  function hideValuation(){const btn=q("[data-dea-valuation-toggle]",layer);if(!btn)return;btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Mostrar valoración económica estimada");btn.textContent="◉ Ver valoración";layer.querySelectorAll("[data-dea-value]").forEach(el=>{el.textContent="•••••• €";el.setAttribute("aria-label","Importe oculto")})}
   let returnFocus=null;
   let running=false;
   const bar=q("#dea-tech-bar",layer);
@@ -228,6 +238,7 @@
       ["Public Information Portal",async()=>{const s=await read("./app.js");return hasAll(s,["publico/agencia","publico/jerarquia","publico/founders","publico/normativa"])?verified("Secciones institucionales y rutas declaradas.","MODULE DETECTED"):inconclusive("No se encontraron todas las secciones públicas.");}],
       ["R1–R10 Rank Structure",async()=>{const s=await read("./app.js");const total=Array.from({length:10},(_,i)=>"id:'R"+(i+1)+"'").filter(id=>s.includes(id)).length;return total===10?verified("Diez categorías detectadas; detalles internos R7–R10 aún por confirmar.","MODULE DETECTED"):inconclusive("Se detectaron "+total+" de las 10 categorías.");}],
       ["Promotion Rules",async()=>{const s=await read("./catalogo-publico.js");return hasAll(s,["Ascensos hasta R5 incluido","Ascensos hasta R7 incluido","Ascensos hasta R10 incluido"])?verified("Permisos acumulativos R5, R7 y R10 incluidos visibles; no verifica control privado.","CONFIGURED"):inconclusive("La normativa pública no coincide con la versión prevista.");}],
+      ["Sala DEA, banderines y noticias",async()=>{const a=await read("./app.js");return hasAll(a,["publico/sala","publico/banderines","publico/noticias"])?documented("Rutas y vistas preparadas; sala y banderines aún sin contenido definitivo."):inconclusive("No se detectaron las tres rutas.");}],
       ["Benefit Badge Catalog",async()=>{const s=await read("./catalogo-publico.js");return s.includes("PLACAS_PUBLICAS")?documented("Catálogo y espacios de placas publicados; nombres, precios y beneficios sin aprobar."):inconclusive("No se detectó la estructura del catálogo.");}],
       ["Founder Access Launchers",async()=>{const files=["founder-10pedro.html","founder-kietsyandrea.html","founder-lesslie-ar.html","founder-xpe-34.html"];const x=await Promise.allSettled(files.map(v=>read("./"+v,"check")));const n=x.filter(y=>y.status==="fulfilled").length;return n===4?verified("Cuatro lanzadores públicos accesibles. No prueba permisos Founder.","CHECK COMPLETED"):inconclusive("Lanzadores accesibles: "+n+"/4.");}],
       ["Directors WebApp",async()=>await read("./directores-deawebapp.html","check")?documented("Lanzador de Directores disponible; la operación de ascensos R5 requiere validación privada."):inconclusive("No se encontró el lanzador.")],
@@ -310,15 +321,16 @@
   function show(){
     if(!layer.hidden)return;
     returnFocus=document.activeElement;oldOverflow=document.body.style.overflow;document.body.style.overflow="hidden";
-    layer.hidden=false;modal.focus();void scan();
+    hideValuation();layer.hidden=false;modal.focus();void scan();
   }
   function close(){
-    runId++;runBtn.disabled=false;layer.hidden=true;document.body.style.overflow=oldOverflow;
+    runId++;runBtn.disabled=false;hideValuation();layer.hidden=true;document.body.style.overflow=oldOverflow;
     if(returnFocus?.isConnected)returnFocus.focus();
   }
   layer.addEventListener("click",e=>{
     if(e.target.closest("[data-dea-tech-close]"))close();
     else if(e.target.closest("#dea-tech-run"))void scan();
+    else if(e.target.closest("[data-dea-valuation-toggle]")){const btn=q("[data-dea-valuation-toggle]",layer);const reveal=btn.getAttribute("aria-pressed")!=="true";btn.setAttribute("aria-pressed",String(reveal));btn.setAttribute("aria-label",reveal?"Ocultar valoración económica estimada":"Mostrar valoración económica estimada");btn.textContent=reveal?"◉ Ocultar valoración":"◉ Ver valoración";layer.querySelectorAll("[data-dea-value]").forEach(el=>{el.textContent=reveal?el.dataset.value:"•••••• €";el.setAttribute("aria-label",reveal?el.dataset.value:"Importe oculto")})}
   });
   document.addEventListener("keydown",e=>{
     if(layer.hidden)return;

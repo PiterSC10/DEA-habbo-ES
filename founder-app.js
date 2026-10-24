@@ -15,7 +15,7 @@
  const el=(id)=>document.getElementById(id);
  el('founder-name').textContent=founder;
  el('founder-rank').textContent=role;
- el('founder-avatar').src='https://www.habbo.es/habbo-imaging/avatarimage?user='+encodeURIComponent(founder)+'&size=l&direction=2&head_direction=2';
+ el('founder-avatar').src=founder==='XPE_34'?'./assets/dea/founder-xpe34.png':'https://www.habbo.es/habbo-imaging/avatarimage?user='+encodeURIComponent(founder)+'&direction=2&head_direction=2&action=std&gesture=sml&size=l';
  el('founder-avatar').alt='Keko Habbo de '+founder;
  document.title=title+' · '+founder;
  function href(tab){return portal+'?founder='+encodeURIComponent(founder)+'&tab='+encodeURIComponent(tab)}

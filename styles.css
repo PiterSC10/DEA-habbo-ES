@@ -603,3 +603,8 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-classified .dea-paper-vip{background:linear-gradient(130deg,#f2e2ba,#dcc08a);border:3px double #8d6a33;border-radius:2px}.dea-classified .dea-paper-vip-price{color:#923a28!important}.dea-classified .dea-paper-vip small{color:#68543d}
 .dea-classified .dea-paper-footer{border-top:2px solid #75644c}.dea-classified .dea-paper-footer>span{color:#91362c}.dea-classified .dea-paper-footer p{color:#4d4031}
 @media(max-width:700px){.dea-classified-visual{grid-template-columns:1fr}.dea-classified-stamp{position:static;display:table;margin:0 0 8px auto}.dea-classified-sheet{border-width:4px;transform:none}.dea-classified-photo{transform:none}.dea-classified-brief{padding:12px}}
+
+/* New section indicator: discreet neon-green pulse */
+.dea-menu-new{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;padding:3px 7px;min-width:35px;border-radius:5px;border:1px solid #44ff9a;background:#092d1d;color:#6affae!important;font-size:9px;font-weight:900;line-height:1.2;letter-spacing:.08em;box-shadow:0 0 7px #29ff7855,inset 0 0 7px #29ff7833;text-shadow:0 0 6px #3cff87;animation:deaNewGlow 2s ease-in-out infinite}
+@keyframes deaNewGlow{0%,100%{opacity:1;box-shadow:0 0 6px #29ff7855,inset 0 0 5px #29ff7833}50%{opacity:.65;box-shadow:0 0 13px #29ff78a0,inset 0 0 8px #29ff7866}}
+@media(prefers-reduced-motion:reduce){.dea-menu-new{animation:none}}

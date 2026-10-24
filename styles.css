@@ -543,3 +543,14 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-room-teaser-overlay strong{color:#fff;font-size:clamp(1.35rem,4vw,2.4rem);font-weight:900;letter-spacing:.12em;text-shadow:0 3px 15px #000}
 .dea-room-teaser-overlay small{color:#e0eaf2;font-size:.9rem}
 @media(max-width:600px){.dea-room-actions{flex-direction:column}.dea-room-actions .btn{width:100%}.dea-room-teaser .dea-room-photo{height:240px}}
+
+/* DEA identity hierarchy: consistent Founder grid, subtle General Director emphasis */
+.dea-founder-grid{align-items:stretch}
+.dea-founder-card{display:flex;flex-direction:column;align-items:center}
+.dea-founder-art{width:100%;height:170px;background:radial-gradient(ellipse at 50% 43%,#31536d 0%,#1a364e 55%,#10263b 100%)}
+.dea-founder-art img{display:block;height:155px;width:100%;max-width:165px;object-fit:contain;object-position:center bottom;background:transparent}
+.dea-founder-coordinator{border-color:#e0b86d;box-shadow:0 0 0 1px rgba(237,198,122,.48),0 12px 26px #0003}
+.dea-confirmed-manager{background:linear-gradient(140deg,#173445,#0c2434);border-color:#668c9d;box-shadow:0 10px 24px #0002}
+.dea-manager-art{width:125px;height:175px;display:grid;place-items:center;flex:none;border-radius:10px;background:radial-gradient(ellipse,#2b5165,#152f42 76%);overflow:hidden}
+.dea-manager-art img{width:100%;height:100%;max-width:115px;object-fit:contain;object-position:center bottom}
+@media(max-width:480px){.dea-manager-art{width:94px;height:150px}.dea-manager-art img{max-width:90px}}

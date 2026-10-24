@@ -509,3 +509,7 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 
 /* Confirmed management team beneath Founders */
 .dea-confirmed-staff{margin-top:28px;padding:24px;border:1px solid rgba(194,159,97,.55);border-radius:18px;background:linear-gradient(135deg,#14263c,#0b1729)}.dea-confirmed-staff h3{margin:10px 0 20px;color:#f4dfae}.dea-confirmed-manager{display:flex;align-items:center;gap:22px;padding:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.14);border-radius:14px;max-width:480px}.dea-confirmed-manager img{display:block;width:110px;height:175px;object-fit:contain;object-position:center;image-rendering:pixelated;flex:none}.dea-confirmed-manager div{display:flex;flex-direction:column;gap:8px}.dea-confirmed-manager strong{font-size:1.4rem;color:#fff}.dea-confirmed-manager span{font-weight:700;color:#e8c27a}.dea-confirmed-manager small{color:#b8c7d8}@media(max-width:480px){.dea-confirmed-manager{gap:12px;padding:12px}.dea-confirmed-manager img{width:92px;height:150px}}
+
+/* Shared soft Habbo avatar background for all Founders and confirmed managers. */
+.dea-founder-art,.dea-confirmed-manager{background:radial-gradient(ellipse at 50% 42%,rgba(73,115,143,.7) 0%,rgba(33,64,88,.64) 42%,rgba(14,32,51,.9) 82%,#0c1d31 100%)}
+.dea-founder-art{overflow:hidden}.dea-founder-art img{background:transparent;object-position:center bottom}.dea-confirmed-manager{overflow:hidden}.dea-confirmed-manager img{background:transparent;object-fit:contain;object-position:center bottom}

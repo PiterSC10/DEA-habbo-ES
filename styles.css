@@ -496,3 +496,10 @@ html,body,#app{max-width:100%;min-width:0}
 @media(max-width:350px){.dea-banner-grid{grid-template-columns:1fr 1fr}.dea-banner-cloth strong{font-size:11px}}
 
 .dea-banner-real-insignia,.dea-vip-original{background-image:url(assets/dea/insignias-originales-sprite.png);background-repeat:no-repeat;background-size:1100% 100%;image-rendering:pixelated;flex:none}.dea-banner-real-insignia{width:86px;height:86px;max-width:100%;background-position:var(--sprite-x) 50%;border-radius:4px}.dea-vip-original{width:96px;height:96px;background-position:100% 50%;border-radius:5px}.dea-banner-cloth,.dea-banner-color-1,.dea-banner-color-2,.dea-banner-color-3,.dea-banner-color-4{background:linear-gradient(135deg,#f8f3e6,#ded5c1);border-color:#a98447}.dea-banner-cloth{min-height:220px}@media(max-width:600px){.dea-banner-real-insignia{width:72px;height:72px}.dea-banner-cloth{min-height:195px}}
+
+/* Individual authentic Habbo badge images: no sprite slicing or distortion. */
+img.dea-banner-real-insignia,img.dea-vip-original{display:block;background:none!important;object-fit:contain;object-position:center;image-rendering:pixelated;max-width:100%;height:auto;border:0;box-shadow:none}
+img.dea-banner-real-insignia{width:110px;height:110px;max-width:100%;margin:6px auto 2px}
+img.dea-vip-original{width:100px;height:100px;margin:auto}
+.dea-banner-cloth{width:88%;min-height:255px;gap:6px;padding-top:14px}
+@media(max-width:600px){img.dea-banner-real-insignia{width:90px;height:90px}.dea-banner-cloth{min-height:218px}}

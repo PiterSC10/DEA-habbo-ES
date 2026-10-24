@@ -84,7 +84,7 @@ function vipPage(){return accessArea('vip')}
 // IMPORTANTE: una puerta JavaScript no protege el código ni los archivos públicos de GitHub Pages.
 // Para seguridad real restringir el alojamiento y la visibilidad del repositorio.
 // La portada requiere el acceso temporal; Apps Script sigue validando las cuentas privadas.
-const PUBLIC_SITE_LIVE=false;
+const PUBLIC_SITE_LIVE=true;
 const PREVIEW_DIGEST='fa11ed11235b9348315045244896b2f5a08210cdb108c7d5c8239c3e2d02d1dd';
 const PREVIEW_SESSION_KEY='dea_v6_preview_admitted';
 let previewError='';

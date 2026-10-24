@@ -513,3 +513,5 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 /* Shared soft Habbo avatar background for all Founders and confirmed managers. */
 .dea-founder-art,.dea-confirmed-manager{background:radial-gradient(ellipse at 50% 42%,rgba(73,115,143,.7) 0%,rgba(33,64,88,.64) 42%,rgba(14,32,51,.9) 82%,#0c1d31 100%)}
 .dea-founder-art{overflow:hidden}.dea-founder-art img{background:transparent;object-position:center bottom}.dea-confirmed-manager{overflow:hidden}.dea-confirmed-manager img{background:transparent;object-fit:contain;object-position:center bottom}
+
+.dea-room-panel{background:linear-gradient(155deg,#132b42,#081726);border:1px solid #ab8b52}.dea-room-photo{display:block;width:100%;height:auto;object-fit:contain;background:#000;border-radius:12px;image-rendering:auto;box-shadow:0 15px 38px #0007}.dea-room-panel a{display:block;cursor:zoom-in}

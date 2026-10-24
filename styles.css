@@ -522,3 +522,24 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-sales-note{display:block;width:max-content;max-width:100%;margin:5px 0;padding:4px 9px;border:1px solid #cba45c;border-radius:7px;background:#3b301e;color:#ffe0a0;font-size:11px;font-weight:800;letter-spacing:.035em}.dea-role-stats{flex-wrap:wrap}
 
 .dea-sales-commission{display:inline-block;margin:5px 0;padding:5px 10px;border:1px solid #c9a451;border-radius:999px;background:#42341d;color:#ffe4a0;font-weight:800;letter-spacing:.035em}.dea-pay-breakdown{margin:12px 0;padding:11px 14px;border-left:3px solid #cba95b;background:rgba(176,142,68,.1);border-radius:6px;line-height:1.6}
+
+/* DEA Habbo Pixel — room landing, responsive and non-zoomable */
+.dea-room-pixel{position:relative;overflow:hidden;padding:clamp(18px,3vw,34px);border:1px solid #d5b56e;background:linear-gradient(145deg,#142d42 0%,#091726 75%);color:#edf7ff}
+.dea-room-kicker{color:#e9c16c;font-weight:800;letter-spacing:.15em;font-size:.75rem}
+.dea-room-pixel h3{color:#76e5f3!important;text-align:center;font-family:'Trebuchet MS',Verdana,sans-serif;font-weight:900;letter-spacing:.055em;text-shadow:2px 3px 0 #062437,0 0 17px #35b4dc66;font-size:clamp(1.35rem,3.6vw,2.35rem);margin:16px 0 8px}
+.dea-room-lead{max-width:680px;margin:0 auto 20px;text-align:center;color:#d1dfec;line-height:1.65}
+.dea-room-identity{padding:clamp(16px,3vw,26px);border:1px solid #43687b;border-radius:13px;background:linear-gradient(140deg,#1c364a,#122438);display:flex;flex-direction:column;gap:10px}
+.dea-room-identity>span{color:#e9c16c;letter-spacing:.11em;font-size:.75rem;font-weight:800}
+.dea-room-identity>strong{color:#fff;font-size:clamp(1.15rem,2.5vw,1.65rem);font-weight:900}
+.dea-room-identity>small{color:#cadbe8;line-height:1.6}
+.dea-room-link{overflow-wrap:anywhere;color:#9ee8f8;font-size:.92rem}
+.dea-room-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px}
+.dea-room-actions .btn{display:inline-flex;justify-content:center;align-items:center;min-width:160px;text-decoration:none;cursor:pointer}
+.dea-room-copy{border:1px solid #76c5d9!important;background:#17364c!important;color:#f1fbff!important}
+.dea-room-teaser{position:relative;overflow:hidden;isolation:isolate;margin-top:22px;border-radius:13px;border:1px solid #55738a;min-height:220px;background:#091626}
+.dea-room-teaser .dea-room-photo{width:100%;height:clamp(220px,36vw,390px);object-fit:cover;object-position:center;filter:brightness(.34) saturate(.7);pointer-events:none;user-select:none;border-radius:0;box-shadow:none}
+.dea-room-teaser-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;background:linear-gradient(0deg,#071526aa,transparent 60%);pointer-events:none}
+.dea-room-teaser-overlay span{color:#eac576;font-size:.77rem;font-weight:800;letter-spacing:.18em}
+.dea-room-teaser-overlay strong{color:#fff;font-size:clamp(1.35rem,4vw,2.4rem);font-weight:900;letter-spacing:.12em;text-shadow:0 3px 15px #000}
+.dea-room-teaser-overlay small{color:#e0eaf2;font-size:.9rem}
+@media(max-width:600px){.dea-room-actions{flex-direction:column}.dea-room-actions .btn{width:100%}.dea-room-teaser .dea-room-photo{height:240px}}

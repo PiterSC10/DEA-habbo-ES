@@ -608,3 +608,14 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-menu-new{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;padding:3px 7px;min-width:35px;border-radius:5px;border:1px solid #44ff9a;background:#092d1d;color:#6affae!important;font-size:9px;font-weight:900;line-height:1.2;letter-spacing:.08em;box-shadow:0 0 7px #29ff7855,inset 0 0 7px #29ff7833;text-shadow:0 0 6px #3cff87;animation:deaNewGlow 2s ease-in-out infinite}
 @keyframes deaNewGlow{0%,100%{opacity:1;box-shadow:0 0 6px #29ff7855,inset 0 0 5px #29ff7833}50%{opacity:.65;box-shadow:0 0 13px #29ff78a0,inset 0 0 8px #29ff7866}}
 @media(prefers-reduced-motion:reduce){.dea-menu-new{animation:none}}
+
+/* DEA confidential: photographic evidence, distressed edges and redaction */
+.dea-redacted-photo{position:relative;isolation:isolate;overflow:hidden;clip-path:polygon(0 2%,3% 0,10% 1%,19% 0,30% 2%,42% 0,53% 1%,64% 0,76% 2%,87% 0,96% 1%,100% 4%,98% 17%,100% 30%,98% 43%,100% 58%,98% 73%,100% 87%,97% 100%,85% 98%,72% 100%,59% 98%,46% 100%,31% 98%,18% 100%,6% 98%,0 96%,2% 83%,0 67%,2% 50%,0 34%,2% 17%)}
+.dea-redacted-photo img{filter:blur(12px) grayscale(1) contrast(1.6) brightness(.54);transform:scale(1.12);opacity:.85}
+.dea-redacted-photo:before{content:"";position:absolute;inset:8px 8px 30px;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,#08080855 0 3px,transparent 3px 9px),linear-gradient(90deg,transparent 10%,#0a0a0a 24% 31%,transparent 43%,#0a0a0a 60% 82%,transparent 92%);mix-blend-mode:multiply}
+.dea-redacted-photo:after{content:"";position:absolute;z-index:2;left:10%;right:9%;top:42%;height:23%;background:#080808;transform:rotate(-3deg);box-shadow:0 2px 8px #0009;pointer-events:none}
+.dea-redacted-warning{position:absolute;z-index:3;top:44%;left:0;right:0;text-align:center;color:#f5f1e8;font:900 clamp(17px,3vw,31px) Georgia,serif;letter-spacing:.22em;transform:rotate(-3deg);text-shadow:0 2px 2px #000}
+.dea-redacted-stamp{position:absolute;z-index:4;right:8%;top:11%;border:4px double #b02d25;padding:6px 10px;color:#bd3228;background:#e5d6b59e;font:900 clamp(12px,2vw,21px) Georgia,serif;letter-spacing:.12em;transform:rotate(13deg);box-shadow:0 1px 3px #0006}
+.dea-redacted-code{position:absolute;z-index:4;bottom:47px;left:14px;color:#f4e3bf;background:#151515d9;padding:5px 7px;font:700 10px monospace;letter-spacing:.04em}
+.dea-redacted-photo small{position:relative;z-index:5;background:#f9f3e5}
+@media(max-width:650px){.dea-redacted-warning{font-size:17px;letter-spacing:.12em}.dea-redacted-stamp{font-size:11px;border-width:2px}.dea-redacted-code{font-size:8px}}

@@ -477,3 +477,20 @@ html,body,#app{max-width:100%;min-width:0}
 .dea-news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
 @media(max-width:710px){.side{transition:none}.side.mobile-open{width:min(88vw,310px);max-width:100vw}.side.mobile-open .side-item{font-size:12px}.main{width:100%;min-width:0}.main-body{min-width:0;overflow-wrap:anywhere}.dea-public-quick-links{grid-template-columns:repeat(2,minmax(0,1fr))}.dea-news-grid{grid-template-columns:1fr}.topbar{min-width:0}.topbar .switch-head{min-width:0}.topbar-sub{overflow-wrap:anywhere}}
 @media(max-width:380px){.side.mobile-open{width:min(92vw,300px)}.dea-public-quick-link{min-height:94px}.dea-public-quick-link span{font-size:11px}}
+
+/* DEA Habbo group pennants: fabric shape, finials and mobile layout */
+.dea-banner-intro{margin:16px 0 20px;padding:18px 20px;border:1px solid #8c754c;border-radius:13px;background:linear-gradient(120deg,#192b42,#101c30)}
+.dea-banner-intro h3{margin:8px 0;color:#f1d79b}.dea-banner-intro p{color:#b6c9d8;font-size:13px;line-height:1.65}
+.dea-banner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:20px 12px;align-items:start;margin:18px 0 28px}
+.dea-banner-unit{min-width:0;display:flex;flex-direction:column;align-items:center;position:relative;padding:8px 4px 15px;background:linear-gradient(180deg,#17273a,#0d1c2d);border:1px solid #35485e;border-radius:14px}
+.dea-banner-pole{height:12px;width:92%;max-width:158px;background:linear-gradient(#f9e4ad,#a66d2e,#f1c474);border:1px solid #f6d898;border-radius:6px;box-shadow:0 3px 7px #0008;position:relative;z-index:2}
+.dea-banner-pole:before,.dea-banner-pole:after{content:"";position:absolute;top:-5px;width:10px;height:19px;border-radius:5px;background:linear-gradient(#fff0bf,#aa722a);border:1px solid #d8aa56}
+.dea-banner-pole:before{left:-5px}.dea-banner-pole:after{right:-5px}
+.dea-banner-cloth{width:78%;min-height:205px;padding:19px 9px 38px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;background:linear-gradient(145deg,#f9f2db,#d8c49a);color:#2c281d;clip-path:polygon(0 0,100% 0,100% 87%,50% 100%,0 87%);filter:drop-shadow(0 4px 3px #0006);border-left:4px solid #a47b3e;border-right:4px solid #a47b3e}
+.dea-banner-color-1{background:linear-gradient(145deg,#eee6ff,#c2addf)}.dea-banner-color-2{background:linear-gradient(145deg,#e6f3e5,#a7d1ac)}.dea-banner-color-3{background:linear-gradient(145deg,#e8eefa,#adc3e4)}.dea-banner-color-4{background:linear-gradient(145deg,#fff1dc,#e2b67a)}
+.dea-banner-seal{height:58px;width:58px;display:grid;place-items:center;font-size:35px;color:#f0c65e;text-shadow:1px 2px #342517,-1px -1px #342517;background:radial-gradient(circle,#344c38,#101d26);border:3px double #b8934c;border-radius:10px}
+.dea-banner-tag{font-size:10px;letter-spacing:.2em;font-weight:900}.dea-banner-cloth strong{font-size:12px;line-height:1.2;overflow-wrap:anywhere}.dea-banner-cloth small{font-size:9px;font-weight:800;letter-spacing:.07em}
+.dea-banner-caption{padding:10px 2px 0;font-size:12px;font-weight:800;color:#e9d6aa;text-align:center;overflow-wrap:anywhere}
+.dea-vip-symbol{height:85px;width:85px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,#39573b,#122131);border:3px double #e2b65a;border-radius:15px;color:#f0d37c;font-size:39px;text-shadow:1px 2px #000}.dea-vip-symbol small{font-size:14px;letter-spacing:.12em}
+@media(max-width:600px){.dea-banner-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 8px}.dea-banner-unit{padding:7px 2px 12px}.dea-banner-cloth{min-height:185px;width:82%;padding:14px 5px 30px}.dea-banner-seal{height:50px;width:50px;font-size:30px}.dea-banner-intro{padding:14px}}
+@media(max-width:350px){.dea-banner-grid{grid-template-columns:1fr 1fr}.dea-banner-cloth strong{font-size:11px}}

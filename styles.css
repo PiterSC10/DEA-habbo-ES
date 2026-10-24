@@ -503,3 +503,6 @@ img.dea-banner-real-insignia{width:110px;height:110px;max-width:100%;margin:6px 
 img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-banner-cloth{width:88%;min-height:255px;gap:6px;padding-top:14px}
 @media(max-width:600px){img.dea-banner-real-insignia{width:90px;height:90px}.dea-banner-cloth{min-height:218px}}
+
+/* VIP: image first, all product information directly underneath. */
+.dea-plaque-card{display:flex;flex-direction:column;align-items:stretch;text-align:center}.dea-plaque-image{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:140px}.dea-plaque-details{display:flex;flex-direction:column;gap:8px;padding:14px 10px 8px;text-align:center}.dea-plaque-details p{margin:0}.dea-plaque-details h3{margin:0}.dea-plaque-details .dea-plaque-price{display:block;font-size:1.35rem}

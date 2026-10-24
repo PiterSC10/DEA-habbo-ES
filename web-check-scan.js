@@ -171,7 +171,7 @@
             <p><strong>Horas estimadas:</strong> ${HOURS} h</p>
             <div class="dea-tech-valuation-row"><span>Valoración orientativa actual:</span><span class="dea-tech-valuation-amount" data-dea-value="current" data-value="${formatEuros(HOURS*ESTIMATED_RATE_CURRENT)}" aria-label="Importe oculto">•••••• €</span></div>
             <div class="dea-tech-valuation-row"><span>Escenario de proyecto validado:</span><span class="dea-tech-valuation-amount" data-dea-value="validated" data-value="${formatEuros(HOURS*ESTIMATED_RATE_VALIDATED)}" aria-label="Importe oculto">•••••• €</span></div>
-            <button type="button" class="dea-tech-valuation-toggle" aria-pressed="false" aria-label="Mostrar valoración económica estimada" data-dea-valuation-toggle>◉ Ver valoración</button>
+            <button type="button" class="dea-tech-valuation-toggle" aria-pressed="false" aria-label="Mostrar valoración económica estimada" data-dea-valuation-toggle>👁 Ver valoración</button>
             <small>Importes ocultos por defecto; el botón permite verlos u ocultarlos. Cálculo ilustrativo: ${ESTIMATED_RATE_CURRENT} €/h actual y ${ESTIMATED_RATE_VALIDATED} €/h como escenario validado, aplicados a las horas estimadas del inventario, sin IVA. Estimación comercial orientativa. No es presupuesto aceptado, factura ni certificación de horas trabajadas. No se asignan precios individuales a módulos.</small>
           </div>
         </div>
@@ -182,7 +182,7 @@
     </div>
   </section>`);
   document.body.append(layer);
-  function hideValuation(){const btn=q("[data-dea-valuation-toggle]",layer);if(!btn)return;btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Mostrar valoración económica estimada");btn.textContent="◉ Ver valoración";layer.querySelectorAll("[data-dea-value]").forEach(el=>{el.textContent="•••••• €";el.setAttribute("aria-label","Importe oculto")})}
+  function hideValuation(){const btn=q("[data-dea-valuation-toggle]",layer);if(!btn)return;btn.setAttribute("aria-pressed","false");btn.setAttribute("aria-label","Mostrar valoración económica estimada");btn.textContent="👁 Ver valoración";layer.querySelectorAll("[data-dea-value]").forEach(el=>{el.textContent="•••••• €";el.setAttribute("aria-label","Importe oculto")})}
   let returnFocus=null;
   let running=false;
   const bar=q("#dea-tech-bar",layer);
@@ -330,7 +330,7 @@
   layer.addEventListener("click",e=>{
     if(e.target.closest("[data-dea-tech-close]"))close();
     else if(e.target.closest("#dea-tech-run"))void scan();
-    else if(e.target.closest("[data-dea-valuation-toggle]")){const btn=q("[data-dea-valuation-toggle]",layer);const reveal=btn.getAttribute("aria-pressed")!=="true";btn.setAttribute("aria-pressed",String(reveal));btn.setAttribute("aria-label",reveal?"Ocultar valoración económica estimada":"Mostrar valoración económica estimada");btn.textContent=reveal?"◉ Ocultar valoración":"◉ Ver valoración";layer.querySelectorAll("[data-dea-value]").forEach(el=>{el.textContent=reveal?el.dataset.value:"•••••• €";el.setAttribute("aria-label",reveal?el.dataset.value:"Importe oculto")})}
+    else if(e.target.closest("[data-dea-valuation-toggle]")){const btn=q("[data-dea-valuation-toggle]",layer);const reveal=btn.getAttribute("aria-pressed")!=="true";btn.setAttribute("aria-pressed",String(reveal));btn.setAttribute("aria-label",reveal?"Ocultar valoración económica estimada":"Mostrar valoración económica estimada");btn.textContent=reveal?"◉ Ocultar valoración":"👁 Ver valoración";layer.querySelectorAll("[data-dea-value]").forEach(el=>{el.textContent=reveal?el.dataset.value:"•••••• €";el.setAttribute("aria-label",reveal?el.dataset.value:"Importe oculto")})}
   });
   document.addEventListener("keydown",e=>{
     if(layer.hidden)return;

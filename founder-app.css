@@ -10,3 +10,8 @@
 .dea-credit-disclaimer{font-size:10.5px;line-height:1.7;color:#91a9bf;max-width:920px;margin:5px auto 0}
 .home-foot,.foot{padding:18px 16px 22px}
 @media(max-width:560px){.dea-credit-main{font-size:11px}.dea-credit-founders{font-size:10.5px}.dea-credit-disclaimer{font-size:10px}}
+
+/* Match public Founder profile image framing and hierarchy */
+.founder-profile .avatar{background:radial-gradient(ellipse at 50% 43%,#31536d 0%,#1a364e 55%,#10263b 100%);overflow:hidden}
+.founder-profile .avatar img{object-position:center bottom;background:transparent}
+body:has([data-founder="lesslie.ar"]) .founder-profile{border-color:#e0b86d;box-shadow:0 0 0 1px rgba(237,198,122,.38),0 20px 45px #0006}

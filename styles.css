@@ -566,3 +566,21 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-org-level-manager small{color:#a9c5d1}
 .dea-room-teaser-no-image{min-height:230px;background:radial-gradient(ellipse at 50% 30%,#25465d,#0b1c2f 76%);display:grid;place-items:center}
 .dea-room-teaser-no-image .dea-room-teaser-overlay{position:relative;inset:auto}
+
+/* DEA newspaper: pre-inauguration news */
+.dea-paper{margin:20px 0 30px;padding:clamp(16px,3vw,30px);border:1px solid #bfa16d;border-radius:18px;background:linear-gradient(165deg,#172c40,#0a1829 75%);color:#eaf0f6;box-shadow:0 18px 45px #0004}
+.dea-paper-masthead{text-align:center;border-top:3px double #bfa16d;border-bottom:3px double #bfa16d;padding:12px 0;display:flex;flex-direction:column;gap:5px}
+.dea-paper-masthead>span{font-size:10px;letter-spacing:.22em;color:#dfc38e}.dea-paper-masthead strong{font-family:Georgia,serif;font-size:clamp(29px,6vw,53px);letter-spacing:.07em;color:#f1d39b}.dea-paper-masthead small{color:#c4d4df;font-size:10px;letter-spacing:.09em}
+.dea-paper-edition{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10px;font-weight:800;letter-spacing:.1em;color:#e8c77f;padding:13px 0}
+.dea-paper-edition span{color:#91c8dd}.dea-paper-lead{padding:16px 0 22px;border-bottom:1px solid #567188}.dea-paper-lead>span,.dea-paper-vip>div>span{font-size:10px;letter-spacing:.12em;color:#edca81;font-weight:800}
+.dea-paper-lead h2,.dea-paper-vip h2{font-family:Georgia,serif;font-size:clamp(23px,4.5vw,36px);line-height:1.2;margin:10px 0;color:#f4e0b4}
+.dea-paper-lead p,.dea-paper-vip p{color:#d0dde7;line-height:1.65}.dea-paper-rule{text-align:center;margin:22px 0 15px;font-size:12px;letter-spacing:.14em;color:#e8c77f;font-weight:850}
+.dea-paper-deals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.dea-paper-deal{min-width:0;padding:18px 12px;text-align:center;border:1px solid #a58c5b;border-radius:13px;background:linear-gradient(160deg,#24445a,#122a40)}
+.dea-paper-deal>span{font-size:9px;letter-spacing:.08em;color:#bcd1dd}.dea-paper-deal h3{font-size:16px;letter-spacing:.07em;color:#f3d69c;margin:10px 0}.dea-paper-prices{display:flex;justify-content:center;align-items:baseline;gap:10px;flex-wrap:wrap}
+.dea-paper-prices strong{font-size:clamp(27px,4vw,42px);color:#fff}.dea-paper-prices strong small{font-size:11px;color:#b8d8e5}.dea-paper-prices del{color:#aabac7;font-size:13px}.dea-paper-deal p{font-size:12px;color:#a7e2c5;font-weight:750}
+.dea-paper-fine{font-size:11px;color:#a9bdcd;line-height:1.55;margin:13px 0 25px}
+.dea-paper-vip{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px;border:1px solid #d4b16a;border-radius:15px;background:radial-gradient(ellipse at 15% 20%,#294b62,#12283e 78%)}
+.dea-paper-vip>div{flex:1;min-width:0}.dea-paper-vip h2{font-size:clamp(21px,3vw,30px)}.dea-paper-vip-price{font-size:12px!important;color:#f2d38b!important;font-weight:850;letter-spacing:.05em}.dea-paper-vip small{color:#adbfcb;font-size:11px}.dea-paper-vip .btn{white-space:nowrap}
+.dea-paper-footer{text-align:center;padding:25px 0 5px}.dea-paper-footer>span{font-size:11px;font-weight:850;letter-spacing:.13em;color:#edca81}.dea-paper-footer p{color:#d0dde7}.dea-paper-footer .btn{display:inline-flex;margin:4px}
+@media(max-width:650px){.dea-paper-deals{grid-template-columns:1fr}.dea-paper-deal{padding:13px}.dea-paper-vip{flex-direction:column;align-items:stretch}.dea-paper-vip .btn{text-align:center;justify-content:center}}

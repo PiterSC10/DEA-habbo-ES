@@ -554,3 +554,15 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-manager-art{width:125px;height:175px;display:grid;place-items:center;flex:none;border-radius:10px;background:radial-gradient(ellipse,#2b5165,#152f42 76%);overflow:hidden}
 .dea-manager-art img{width:100%;height:100%;max-width:115px;object-fit:contain;object-position:center bottom}
 @media(max-width:480px){.dea-manager-art{width:94px;height:150px}.dea-manager-art img{max-width:90px}}
+
+/* Compact hierarchy, without a separate organigram page or oversized headings */
+.dea-org-level{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 15px;border-radius:10px;margin:15px 0 12px;font-size:12px;font-weight:850;letter-spacing:.09em}
+.dea-org-level small{font-size:10px;letter-spacing:.02em;font-weight:600}
+.dea-org-level-founder{color:#f1d69a;border:1px solid #b99b60;background:linear-gradient(95deg,#263a4b,#10263c)}
+.dea-org-level-founder small{color:#b9c8d6}
+.dea-org-connector{height:24px;width:2px;background:linear-gradient(#c3a26a,#7fa3b7);margin:0 auto}
+.dea-confirmed-staff{margin-top:0;border-color:rgba(111,152,173,.45)}
+.dea-org-level-manager{color:#b9e0eb;border:1px solid #6b9aaf;background:linear-gradient(95deg,#1d4154,#112c3f);margin:0 0 15px}
+.dea-org-level-manager small{color:#a9c5d1}
+.dea-room-teaser-no-image{min-height:230px;background:radial-gradient(ellipse at 50% 30%,#25465d,#0b1c2f 76%);display:grid;place-items:center}
+.dea-room-teaser-no-image .dea-room-teaser-overlay{position:relative;inset:auto}

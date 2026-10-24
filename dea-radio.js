@@ -13,7 +13,11 @@ const stations=[
 ['Capital London','Pop · Éxitos británicos','https://media-ssl.musicradio.com/CapitalMP3'],
 ['Zona Rap','Rap · Hip-hop en español','https://radio.zonarap.es/listen/zona_rap_radio/radio.mp3'],
 ['LOS40 Urban','Trap latino · Reguetón','https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_URBAN.mp3'],
-['Tomorrowland One World Radio','EDM · House · Festivales','https://playerservices.streamtheworld.com/api/livestream-redirect/OWR_INTERNATIONAL.mp3']
+['Tomorrowland One World Radio','EDM · House · Festivales','https://playerservices.streamtheworld.com/api/livestream-redirect/OWR_INTERNATIONAL.mp3'],
+['Radio Latina Argentina','Música latina · Argentina','http://streaming.latina101.com.ar:8080/RadioLatina'],
+['LOS40 México','Pop latino · Éxitos','https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_MEXICOAAC.aac'],
+['EXA FM México','Hits · Música juvenil','https://playerservices.streamtheworld.com/api/livestream-redirect/XHEXA.mp3'],
+['Radio Urban México','Reguetón · Música urbana','https://www.radio-en-vivo.mx/radio-urban-mexico']
 ];
 const details=[
 ['Colombia','Colombia','collounge.com'],
@@ -26,16 +30,20 @@ const details=[
 ['Reino Unido','Londres','capitalfm.com'],
 ['España','España','zonarap.es'],
 ['España','Madrid','los40.com'],
-['Bélgica','Tomorrowland','tomorrowland.com']
+['Bélgica','Tomorrowland','tomorrowland.com'],
+['Argentina','Buenos Aires','latina101.com.ar'],
+['México','Ciudad de México','los40.com.mx'],
+['México','Ciudad de México','exafm.com'],
+['México','Online','radio-en-vivo.mx']
 ];
 const logo=i=>'https://www.google.com/s2/favicons?domain='+encodeURIComponent(details[i][2])+'&sz=128';
 const badge=i=>'<span class="dr-logo"><img src="'+logo(i)+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.textContent=\'DEA\'"></span>';
 const root=document.createElement('section');root.id='dea-radio';root.setAttribute('aria-label','DEA Radio Station');
 root.innerHTML=`<div class="dr-dock">
 <div class="dr-top"><div class="dr-identity"><span class="dr-mark" data-current-logo>DEA</span><div class="dr-brand"><strong>DEA RADIO STATION</strong><small data-current-name>01 · Colombia Lounge</small></div></div><button type="button" class="dr-play" data-play aria-label="Reproducir emisora">▶</button></div>
-<div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las once emisoras" title="Ver once emisoras">11</button></div>
+<div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las quince emisoras" title="Ver quince emisoras">11</button></div>
 </div>
-<div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Once emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 11 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
+<div class="dr-overlay" data-overlay hidden><div class="dr-panel" role="dialog" aria-modal="true" aria-label="Quince emisoras de DEA Radio Station"><div class="dr-panel-head"><div><strong>DEA RADIO STATION</strong><small>Elige una de nuestras 15 emisoras</small></div><button type="button" class="dr-close" data-close aria-label="Cerrar">×</button></div><div class="dr-grid" data-grid></div><p class="dr-status" data-status>Selecciona una emisora para escucharla.</p></div></div>`;
 const app=document.getElementById('app');if(app)document.body.insertBefore(root,app);else document.body.appendChild(root);
 const audio=new Audio();audio.preload='none';audio.volume=1;
 let selected=0,playing=false,request=0,focusBefore=null;
@@ -45,7 +53,7 @@ stations.forEach((s,i)=>{const label=String(i+1).padStart(2,'0');const btn=docum
 function paint(){const label=String(selected+1).padStart(2,'0')+' · '+stations[selected][0];$('[data-current-name]').textContent=label+' · '+details[selected][0];$('[data-current-logo]').innerHTML='<img src="'+logo(selected)+'" alt="" onerror="this.style.display=\'none\';this.parentNode.textContent=\'DEA\'">';picker.firstChild.textContent=label+' ';$('[data-play]').textContent=playing?'Ⅱ':'▶';$('[data-play]').setAttribute('aria-label',playing?'Pausar emisora':'Reproducir emisora');$$('[data-station]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.station)===selected)))}
 function closeDropdown(){dropdown.hidden=true;picker.setAttribute('aria-expanded','false')}
 function stop(){request++;audio.pause();playing=false;paint()}
-async function play(){const id=++request;const stream=stations[selected][2];if(audio.getAttribute('src')!==stream){audio.src=stream;audio.load()}status.textContent='Conectando con '+stations[selected][0]+'…';try{await audio.play();if(id!==request)return;playing=true;status.textContent='Escuchando '+stations[selected][0]}catch(e){if(id!==request)return;playing=false;status.textContent='La señal no está disponible. Prueba otra emisora.'}paint()}
+async function play(){if(selected===14){status.textContent='Radio Urban México se abre en su web: no hay stream directo confirmado.';window.open(stations[selected][2],'_blank','noopener,noreferrer');playing=false;paint();return;}if(selected===11){status.textContent='Radio Latina usa HTTP; el navegador puede bloquear su señal.';}const id=++request;const stream=stations[selected][2];if(audio.getAttribute('src')!==stream){audio.src=stream;audio.load()}status.textContent='Conectando con '+stations[selected][0]+'…';try{await audio.play();if(id!==request)return;playing=true;status.textContent='Escuchando '+stations[selected][0]}catch(e){if(id!==request)return;playing=false;status.textContent='La señal no está disponible. Prueba otra emisora.'}paint()}
 function choose(i){if(!Number.isInteger(i)||i<0||i>=stations.length)return;stop();selected=i;audio.removeAttribute('src');audio.load();closeDropdown();paint();status.textContent='Seleccionada '+stations[i][0];void play()}
 root.addEventListener('click',e=>{const station=e.target.closest('[data-station]');if(station){choose(Number(station.dataset.station));if(!overlay.hidden)overlay.hidden=true;return}if(e.target.closest('[data-play]')){playing?stop():void play();return}if(e.target.closest('[data-picker]')){dropdown.hidden=!dropdown.hidden;picker.setAttribute('aria-expanded',String(!dropdown.hidden));return}if(e.target.closest('[data-expand]')){closeDropdown();focusBefore=document.activeElement;overlay.hidden=false;$('[data-close]').focus();return}if(e.target.closest('[data-close]')||e.target===overlay){overlay.hidden=true;focusBefore?.focus?.()}});
 document.addEventListener('click',e=>{if(!root.contains(e.target))closeDropdown()});

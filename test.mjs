@@ -7,18 +7,18 @@ const catalogs=await readFile(new URL('./catalogo-publico.js',import.meta.url),'
 const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
 function page(route,unlocked=true){
- const root={innerHTML:'',addEventListener(){}};
+ const root={innerHTML:'',addEventListener(){},querySelector(){return null}};
  const location={hash:'#/inicio'};
  const document={getElementById(){return root},title:''};
  const window={addEventListener(){}};
  const sessionStorage={getItem(){return unlocked?'yes':null},setItem(){},removeItem(){}};
- const runtime=src;
+ const runtime=unlocked?src:src.replace('const PUBLIC_SITE_LIVE=true','const PUBLIC_SITE_LIVE=false');
  const app=runInNewContext(catalogs+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
 test('Portada tiene las tres ventanas y no una barra lateral',()=>{
  const h=page('inicio');
- for(const name of ['ACCESO VIP','ÚNETE A DEA','WEB PÚBLICA']) assert.match(h,new RegExp(name));
+ for(const name of ['FOUNDER VIP','ÚNETE A DEA','WEB PÚBLICA']) assert.match(h,new RegExp(name));
  assert.equal((h.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
  assert.doesNotMatch(h,/class="side/);
  assert.match(h,/aguila-dea-original\.jpg/);
@@ -30,7 +30,7 @@ test('Siete páginas públicas sin errores de renderizado',()=>{
 test('Los accesos VIP y agente llegan a la identificación de su área',()=>{
  assert.match(page('vip'),/href="#\/identificacion\/vip"/);
  assert.match(page('ficha'),/href="#\/identificacion\/agente"/);
- assert.match(page('inicio'),/href="#\/identificacion\/alta" class="choice join"/);
+ assert.match(page('inicio'),/href="#\/publico\/ingreso" class="choice join"/);
  for(const p of ['unete','identificacion/vip','identificacion/alta','identificacion/agente']){
   assert.match(page(p),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
  }
@@ -54,11 +54,11 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
 
 test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
  const join=page('unete');
- assert.match(join,/nick de Habbo como nombre principal/);
- assert.match(join,/tu ID de Discord/);
+ assert.match(join,/Habbo y firma única/);
+ assert.match(join,/Discord/);
  assert.match(join,/ENTRAR DIRECTAMENTE CON DISCORD/);
- assert.match(join,/ACEPTAR Y VERIFICAR CON DISCORD/);
- const nav=join.match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1];
+ assert.doesNotMatch(join,/discord_email|discord_username/);
+ const nav=join.match(/<nav class="side-scroll"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
  assert.ok(nav);
  assert.match(nav,/Acceso de agentes/);
  assert.match(nav,/Mi expediente/);
@@ -66,26 +66,19 @@ test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP'
 });
 test('El área de Founders está separada y no anuncia registro ni fichas de agentes',()=>{
  for(const path of ['vip','identificacion/vip','vip/solicitudes']){
-  const view=page(path), nav=view.match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1];
+  const view=page(path), nav=view.match(/<nav class="side-scroll"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
   assert.ok(nav,path);
   assert.match(nav,/Acceso seguro/);
   assert.doesNotMatch(nav,/Ingreso R2|Acceso de agentes|Expediente personal|Mi expediente|identificacion\/alta|identificacion\/agente/);
  }
 });
-test('VIP muestra Discord directo y debajo usuario y correo obligatorio',()=>{
- const vip=page('vip');
- assert.match(vip,/href="#\/identificacion\/vip"/);
- assert.doesNotMatch(vip,/href="https:\/\/script\.google\.com/);
- const gate=page('identificacion/vip');
- assert.match(gate,/ENTRAR DIRECTAMENTE CON DISCORD/);
- assert.match(gate,/ACEPTAR Y VERIFICAR CON DISCORD/);
- assert.match(gate,/name="discord_username"/);
- assert.match(gate,/name="discord_email"/);
- assert.match(gate,/type="email"[^>]*required/);
- assert.match(gate,/method="post"/);
- assert.match(gate,/name="login_mode" value="manual"/);
- assert.match(gate,/Discord te pedirá que autorices la identidad/);
- assert.doesNotMatch(gate,/type="password"/);
+test('Identificación usa el OAuth real sin formularios de correo incompatibles',()=>{
+ const vip=page('vip');assert.match(vip,/href="#\/identificacion\/vip"/);
+ for(const path of ['identificacion/vip','identificacion/alta','identificacion/agente']){
+  const gate=page(path);assert.match(gate,/ENTRAR DIRECTAMENTE CON DISCORD/);
+  assert.match(gate,/https:\/\/script\.google\.com/);
+  assert.doesNotMatch(gate,/discord_username|discord_email|method="post"|type="password"/);
+ }
 });
 test('VIP, registro y expediente requieren validación en Apps Script',()=>{
  assert.match(page('unete'),/ENTRAR DIRECTAMENTE CON DISCORD/);
@@ -105,11 +98,11 @@ test('Tres entradas oficiales permanecen claramente diferenciadas sin crear una 
  assert.match(h,/class="choice join"/);
  assert.match(h,/class="choice public"/);
  assert.match(h,/href="#\/vip" class="choice vip"/);
- assert.match(h,/href="#\/identificacion\/alta" class="choice join"/);
+ assert.match(h,/href="#\/publico\/ingreso" class="choice join"/);
  assert.match(h,/href="#\/publico" class="choice public"/);
- assert.match(h,/Zona reservada a Founders/);
- assert.match(h,/Sin permisos de dirección/);
- assert.match(h,/Información abierta/);
+ assert.match(h,/Zona privada reservada a Founders/);
+ assert.match(h,/ACCESO RESTRINGIDO/);
+ assert.match(h,/ACCESO LIBRE/);
 });
 test('Colores y neón de cada acceso, estados accesibles y respeto al movimiento reducido',()=>{
  for(const sel of ['.choice.vip{--choice-accent:', '.choice.join{--choice-accent:', '.choice.public{--choice-accent:', '.choice:hover,.choice:focus-visible', '.choice:active', '.app-layout .side-item:hover', '@media(prefers-reduced-motion:reduce)']){
@@ -122,7 +115,7 @@ test('Colores y neón de cada acceso, estados accesibles y respeto al movimiento
 test('La navegación no mezcla un Founder con las fichas de los agentes',()=>{
  const vip=page('identificacion/vip');
  const agent=page('identificacion/alta');
- const menu=v=>v.match(/<nav class="side-scroll">([\s\S]*?)<\/nav>/)?.[1]||'';
+ const menu=v=>v.match(/<nav class="side-scroll"[^>]*>([\s\S]*?)<\/nav>/)?.[1]||'';
  assert.match(menu(vip),/Acceso seguro/);
  assert.doesNotMatch(menu(vip),/Acceso de agentes|Mi expediente/);
  assert.match(menu(agent),/Acceso de agentes/);
@@ -219,7 +212,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
  const crawler=await readFile(new URL('./robots.txt',import.meta.url),'utf8');
  assert.ok(crawler.includes('User-agent: *'));
  assert.ok(crawler.includes('Sitemap: https://dea-habbo-es.vercel.app/sitemap.xml'));
- assert.ok(src.includes('const PUBLIC_SITE_LIVE=false'));
+ assert.ok(src.includes('const PUBLIC_SITE_LIVE=true'));
  assert.ok(page('inicio',true).includes('class="choice vip"'));
  assert.ok(page('publico/jerarquia',true).includes('dea-catalog-window'));
  assert.ok(!page('inicio',true).includes('data-preview-login'));
@@ -277,10 +270,10 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
  assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,2);
 });
 
-test('Catálogo de placas: seis espacios provisionales, sin precios ficticios',()=>{
+test('Catálogo de placas: VIP real y condiciones presenciales sin checkout',()=>{
  const h=page('publico/placas');
- assert.equal(h.split('class="dea-plaque-card"').length-1,6);
- for(const x of ['Precio por definir','Beneficio por definir','Emblema DEA provisional','No está a la venta'])assert.ok(h.includes(x),x);
+ assert.equal(h.split('class="dea-plaque-card"').length-1,1);
+ for(const x of ['Preguntar a Founders','BENEFICIO · SIN RANGO','sin poderes sobre la sala','No se realizan pagos desde esta web'])assert.ok(h.includes(x),x);
  assert.ok(!h.includes('checkout'));
 });
 test('La puerta de preinauguración está activa antes de los tres accesos',()=>{
@@ -355,7 +348,7 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  const module=await readFile(new URL('./web-check-scan.js',import.meta.url),'utf8');
  const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
  const packageJson=await readFile(new URL('./package.json',import.meta.url),'utf8');
- assert.match(html,/<script src="\.\/web-check-scan\.js" defer><\/script>/);
+ assert.match(html,/<script src="\.\/web-check-scan\.js(?:\?[^\"]+)?" defer><\/script>/);
  assert.match(build,/'web-check-scan\.js'/);
  assert.match(packageJson,/node --check web-check-scan\.js/);
  assert.match(module,/\.home-foot,#app \.foot/);
@@ -371,8 +364,8 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  for(const term of ['HTML5 Structure','CSS3 Responsive Framework','JavaScript Application','Navigation System','Corporate Visual Identity','Mobile Compatibility','Public Information Portal','R1–R10 Rank Structure','Promotion Rules','Benefit Badge Catalog','Founder Access Launchers','Directors WebApp','Managers WebApp','Discord OAuth2 Configuration','Google Apps Script Connection','Google Sheets Data Structure','Agent Records System','Promotion Management','Payroll & Extra Payments','Audit Log Architecture','GitHub Repository','Vercel Deployment','GitHub Pages Backup','SEO Metadata','PWA Manifest','Website Resource Integrity'])assert.ok(module.includes(term),term);
  assert.match(module,/PRIVATE VALIDATION REQUIRED/);
  assert.match(module,/No constituye auditoría|No constituye auditoría externa|no constituye auditoría externa/i);
- assert.match(module,/180 h/);
- assert.match(module,/\*\*\.\*\*\* € \+ IVA/);
+ assert.match(module,/const HOURS=WORK.reduce/);
+ assert.match(module,/aria-label="Importe oculto"/);assert.match(module,/data-dea-valuation-toggle/);
  assert.doesNotMatch(module,/5\.400 €|6\.900 €/);
  assert.doesNotMatch(module,/4\.050 €|135 h|client_secret|DISCORD_CLIENT_SECRET|apiKey|access_token/);
  assert.match(module,/https:\/\/yourdesigngpt\.netlify\.app\//);
@@ -407,7 +400,7 @@ test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
   assert.ok(!p.includes('DISCORD_CLIENT_SECRET')&&!p.includes('google.script.run'),slug);
   assert.ok(build.includes("'"+slug+"'"),slug);
  }
- assert.ok(page('inicio',true).includes('/rangos-habbo/'));
+ assert.ok(page('inicio',true).includes('#/publico/jerarquia'));
  assert.ok(html.includes('index,follow,max-image-preview:large'));
 });
 
@@ -418,7 +411,7 @@ test('Menú móvil: fondo dentro del layout, abrir, cerrar, Escape y navegar',()
  const location={hash:'#/publico'};
  const context={document:{getElementById(){return root}},location,window:{addEventListener(type,fn){windowHandlers[type]=fn},scrollTo(){}},innerWidth:390,sessionStorage:{getItem(){return 'yes'}}};
  runInNewContext(catalogs+'\n'+src,context);
- const action=name=>handlers.click.forEach(fn=>fn({target:{closest(){return {dataset:{action:name}}}}}));
+ const action=name=>handlers.click.forEach(fn=>fn({stopPropagation(){},target:{closest(selector){return selector==='[data-route],[data-action]'?{dataset:{action:name}}:null}}}));
  assert.match(root.innerHTML,/^<div class="app-layout app-area-publico"><div class="mobile-overlay/);
  action('mobile-menu');
  assert.match(root.innerHTML,/class="mobile-overlay active"/);

@@ -34,13 +34,13 @@ test('La API valida método, ID y origen; un fallo no inventa cifras',async()=>{
 const src=await readFile(new URL('./visitas.js',import.meta.url),'utf8');
 function client({fail=false}={}){
  const requests=[],timers=new Map(),total={textContent:''},label={textContent:''};let seq=0;
- const context={Intl,Uint8Array,crypto:webcrypto,Number,JSON,AbortController,setTimeout(fn,ms){const id=++seq;timers.set(id,{fn,ms});return id},clearTimeout(id){timers.delete(id)},document:{getElementById:()=>null,querySelectorAll:()=>[{querySelector:s=>s==='strong'?total:label}]},fetch:async(url,opts)=>{requests.push(opts);if(fail)throw Error('network');return {ok:true,json:async()=>({total:13,hoy:13})}}};runInNewContext(src,context);return {requests,total,label,timers,flush:()=>new Promise(r=>setImmediate(r))};
+ const context={Intl,Uint8Array,crypto:webcrypto,Number,JSON,AbortController,setTimeout(fn,ms){const id=++seq;timers.set(id,{fn,ms});return id},clearTimeout(id){timers.delete(id)},document:{getElementById:()=>null,querySelectorAll:()=>[{querySelector:s=>s==='.dea-stats-inline'?{}:s.includes('strong')?total:label}]},fetch:async(url,opts)=>{requests.push(opts);if(fail)throw Error('network');return {ok:true,json:async()=>({total:13,hoy:13})}}};runInNewContext(src,context);return {requests,total,label,timers,flush:()=>new Promise(r=>setImmediate(r))};
 }
 test('Cliente clásico: entrar y recargar generan IDs nuevos y una sola petición',async()=>{
  const a=client(),b=client();assert.equal(a.label.textContent,'Consultando visitas reales…');await a.flush();await b.flush();assert.equal(a.requests.length,1);assert.equal(b.requests.length,1);assert.notEqual(a.requests[0].body,b.requests[0].body);assert.equal(a.total.textContent,'13');assert.equal(a.timers.size,0);
 });
 test('Sin reintentos automáticos, botones ni almacenamiento de sesiones',async()=>{
- const c=client({fail:true});await c.flush();assert.equal(c.requests.length,1);assert.equal(c.timers.size,0);assert.equal(c.label.textContent,'Visitas no disponibles en este momento.');assert.equal(c.total.textContent,'—');assert.doesNotMatch(src,/localStorage|sessionStorage|addEventListener|setInterval|Reintentar/);
+ const c=client({fail:true});await c.flush();assert.equal(c.requests.length,1);assert.equal(c.timers.size,0);assert.equal(c.label.textContent,'Visitas no disponibles en este momento.');assert.equal(c.total.textContent,'—');assert.doesNotMatch(src,/localStorage|sessionStorage|setInterval|data-visitas-retry/);
  const app=await readFile(new URL('./app.js',import.meta.url),'utf8');assert.match(app,/CONTROL DE VISITAS DEA/);assert.doesNotMatch(app,/data-visitas-retry/);
 });
 

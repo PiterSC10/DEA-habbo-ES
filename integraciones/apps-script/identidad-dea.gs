@@ -1,127 +1,22 @@
-/**
- * DEA identity registration module for the EXISTING Discord OAuth Apps Script.
- * Integration pending: copy into the authenticated Apps Script project and call
- * deaRegisterIdentity_ only AFTER verifying Discord OAuth on the server.
- * Do not expose this function via an unauthenticated doPost.
- *
- * Script properties required: DEA_SHEET_ID, DEA_AVATAR_FOLDER_ID.
+/** DEA identity adapter for SISTEMA CENTRAL. Requires the private integration patch.
+ * All public entry points validate the existing Discord OAuth session on the server.
+ * Photos are compressed by the portal and stored privately in the existing workbook.
  */
-function deaNormalizeSignature_(value) {
-  const signature = String(value || '').trim().toUpperCase();
-  if (!/^[A-Z0-9]{3}$/.test(signature)) throw new Error('La firma debe tener exactamente 3 letras mayúsculas o números.');
-  return signature;
-}
-function deaIdentitySheet_() {
-  const id = PropertiesService.getScriptProperties().getProperty('DEA_SHEET_ID');
-  if (!id) throw new Error('Falta DEA_SHEET_ID.');
-  const ss = SpreadsheetApp.openById(id);
-  let sheet = ss.getSheetByName('IDENTIDADES_DEA');
-  if (!sheet) {
-    sheet = ss.insertSheet('IDENTIDADES_DEA');
-    sheet.appendRow(['discord_id','habbo_nick','firma','avatar_file_id','fecha_alta_utc','fecha_actualizacion_utc','estado']);
-    sheet.setFrozenRows(1);
-  }
-  return sheet;
-}
-function deaFindIdentity_(discordId) {
-  if (!/^\d{15,22}$/.test(String(discordId || ''))) throw new Error('ID de Discord no verificado.');
-  const rows = deaIdentitySheet_().getDataRange().getValues();
-  const match = rows.slice(1).find(r => String(r[0]) === String(discordId));
-  return match ? {habbo:match[1],signature:match[2],avatarFileId:match[3],status:match[6]} : null;
-}
-function deaCheckSignature_(signature) {
-  const value = deaNormalizeSignature_(signature);
-  const rows = deaIdentitySheet_().getDataRange().getValues();
-  return !rows.slice(1).some(r => String(r[2]).trim().toUpperCase() === value);
-}
-/**
- * discordId MUST be obtained from the server-side OAuth session, never
- * trusted from an HTML form or query parameter.
- * avatarBase64: optional cropped JPEG/PNG/WebP base64, max 1 MB decoded.
- */
-function deaRegisterIdentity_(discordId, habboNick, signature, avatarBase64, avatarMime) {
-  if (!/^\d{15,22}$/.test(String(discordId || ''))) throw new Error('Discord no verificado.');
-  const habbo = String(habboNick || '').trim();
-  if (!/^[A-Za-z0-9._:-]{2,32}$/.test(habbo)) throw new Error('Nombre de Habbo no válido.');
-  const sig = deaNormalizeSignature_(signature);
-  const lock = LockService.getScriptLock();
-  lock.waitLock(20000);
-  try {
-    const sheet = deaIdentitySheet_();
-    const rows = sheet.getDataRange().getValues().slice(1);
-    if (rows.some(r => String(r[0]) === String(discordId))) throw new Error('Esta cuenta de Discord ya tiene una identidad DEA.');
-    if (rows.some(r => String(r[2]).trim().toUpperCase() === sig)) throw new Error('Esta firma ya está registrada.');
-    let avatarFileId = '';
-    if (avatarBase64) {
-      const mime = String(avatarMime || '');
-      if (!['image/jpeg','image/png','image/webp'].includes(mime)) throw new Error('Formato de imagen no permitido.');
-      const bytes = Utilities.base64Decode(String(avatarBase64).replace(/^data:[^,]+,/, ''));
-      if (bytes.length > 1048576) throw new Error('La imagen supera 1 MB.');
-      const folderId = PropertiesService.getScriptProperties().getProperty('DEA_AVATAR_FOLDER_ID');
-      if (!folderId) throw new Error('Falta configurar DEA_AVATAR_FOLDER_ID.');
-      const file = DriveApp.getFolderById(folderId).createFile(Utilities.newBlob(bytes, mime, String(discordId) + '-avatar'));
-      file.setSharing(DriveApp.Access.PRIVATE, DriveApp.Permission.NONE);
-      avatarFileId = file.getId();
-    }
-    const now = new Date().toISOString();
-    sheet.appendRow([String(discordId), habbo, sig, avatarFileId, now, now, 'PENDIENTE_VERIFICACION_HABBO']);
-    SpreadsheetApp.flush();
-    return {ok:true,habbo:habbo,signature:sig,status:'PENDIENTE_VERIFICACION_HABBO'};
-  } finally { lock.releaseLock(); }
-}
+const DEA_IDENTITY_COLUMNS_=['discord_id','habbo_nick','firma','avatar_file_id','fecha_alta_utc','fecha_actualizacion_utc','estado'];
+function deaNormalizeSignature_(value){const s=String(value||'').trim().toUpperCase();if(!/^[A-Z0-9]{3}$/.test(s))throw Error('La firma debe tener tres letras o números');return s;}
+function deaIdentitySheet_(){const sh=deaTab_('IDENTIDADES_DEA');const h=sh.getRange(1,1,1,7).getDisplayValues()[0];if(h.join('|')!==DEA_IDENTITY_COLUMNS_.join('|'))throw Error('Cabeceras de identidad incompatibles; no se sobrescriben datos');return sh;}
+function deaIdentityRows_(){const map=new Map();deaIdentitySheet_().getDataRange().getDisplayValues().slice(1).forEach(r=>{if(r[0])map.set(String(r[0]),r);});return [...map.values()];}
+function deaFindIdentity_(discordId){if(!/^\d{15,22}$/.test(String(discordId||'')))throw Error('Discord no verificado');const r=deaIdentityRows_().find(r=>r[0]===String(discordId));return r?{discordId:r[0],habbo:r[1],signature:r[2],avatarFileId:r[3],createdAt:r[4],updatedAt:r[5],status:r[6]}:null;}
+function deaIdentityPublic_(r){if(!r)return null;return {habbo:r.habbo,signature:r.signature,hasPhoto:!!r.avatarFileId,status:r.status};}
+function deaIdentityRank_(value){const catalog=deaRankCatalog_();const r=catalog.find(x=>x.categoria+':'+x.rango===String(value));if(!r||Number(r.categoria.slice(1))<2)throw Error('Selecciona un rango oficial desde R2');return r;}
+function deaIdentityActor_(token){const me=deaRequire_(token,false);if(me.pendingLink)throw Error('Vinculación pendiente');return me;}
+function deaIdentityPhotoSave_(me,base64,mime){if(!base64)return '';if(!['image/jpeg','image/png','image/webp'].includes(mime))throw Error('Formato de fotografía no permitido');const raw=String(base64).replace(/^data:[^,]+,/,'');if(raw.length>1400000||!/^[A-Za-z0-9+/]*={0,2}$/.test(raw))throw Error('Fotografía inválida o superior a 1 MB');const bytes=Utilities.base64Decode(raw);if(!bytes.length||bytes.length>1048576)throw Error('La foto debe ocupar entre 1 byte y 1 MB');const u=bytes.slice(0,12).map(x=>x&255);const valid=mime==='image/jpeg'?u[0]===255&&u[1]===216&&u[2]===255:mime==='image/png'?[137,80,78,71,13,10,26,10].every((b,i)=>u[i]===b):u[0]===82&&u[1]===73&&u[2]===70&&u[3]===70&&u[8]===87&&u[9]===69&&u[10]===66&&u[11]===80;if(!valid)throw Error('El contenido no coincide con el formato');if(raw.length>40000)throw Error('Comprime la fotografía a menos de 30 KB');return 'data:'+mime+';base64,'+raw;}
+function deaRegistrarIdentidad(token,nickname,signature,photo,mime){return deaWithLock_(()=>{const me=deaIdentityActor_(token),nick=deaNick_(nickname),sig=deaNormalizeSignature_(signature),rows=deaIdentityRows_();if(sig==='10P'&&!deaIsMaster_(me))throw Error('Firma 10P reservada al ID de su propietario verificado');if(rows.some(r=>r[0]===me.id))throw Error('Esta cuenta ya tiene una identidad DEA; la firma es inmodificable');if(rows.some(r=>r[2].toUpperCase()===sig||r[1].toLowerCase()===nick.toLowerCase()))throw Error('Firma o Habbo ya registrado');for(const name of ['AGENTES','SOLICITUDES']){const matches=deaRows_(deaTab_(name)).filter(x=>x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase());if(matches.some(x=>x.row[2]!==me.id||x.row[4].toLowerCase()!==nick.toLowerCase()))throw Error('Discord o Habbo no coincide con el expediente existente');}if(deaRows_(deaTab_('FOUNDERS')).some(x=>(x.row[0].toLowerCase()===nick.toLowerCase()&&x.row[3]!==me.id)||(x.row[3]===me.id&&x.row[0].toLowerCase()!==nick.toLowerCase())))throw Error('Identidad Founder incompatible');const file=deaIdentityPhotoSave_(me,photo,mime),now=deaNow_();deaAudit_('IDENTIDAD_REGISTRADA','IDENTIDADES_DEA',me.id,'',{habbo:nick,firma:sig},me,'Registro único después de Discord OAuth');deaIdentitySheet_().appendRow([me.id,nick,sig,file,now,now,'REGISTRADA']);SpreadsheetApp.flush();return {ok:true,message:'Identidad registrada. Tu firma no puede modificarse.'};});}
+function deaActualizarFoto(token,photo,mime){return deaWithLock_(()=>{const me=deaIdentityActor_(token),r=deaFindIdentity_(me.id);if(!r)throw Error('Registra primero tu identidad');if(!photo)throw Error('Selecciona una fotografía');const file=deaIdentityPhotoSave_(me,photo,mime);deaAudit_('FOTO_ACTUALIZADA','IDENTIDADES_DEA',me.id,{avatar:r.avatarFileId},{avatar:file},me,'Fotografía actualizada por su propietario');deaIdentitySheet_().appendRow([me.id,r.habbo,r.signature,file,r.createdAt,deaNow_(),r.status]);SpreadsheetApp.flush();return {ok:true,message:'Fotografía actualizada'};});}
+function deaMiFoto(token){const me=deaIdentityActor_(token),r=deaFindIdentity_(me.id);if(!r||!r.avatarFileId)return null;const m=r.avatarFileId.match(/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/=]+)$/);if(!m)throw Error('Fotografía anterior pendiente de migración');return {mime:m[1],base64:m[2]};}
+function deaSolicitarAlta(token,nickname,rankKey){return deaWithLock_(()=>{const me=deaIdentityActor_(token),identity=deaFindIdentity_(me.id);if(!identity)throw Error('Registra primero tu identidad y firma');const nick=deaNick_(nickname);if(nick.toLowerCase()!==identity.habbo.toLowerCase())throw Error('Usa tu identidad Habbo registrada');const rank=deaIdentityRank_(rankKey),sol=deaRows_(deaTab_('SOLICITUDES'));if(sol.some(x=>x.row[6]==='Pendiente'&&(x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase())))throw Error('Ya existe solicitud pendiente');if(deaRows_(deaTab_('AGENTES')).some(x=>x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase()))throw Error('Ya existe expediente');const id=deaId_();deaAudit_('SOLICITUD_RECIBIDA','SOLICITUDES',id,'',{habbo:nick,categoria:rank.categoria,rango:rank.rango},me,'Rango declarado, pendiente de verificación presencial');deaTab_('SOLICITUDES').appendRow([id,deaNow_(),me.id,deaClean_(me.username,48),identity.habbo,'Pendiente','Pendiente','','','Rango declarado; no concede permisos',rank.categoria,rank.rango]);return {ok:true,message:'Solicitud enviada para verificar tu rango existente'};});}
+function deaResolverSolicitud(token,id,decision,verified,notes){if(!['aprobar','rechazar'].includes(decision))throw Error('Decisión inválida');const reason=deaText_(notes,300);return deaWithLock_(()=>{const me=deaRequire_(token,true),req=deaRows_(deaTab_('SOLICITUDES')).find(x=>x.row[0]===String(id));if(!req||req.row[6]!=='Pendiente')throw Error('Solicitud no pendiente');const r=req.row.slice();if(r[2]===me.id)throw Error('No puedes aprobar tu propia solicitud');const rank=deaIdentityRank_((r[10]||'R2')+':'+(r[11]||'Agente de Enlace'));if(Number(rank.categoria.slice(1))>=7&&!deaIsMaster_(me))throw Error('Este rango requiere aprobación Master por ID');if(decision==='aprobar'){if(verified!==true)throw Error('Verifica presencialmente Habbo y rango');if(deaRows_(deaTab_('FOUNDERS')).some(x=>x.row[0].toLowerCase()===r[4].toLowerCase()&&x.row[3]!==r[2]))throw Error('Habbo reservado');if(deaRows_(deaTab_('AGENTES')).some(x=>x.row[2]===r[2]||x.row[4].toLowerCase()===r[4].toLowerCase()))throw Error('Expediente duplicado');}const next=deaNext_(rank.rango),now=deaNow_();deaAudit_(decision==='aprobar'?'ALTA_APROBADA':'ALTA_RECHAZADA','SOLICITUDES',String(id),{estado:'Pendiente'},{estado:decision,categoria:rank.categoria,rango:rank.rango,habbo:r[4]},me,reason);if(decision==='aprobar')deaTab_('AGENTES').appendRow([deaId_(),now,r[2],r[3],r[4],rank.categoria,rank.rango,now,next?next.rango:'Pendiente','Activo',me.id,reason]);r.splice(5,5,decision==='aprobar'?'Verificada':'No verificada',decision==='aprobar'?'Aprobada':'Rechazada',me.id,now,reason);deaSnapshot_('SOLICITUDES',r);SpreadsheetApp.flush();return {ok:true,message:decision==='aprobar'?'Expediente activado con el rango verificado':'Solicitud rechazada'};});}
+function deaIdentidadPreparar_(){return deaWithLock_(()=>{const ss=deaBook_();let sh=ss.getSheetByName('IDENTIDADES_DEA');if(!sh){sh=ss.insertSheet('IDENTIDADES_DEA');sh.appendRow(DEA_IDENTITY_COLUMNS_);sh.setFrozenRows(1);sh.getRange('A:A').setNumberFormat('@');}deaIdentitySheet_();const requests=deaTab_('SOLICITUDES');const h=requests.getRange(1,11,1,2).getDisplayValues()[0];if(h.some(Boolean)&&h.join('|')!=='categoriaSolicitada|rangoSolicitado')throw Error('Columnas de solicitud ocupadas; no se alteran');if(!h.some(Boolean))requests.getRange(1,11,1,2).setValues([['categoriaSolicitada','rangoSolicitado']]);console.log('Identidad preparada. Datos existentes conservados; 10P sin asignar.');return {ok:true};});}
+function deaOverview(token){const me=deaRequire_(token,false);deaIdentidadPreparar_();const data=deaOverviewLegacy_(token);data.identity=deaIdentityPublic_(deaFindIdentity_(me.id));data.rangos=deaRankCatalog_();data.master=deaIsMaster_(me);if(data.profile)data.profile.master=data.master;return data;}
 
-/**
- * Promotion is a privileged SERVER action, not a client-submitted role change.
- * verifiedActorId and authorizedScope MUST come from the trusted Discord OAuth
- * server session and server-side permission lookup, never from request JSON.
- * R7-R10 and Founder promotions require MASTER permission.
- */
-function deaApprovePromotion_(verifiedActorId, authorizedScope, targetDiscordId, newRank, reason) {
-  if (!/^\d{15,22}$/.test(String(verifiedActorId || '')) ||
-      !/^\d{15,22}$/.test(String(targetDiscordId || ''))) throw new Error('Discord no verificado.');
-  if (String(verifiedActorId) === String(targetDiscordId)) throw new Error('No puedes ascenderte a ti mismo.');
-  if (!['MASTER','LOWER_RANK_APPROVER'].includes(authorizedScope)) throw new Error('Sin permiso para ascender.');
-  const id = PropertiesService.getScriptProperties().getProperty('DEA_SHEET_ID');
-  if (!id) throw new Error('Falta DEA_SHEET_ID.');
-  const ss = SpreadsheetApp.openById(id);
-  const ranks = ss.getSheetByName('RANGOS');
-  const agents = ss.getSheetByName('AGENTES');
-  if (!ranks || !agents) throw new Error('Faltan pestañas RANGOS o AGENTES.');
-  const rankRows = ranks.getDataRange().getValues();
-  const headers = rankRows.shift().map(String);
-  const catCol = headers.indexOf('categoria'), rankCol = headers.indexOf('rango_interno');
-  const rankNameCol = headers.indexOf('nombre_categoria');
-  if (catCol < 0 || rankCol < 0 || rankNameCol < 0) throw new Error('Cabeceras de rangos no válidas.');
-  const valid = rankRows.find(r => String(r[catCol]) + ':' + String(r[rankCol]) === String(newRank));
-  if (!valid) throw new Error('El rango solicitado no existe en la jerarquía oficial.');
-  const category = String(valid[catCol]);
-  if (authorizedScope !== 'MASTER' && (/^R(?:[7-9]|10)$/.test(category) || /founder/i.test(String(valid[rankNameCol]))))
-    throw new Error('Este rango requiere aprobación Master.');
-  const lock = LockService.getScriptLock();
-  lock.waitLock(20000);
-  try {
-    const values = agents.getDataRange().getValues();
-    const cols = values[0].map(String);
-    const discordCol = cols.indexOf('discord_id'), rankField = cols.indexOf('rango'), catField = cols.indexOf('categoria');
-    const ascField = cols.indexOf('ultimo_ascenso_utc'), nextField = cols.indexOf('siguiente_rango');
-    if ([discordCol,rankField,catField,ascField,nextField].some(i => i < 0)) throw new Error('Cabeceras AGENTES incompletas.');
-    const rowIndex = values.findIndex((r,i) => i > 0 && String(r[discordCol]) === String(targetDiscordId));
-    if (rowIndex < 0) throw new Error('El agente no tiene ficha aprobada.');
-    const row = values[rowIndex], previous = String(row[catField]) + ':' + String(row[rankField]);
-    const oldIndex = rankRows.findIndex(r => String(r[catCol])+':'+String(r[rankCol]) === previous);
-    const newIndex = rankRows.indexOf(valid);
-    if (oldIndex < 0 || newIndex !== oldIndex + 1) throw new Error('Solo se permite el siguiente rango oficial.');
-    const now = new Date().toISOString();
-    const log = ss.getSheetByName('AUDITORIA');
-    if (!log) throw new Error('Falta AUDITORIA; no se puede ascender sin trazabilidad.');
-    const next = rankRows[newIndex + 1];
-    const nextValue = next ? String(next[catCol])+':'+String(next[rankCol]) : '';
-    log.appendRow([now,'ASCENSO',String(targetDiscordId),previous,String(newRank),String(verifiedActorId),String(reason||'')]);
-    agents.getRange(rowIndex+1,catField+1).setValue(category);
-    agents.getRange(rowIndex+1,rankField+1).setValue(valid[rankCol]);
-    agents.getRange(rowIndex+1,ascField+1).setValue(now);
-    agents.getRange(rowIndex+1,nextField+1).setValue(nextValue);
-    SpreadsheetApp.flush();
-    return {ok:true,previous:previous,current:String(newRank),next:nextValue};
-  } finally {lock.releaseLock();}
-}
+function deaCargoEstado(token,cargo){const me=deaRequire_(token,false);deaIdentidadPreparar_();const state=deaCargoEstadoLegacy_(token,cargo);state.identity=deaIdentityPublic_(deaFindIdentity_(me.id));return state;}

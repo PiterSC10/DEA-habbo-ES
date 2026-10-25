@@ -37,4 +37,6 @@ El navegador acepta JPEG/PNG/WebP hasta 1 MB y comprime una miniatura JPEG de ha
 - Founder solo admite la fila existente y sin Discord de lesslie.ar. Tras vincularla se cierra automáticamente, tanto en la interfaz como en el servidor.
 - Revisión completa en Solicitudes del Master: Discord, Habbo, firma, fotografía, responsabilidad y misión. Auditoría previa y posterior; registros anteriores conservados.
 - Actualizar también los adaptadores privados Portal, CargoPortal, RoleControl y Código del proyecto instalado. Las funciones públicas de vinculación Founder anteriores se redirigen al registro completo. Discord OAuth no se modifica.
-- Validación: 37 escenarios aislados del nuevo flujo, rechazos anónimos reales y compilación de las siete plantillas; 11 hojas sin cambios por las pruebas. `npm run check` incluye las reglas del primer registro.
+- Validación: 39 escenarios aislados del nuevo flujo, rechazos anónimos reales y compilación de las siete plantillas; 11 hojas sin cambios por las pruebas. `npm run check` incluye las reglas del primer registro.
+
+Los rechazos liberan las reservas de nombre y firma que todavía no estaban aprobadas, conservando sus filas históricas. Un expediente incorrecto no puede bloquear una incorporación legítima.

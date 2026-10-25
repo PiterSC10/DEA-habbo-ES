@@ -5,7 +5,7 @@
 const DEA_IDENTITY_COLUMNS_=['discord_id','habbo_nick','firma','avatar_file_id','fecha_alta_utc','fecha_actualizacion_utc','estado'];
 function deaNormalizeSignature_(value){const s=String(value||'').trim().toUpperCase();if(!/^[A-Z0-9]{3}$/.test(s))throw Error('La firma debe tener tres letras o números');return s;}
 function deaIdentitySheet_(){const sh=deaTab_('IDENTIDADES_DEA');const h=sh.getRange(1,1,1,7).getDisplayValues()[0];if(h.join('|')!==DEA_IDENTITY_COLUMNS_.join('|'))throw Error('Cabeceras de identidad incompatibles; no se sobrescriben datos');return sh;}
-function deaIdentityRows_(){const map=new Map();deaIdentitySheet_().getDataRange().getDisplayValues().slice(1).forEach(r=>{if(r[0])map.set(String(r[0]),r);});return [...map.values()];}
+function deaIdentityRows_(){const map=new Map();deaIdentitySheet_().getDataRange().getDisplayValues().slice(1).forEach(r=>{if(r[0])map.set(String(r[0]),r);});return [...map.values()].filter(r=>r[6]!=='RECHAZADA');}
 function deaFindIdentity_(discordId){if(!/^\d{15,22}$/.test(String(discordId||'')))throw Error('Discord no verificado');const r=deaIdentityRows_().find(r=>r[0]===String(discordId));return r?{discordId:r[0],habbo:r[1],signature:r[2],avatarFileId:r[3],createdAt:r[4],updatedAt:r[5],status:r[6]}:null;}
 function deaIdentityPublic_(r){if(!r)return null;return {habbo:r.habbo,signature:r.signature,hasPhoto:!!r.avatarFileId,status:r.status};}
 function deaIdentityRank_(value){const catalog=deaRankCatalog_();const r=catalog.find(x=>x.categoria+':'+x.rango===String(value));if(!r||Number(r.categoria.slice(1))<2)throw Error('Selecciona un rango oficial desde R2');return r;}
@@ -42,7 +42,7 @@ function deaRegistroInicial(token,nickname,signature,photo,mime,rankKey,responsi
  if(mine&&(mine.habbo!==nick||mine.signature!==sig))throw Error('Tu nombre y firma registrados no pueden cambiarse');
  if(rows.some(r=>r[0]!==me.id&&(r[1].toLowerCase()===nick.toLowerCase()||r[2].toUpperCase()===sig)))throw Error('Nombre Habbo o firma ya registrados');
  const agents=deaRows_(deaTab_('AGENTES')),requests=deaRows_(deaTab_('SOLICITUDES'));
- for(const x of agents.concat(requests)){if((x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase())&&(x.row[2]!==me.id||x.row[4].toLowerCase()!==nick.toLowerCase()))throw Error('Discord o Habbo no coincide con un expediente existente');}
+ for(const x of agents.concat(requests.filter(x=>x.row[6]!=='Rechazada'))){if((x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase())&&(x.row[2]!==me.id||x.row[4].toLowerCase()!==nick.toLowerCase()))throw Error('Discord o Habbo no coincide con un expediente existente');}
  const pending=requests.find(x=>x.row[6]==='Pendiente'&&x.row[2]===me.id);
  if(pending)return {ok:true,message:'Ya tienes una solicitud pendiente; no se ha duplicado'};
  if(agents.some(x=>x.row[2]===me.id)||me.founder||deaCargoAutorizacion_(me.id))throw Error('Tu acceso ya está vinculado; completa únicamente tu identidad');
@@ -76,6 +76,7 @@ function deaInitialResolve_(me,r,decision,verified,reason,challenge){
   else {const next=deaNext_(rank.rango);deaTab_('AGENTES').appendRow([deaId_(),now,r[2],r[3],r[4],rank.categoria,rank.rango,now,next?next.rango:'Pendiente','Activo',me.id,reason]);if(grant)deaTab_('AUTORIZACIONES_CARGOS').appendRow([r[2],r[4],grant,'ACTIVO',me.id,now,r[0],reason]);}
   deaIdentitySheet_().appendRow([r[2],identity.habbo,identity.signature,identity.avatarFileId,identity.createdAt,now,'REGISTRADA']);
  }
+ if(decision==='rechazar'&&identity.status==='PENDIENTE')deaIdentitySheet_().appendRow([r[2],identity.habbo,identity.signature,identity.avatarFileId,identity.createdAt,now,'RECHAZADA']);
  const revision=r.slice();revision.splice(5,5,decision==='aprobar'?'Verificada':'No verificada',decision==='aprobar'?'Aprobada':'Rechazada',me.id,now,reason);deaSnapshot_('SOLICITUDES',revision);
  deaAudit_(decision==='aprobar'?'ALTA_INICIAL_APROBADA':'ALTA_INICIAL_RECHAZADA','REGISTRO_INICIAL',r[0],{estado:'Pendiente'},{estado:revision[6],habbo:r[4],categoria:rank.categoria,rango:rank.rango},me,reason);SpreadsheetApp.flush();return {ok:true,message:decision==='aprobar'?'Registro aprobado. Debe volver a entrar con Discord para activar su acceso.':'Registro rechazado; no se concedieron permisos'};
 }

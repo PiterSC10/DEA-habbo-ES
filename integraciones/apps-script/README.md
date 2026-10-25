@@ -27,3 +27,14 @@ El navegador acepta JPEG/PNG/WebP hasta 1 MB y comprime una miniatura JPEG de ha
 `node --test test-identidad.mjs` verifica el contrato del adaptador con almacenamiento aislado. Las pruebas privadas adicionales ejecutadas en Apps Script comprueban ascensos con el código instalado, rechazo anónimo real, Master por ID, compilación de los siete paneles y conservación de las nueve hojas. Las funciones de prueba e instalación se mantienen privadas al publicar.
 
 `npm run check` ejecuta las comprobaciones del sitio, visitas e identidad. `npm run build` excluye la integración privada de la distribución pública. El acceso real con Discord también debe verificarse en el entorno desplegado; los mocks no sustituyen esa comprobación.
+
+
+## Primer registro unificado
+
+- `deaRegistroInicial`: una sola solicitud OAuth con Habbo exacto, firma de 3 caracteres, foto opcional, rango y responsabilidad. La firma se reserva bajo bloqueo; los reintentos no duplican el registro.
+- Nuevo ingreso: R2 tras confirmar 45 minutos de formación. Rangos en venta del catálogo: R5 Supervisor, R6 Director y R7 Delegado; también se conserva la selección de otros rangos existentes, incluido R10 Manager.
+- Todos los primeros registros requieren Master por ID, código de misión leído en Habbo y comprobación presencial del rango o compra. R6 recibe autorización Director y R10 Manager únicamente tras la aprobación. No se tramitan pagos web.
+- Founder solo admite la fila existente y sin Discord de lesslie.ar. Tras vincularla se cierra automáticamente, tanto en la interfaz como en el servidor.
+- Revisión completa en Solicitudes del Master: Discord, Habbo, firma, fotografía, responsabilidad y misión. Auditoría previa y posterior; registros anteriores conservados.
+- Actualizar también los adaptadores privados Portal, CargoPortal, RoleControl y Código del proyecto instalado. Las funciones públicas de vinculación Founder anteriores se redirigen al registro completo. Discord OAuth no se modifica.
+- Validación: 37 escenarios aislados del nuevo flujo, rechazos anónimos reales y compilación de las siete plantillas; 11 hojas sin cambios por las pruebas. `npm run check` incluye las reglas del primer registro.

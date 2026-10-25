@@ -624,3 +624,19 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-rank-code{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;white-space:nowrap;margin-left:7px;padding:4px 8px;border-radius:5px;border:1px solid #c6a568;background:#302a1e;color:#f2d493;font-size:11px;font-weight:900;letter-spacing:.07em;line-height:1.1}
 .dea-banner-caption .dea-rank-code{margin-left:6px}.dea-rank-code-founder{color:#d3e4ef;border-color:#7296ac;background:#1c3648}.dea-rank-code-benefit{color:#d8e5ef;border-color:#71889b;background:#263d50;font-size:10px}
 @media(max-width:650px){.dea-rank-code{font-size:10px;padding:3px 6px}.dea-plaque-details .dea-rank-code{margin-top:5px}}
+
+/* Subtle emphasis for the admission call to action. */
+.footer-cta .btn[href="#/unete"]{
+  min-height:48px;padding:13px 24px;gap:12px;
+  background:linear-gradient(135deg,#246b96,#185276);
+  border:1px solid #68c7ed;color:#fff;font-size:14px;font-weight:800;
+  box-shadow:0 4px 16px #139bcc26,inset 0 1px 0 #ffffff1a;
+  transition:background .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.footer-cta .btn[href="#/unete"]:hover{
+  background:linear-gradient(135deg,#2b7da9,#1d6288);
+  border-color:#9ce4ff;box-shadow:0 5px 20px #139bcc40;
+}
+.footer-cta .btn[href="#/unete"]:focus-visible{
+  outline:2px solid #f0cc7a;outline-offset:4px;
+}

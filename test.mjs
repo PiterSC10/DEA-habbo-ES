@@ -448,8 +448,20 @@ test('Habboween: Founders públicos con adornos limitados; original y VIP sin es
  const h=page('publico/jerarquia');
  for(const n of ['Agente de Enlace I','Agente de Enlace II','Agente de Enlace III','Agente de Élite V','Instructor Advisor III','Estratega VI','[FIRMA DE DIRECTOR DE AGENTES]'])assert.ok(h.includes(n),n);
  const f=page('publico/founders');
- for(const n of ['Guauagatabig','BIBHI','MAYER','AAITAANAA','FR4N','Primera al mando','Jefa del Departamento de Comunicación'])assert.ok(f.includes(n),n);
+ for(const n of ['CLASIFICADO · DEA','PRÓXIMAMENTE','Primera al mando','Jefa del Departamento de Comunicación'])assert.ok(f.includes(n),n);
  assert.doesNotMatch(f,/Fr4nn_23/);
  assert.doesNotMatch(h,/dea-rank-chip">R11/);
  assert.match(page('vip'),/identificacion\/vip/);
  });
+
+test('Identidades de staff reservadas: cuatro managers en fila y líderes debajo',()=>{
+ const f=page('publico/founders');
+ const sections=[...f.matchAll(/<section class="dea-confirmed-staff">([\s\S]*?)<\/section>/g)].map(x=>x[1]);
+ assert.equal(sections.length,2);
+ assert.equal((sections[0].match(/class="dea-classified-card"/g)||[]).length,4);
+ assert.equal((sections[1].match(/class="dea-classified-card"/g)||[]).length,1);
+ for(const section of sections){assert.doesNotMatch(section,/<img|avatarimage|habbo=/);assert.match(section,/IDENTIDAD RESERVADA/);}
+ assert.doesNotMatch(page('publico/jerarquia'),/Habbo confirmado:/);
+ assert.doesNotMatch(src.slice(src.indexOf('const DEA_PUBLIC_STAFF'),src.indexOf('function deaRankMission')),/habbo:|avatarimage/);
+ assert.match(css,/\.dea-staff-grid\{display:grid;grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+});

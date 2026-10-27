@@ -640,3 +640,14 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .footer-cta .btn[href="#/unete"]:focus-visible{
   outline:2px solid #f0cc7a;outline-offset:4px;
 }
+
+/* Public staff reveal: placeholders contain no private identities or avatars. */
+.dea-staff-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.dea-classified-card{min-width:0;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:22px 12px;border:1px solid #668c9d;border-radius:14px;background:linear-gradient(145deg,#173445,#0c2434);box-shadow:0 10px 24px #0002}
+.dea-classified-stamp{font-size:10px;font-weight:800;letter-spacing:.12em;color:#e8c27a;border:1px solid #b99b60;padding:6px 8px;transform:rotate(-3deg)}
+.dea-classified-art{height:105px;display:flex;align-items:center;justify-content:center;gap:12px;color:#9bb9ca}.dea-classified-art>span{font-size:64px;font-weight:900;opacity:.4}
+.dea-classified-card>strong{color:#f1d69a;font-size:14px;min-height:38px;display:flex;align-items:center}.dea-classified-card>small{color:#aec3d4;font-size:9px;letter-spacing:.12em}
+.dea-classified-redaction{width:75%;height:15px;background:repeating-linear-gradient(-45deg,#050d17,#050d17 4px,#132434 4px,#132434 6px);border:1px solid #345068;border-radius:2px}
+.dea-classified-soon{font-size:10px;font-weight:800;letter-spacing:.13em;color:#e8c27a}
+@media(max-width:800px){.dea-staff-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.dea-staff-grid{gap:8px}.dea-classified-card{padding:18px 8px}.dea-classified-stamp{font-size:8px;letter-spacing:.05em}}

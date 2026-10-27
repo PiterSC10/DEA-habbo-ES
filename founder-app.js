@@ -6,7 +6,7 @@
  const founder=root.getAttribute('data-founder');
  if(!/^[a-zA-Z0-9_.]{2,32}$/.test(founder))return;
  const isMaster=founder==='10PEDRO';
- const founderRoles={'lesslie.ar':'CEO · Coordinadora General','10PEDRO':'CEO · Coordinador de Tecnología Web','XPE_34':'CEO · Coordinador de Eventos','KietsyAndrea':'CEO · Coordinadora de RRHH'};
+ const founderRoles={'lesslie.ar':'CEO · Primera al mando · Jefa del Departamento de Comunicación','10PEDRO':'CEO · Coordinador de Tecnología Web','XPE_34':'CEO · Coordinador de Eventos','KietsyAndrea':'CEO · Coordinadora de RRHH'};
  const role='FOUNDER · '+(founderRoles[founder]||'CEO');
  const title='DEA CONTROL APP FOUNDER (NO COMPARTIR)';
  const portal='https://script.google.com/macros/s/AKfycbyhGqAW8AiwHt11JBT3jmf2In5do2MRpO-H_urxftlewpJgvmWdQV3mrbQQdtOnYndNEg/exec';

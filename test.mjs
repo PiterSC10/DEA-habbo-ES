@@ -235,11 +235,11 @@ test('Neones en parte superior de área pública, sin cambiar portada',()=>{
  assert.ok(!page('inicio').includes('dea-public-neon-nav'));
  assert.ok(!page('vip').includes('dea-public-neon-nav'));
 });
-test('Tabla completa: 61 rangos internos oficiales R1–R10',()=>{
+test('Tabla completa: 70 rangos internos oficiales R1–R10',()=>{
  const h=page('publico/jerarquia');
  const table=h.match(/<table class="dea-rank-table">([\s\S]*?)<\/table>/)?.[1];
  assert.ok(table,'Falta la tabla R1–R10');
- assert.equal(table.split('class="dea-rank-chip"').length-1,61);
+ assert.equal(table.split('class="dea-rank-chip"').length-1,70);
  for(const x of ['Cadete','Agente de Enlace','Instructor en Jefe','Estratega en División','Supervisor de Unidad','Jefe de Dirección','R7','R8','R9','R10','130 c','240 c','500 c'])assert.ok(h.includes(x),x);
  assert.ok(h.includes('Cerrar ventana'));
 });
@@ -443,3 +443,13 @@ test('Habboween: Founders públicos con adornos limitados; original y VIP sin es
  assert.match(themeCss,/\.hw-page-scene\[hidden\]\{display:none!important\}/);
  assert.match(themeCss,/\.hw-page-scene img\{[^}]*max-width:38px;max-height:44px/);
 });
+
+ test('Escalafón actualizado y cargos confirmados sin conceder accesos',()=>{
+ const h=page('publico/jerarquia');
+ for(const n of ['Agente de Enlace I','Agente de Enlace II','Agente de Enlace III','Agente de Élite V','Instructor Advisor III','Estratega VI','[FIRMA DE DIRECTOR DE AGENTES]'])assert.ok(h.includes(n),n);
+ const f=page('publico/founders');
+ for(const n of ['Guauagatabig','BIBHI','MAYER','AAITAANAA','FR4N','Primera al mando','Jefa del Departamento de Comunicación'])assert.ok(f.includes(n),n);
+ assert.doesNotMatch(f,/Fr4nn_23/);
+ assert.doesNotMatch(h,/dea-rank-chip">R11/);
+ assert.match(page('vip'),/identificacion\/vip/);
+ });

@@ -25,7 +25,7 @@ Los accesos ACCESO VIP y ÚNETE A DEA abren el portal Apps Script. La informaci�
 
 ## Reglas funcionales
 - R1 es formación en sala Habbo (3 tramos de 15 minutos, 45 minutos en total) y **no se registra** en la web.
-- R2 (Agente de Enlace) es la primera ficha oficial; requiere Discord y autorización presencial de un Founder.
+- R2 (Agente de Enlace I) es la primera ficha oficial; requiere Discord y autorización presencial de un Founder.
 - Ascensos sujetos a rango y plazo mínimo; un Founder verifica presencia en Habbo.
 - Nóminas ordinarias los **miércoles y sábados**, con selección múltiple y comprobación presencial de horas y entrega. La paga extra del sábado es independiente y requiere aprobación específica.
 - **Ingreso gratuito** tras formación R1 y aprobación de R2, o compra presencial de rango con Founders/CEO.

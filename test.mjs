@@ -322,7 +322,7 @@ test('Dos miniapps generales de Directores y Managers con límites acumulativos 
   assert.match(html,/IDENTIFICARME CON DISCORD/);
   assert.match(html,/id="dea-role-enter"/);
   assert.match(html,/La identidad y los límites se comprueban en Google Apps Script/);
-  assert.match(html,/La autorización de operaciones de este cargo debe activarse y probarse/);
+  assert.match(html,/Acceso operativo mediante Discord/);
   assert.doesNotMatch(html,/name="discord_id"|role="founder"|data-form="ascenso"/);
   assert.match(html,/© 2026 DEA HABBO ES/);
   assert.match(html,/Habbo ni Sulake/);

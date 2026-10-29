@@ -272,9 +272,10 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
 
 test('Catálogo de placas: VIP real y condiciones presenciales sin checkout',()=>{
  const h=page('publico/placas');
- assert.equal(h.split('class="dea-plaque-card"').length-1,1);
+ assert.equal(h.split('class="dea-plaque-card"').length-1,2);
  for(const x of ['Preguntar a Founders','BENEFICIO · SIN RANGO','sin poderes sobre la sala','No se realizan pagos desde esta web'])assert.ok(h.includes(x),x);
  assert.ok(!h.includes('checkout'));
+ for(const text of ['[DEA] Guardapaga','20 créditos','un mes desde la compra','48 horas','22:00'])assert.ok(h.includes(text),text);
 });
 test('La puerta de preinauguración está activa antes de los tres accesos',()=>{
  for(const p of ['publico/jerarquia','publico/placas']){
@@ -361,7 +362,7 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  assert.match(module,/prefers-reduced-motion:reduce/);
  assert.match(module,/@media\(max-width:630px\)/);
  for(const term of ['FRONTEND & DESIGN','WEB APPLICATION','INTEGRATIONS & DATABASE','INFRASTRUCTURE','SYSTEM REVIEW COMPLETED','Public Components Reviewed','PROJECT DEVELOPMENT REPORT'])assert.ok(module.includes(term),term);
- for(const term of ['HTML5 Structure','CSS3 Responsive Framework','JavaScript Application','Navigation System','Corporate Visual Identity','Mobile Compatibility','Public Information Portal','R1–R10 Rank Structure','Promotion Rules','Benefit Badge Catalog','Founder Access Launchers','Directors WebApp','Managers WebApp','Discord OAuth2 Configuration','Google Apps Script Connection','Google Sheets Data Structure','Agent Records System','Promotion Management','Payroll & Extra Payments','Audit Log Architecture','GitHub Repository','Vercel Deployment','GitHub Pages Backup','SEO Metadata','PWA Manifest','Website Resource Integrity'])assert.ok(module.includes(term),term);
+ for(const term of ['HTML5 Structure','CSS3 Responsive Framework','JavaScript Application','Navigation System','Corporate Visual Identity','Mobile Compatibility','Public Information Portal','R1–R10 Rank Structure','Promotion Rules','Benefit Badge Catalog','Founder Access Launchers','Directors WebApp','Managers WebApp','Discord OAuth2 Configuration','Google Apps Script Connection','Google Sheets Data Structure','Agent Records System','Promotion Management','Payroll & Guardapaga','Audit Log Architecture','GitHub Repository','Vercel Deployment','GitHub Pages Backup','SEO Metadata','PWA Manifest','Website Resource Integrity'])assert.ok(module.includes(term),term);
  assert.match(module,/PRIVATE VALIDATION REQUIRED/);
  assert.match(module,/No constituye auditoría|No constituye auditoría externa|no constituye auditoría externa/i);
  assert.match(module,/const HOURS=WORK.reduce/);
@@ -465,3 +466,5 @@ test('Identidades de staff reservadas: cuatro managers en fila y líderes debajo
  assert.doesNotMatch(src.slice(src.indexOf('const DEA_PUBLIC_STAFF'),src.indexOf('function deaRankMission')),/habbo:|avatarimage/);
  assert.match(css,/\.dea-staff-grid\{display:grid;grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
 });
+
+test('Nóminas públicas: dos jornadas, banderas y horarios por fecha, sin pagas extra',()=>{const view=page('publico/nominas');for(const value of ['22:00','miércoles','sábado','Argentina','Ciudad de México','Colombia','Ecuador','República Dominicana','Puerto Rico','Chile','Uruguay','Guardapaga','20 créditos','48 horas'])assert.ok(view.includes(value),value);assert.doesNotMatch(view,/pagas? extra/i);assert.ok(page('publico').includes('#/publico/nominas'));});

@@ -651,3 +651,5 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-classified-soon{font-size:10px;font-weight:800;letter-spacing:.13em;color:#e8c27a}
 @media(max-width:800px){.dea-staff-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:420px){.dea-staff-grid{gap:8px}.dea-classified-card{padding:18px 8px}.dea-classified-stamp{font-size:8px;letter-spacing:.05em}}
+
+.dea-payroll-schedule{margin:20px 0;padding:18px;border:1px solid #b99a58;border-radius:12px;background:#0e2541;color:#f5faff}.dea-payroll-schedule summary{cursor:pointer;font-weight:700;color:#7bd3ff}.dea-payroll-schedule table{width:100%;border-collapse:collapse}.dea-payroll-schedule td,.dea-payroll-schedule th{padding:9px;text-align:left;border-bottom:1px solid #385b7b}

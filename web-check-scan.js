@@ -10,7 +10,7 @@
     ["Google Apps Script y Sheets","Esquemas y conexión documentados; pruebas privadas pendientes.",14,"pending"],
     ["Gestión de agentes y expedientes","Flujos de alta, consulta individual, solicitudes y aprobaciones.",12,"pending"],
     ["Rangos y ascensos","Modelo R1–R10 y reglas de autorización acumulativas.",10,"ok"],
-    ["Nóminas y pagas extraordinarias","Reglas, formularios y trazabilidad sujetos a validación privada.",9,"pending"],
+    ["Nóminas y Guardapaga","Reglas, formularios y trazabilidad sujetos a validación privada.",9,"pending"],
     ["Auditoría y trazabilidad","Diseño de historial y registros de operaciones no eliminables.",8,"pending"],
     ["Miniapps Founder","Cuatro accesos personalizados; permisos efectivos en servidor privado.",12,"ok"],
     ["Miniapps Directores y Managers","Dos lanzadores de cargo con límites publicados R5/R7 incluidos.",10,"ok"],
@@ -259,7 +259,7 @@
       ["Google Sheets Data Structure",async()=>pending("Estructura de hojas documentada; contenido y permisos no inspeccionados.")],
       ["Agent Records System",async()=>pending("El modelo de agentes requiere pruebas autenticadas de lectura, escritura y aislamiento.")],
       ["Promotion Management",async()=>pending("Exige pruebas con identidades reales: Director R5/R6, Manager R7/R8 y Founder R10.")],
-      ["Payroll & Extra Payments",async()=>pending("Las nóminas y pagas extraordinarias requieren validación de operaciones en Apps Script.")],
+      ["Payroll & Guardapaga",async()=>pending("Las nóminas y reservas Guardapaga requieren validación de operaciones en Apps Script.")],
       ["Audit Log Architecture",async()=>pending("Los registros y la trazabilidad requieren inspección autorizada del backend.")]
     ]],
     ["INFRASTRUCTURE",[

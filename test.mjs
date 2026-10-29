@@ -4,16 +4,17 @@ import {readFile, access} from 'node:fs/promises';
 import {runInNewContext} from 'node:vm';
 const src=await readFile(new URL('./app.js',import.meta.url),'utf8');
 const catalogs=await readFile(new URL('./catalogo-publico.js',import.meta.url),'utf8');
+const experience=await readFile(new URL('./dea-experience.js',import.meta.url),'utf8');
 const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
 function page(route,unlocked=true){
  const root={innerHTML:'',addEventListener(){},querySelector(){return null}};
  const location={hash:'#/inicio'};
- const document={getElementById(){return root},title:''};
+ const document={addEventListener(){},getElementById(){return root},title:''};
  const window={addEventListener(){}};
  const sessionStorage={getItem(){return unlocked?'yes':null},setItem(){},removeItem(){}};
  const runtime=unlocked?src:src.replace('const PUBLIC_SITE_LIVE=true','const PUBLIC_SITE_LIVE=false');
- const app=runInNewContext(catalogs+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
+ const app=runInNewContext(catalogs+'\n'+experience+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
 test('Portada tiene las tres ventanas y no una barra lateral',()=>{

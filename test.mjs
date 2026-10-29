@@ -468,3 +468,5 @@ test('Identidades de staff reservadas: cuatro managers en fila y líderes debajo
 });
 
 test('Nóminas públicas: dos jornadas, banderas y horarios por fecha, sin pagas extra',()=>{const view=page('publico/nominas');for(const value of ['22:00','miércoles','sábado','Argentina','Ciudad de México','Colombia','Ecuador','República Dominicana','Puerto Rico','Chile','Uruguay','Guardapaga','20 créditos','48 horas'])assert.ok(view.includes(value),value);assert.doesNotMatch(view,/pagas? extra/i);assert.ok(page('publico').includes('#/publico/nominas'));});
+
+test('Cuba utiliza UTC-4 en invierno según IANA 2026f',()=>{const value=runInNewContext(catalogs+";deaPayrollTimes('2026-11-04').find(x=>x.zone==='America/Havana').time",{});assert.equal(value,'17:00');});

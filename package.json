@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check dea-experience.js && node --check api/noticias.js && node --check dea-cargos.js && node --check founder-app.js && node --check web-check-scan.js && node --check api/visitas.js && node --check visitas.js && node --check app.js && node --check build.mjs && node --test test.mjs test-visitas.mjs test-identidad.mjs test-noticias.mjs",
+    "check": "node --check dea-promo.js && node --check dea-experience.js && node --check api/noticias.js && node --check dea-cargos.js && node --check founder-app.js && node --check web-check-scan.js && node --check api/visitas.js && node --check visitas.js && node --check app.js && node --check build.mjs && node --test test.mjs test-visitas.mjs test-identidad.mjs test-noticias.mjs test-promo.mjs",
     "build": "node build.mjs"
   },
   "dependencies": {

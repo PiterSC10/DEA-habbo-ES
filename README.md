@@ -73,7 +73,7 @@ Los lanzadores muestran únicamente información de perfil pública (nick, rango
 **PENDIENTE INSTALAR:** el ZIP privado DEA_CONTROL_APP_FOUNDER_V6_BACKEND_PRIVADO.zip actualiza OAuth, bloquea sesiones anteriores, vincula cada perfil al Discord real, ofrece formularios append-only de incidencias y cobros y corrige nóminas a miércoles/sábado. Debe instalarse y desplegarse en el Apps Script original, no se instala desde GitHub ni Vercel. Los tres Founders sin Discord ID activo deberán vincularse antes de operar. Los cobros de placas permanecen sin habilitar hasta tener catálogo aprobado.
 
 ## Pie editorial 2026 e independencia de Habbo
-- En portada posterior a contraseña, zona pública, agente, VIP y lanzadores Founder se muestra: © 2026 DEA HABBO ES · Powered by YourDesignGPT (enlace a https://yourdesigngpt.netlify.app/) · 10PEDRO (sin enlace).
+- En portada posterior a contraseña, zona pública, agente, VIP y lanzadores Founder se muestra: © 2026 DEA HABBO ES · Powered by YourDesignGPT (enlace a https://yourdesigngpt.vercel.app/) · 10PEDRO (sin enlace).
 - Se mencionan los cuatro Founders: 10PEDRO, KietsyAndrea, lesslie.ar y XPE_34.
 - Aviso: proyecto independiente no afiliado ni patrocinado por Habbo o Sulake; las marcas son de sus titulares.
 - **No tocar la pantalla previa de contraseña**: conserva su pie «DEA HABBO ES · Preinauguración» sin créditos adicionales.

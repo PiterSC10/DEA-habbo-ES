@@ -156,7 +156,7 @@ test('Pie 2026 visible con Powered by enlazado y sin firma personal ni frase de 
  for(const p of ['inicio','vip','identificacion/vip','identificacion/alta','identificacion/agente','unete','ficha','publico','publico/agencia','publico/jerarquia','publico/placas','publico/departamentos','publico/founders','publico/ingreso','publico/normativa']){
   const screen=page(p,true);
   assert.match(screen,/© 2026 DEA HABBO ES/);
-  assert.match(screen,/Powered by <a href="https:\/\/yourdesigngpt\.netlify\.app\/"/);
+  assert.match(screen,/Powered by <a href="https:\/\/yourdesigngpt\.vercel\.app\/"/);
   assert.doesNotMatch(screen,/YourDesignGPT<\/a>[^<]*<span[^>]*>·<\/span> 10PEDRO/);
   assert.doesNotMatch(screen,/dea-credit-founders|DEA HABBO ES es un proyecto de sus cuatro Founders/);
   assert.match(screen,/No afiliada, patrocinada ni respaldada por Habbo ni Sulake/);
@@ -175,7 +175,7 @@ test('Los cuatro lanzadores Founder conservan créditos sin firma personal ni fr
   const footer=launcher.match(/<footer class="dea-founder-footer">([\s\S]*?)<\/footer>/)?.[1];
   assert.ok(footer,'Falta pie en '+slug);
   assert.match(footer,/© 2026 DEA HABBO ES/);
-  assert.match(footer,/href="https:\/\/yourdesigngpt\.netlify\.app\/"/);
+  assert.match(footer,/href="https:\/\/yourdesigngpt\.vercel\.app\/"/);
   assert.doesNotMatch(footer,/<a[^>]+>10PEDRO<\/a>/);
   assert.doesNotMatch(footer,/10PEDRO|KietsyAndrea|lesslie\.ar|XPE_34|dea-credit-founders/);
   assert.match(footer,/Habbo ni Sulake/);
@@ -370,7 +370,7 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  assert.match(module,/aria-label="Importe oculto"/);assert.match(module,/data-dea-valuation-toggle/);
  assert.doesNotMatch(module,/5\.400 €|6\.900 €/);
  assert.doesNotMatch(module,/4\.050 €|135 h|client_secret|DISCORD_CLIENT_SECRET|apiKey|access_token/);
- assert.match(module,/https:\/\/yourdesigngpt\.netlify\.app\//);
+ assert.match(module,/https:\/\/yourdesigngpt\.vercel\.app\//);
  assert.match(module,/Designed &amp; Developed by/);
  assert.match(module,/No es presupuesto aceptado, factura ni certificación/);
  assert.doesNotMatch(module,/https:\/\/script\.google\.com\/macros/);

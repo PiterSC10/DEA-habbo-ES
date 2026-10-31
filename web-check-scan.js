@@ -143,7 +143,7 @@
         <button type="button" class="dea-tech-close" aria-label="Cerrar diagnóstico" data-dea-tech-close>×</button>
       </div>
       <p class="dea-tech-sub">Technical Infrastructure &amp; Development Overview</p>
-      <p class="dea-tech-meta">Developed by <a href="https://yourdesigngpt.netlify.app/" target="_blank" rel="noopener noreferrer">YourDesignGPT</a> · Demostración visual con comprobaciones públicas de solo lectura</p>
+      <p class="dea-tech-meta">Developed by <a href="https://yourdesigngpt.vercel.app/" target="_blank" rel="noopener noreferrer">YourDesignGPT</a> · Demostración visual con comprobaciones públicas de solo lectura</p>
     </header>
     <div class="dea-tech-content">
       <div class="dea-tech-summary">
@@ -177,7 +177,7 @@
         </div>
       </details>
       <footer class="dea-tech-foot"><p><b>DEA HABBO ES · V7</b> · Desarrollo independiente de fans de Habbo Hotel. Sin afiliación con Habbo ni Sulake.</p>
-        <p><b>Designed &amp; Developed by <a href="https://yourdesigngpt.netlify.app/" target="_blank" rel="noopener noreferrer">YourDesignGPT</a></b></p>
+        <p><b>Designed &amp; Developed by <a href="https://yourdesigngpt.vercel.app/" target="_blank" rel="noopener noreferrer">YourDesignGPT</a></b></p>
       </footer>
     </div>
   </section>`);

@@ -231,8 +231,8 @@ test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portad
 
 test('Neones en parte superior de área pública, sin cambiar portada',()=>{
  const h=page('publico');
- assert.equal(h.split('class="dea-neon-link ').length-1,2);
- for(const p of ['publico/jerarquia','publico/placas'])assert.ok(h.includes('href="#/'+p+'"'));
+ assert.equal(h.split('class="dea-neon-link ').length-1,3);
+ for(const p of ['publico/jerarquia','publico/placas','publico/cafeteria'])assert.ok(h.includes('href="#/'+p+'"'));
  assert.ok(!page('inicio').includes('dea-public-neon-nav'));
  assert.ok(!page('vip').includes('dea-public-neon-nav'));
 });
@@ -268,7 +268,7 @@ test('Rangos y ascensos: autoridad acumulativa hasta R5, R7 y R10 en tabla y sec
 test('Normativa no invade Placas, preinauguración ni la portada principal',()=>{
  for(const route of ['inicio','publico/placas','vip'])assert.doesNotMatch(page(route),/dea-ascension-permissions/);
  assert.doesNotMatch(page('publico/jerarquia',false),/dea-ascension-permissions/);
- assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,2);
+ assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,3);
 });
 
 test('Catálogo de placas: VIP real y condiciones presenciales sin checkout',()=>{

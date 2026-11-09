@@ -13,14 +13,16 @@ const GROUPS=[
  {id:'R9',label:'Líderes',period:'Elección Founders',pay:35,hours:null,ranks:['Líder en Formación','Líder de Base','Líder de Division','Líder de General','Líder de Coorp'],note:'Ventas: comisión del 15 %. Nómina base: 35 c. Referencia semanal: 70 c.'},
  {id:'R10',label:'Managers',period:'Dirección superior',pay:80,hours:null,ranks:['Mánager en Formación','Mánager de PBL','Mánager de RRHH','Mánager MKT'],note:'Ventas: comisión del 30 %. Nómina base: 80 c semanales. Dos pagos mencionados en el documento; desglose del segundo pendiente.'}
 ];
+// Cargos inferiores: visibilidad pública sin publicar nombres no confirmados.
+// La hoja AUTORIZACIONES_CARGOS es privada; nunca se exportan Discord IDs ni expedientes.
 const DEA_PUBLIC_STAFF=Object.freeze([
- {cat:'R9',rank:'Líder en Formación'},
- {cat:'R10',rank:'Mánager en Formación'},
- {cat:'R10',rank:'Mánager de PBL'},
- {cat:'R10',rank:'Mánager de RRHH'},
- {cat:'R10',rank:'Mánager MKT'}
+ {cat:'R9',rank:'Líder en Formación',name:null},
+ {cat:'R10',rank:'Mánager en Formación',name:null},
+ {cat:'R10',rank:'Mánager de PBL',name:null},
+ {cat:'R10',rank:'Mánager de RRHH',name:null},
+ {cat:'R10',rank:'Mánager MKT',name:null}
 ]);
-function deaStaffCard(x){return `<article class="dea-classified-card"><span class="dea-classified-stamp">CLASIFICADO · DEA</span><div class="dea-classified-art" aria-hidden="true">${I('lock',true)}<span>?</span></div><strong>${esc(x.rank)}</strong><span class="dea-classified-redaction" aria-label="Identidad reservada"></span><small>IDENTIDAD RESERVADA</small><span class="dea-classified-soon">PRÓXIMAMENTE</span></article>`}
+function deaStaffCard(x){return `<article class="dea-classified-card dea-team-visible"><span class="dea-classified-stamp">EQUIPO DEA · ${esc(x.cat)}</span><div class="dea-classified-art" aria-hidden="true">${I('users',true)}</div><strong>${esc(x.rank)}</strong><small>${x.name?esc(x.name):'Titular por confirmar'}</small><span class="dea-classified-soon">${x.name?'CARGO CONFIRMADO':'SIN ASIGNACIÓN PUBLICADA'}</span></article>`}
 
 function deaRankMission(cat,name){const aliases={'Aspirante a Operador':'Aspirante a Op','Supervisor de Unidad':'Sup. de Unidad','Director de Cadetes':'Dir. Cadetes','Director de Agentes':'Dir. Agentes','Director de Cuerpo Élite':'Dir. Cuerpo Elite','Director de Logística':'Dir. Logística','Director de Base':'Dir. Base','Director Advisor':'Dir. Advisor','Jefe de Dirección':'Jefe de Dir'};const signer={R1:'DIRECTOR DE CADETES',R2:'DIRECTOR DE AGENTES',R3:'DIRECTOR DE CUERPO ELITE',R4:'DIRECTOR DE LOGÍSTICA',R5:'DIRECTOR DE BASE',R6:'MNG',R7:'MNG',R8:'F'}[cat];return '[DEA] '+(aliases[name]||name)+(signer?' [FIRMA DE '+signer+']':'')}
 const ALL_RANKS=GROUPS.flatMap(g=>g.ranks.map(n=>({cat:g.id,group:g.label,name:n}))); // R2 comienza en 3.

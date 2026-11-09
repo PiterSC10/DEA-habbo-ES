@@ -774,3 +774,20 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-staff-grid .dea-rank-directory>small{line-height:1.15}
 @media(max-width:800px){.dea-staff-grid .dea-rank-directory{height:225px;padding:9px 7px 8px;gap:4px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:116px;min-height:116px;max-height:116px}}
 @media(max-width:360px){.dea-staff-grid .dea-rank-directory{height:222px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:108px;min-height:108px;max-height:108px}}
+
+/* DEA: pequeño filtro de código antes del alta inicial, compatible con móvil. */
+.dea-code-gate{max-width:650px;margin:12px auto 28px;padding:clamp(18px,3vw,29px);text-align:center;border:1px solid #a68b58;background:linear-gradient(155deg,#152d43,#091e32)}
+.dea-code-emblem{display:grid;place-items:center;width:58px;height:58px;margin:9px auto 13px;border-radius:50%;background:#1c4155;color:#e9d197;border:1px solid #b79a61}
+.dea-code-emblem svg{width:30px;height:30px}
+.dea-code-gate h2{font-size:clamp(21px,3vw,29px);line-height:1.2;color:#f4dda8;margin:7px 0 12px}
+.dea-code-gate>p{color:#c8deec;line-height:1.65;margin:10px auto 15px;max-width:510px;font-size:14px}
+.dea-code-form{margin:20px auto 8px;max-width:460px;text-align:left}
+.dea-code-form label{display:block;margin-bottom:9px;font-size:12px;letter-spacing:.03em;font-weight:850;color:#e6cb92}
+.dea-code-entry{display:flex;align-items:stretch;gap:9px}
+.dea-code-entry input{flex:1;min-width:0;min-height:46px;border:1px solid #557991;border-radius:9px;padding:10px 13px;background:#081a2b;color:#fff;font:inherit;font-size:16px;outline-offset:2px}
+.dea-code-entry input:focus{border-color:#e3c589;box-shadow:0 0 0 2px #dbbc7840}
+.dea-code-entry button{flex:none;white-space:nowrap}
+.dea-code-error{padding:9px 12px;background:#4a2730;border:1px solid #c7737b;border-radius:8px;color:#ffd9dd;font-size:12px}
+.dea-code-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:19px}
+.dea-code-links .btn{font-size:11px}
+@media(max-width:550px){.dea-code-gate{text-align:center}.dea-code-entry{flex-direction:column}.dea-code-entry button{width:100%;justify-content:center}.dea-code-links{flex-direction:column}.dea-code-links .btn{width:100%;justify-content:center}}

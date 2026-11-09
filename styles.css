@@ -764,3 +764,13 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-founders-intro{margin-bottom:14px}
 @media(max-width:800px){.dea-staff-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.dea-confirmed-staff{padding:10px}.dea-staff-grid .dea-rank-directory{height:205px;padding:10px 8px 9px;gap:4px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:95px}.dea-staff-grid .dea-rank-directory>strong{font-size:12px}.dea-staff-grid .dea-rank-directory>small{font-size:10px}}
 @media(max-width:360px){.dea-staff-grid .dea-rank-directory{height:205px;padding:9px 5px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:88px}.dea-staff-grid .dea-rank-directory>strong{font-size:11px}}
+
+/* Avatares Habbo de máxima resolución disponible (size=l): ajuste sin ampliaciones ni recortes. */
+.dea-staff-grid .dea-rank-directory{height:238px;min-height:0;padding:10px 10px 9px;gap:4px}
+.dea-staff-grid .dea-rank-directory .dea-classified-art{height:127px;min-height:127px;max-height:127px;padding:2px 4px;background:radial-gradient(ellipse at 50% 84%,#3d617b 0%,#24435b 50%,#10273b 90%);overflow:hidden}
+.dea-staff-grid .dea-rank-directory .dea-classified-art img{width:auto;height:100%;max-width:100%;object-fit:contain;object-position:center bottom;image-rendering:auto;filter:none;transform:none}
+.dea-founder-art img{max-width:100%;object-fit:contain;object-position:center bottom;image-rendering:auto}
+.dea-staff-grid .dea-rank-directory>strong{line-height:1.15}
+.dea-staff-grid .dea-rank-directory>small{line-height:1.15}
+@media(max-width:800px){.dea-staff-grid .dea-rank-directory{height:225px;padding:9px 7px 8px;gap:4px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:116px;min-height:116px;max-height:116px}}
+@media(max-width:360px){.dea-staff-grid .dea-rank-directory{height:222px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:108px;min-height:108px;max-height:108px}}

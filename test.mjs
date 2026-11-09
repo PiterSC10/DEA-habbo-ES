@@ -271,10 +271,16 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
  assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,3);
 });
 
-test('Catálogo de cinco placas con sus precios, emblemas y vigencias',async()=>{
+test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
  const h=page('publico/placas');
  const cards=[...h.matchAll(/<article class="dea-plaque-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
- assert.equal(cards.length,5);
+ assert.equal(cards.length,7);
+ for(const [title,benefit] of [['Hour Skip [HS]','Reduce un 50 % tus horas.'],['Bonus Day [BD]','Añade un día extra de bonificación cada semana (7 créditos extra).']]){
+  const card=cards.find(c=>c.includes(`<h3>[DEA] ${title}`));
+  assert.ok(card,title);
+  for(const copy of ['Emblema: próximamente','Precio: próximamente','un mes desde la compra',benefit])assert.ok(card.includes(copy),copy);
+  assert.doesNotMatch(card,/<img/);
+ }
  for(const [image,title,price,permanent] of [
   ['beneficio-gold','Beneficio Gold',100,false],['reduccion-nomina','Reducción de Nómina [RN]',40,false],
   ['payment-security','Payment Security [PS]',20,false],['fast-pay','Fast Pay [FP]',30,false],['beneficio-vip','VIP',35,true]

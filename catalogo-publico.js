@@ -40,13 +40,15 @@ const DEA_PUBLIC_PLAQUES=[
  {image:'reduccion-nomina',title:'Reducción de Nómina [RN]',price:40,benefit:'Reduce un 50 % las horas requeridas para cobrar la nómina.'},
  {image:'payment-security',title:'Payment Security [PS]',price:20,benefit:'Guardapaga: si cumples los requisitos, puedes reservar tu nómina del miércoles o sábado y recogerla hasta 48 horas después de las 22:00 (hora peninsular española) de esa jornada.'},
  {image:'fast-pay',title:'Fast Pay [FP]',price:30,benefit:'Accede a una fila preferente para cobrar la nómina.'},
+ {title:'Hour Skip [HS]',benefit:'Reduce un 50 % tus horas.'},
+ {title:'Bonus Day [BD]',benefit:'Añade un día extra de bonificación cada semana (7 créditos extra).'},
  {image:'beneficio-vip',title:'VIP',price:35,permanent:true,benefit:'Entra y sal de la sala DEA como visitante, sin rango, sin trabajar y sin permisos de gestión.'}
 ];
 function publicPlaques(){
  const cards=DEA_PUBLIC_PLAQUES.map(({image,title,price,permanent,benefit})=>`<article class="dea-plaque-card">
- <div class="dea-plaque-image"><img class="dea-plaque-emblem" src="/assets/dea/insignias/${image}.png" width="120" height="120" alt=""></div>
+ <div class="dea-plaque-image">${image?`<img class="dea-plaque-emblem" src="/assets/dea/insignias/${image}.png" width="120" height="120" alt="">`:'<strong>Emblema: próximamente</strong>'}</div>
  <div class="dea-plaque-details"><h3>[DEA] ${title}${permanent?' <span class="dea-rank-code dea-rank-code-benefit">BENEFICIO · SIN RANGO</span>':''}</h3>
- <strong class="dea-plaque-price">${price} créditos</strong>
+ <strong class="dea-plaque-price">${price==null?'Precio: próximamente':`${price} créditos`}</strong>
  <p><b>Duración:</b> ${permanent?'permanente':'un mes desde la compra'}.</p>
  <p><b>Beneficio:</b> ${benefit}</p></div></article>`).join('');
  return catalogWindow('Placas de beneficio',head('CATÁLOGO DEA','Placas de beneficio','Consulta el precio, la duración y el beneficio de cada placa.')+`<div class="dea-plaque-grid">${cards}</div><section class="dea-tariff-info"><h2>Compra y registro</h2><p>La compra y la entrega se hacen en Habbo con un Founder. Si ya tienes expediente, la compra se registra allí: no te registres de nuevo. No se realizan pagos desde esta web.</p></section>`);

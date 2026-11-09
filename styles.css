@@ -181,6 +181,7 @@
 .dea-plaque-card{display:flex;flex-direction:column;gap:10px;min-width:0;background:#132d42;border:1px solid #527a97;border-radius:15px;padding:15px;color:#d0e2ee}
 .dea-plaque-image{height:154px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px dashed #587e9c;background:radial-gradient(circle,#25455f,#0a2437)}
 .dea-plaque-image img{width:82px;height:82px;object-fit:contain;opacity:.65}
+.dea-plaque-image img.dea-plaque-emblem{width:120px;height:120px;max-width:100%;object-fit:contain;opacity:1;border-radius:8px;image-rendering:pixelated}
 .dea-plaque-image span{position:absolute;left:9px;bottom:8px;background:#0b253b;border:1px solid #6787a0;border-radius:7px;padding:3px 6px;color:#cbdde9;font-size:9px}
 .dea-plaque-card h3{font-size:16px;color:#fff;margin:2px 0}
 .dea-plaque-price{font-size:17px;color:#f7d08c}

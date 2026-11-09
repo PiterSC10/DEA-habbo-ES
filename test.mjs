@@ -271,12 +271,28 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
  assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,3);
 });
 
-test('Catálogo de placas: VIP real y condiciones presenciales sin checkout',()=>{
+test('Catálogo de cinco placas con sus precios, emblemas y vigencias',async()=>{
  const h=page('publico/placas');
- assert.equal(h.split('class="dea-plaque-card"').length-1,2);
- for(const x of ['Preguntar a Founders','BENEFICIO · SIN RANGO','sin poderes sobre la sala','No se realizan pagos desde esta web'])assert.ok(h.includes(x),x);
- assert.ok(!h.includes('checkout'));
- for(const text of ['[DEA] Guardapaga','20 créditos','un mes desde la compra','48 horas','22:00'])assert.ok(h.includes(text),text);
+ const cards=[...h.matchAll(/<article class="dea-plaque-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
+ assert.equal(cards.length,5);
+ for(const [image,title,price,permanent] of [
+  ['beneficio-gold','Beneficio Gold',100,false],['reduccion-nomina','Reducción de Nómina [RN]',40,false],
+  ['payment-security','Payment Security [PS]',20,false],['fast-pay','Fast Pay [FP]',30,false],['beneficio-vip','VIP',35,true]
+ ]){
+  const card=cards.find(c=>c.includes(`<h3>[DEA] ${title}`));
+  assert.ok(card,title);
+  const src=`assets/dea/insignias/${image}.png`;
+  assert.ok(card.includes(`src="/${src}"`));
+  const png=await readFile(new URL('./'+src,import.meta.url));
+  assert.equal(png.readUInt32BE(16),120);
+  assert.equal(png.readUInt32BE(20),120);
+  assert.ok(card.includes(`${price} créditos`));
+  assert.ok(card.includes(permanent?'permanente.':'un mes desde la compra.'));
+ }
+ assert.match(h,/Guardapaga:[\s\S]*48 horas después de las 22:00/);
+ assert.match(h,/como visitante, sin rango, sin trabajar/);
+ assert.match(h,/No se realizan pagos desde esta web/);
+ assert.doesNotMatch(h,/checkout/);
 });
 test('La puerta de preinauguración está activa antes de los tres accesos',()=>{
  for(const p of ['publico/jerarquia','publico/placas']){

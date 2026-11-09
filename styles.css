@@ -697,3 +697,14 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-rank-directory .dea-classified-soon{font-size:10px;letter-spacing:.07em;color:#94c8e8}
 .dea-rank-directory.dea-post-filled .dea-classified-soon{color:#bcecc9}
 @media(max-width:560px){.dea-rank-directory{min-height:255px;padding:14px 9px;gap:8px}.dea-rank-directory .dea-classified-art{height:110px;min-height:110px}.dea-rank-directory>strong{font-size:13px}.dea-rank-directory>small{font-size:11px}}
+
+/* Fichas de Habbo · 09/11/2026: cuadros uniformes y una sola firma personal. */
+.dea-staff-grid{grid-auto-rows:1fr;align-items:stretch}
+.dea-staff-grid .dea-rank-directory{width:100%;min-width:0;height:100%;min-height:260px;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:7px;padding:14px 11px;overflow:hidden}
+.dea-staff-grid .dea-rank-directory .dea-classified-stamp{flex:none;font-size:10px;line-height:1.2}
+.dea-staff-grid .dea-rank-directory .dea-classified-art{flex:1 1 114px;min-height:80px;max-height:130px;width:100%;padding:4px;display:flex;justify-content:center;align-items:flex-end}
+.dea-staff-grid .dea-rank-directory .dea-classified-art img{height:100%;width:auto;max-width:100%;object-fit:contain;object-position:center bottom;image-rendering:pixelated}
+.dea-staff-grid .dea-rank-directory>strong{flex:none;min-height:0;font-size:clamp(12px,1.25vw,16px);line-height:1.22;overflow-wrap:anywhere}
+.dea-staff-grid .dea-rank-directory>small{flex:none;font-size:clamp(10px,1vw,12px);line-height:1.25;letter-spacing:0;overflow-wrap:anywhere}
+.dea-staff-grid .dea-staff-signature{flex:none;margin-top:auto;padding:2px 11px;color:#f5d78e;background:#102c42;border:1px solid #8a7147;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.06em}
+@media(max-width:650px){.dea-staff-grid .dea-rank-directory{aspect-ratio:auto;min-height:240px;padding:12px 8px;gap:5px}.dea-staff-grid .dea-rank-directory .dea-classified-art{min-height:84px;max-height:108px}.dea-staff-grid .dea-rank-directory>strong{font-size:13px}.dea-staff-grid .dea-rank-directory>small{font-size:11px}}

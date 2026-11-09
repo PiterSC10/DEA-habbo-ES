@@ -791,3 +791,18 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-code-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:19px}
 .dea-code-links .btn{font-size:11px}
 @media(max-width:550px){.dea-code-gate{text-align:center}.dea-code-entry{flex-direction:column}.dea-code-entry button{width:100%;justify-content:center}.dea-code-links{flex-direction:column}.dea-code-links .btn{width:100%;justify-content:center}}
+
+/* Cafetería y Equipo DEA · accesos públicos destacados, conservando la imagen y el banner originales. */
+.dea-public-cafe-feature{margin:27px 0 10px;max-width:100%;min-width:0}
+.dea-public-cafe-feature-heading{display:flex;align-items:center;gap:11px;margin-bottom:5px}
+.dea-public-cafe-feature-heading h2{margin:0;color:#f0d39a;font-size:clamp(19px,2.4vw,26px);line-height:1.25}
+.dea-public-cafe-feature-heading .dea-menu-new{margin-left:0}
+.dea-public-cafe-feature .dea-cafe-banner{max-width:100%;margin:13px 0 12px}
+.dea-cafe-public-tab{flex:none;min-width:0;gap:8px;padding:8px 11px;font-size:10px;letter-spacing:.04em}
+.dea-cafe-public-tab>span:first-child{font-size:18px}
+.dea-cafe-public-tab .cafe-sign-copy{display:flex;flex-direction:column;gap:1px;font-size:10px;line-height:1.15}
+.dea-cafe-public-tab .cafe-sign-copy small{font-size:8px;letter-spacing:.04em;color:#b8cbd9}
+.dea-cafe-public-tab b{font-size:9px;padding:3px 5px}
+@media(max-width:1150px){.app-area-publico .topbar{flex-wrap:wrap}.dea-cafe-public-tab{order:1}.app-area-publico .dea-public-entry-nav{order:2;flex:1;justify-content:flex-end}}
+@media(max-width:710px){.dea-cafe-public-tab{flex:1;justify-content:center}.app-area-publico .dea-public-entry-nav{flex:1 1 100%;order:2}.dea-public-cafe-feature{margin:23px 0 8px}.dea-public-cafe-feature .dea-cafe-banner{margin:10px 0 6px}.dea-public-cafe-feature-heading h2{font-size:20px}}
+@media(max-width:440px){.dea-public-cafe-feature .dea-cafe-banner{padding-right:13px!important}.dea-public-cafe-feature .dea-cafe-banner>img{width:90px;height:110px}.dea-public-cafe-feature .dea-cafe-banner>span{min-width:calc(100% - 116px)}.dea-cafe-public-tab{flex:1 1 100%;padding:8px 10px}}

@@ -471,30 +471,27 @@ test('Habboween: Founders públicos con adornos limitados; original y VIP sin es
  assert.match(themeCss,/\.hw-page-scene img\{[^}]*max-width:38px;max-height:44px/);
 });
 
- test('Escalafón y titulares restaurados sin conceder permisos',()=>{
- const h=page('publico/jerarquia');
- for(const n of ['Agente de Enlace I','Agente de Enlace II','Agente de Enlace III','Agente de Élite V','Instructor Advisor III','Estratega VI','[FIRMA DE DIRECTOR DE AGENTES]'])assert.ok(h.includes(n),n);
+ test('Cargos reales y firmas individuales en el organigrama de DEA',()=>{
  const f=page('publico/founders');
- for(const n of ['BIBHI','MAYER','AAITAANAA','FR4N','Guauagatabig','Primera al mando','Jefa del Departamento de Comunicación'])assert.ok(f.includes(n),n);
- assert.match(f,/Mánager MKT/);
- assert.match(f,/Mánager de RRHH/);
- assert.doesNotMatch(h,/dea-rank-chip">R11/);
- assert.match(page('vip'),/identificacion\/vip/);
+ for(const [nick,cargo,firma] of [['Bibhi','Mánager de Enseñanza','BIH'],['MAYERGRHG','Mánager de PBL','MAY'],['aaitaanaa','Mánager de RRHH','AVC'],['Fr4nn_23','Mánager de MKT','LS2'],['kevinAndres','Secretario Base','KVN']]){
+  assert.ok(f.includes(nick),nick);
+  assert.ok(f.includes(cargo),cargo);
+  assert.ok(f.includes('['+firma+']'),firma);
+ }
+ for(const n of ['Guauagatabig','Primera al mando','Jefa del Departamento de Comunicación'])assert.ok(f.includes(n),n);
+ assert.doesNotMatch(f,/CARGO PUBLICADO|CLASIFICADO · DEA|IDENTIDAD RESERVADA/);
+ assert.match(f,/habbo-imaging\/avatarimage/);
+ assert.doesNotMatch(page('publico/jerarquia'),/dea-rank-chip">R11/);
 });
 
-test('Organigrama público: cuatro mánagers, un líder y directores sin titulares inventados',()=>{
+test('Fichas cuadradas: cuatro mánagers, líder, secretario y siete directores',()=>{
  const f=page('publico/founders');
  const sections=[...f.matchAll(/<section class="dea-confirmed-staff">([\s\S]*?)<\/section>/g)].map(x=>x[1]);
- assert.equal(sections.length,3);
- assert.equal((sections[0].match(/class="dea-classified-card/g)||[]).length,4);
- assert.equal((sections[1].match(/class="dea-classified-card/g)||[]).length,1);
- assert.equal((sections[2].match(/class="dea-classified-card/g)||[]).length,7);
- for(const section of sections.slice(0,2)){assert.match(section,/<img/);assert.match(section,/CARGO PUBLICADO/);}
- assert.match(sections[0],/manager-fr4nn23.png/);
- assert.match(sections[1],/habbo-imaging\/avatarimage/);
- assert.match(sections[2],/ASIGNACIÓN PENDIENTE/);
- assert.doesNotMatch(f,/IDENTIDAD RESERVADA|CLASIFICADO · DEA/);
- assert.match(css,/\.dea-staff-grid\{display:grid;grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+ assert.equal(sections.length,4);
+ for(const [i,count] of [[0,4],[1,1],[2,1],[3,7]])assert.equal((sections[i].match(/class="dea-classified-card/g)||[]).length,count);
+ for(const section of sections.slice(0,3)){assert.match(section,/<img/);assert.doesNotMatch(section,/CARGO PUBLICADO/);}
+ assert.match(sections[3],/Sin titular confirmado/);
+ assert.match(css,/\.dea-staff-signature/);
 });
 
 test('Nóminas públicas: dos jornadas, banderas y horarios por fecha, sin pagas extra',()=>{const view=page('publico/nominas');for(const value of ['22:00','miércoles','sábado','Argentina','Ciudad de México','Colombia','Ecuador','República Dominicana','Puerto Rico','Chile','Uruguay','Guardapaga','20 créditos','48 horas'])assert.ok(view.includes(value),value);assert.doesNotMatch(view,/pagas? extra/i);assert.ok(page('publico').includes('#/publico/nominas'));});

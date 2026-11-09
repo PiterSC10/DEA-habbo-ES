@@ -15,17 +15,21 @@ const GROUPS=[
 ];
 // Cargos inferiores: visibilidad pública sin publicar nombres no confirmados.
 // La hoja AUTORIZACIONES_CARGOS es privada; nunca se exportan Discord IDs ni expedientes.
+// Directorio público DEA: sin identidades censuradas. Solo se publican asignaciones confirmadas.
 const DEA_PUBLIC_STAFF=Object.freeze([
- {cat:'R6',rank:'Dirección de Cadetes',name:null},
- {cat:'R6',rank:'Dirección de Agentes',name:null},
- {cat:'R6',rank:'Dirección de Cuerpo Élite',name:null},
- {cat:'R6',rank:'Dirección de Logística',name:null},
  {cat:'R10',rank:'Mánager en Formación',name:'Fr4nn_23',avatar:'./assets/dea/manager-fr4nn23.png'},
  {cat:'R10',rank:'Mánager de PBL',name:null},
  {cat:'R10',rank:'Mánager de RRHH',name:null},
- {cat:'R10',rank:'Mánager MKT',name:null}
+ {cat:'R10',rank:'Mánager MKT',name:null},
+ {cat:'R6',rank:'Director de Cadetes',name:null},
+ {cat:'R6',rank:'Director de Agentes',name:null},
+ {cat:'R6',rank:'Director de Cuerpo Élite',name:null},
+ {cat:'R6',rank:'Director de Logística',name:null},
+ {cat:'R6',rank:'Director de Base',name:null},
+ {cat:'R6',rank:'Director Advisor',name:null},
+ {cat:'R6',rank:'Jefe de Dirección',name:null}
 ]);
-function deaStaffCard(x){return `<article class="dea-classified-card dea-team-visible dea-rank-directory"><span class="dea-classified-stamp">${esc(x.cat==='R10'?'MÁNAGERS':'DIRECTORES')}</span><div class="dea-classified-art">${x.avatar?`<img src="${esc(x.avatar)}" alt="Avatar de Habbo de ${esc(x.name)}" loading="lazy" onerror="this.style.display='none'">`:I('users',true)}</div><strong>${esc(x.name||'Plaza disponible')}</strong><small>${esc(x.rank)}</small><span class="dea-classified-soon">${x.name?'MIEMBRO PUBLICADO':'TITULAR POR CONFIRMAR'}</span></article>`}
+function deaStaffCard(x){return `<article class="dea-classified-card dea-team-visible dea-rank-directory${x.name?' dea-post-filled':' dea-post-pending'}"><span class="dea-classified-stamp">${x.cat==='R10'?'MÁNAGER · R10':'DIRECCIÓN · R6'}</span><div class="dea-classified-art">${x.avatar?`<img src="${esc(x.avatar)}" alt="Avatar Habbo de ${esc(x.name)}" loading="lazy" referrerpolicy="no-referrer">`:`${I('user',true)}`}</div><strong>${esc(x.name||'Sin titular confirmado')}</strong><small>${esc(x.rank)}</small><span class="dea-classified-soon">${x.name?'MIEMBRO CONFIRMADO':'ASIGNACIÓN PENDIENTE'}</span></article>`}
 
 function deaRankMission(cat,name){const aliases={'Aspirante a Operador':'Aspirante a Op','Supervisor de Unidad':'Sup. de Unidad','Director de Cadetes':'Dir. Cadetes','Director de Agentes':'Dir. Agentes','Director de Cuerpo Élite':'Dir. Cuerpo Elite','Director de Logística':'Dir. Logística','Director de Base':'Dir. Base','Director Advisor':'Dir. Advisor','Jefe de Dirección':'Jefe de Dir'};const signer={R1:'DIRECTOR DE CADETES',R2:'DIRECTOR DE AGENTES',R3:'DIRECTOR DE CUERPO ELITE',R4:'DIRECTOR DE LOGÍSTICA',R5:'DIRECTOR DE BASE',R6:'MNG',R7:'MNG',R8:'F'}[cat];return '[DEA] '+(aliases[name]||name)+(signer?' [FIRMA DE '+signer+']':'')}
 const ALL_RANKS=GROUPS.flatMap(g=>g.ranks.map(n=>({cat:g.id,group:g.label,name:n}))); // R2 comienza en 3.

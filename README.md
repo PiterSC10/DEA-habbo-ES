@@ -9,7 +9,7 @@ SEO: dominio canónico Vercel y metadatos preparados; **noindex sigue activo dur
 Proyecto independiente de aficionados a Habbo Hotel.
 
 ## Diseño original, sin cambios
-- Portada pública directa con menú y dos accesos destacados: **ACCESO VIP** para miembros con rango y **ÚNETE A DEA** exclusivamente para nuevos agentes R2.
+- Portada original con águila y tres accesos diferenciados: **WEB PÚBLICA**, **ÚNETE A DEA** (solo nuevos agentes R2) y **ACCESO VIP** (personal con rango).
 - Dentro de las secciones, un **único menú lateral plegable**, migas de pan y versión móvil.
 - Águila azul/dorada y escudo DEA · ES originales; colores azul noche, dorado y cian.
 - Cuatro Founders en igualdad, sin crear permisos basados en el nombre visible.
@@ -38,6 +38,12 @@ Los accesos ACCESO VIP y ÚNETE A DEA abren el portal Apps Script. La informaci�
 - En la web pública, **ÚNETE A DEA** muestra una pantalla de código `DEA2026` antes de iniciar el alta R2. También aparece si se introduce directamente `#/unete` o `#/identificacion/alta`.
 - **Acceso VIP y Mi expediente no piden este código.** Una vez introducido, el desbloqueo dura durante la pestaña mediante `sessionStorage` (solo se guarda un indicador, no una credencial).
 - **Advertencia:** es una barrera de cortesía JavaScript, con código visible en la web pública; no sirve para bloquear bots sofisticados ni acceso directo al Apps Script. Para bloquear registros no autorizados, validar el código y el usuario en el backend Apps Script. No habilitar altas automáticas por tener el código.
+
+## Cafetería y Equipo DEA · novedades
+- Se conserva en la portada original la pestaña superior de La Cafetería y el banner bajo las tres entradas.
+- En WEB PÚBLICA, La Cafetería aparece en el menú lateral, los accesos rápidos, la pestañita superior y un banner al final de la página, enlazado a `/cafeteria`.
+- Los accesos de La Cafetería y Equipo DEA incluyen un distintivo `NEW` verde, tanto en el menú como en las tarjetas.
+- La página `/cafeteria` y su enlace Buy Me a Coffee no cambian.
 
 ## Organigrama y sesiones
 - **Equipo DEA** muestra el organigrama público y conserva los enlaces antiguos de `/founders/` y `#/publico/founders`.

@@ -17,11 +17,12 @@ function page(route,unlocked=true){
  const app=runInNewContext(catalogs+'\n'+experience+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
-test('Portada tiene las tres ventanas y no una barra lateral',()=>{
+test('Portada pública directa y dos accesos especiales claramente separados',()=>{
  const h=page('inicio');
- for(const name of ['FOUNDER VIP','ÚNETE A DEA','WEB PÚBLICA']) assert.match(h,new RegExp(name));
- assert.equal((h.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
- assert.doesNotMatch(h,/class="side/);
+ for(const name of ['ACCESO VIP','ÚNETE A DEA','WEB PÚBLICA'])assert.match(h,new RegExp(name));
+ assert.match(h,/dea-public-entry-hero/);
+ assert.match(h,/app-layout app-area-publico/);
+ assert.doesNotMatch(h,/class="choice (?:vip|join|public)"/);
  assert.match(h,/aguila-dea-original\.jpg/);
 });
 test('Siete páginas públicas sin errores de renderizado',()=>{
@@ -31,7 +32,7 @@ test('Siete páginas públicas sin errores de renderizado',()=>{
 test('Los accesos VIP y agente llegan a la identificación de su área',()=>{
  assert.match(page('vip'),/href="#\/identificacion\/vip"/);
  assert.match(page('ficha'),/href="#\/identificacion\/agente"/);
- assert.match(page('inicio'),/href="#\/publico\/ingreso" class="choice join"/);
+ assert.match(page('inicio'),/href="#\/publico\/ingreso"/);
  for(const p of ['unete','identificacion/vip','identificacion/alta','identificacion/agente']){
   assert.match(page(p),/https:\/\/script\.google\.com\/macros\/s\/[^" ]+\/exec/);
  }
@@ -55,7 +56,7 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
 
 test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
  const join=page('unete');
- assert.match(join,/Habbo y firma única/);
+ assert.match(join,/45 minutos de formación/);
  assert.match(join,/Discord/);
  assert.match(join,/ENTRAR DIRECTAMENTE CON DISCORD/);
  assert.doesNotMatch(join,/discord_email|discord_username/);
@@ -69,7 +70,7 @@ test('El área de Founders está separada y no anuncia registro ni fichas de age
  for(const path of ['vip','identificacion/vip','vip/solicitudes']){
   const view=page(path), nav=view.match(/<nav class="side-scroll"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
   assert.ok(nav,path);
-  assert.match(nav,/Acceso seguro/);
+  assert.match(nav,/Acceso VIP/);
   assert.doesNotMatch(nav,/Ingreso R2|Acceso de agentes|Expediente personal|Mi expediente|identificacion\/alta|identificacion\/agente/);
  }
 });
@@ -92,18 +93,14 @@ test('VIP, registro y expediente requieren validación en Apps Script',()=>{
 });
 
 
-test('Tres entradas oficiales permanecen claramente diferenciadas sin crear una cuarta',()=>{
+test('No hay tres puertas: acceso VIP separado del registro R2',()=>{
  const h=page('inicio');
- assert.equal((h.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
- assert.match(h,/class="choice vip"/);
- assert.match(h,/class="choice join"/);
- assert.match(h,/class="choice public"/);
- assert.match(h,/href="#\/vip" class="choice vip"/);
- assert.match(h,/href="#\/publico\/ingreso" class="choice join"/);
- assert.match(h,/href="#\/publico" class="choice public"/);
- assert.match(h,/Zona privada reservada a Founders/);
- assert.match(h,/ACCESO RESTRINGIDO/);
- assert.match(h,/ACCESO LIBRE/);
+ assert.match(h,/href="#\/vip"/);
+ assert.match(h,/href="#\/publico\/ingreso"/);
+ assert.match(h,/SOLO NUEVOS · SIN RANGO PREVIO/);
+ assert.match(h,/YA TIENES RANGO O CARGO/);
+ assert.doesNotMatch(h,/FOUNDER VIP|class="choice public"/);
+ assert.match(page('identificacion\/alta'),/IR A ACCESO VIP/);
 });
 test('Colores y neón de cada acceso, estados accesibles y respeto al movimiento reducido',()=>{
  for(const sel of ['.choice.vip{--choice-accent:', '.choice.join{--choice-accent:', '.choice.public{--choice-accent:', '.choice:hover,.choice:focus-visible', '.choice:active', '.app-layout .side-item:hover', '@media(prefers-reduced-motion:reduce)']){
@@ -117,7 +114,7 @@ test('La navegación no mezcla un Founder con las fichas de los agentes',()=>{
  const vip=page('identificacion/vip');
  const agent=page('identificacion/alta');
  const menu=v=>v.match(/<nav class="side-scroll"[^>]*>([\s\S]*?)<\/nav>/)?.[1]||'';
- assert.match(menu(vip),/Acceso seguro/);
+ assert.match(menu(vip),/Acceso VIP/);
  assert.doesNotMatch(menu(vip),/Acceso de agentes|Mi expediente/);
  assert.match(menu(agent),/Acceso de agentes/);
  assert.match(menu(agent),/Mi expediente/);
@@ -136,9 +133,10 @@ test('Antes de iniciar sesión sólo aparece el escudo, águila y formulario de 
   assert.doesNotMatch(screen,/Centro de Control DEA|discord_username|discord_email/);
  }
 });
-test('Con sesión temporal se ven exactamente tres ventanas originales y todos los accesos',()=>{
+test('Con web abierta se muestra contenido público y accesos diferenciados',()=>{
  const home=page('inicio',true);
- assert.equal((home.match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
+ assert.match(home,/dea-public-entry-hero/);
+ assert.match(home,/ACCESO VIP/);
  assert.match(page('identificacion/vip',true),/Identificación VIP/);
  assert.match(page('identificacion/alta',true),/Identificación de agentes/);
  assert.match(page('publico/jerarquia',true),/Rangos y ascensos/);
@@ -214,7 +212,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
  assert.ok(crawler.includes('User-agent: *'));
  assert.ok(crawler.includes('Sitemap: https://dea-habbo-es.vercel.app/sitemap.xml'));
  assert.ok(src.includes('const PUBLIC_SITE_LIVE=true'));
- assert.ok(page('inicio',true).includes('class="choice vip"'));
+ assert.ok(page('inicio',true).includes('dea-public-entry-hero'));
  assert.ok(page('publico/jerarquia',true).includes('dea-catalog-window'));
  assert.ok(!page('inicio',true).includes('data-preview-login'));
 });
@@ -226,15 +224,16 @@ test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portad
  }
  assert.match(src,/document\.title='Preinauguración \| DEA HABBO ES'/);
  assert.match(page('inicio',false),/PREINAUGURACIÓN/);
- assert.equal((page('inicio',true).match(/class="choice (?:vip|join|public)"/g)||[]).length,3);
+ assert.match(page('inicio',true),/app-layout app-area-publico/);
 });
 
-test('Neones en parte superior de área pública, sin cambiar portada',()=>{
+test('Neones en secciones interiores; el inicio público prioriza acceso y agencia',()=>{
  const h=page('publico');
- assert.equal(h.split('class="dea-neon-link ').length-1,3);
- for(const p of ['publico/jerarquia','publico/placas','publico/cafeteria'])assert.ok(h.includes('href="#/'+p+'"'));
+ assert.equal(h.split('class="dea-neon-link ').length-1,0);
+ for(const p of ['publico/jerarquia','publico/placas','publico/cafeteria'])assert.ok(page('publico/jerarquia').includes('href="#/'+p+'"'));
  assert.ok(!page('inicio').includes('dea-public-neon-nav'));
  assert.ok(!page('vip').includes('dea-public-neon-nav'));
+ assert.ok(page('publico/jerarquia').includes('dea-public-neon-nav'));
 });
 test('Tabla completa: 70 rangos internos oficiales R1–R10',()=>{
  const h=page('publico/jerarquia');
@@ -268,7 +267,7 @@ test('Rangos y ascensos: autoridad acumulativa hasta R5, R7 y R10 en tabla y sec
 test('Normativa no invade Placas, preinauguración ni la portada principal',()=>{
  for(const route of ['inicio','publico/placas','vip'])assert.doesNotMatch(page(route),/dea-ascension-permissions/);
  assert.doesNotMatch(page('publico/jerarquia',false),/dea-ascension-permissions/);
- assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,3);
+ assert.equal((page('publico').match(/class="dea-neon-link /g)||[]).length,0);
 });
 
 test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
@@ -471,7 +470,18 @@ test('Habboween: Founders públicos con adornos limitados; original y VIP sin es
  assert.match(themeCss,/\.hw-page-scene img\{[^}]*max-width:38px;max-height:44px/);
 });
 
- test('Cargos reales y firmas individuales en el organigrama de DEA',()=>{
+ test('Equipo DEA incluye el nuevo nombre y respeta orden de llegada',()=>{
+ const h=page('publico/founders');
+ const order=['Fr4nn_23','MAYERGRHG','Bibhi','aaitaanaa'];
+ const positions=order.map(n=>h.indexOf('Avatar Habbo de '+n));
+ assert.ok(positions.every(n=>n>=0));
+ assert.ok(positions.every((n,i)=>i===0||n>positions[i-1]),'Mánagers fuera de orden');
+ assert.match(h,/Organigrama oficial de DEA/);
+ assert.match(page('publico'),/Equipo DEA/);
+ assert.match(css,/Organigrama DEA compacto/);
+ assert.doesNotMatch(h,/CARGO PUBLICADO/);
+});
+test('Cargos reales y firmas individuales en el organigrama de DEA',()=>{
  const f=page('publico/founders');
  for(const [nick,cargo,firma] of [['Bibhi','Mánager de Enseñanza','BIH'],['MAYERGRHG','Mánager de PBL','MAY'],['aaitaanaa','Mánager de RRHH','AVC'],['Fr4nn_23','Mánager de MKT','LS2'],['kevinAndres','Secretario Base','KVN']]){
   assert.ok(f.includes(nick),nick);
@@ -485,7 +495,7 @@ test('Habboween: Founders públicos con adornos limitados; original y VIP sin es
  assert.doesNotMatch(page('publico/jerarquia'),/dea-rank-chip">R11/);
 });
 
-test('Fichas cuadradas: cuatro mánagers, líder, secretario y siete directores',()=>{
+test('Fichas compactas: cuatro mánagers, líder, secretario y siete directores',()=>{
  const f=page('publico/founders');
  const sections=[...f.matchAll(/<section class="dea-confirmed-staff">([\s\S]*?)<\/section>/g)].map(x=>x[1]);
  assert.equal(sections.length,4);

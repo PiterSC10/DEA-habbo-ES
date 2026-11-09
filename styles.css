@@ -746,3 +746,21 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 @media(max-width:710px){.app-area-publico .topbar{align-items:stretch}.dea-public-entry-nav{width:100%;margin-left:0;justify-content:stretch}.dea-public-entry-nav a{min-width:0;flex:1;padding:9px 5px}.dea-public-entry-nav a span{font-size:11px}.dea-public-entry-nav a small{font-size:9px}.dea-public-entry-hero{padding:16px 13px;gap:14px;margin-bottom:16px}.dea-public-entry-brand img{width:78px}.dea-public-entry-brand h1{font-size:28px}.dea-public-entry-actions{gap:8px}.dea-entry-option{padding:12px 10px;gap:8px;min-height:225px}.dea-entry-option strong{font-size:14px}.dea-entry-option strong svg{width:18px;height:18px}.dea-entry-option>span{font-size:9px}.dea-entry-option small{font-size:10px}.dea-entry-option em{font-size:9px}}
 @media(max-width:360px){.dea-public-entry-actions{grid-template-columns:1fr}.dea-entry-option{min-height:165px}}
 @media(prefers-reduced-motion:reduce){.dea-public-entry-nav a,.dea-entry-option{transition:none!important}}
+
+/* Organigrama DEA compacto · cards uniformes sin espacio vacío, 4 desktop y 2 móvil. */
+.dea-confirmed-staff{padding:14px 16px 16px;border-radius:15px;background:linear-gradient(145deg,#112d42,#0d2032)}
+.dea-confirmed-staff .dea-org-level{margin:0 0 12px}
+.dea-org-connector{height:22px;width:2px;position:relative;background:linear-gradient(#e5c782,#799bb2);margin:0 auto}
+.dea-org-connector:after{content:"";position:absolute;bottom:-2px;left:-4px;width:8px;height:8px;transform:rotate(45deg);border-right:2px solid #d5b776;border-bottom:2px solid #d5b776}
+.dea-staff-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;grid-auto-rows:1fr;align-items:stretch}
+.dea-staff-grid .dea-rank-directory{box-sizing:border-box;min-height:0;height:218px;aspect-ratio:auto;width:100%;padding:12px 10px 10px;gap:5px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;border-radius:13px}
+.dea-staff-grid .dea-rank-directory .dea-classified-stamp{flex:0 0 auto;padding:3px 9px;line-height:1.2;font-size:9px}
+.dea-staff-grid .dea-rank-directory .dea-classified-art{flex:0 0 auto;height:103px;min-height:0;max-height:none;width:100%;margin:0;padding:4px;border-radius:9px;display:flex;align-items:flex-end;justify-content:center}
+.dea-staff-grid .dea-rank-directory .dea-classified-art img{display:block;height:100%;max-height:100%;width:auto;max-width:100%;object-fit:contain;object-position:center bottom;image-rendering:pixelated}
+.dea-staff-grid .dea-rank-directory>strong{display:block;flex:none;min-height:0;line-height:1.2;font-size:clamp(12px,1.2vw,15px);overflow-wrap:anywhere}
+.dea-staff-grid .dea-rank-directory>small{display:block;flex:none;line-height:1.2;font-size:11px;letter-spacing:0;color:#f0d49c;overflow-wrap:anywhere}
+.dea-staff-grid .dea-staff-signature{display:inline-flex;flex:none;justify-content:center;align-items:center;margin-top:auto;padding:3px 11px;min-height:21px;font-size:10px;border:1px solid #927449;border-radius:999px;background:#0e2b41;color:#ffe4a7;letter-spacing:.04em}
+.dea-org-level{position:relative}
+.dea-founders-intro{margin-bottom:14px}
+@media(max-width:800px){.dea-staff-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.dea-confirmed-staff{padding:10px}.dea-staff-grid .dea-rank-directory{height:205px;padding:10px 8px 9px;gap:4px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:95px}.dea-staff-grid .dea-rank-directory>strong{font-size:12px}.dea-staff-grid .dea-rank-directory>small{font-size:10px}}
+@media(max-width:360px){.dea-staff-grid .dea-rank-directory{height:205px;padding:9px 5px}.dea-staff-grid .dea-rank-directory .dea-classified-art{height:88px}.dea-staff-grid .dea-rank-directory>strong{font-size:11px}}

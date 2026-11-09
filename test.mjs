@@ -279,7 +279,7 @@ test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
   const card=cards.find(c=>c.includes(`<h3>[DEA] ${title}`));
   assert.ok(card,title);
   for(const copy of ['Emblema: próximamente','Precio: próximamente','un mes desde la compra',benefit])assert.ok(card.includes(copy),copy);
-  assert.doesNotMatch(card,/<img/);
+  assert.doesNotMatch(card,/<img|Precio de inauguración/);
  }
  for(const [image,title,price,permanent] of [
   ['beneficio-gold','Beneficio Gold',100,false],['reduccion-nomina','Reducción de Nómina [RN]',40,false],
@@ -293,8 +293,11 @@ test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
   assert.equal(png.readUInt32BE(16),120);
   assert.equal(png.readUInt32BE(20),120);
   assert.ok(card.includes(`${price} créditos`));
+  assert.match(card,/Precio de inauguración/);
   assert.ok(card.includes(permanent?'permanente.':'un mes desde la compra.'));
  }
+ assert.match(h,/Ofertas de inauguración[\s\S]*volverán a sus precios habituales/);
+ assert.match(h,/PLACAS DE BENEFICIO <b class="dea-menu-new">NEW<\/b>/);
  assert.match(h,/Guardapaga:[\s\S]*48 horas después de las 22:00/);
  assert.match(h,/como visitante, sin rango, sin trabajar/);
  assert.match(h,/No se realizan pagos desde esta web/);

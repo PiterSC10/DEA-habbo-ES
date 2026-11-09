@@ -14,8 +14,8 @@ function deaIdentityPhotoSave_(me,base64,mime){if(!base64)return '';if(!['image/
 function deaRegistrarIdentidad(token,nickname,signature,photo,mime){return deaWithLock_(()=>{const me=deaIdentityActor_(token),nick=deaNick_(nickname),sig=deaNormalizeSignature_(signature),rows=deaIdentityRows_();if(sig==='10P'&&!deaIsMaster_(me))throw Error('Firma 10P reservada al ID de su propietario verificado');if(rows.some(r=>r[0]===me.id))throw Error('Esta cuenta ya tiene una identidad DEA; la firma es inmodificable');if(rows.some(r=>r[2].toUpperCase()===sig||r[1].toLowerCase()===nick.toLowerCase()))throw Error('Firma o Habbo ya registrado');for(const name of ['AGENTES','SOLICITUDES']){const matches=deaRows_(deaTab_(name)).filter(x=>x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase());if(matches.some(x=>x.row[2]!==me.id||x.row[4].toLowerCase()!==nick.toLowerCase()))throw Error('Discord o Habbo no coincide con el expediente existente');}if(deaRows_(deaTab_('FOUNDERS')).some(x=>(x.row[0].toLowerCase()===nick.toLowerCase()&&x.row[3]!==me.id)||(x.row[3]===me.id&&x.row[0].toLowerCase()!==nick.toLowerCase())))throw Error('Identidad Founder incompatible');const file=deaIdentityPhotoSave_(me,photo,mime),now=deaNow_();deaAudit_('IDENTIDAD_REGISTRADA','IDENTIDADES_DEA',me.id,'',{habbo:nick,firma:sig},me,'Registro único después de Discord OAuth');deaIdentitySheet_().appendRow([me.id,nick,sig,file,now,now,'REGISTRADA']);SpreadsheetApp.flush();return {ok:true,message:'Identidad registrada. Tu firma no puede modificarse.'};});}
 function deaActualizarFoto(token,photo,mime){return deaWithLock_(()=>{const me=deaIdentityActor_(token),r=deaFindIdentity_(me.id);if(!r)throw Error('Registra primero tu identidad');if(!photo)throw Error('Selecciona una fotografía');const file=deaIdentityPhotoSave_(me,photo,mime);deaAudit_('FOTO_ACTUALIZADA','IDENTIDADES_DEA',me.id,{avatar:r.avatarFileId},{avatar:file},me,'Fotografía actualizada por su propietario');deaIdentitySheet_().appendRow([me.id,r.habbo,r.signature,file,r.createdAt,deaNow_(),r.status]);SpreadsheetApp.flush();return {ok:true,message:'Fotografía actualizada'};});}
 function deaMiFoto(token){const me=deaIdentityActor_(token),r=deaFindIdentity_(me.id);if(!r||!r.avatarFileId)return null;const m=r.avatarFileId.match(/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/=]+)$/);if(!m)throw Error('Fotografía anterior pendiente de migración');return {mime:m[1],base64:m[2]};}
-function deaSolicitarAlta(token,nickname,rankKey){return deaWithLock_(()=>{const me=deaIdentityActor_(token),identity=deaFindIdentity_(me.id);if(!identity)throw Error('Registra primero tu identidad y firma');const nick=deaNick_(nickname);if(nick.toLowerCase()!==identity.habbo.toLowerCase())throw Error('Usa tu identidad Habbo registrada');const rank=deaIdentityRank_(rankKey),sol=deaRows_(deaTab_('SOLICITUDES'));if(sol.some(x=>x.row[6]==='Pendiente'&&(x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase())))throw Error('Ya existe solicitud pendiente');if(deaRows_(deaTab_('AGENTES')).some(x=>x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase()))throw Error('Ya existe expediente');const id=deaId_();deaAudit_('SOLICITUD_RECIBIDA','SOLICITUDES',id,'',{habbo:nick,categoria:rank.categoria,rango:rank.rango},me,'Rango declarado, pendiente de verificación presencial');deaTab_('SOLICITUDES').appendRow([id,deaNow_(),me.id,deaClean_(me.username,48),identity.habbo,'Pendiente','Pendiente','','','Rango declarado; no concede permisos',rank.categoria,rank.rango]);return {ok:true,message:'Solicitud enviada para verificar tu rango existente'};});}
-function deaResolverSolicitud(token,id,decision,verified,notes,challenge){if(!['aprobar','rechazar'].includes(decision))throw Error('Decisión inválida');const reason=deaText_(notes,300);return deaWithLock_(()=>{const me=deaRequire_(token,true),req=deaRows_(deaTab_('SOLICITUDES')).find(x=>x.row[0]===String(id));if(!req||req.row[6]!=='Pendiente')throw Error('Solicitud no pendiente');if(!deaIsMaster_(me))throw Error('Solo Master puede resolver el primer registro');const r=req.row.slice();if(deaInitialMeta_(id))return deaInitialResolve_(me,r,decision,verified,reason,challenge);if(r[2]===me.id)throw Error('No puedes aprobar tu propia solicitud');const rank=deaIdentityRank_((r[10]||'R2')+':'+(r[11]||'Agente de Enlace'));if(Number(rank.categoria.slice(1))>=5&&!deaIsMaster_(me))throw Error('Este rango requiere aprobación Master por ID');if(decision==='aprobar'){if(verified!==true)throw Error('Verifica presencialmente Habbo y rango');if(deaRows_(deaTab_('FOUNDERS')).some(x=>x.row[0].toLowerCase()===r[4].toLowerCase()&&x.row[3]!==r[2]))throw Error('Habbo reservado');if(deaRows_(deaTab_('AGENTES')).some(x=>x.row[2]===r[2]||x.row[4].toLowerCase()===r[4].toLowerCase()))throw Error('Expediente duplicado');}const next=deaNext_(rank.rango),now=deaNow_();deaAudit_(decision==='aprobar'?'ALTA_APROBADA':'ALTA_RECHAZADA','SOLICITUDES',String(id),{estado:'Pendiente'},{estado:decision,categoria:rank.categoria,rango:rank.rango,habbo:r[4]},me,reason);if(decision==='aprobar')deaTab_('AGENTES').appendRow([deaId_(),now,r[2],r[3],r[4],rank.categoria,rank.rango,now,next?next.rango:'Pendiente','Activo',me.id,reason]);r.splice(5,5,decision==='aprobar'?'Verificada':'No verificada',decision==='aprobar'?'Aprobada':'Rechazada',me.id,now,reason);deaSnapshot_('SOLICITUDES',r);SpreadsheetApp.flush();return {ok:true,message:decision==='aprobar'?'Expediente activado con el rango verificado':'Solicitud rechazada'};});}
+function deaSolicitarAlta(token,nickname,rankKey){return deaWithLock_(()=>{const me=deaIdentityActor_(token),identity=deaFindIdentity_(me.id);if(!identity)throw Error('Registra primero tu identidad y firma');const nick=deaNick_(nickname);if(nick.toLowerCase()!==identity.habbo.toLowerCase())throw Error('Usa tu identidad Habbo registrada');const rank=deaIdentityRank_(rankKey),sol=deaRows_(deaTab_('SOLICITUDES'));if(sol.some(x=>x.row[6]==='Pendiente'&&(x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase())))throw Error('Ya existe solicitud pendiente');if(deaRows_(deaTab_('AGENTES')).some(x=>x.row[9]==='Activo'&&(x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase())))throw Error('Ya existe expediente activo');const id=deaId_();deaAudit_('SOLICITUD_RECIBIDA','SOLICITUDES',id,'',{habbo:nick,categoria:rank.categoria,rango:rank.rango},me,'Rango declarado, pendiente de verificación presencial');deaTab_('SOLICITUDES').appendRow([id,deaNow_(),me.id,deaClean_(me.username,48),identity.habbo,'Pendiente','Pendiente','','','Rango declarado; no concede permisos',rank.categoria,rank.rango]);return {ok:true,message:'Solicitud enviada para verificar tu rango existente'};});}
+function deaResolverSolicitud(token,id,decision,verified,notes,challenge){if(!['aprobar','rechazar'].includes(decision))throw Error('Decisión inválida');const reason=deaText_(notes,300);return deaWithLock_(()=>{const me=deaRequire_(token,true),req=deaRows_(deaTab_('SOLICITUDES')).find(x=>x.row[0]===String(id));if(!req||req.row[6]!=='Pendiente')throw Error('Solicitud no pendiente');if(!deaIsMaster_(me))throw Error('Solo Master puede resolver el primer registro');const r=req.row.slice();if(deaInitialMeta_(id))return deaInitialResolve_(me,r,decision,verified,reason,challenge);if(r[2]===me.id)throw Error('No puedes aprobar tu propia solicitud');const rank=deaIdentityRank_((r[10]||'R2')+':'+(r[11]||'Agente de Enlace'));if(Number(rank.categoria.slice(1))>=5&&!deaIsMaster_(me))throw Error('Este rango requiere aprobación Master por ID');if(decision==='aprobar'){if(verified!==true)throw Error('Verifica presencialmente Habbo y rango');if(deaRows_(deaTab_('FOUNDERS')).some(x=>x.row[0].toLowerCase()===r[4].toLowerCase()&&x.row[3]!==r[2]))throw Error('Habbo reservado');if(deaRows_(deaTab_('AGENTES')).some(x=>x.row[9]==='Activo'&&(x.row[2]===r[2]||x.row[4].toLowerCase()===r[4].toLowerCase())))throw Error('Expediente activo duplicado');}const next=deaNext_(rank.rango),now=deaNow_();deaAudit_(decision==='aprobar'?'ALTA_APROBADA':'ALTA_RECHAZADA','SOLICITUDES',String(id),{estado:'Pendiente'},{estado:decision,categoria:rank.categoria,rango:rank.rango,habbo:r[4]},me,reason);if(decision==='aprobar')deaTab_('AGENTES').appendRow([deaId_(),now,r[2],r[3],r[4],rank.categoria,rank.rango,now,next?next.rango:'Pendiente','Activo',me.id,reason]);r.splice(5,5,decision==='aprobar'?'Verificada':'No verificada',decision==='aprobar'?'Aprobada':'Rechazada',me.id,now,reason);deaSnapshot_('SOLICITUDES',r);SpreadsheetApp.flush();return {ok:true,message:decision==='aprobar'?'Expediente activado con el rango verificado':'Solicitud rechazada'};});}
 function deaIdentidadPreparar_(){return deaWithLock_(()=>{const ss=deaBook_();let sh=ss.getSheetByName('IDENTIDADES_DEA');if(!sh){sh=ss.insertSheet('IDENTIDADES_DEA');sh.appendRow(DEA_IDENTITY_COLUMNS_);sh.setFrozenRows(1);sh.getRange('A:A').setNumberFormat('@');}deaIdentitySheet_();const requests=deaTab_('SOLICITUDES');const h=requests.getRange(1,11,1,2).getDisplayValues()[0];if(h.some(Boolean)&&h.join('|')!=='categoriaSolicitada|rangoSolicitado')throw Error('Columnas de solicitud ocupadas; no se alteran');if(!h.some(Boolean))requests.getRange(1,11,1,2).setValues([['categoriaSolicitada','rangoSolicitado']]);console.log('Identidad preparada. Datos existentes conservados; 10P sin asignar.');return {ok:true};});}
 
 function deaOverview(token){const me=deaRequire_(token,false);deaIdentidadPreparar_();const data=deaOverviewLegacy_(token);data.identity=deaIdentityPublic_(deaFindIdentity_(me.id));data.rangos=deaRankCatalog_();data.master=deaIsMaster_(me);deaInitialEnrich_(data,me);if(data.profile)data.profile.master=data.master;return data;}
@@ -45,7 +45,7 @@ function deaRegistroInicial(token,nickname,signature,photo,mime,rankKey,responsi
  for(const x of agents.concat(requests.filter(x=>x.row[6]!=='Rechazada'))){if((x.row[2]===me.id||x.row[4].toLowerCase()===nick.toLowerCase())&&(x.row[2]!==me.id||x.row[4].toLowerCase()!==nick.toLowerCase()))throw Error('Discord o Habbo no coincide con un expediente existente');}
  const pending=requests.find(x=>x.row[6]==='Pendiente'&&x.row[2]===me.id);
  if(pending)return {ok:true,message:'Ya tienes una solicitud pendiente; no se ha duplicado'};
- if(agents.some(x=>x.row[2]===me.id)||me.founder||deaCargoAutorizacion_(me.id))throw Error('Tu acceso ya está vinculado; completa únicamente tu identidad');
+ if(agents.some(x=>x.row[9]==='Activo'&&x.row[2]===me.id)||me.founder||deaCargoAutorizacion_(me.id))throw Error('Tu acceso ya está vinculado; completa únicamente tu identidad');
  const file=photo?deaIdentityPhotoSave_(me,photo,mime):mine?mine.avatarFileId:'';
  const id=deaId_(),challenge='DEA-'+Utilities.getUuid().replace(/-/g,'').slice(0,8).toUpperCase();
  deaAudit_('ALTA_INICIAL_SOLICITADA','REGISTRO_INICIAL',id,'',{discordId:me.id,habbo:nick,firma:sig,categoria:rank.categoria,rango:rank.rango,responsibility:detail,challenge},me,'Registro completo pendiente; sin permisos. Verificar identidad, formación o rango/compra en Habbo');
@@ -64,7 +64,7 @@ function deaInitialResolve_(me,r,decision,verified,reason,challenge){
  if(decision==='aprobar'){
   if(String(challenge||'').trim()!==metadata.challenge)throw Error('Código leído en la misión incorrecto');
   if(verified!==true)throw Error('Comprueba misión, identidad, firma y rango/compra presencialmente en Habbo');
-  if(agents.some(x=>x.row[2]===r[2]||x.row[4].toLowerCase()===r[4].toLowerCase()))throw Error('Expediente ya existente');
+  if(agents.some(x=>x.row[9]==='Activo'&&(x.row[2]===r[2]||x.row[4].toLowerCase()===r[4].toLowerCase())))throw Error('Expediente activo ya existente');
   if(special){founder=deaInitialFounder_();if(!founder||r[4]!=='lesslie.ar'||founders.some(x=>x.row[3]===r[2]))throw Error('Founder ya vinculado o alta cerrada');}
   else if(founders.some(x=>x.row[0].toLowerCase()===r[4].toLowerCase()||x.row[3]===r[2]))throw Error('Identidad reservada a un Founder');
   if(deaCargoAutorizacion_(r[2]))throw Error('Ya existe cargo activo');
@@ -79,4 +79,82 @@ function deaInitialResolve_(me,r,decision,verified,reason,challenge){
  if(decision==='rechazar'&&identity.status==='PENDIENTE')deaIdentitySheet_().appendRow([r[2],identity.habbo,identity.signature,identity.avatarFileId,identity.createdAt,now,'RECHAZADA']);
  const revision=r.slice();revision.splice(5,5,decision==='aprobar'?'Verificada':'No verificada',decision==='aprobar'?'Aprobada':'Rechazada',me.id,now,reason);deaSnapshot_('SOLICITUDES',revision);
  deaAudit_(decision==='aprobar'?'ALTA_INICIAL_APROBADA':'ALTA_INICIAL_RECHAZADA','REGISTRO_INICIAL',r[0],{estado:'Pendiente'},{estado:revision[6],habbo:r[4],categoria:rank.categoria,rango:rank.rango},me,reason);SpreadsheetApp.flush();return {ok:true,message:decision==='aprobar'?'Registro aprobado. Debe volver a entrar con Discord para activar su acceso.':'Registro rechazado; no se concedieron permisos'};
+}
+
+
+/* Rectificaciones de alta y rango: servidor privado. Nunca autorizar por ruta, nick o parámetro HTML. */
+function deaMasterActor_(token,discordId,motivo){
+ const me=deaRequire_(token,true);
+ if(!deaIsMaster_(me))throw Error('Solo Founder Master autenticado con Discord puede rectificar');
+ const id=String(discordId||'').trim();
+ if(!/^\d{15,22}$/.test(id)||id===me.id)throw Error('ID Discord de destino inválido');
+ if(!motivo||String(motivo).trim().length<12)throw Error('Indica el motivo de la rectificación (mínimo 12 caracteres)');
+ const reason=deaText_(String(motivo).trim(),300);
+ if(deaRows_(deaTab_('FOUNDERS')).some(x=>x.row[3]===id&&x.row[4]==='Activo'))throw Error('Un Founder se gestiona en el registro Founder, no como agente');
+ return {me,id,reason};
+}
+function deaMasterAgenteActivo_(id){
+ const active=deaRows_(deaTab_('AGENTES')).filter(x=>x.row[2]===id&&x.row[9]==='Activo');
+ if(active.length!==1)throw Error('Debe existir un único expediente activo de este Discord. Comprueba su estado en el directorio.');
+ return active[0].row.slice();
+}
+function deaMasterRevocarAltaErronea(token,discordId,motivo){
+ return deaWithLock_(()=>{
+  const {me,id,reason}=deaMasterActor_(token,discordId,motivo),agent=deaMasterAgenteActivo_(id);
+  const requests=deaRows_(deaTab_('SOLICITUDES')).filter(x=>x.row[2]===id&&x.row[6]==='Aprobada');
+  if(requests.length>1)throw Error('Más de una solicitud aprobada: revisión manual para evitar revocaciones incorrectas');
+  const grant=deaRows_(deaTab_('AUTORIZACIONES_CARGOS')).find(x=>x.row[0]===id);
+  const now=deaNow_(),previous={habbo:agent[4],categoria:agent[5],rango:agent[6],estado:agent[9]};
+  deaAudit_('RECTIFICACION_ALTA_PREPARADA','AGENTES',agent[0],previous,{estado:'Inactivo',solicitudes:requests.map(x=>x.row[0])},me,reason);
+  agent[9]='Inactivo';agent[11]='Rectificación por Founder Master: '+reason;
+  deaSnapshot_('AGENTES',agent);
+  for(const request of requests){
+   const r=request.row.slice();
+   r[5]='Rechazada';r[6]='Rechazada';r[7]=me.id;r[8]=now;r[9]='Alta revocada: '+reason;
+   deaSnapshot_('SOLICITUDES',r);
+  }
+  if(grant&&grant.row[3]==='ACTIVO'){
+   const g=grant.row.slice();g[3]='REVOCADO';g[7]='Alta revocada: '+reason;
+   deaSnapshot_('AUTORIZACIONES_CARGOS',g);
+  }
+  deaAudit_('RECTIFICACION_ALTA_CONFIRMADA','AGENTES',agent[0],previous,{estado:'Inactivo'},me,reason);
+  SpreadsheetApp.flush();
+  return {ok:true,message:'Alta revocada. La identidad y el historial se han conservado; puede presentar solicitud desde el canal correcto.'};
+ });
+}
+function deaMasterCorregirRango(token,discordId,rankKey,verificado,motivo){
+ return deaWithLock_(()=>{
+  const {me,id,reason}=deaMasterActor_(token,discordId,motivo);
+  if(verificado!==true)throw Error('Debes verificar presencialmente el rango real en Habbo');
+  const rank=deaIdentityRank_(rankKey),agent=deaMasterAgenteActivo_(id),old={categoria:agent[5],rango:agent[6]};
+  if(old.categoria===rank.categoria&&old.rango===rank.rango)throw Error('El expediente ya tiene ese rango');
+  const now=deaNow_(),next=deaNext_(rank.rango);
+  const granted=deaRows_(deaTab_('AUTORIZACIONES_CARGOS')).find(x=>x.row[0]===id);
+  const role=rank.categoria==='R6'?'director':rank.categoria==='R10'?'manager':null;
+  deaAudit_('RECTIFICACION_RANGO_PREPARADA','AGENTES',agent[0],old,{categoria:rank.categoria,rango:rank.rango,rol:role},me,reason);
+  agent[5]=rank.categoria;agent[6]=rank.rango;agent[7]=now;
+  agent[8]=next?next.rango:'Pendiente';agent[11]='Rango rectificado por Founder Master: '+reason;
+  deaSnapshot_('AGENTES',agent);
+  if(granted&&granted.row[3]==='ACTIVO'&&granted.row[2]!==role){
+   const g=granted.row.slice();g[3]='REVOCADO';g[7]='Corrección de rango: '+reason;
+   deaSnapshot_('AUTORIZACIONES_CARGOS',g);
+  }
+  if(role&&(!granted||granted.row[3]!=='ACTIVO'||granted.row[2]!==role)){
+   deaTab_('AUTORIZACIONES_CARGOS').appendRow([id,agent[4],role,'ACTIVO',me.id,now,'RECTIFICACION-'+agent[0],reason]);
+  }
+  deaAudit_('RECTIFICACION_RANGO_CONFIRMADA','AGENTES',agent[0],old,{categoria:rank.categoria,rango:rank.rango},me,reason);
+  SpreadsheetApp.flush();
+  return {ok:true,message:'Rango actualizado y auditado; revisa la ficha y los permisos de cargo.'};
+ });
+}
+/* Separación autorizada de altas: los formularios privados deben llamar al wrapper correcto. */
+function deaRegistroSoloAgenteNuevo(token,nickname,signature,photo,mime,responsibility,training){
+ const rank=deaRankCatalog_().find(x=>x.categoria==='R2');
+ if(!rank)throw Error('No existe rango R2 configurado');
+ return deaRegistroInicial(token,nickname,signature,photo,mime,'R2:'+rank.rango,responsibility,training);
+}
+function deaRegistroRangoSuperior(token,nickname,signature,photo,mime,rankKey,responsibility){
+ const rank=deaIdentityRank_(rankKey);
+ if(rank.categoria==='R2')throw Error('Un Agente de Enlace nuevo debe usar el acceso Únete a DEA');
+ return deaRegistroInicial(token,nickname,signature,photo,mime,rankKey,responsibility,false);
 }

@@ -7,12 +7,12 @@ const catalogs=await readFile(new URL('./catalogo-publico.js',import.meta.url),'
 const experience=await readFile(new URL('./dea-experience.js',import.meta.url),'utf8');
 const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
-function page(route,unlocked=true){
+function page(route,unlocked=true,joinUnlocked=true){
  const root={innerHTML:'',addEventListener(){},querySelector(){return null}};
  const location={hash:'#/inicio'};
  const document={addEventListener(){},getElementById(){return root},title:''};
  const window={addEventListener(){}};
- const sessionStorage={getItem(){return unlocked?'yes':null},setItem(){},removeItem(){}};
+ const sessionStorage={getItem(key){if(key==='dea_join_unlocked_v1')return joinUnlocked?'yes':null;return unlocked?'yes':null},setItem(){},removeItem(){}};
  const runtime=unlocked?src:src.replace('const PUBLIC_SITE_LIVE=true','const PUBLIC_SITE_LIVE=false');
  const app=runInNewContext(catalogs+'\n'+experience+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
@@ -29,6 +29,22 @@ test('Portada original del águila, tres opciones y Cafetería conservada',()=>{
  assert.match(h,/dea-cafe-teaser dea-cafe-banner/);
  assert.match(h,/href="\/cafeteria"/);
  assert.match(h,/buymeacoffee|Buy Me a Coffee/i);
+});
+test('Código DEA2026 se solicita solo para nuevos agentes, no para VIP ni expediente',()=>{
+ for(const path of ['publico/ingreso','unete','identificacion/alta']){
+  const h=page(path,true,false);
+  assert.match(h,/data-dea-join-code/);
+  assert.match(h,/Código de acceso DEA/);
+  assert.doesNotMatch(h,/discord-login-button/);
+  assert.doesNotMatch(h,/value="DEA2026"/);
+ }
+ for(const path of ['vip','identificacion/vip','ficha','identificacion/agente','publico','publico/jerarquia','inicio']){
+  assert.doesNotMatch(page(path,true,false),/data-dea-join-code/,path);
+ }
+ assert.match(page('identificacion/alta',true,true),/discord-login-button/);
+ assert.doesNotMatch(page('identificacion/alta',true,true),/data-dea-join-code/);
+ assert.match(src,/DEA_JOIN_ENTRY_CODE='DEA2026'/);
+ assert.match(css,/\.dea-code-gate/);
 });
 test('Siete páginas públicas sin errores de renderizado',()=>{
  for(const p of ['publico','publico/agencia','publico/jerarquia','publico/departamentos','publico/founders','publico/ingreso','publico/normativa'])

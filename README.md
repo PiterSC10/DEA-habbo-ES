@@ -9,7 +9,7 @@ SEO: dominio canónico Vercel y metadatos preparados; **noindex sigue activo dur
 Proyecto independiente de aficionados a Habbo Hotel.
 
 ## Diseño original, sin cambios
-- Portada **sin menú**, con tres ventanas: **ACCESO VIP**, **ÚNETE A DEA**, **WEB PÚBLICA**.
+- Portada pública directa con menú y dos accesos destacados: **ACCESO VIP** para miembros con rango y **ÚNETE A DEA** exclusivamente para nuevos agentes R2.
 - Dentro de las secciones, un **único menú lateral plegable**, migas de pan y versión móvil.
 - Águila azul/dorada y escudo DEA · ES originales; colores azul noche, dorado y cian.
 - Cuatro Founders en igualdad, sin crear permisos basados en el nombre visible.
@@ -33,6 +33,11 @@ Los accesos ACCESO VIP y ÚNETE A DEA abren el portal Apps Script. La informaci�
 - Placas de beneficio: catálogo de 6–8 por concretar, exclusivamente Founders; solicitud, verificación presencial, aprobación, activación, caducidad y expediente.
 - No se automatizan misiones en Habbo ni transferencias de créditos.
 - No se inventan rangos internos de R7–R10 ni importes pendientes.
+
+## Organigrama y sesiones
+- **Equipo DEA** muestra el organigrama público y conserva los enlaces antiguos de `/founders/` y `#/publico/founders`.
+- Las tarjetas de Mánagers se presentan en orden de incorporación: Fr4nn_23, MAYERGRHG, Bibhi, aaitaanaa; avatares dinámicos de Habbo `size=l`, cargos y firmas individuales.
+- **Sesión Discord persistente (pendiente en backend):** la web estática no debe guardar tokens OAuth en localStorage. Solo el Apps Script privado puede implementar un token de sesión aleatorio, revocable, con caducidad máxima de 30 días y verificación del ID Discord en cada operación. Las reglas de privacidad y renovación se definen en `SECURITY.md`. No afirmar que la sesión está recordada hasta probar el código en el Apps Script publicado.
 
 ## Comprobaciones antes de publicar
 1. Instalar **completamente** el Apps Script oficial y retirar toda función antigua de escritura sin autorización.

@@ -53,15 +53,15 @@ test('Opción 6: vaso DEA en todas las pestañas de La Cafetería',async()=>{
  const icon=await readFile(new URL('./cafe-vaso-dea.svg',import.meta.url),'utf8');
  const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
  for(const screen of [home,pub,cafeHtml]){
-  assert.match(screen,/class="dea-cafe-icon" src="\\/cafe-vaso-dea\\.svg"/);
+  assert.ok(screen.includes('class="dea-cafe-icon" src="/cafe-vaso-dea.svg"'));
   assert.match(screen,/OPEN/);
  }
  assert.match(home,/dea-cafe-teaser dea-cafe-banner/);
- assert.doesNotMatch(home,/<span aria-hidden="true">☕<\\/span>/);
- assert.match(icon,/<svg/);
- assert.match(icon,/vaso de café|Vaso de café/i);
- assert.match(icon,/>DEA<\\/text>/);
- assert.match(css,/\\.dea-cafe-sign>\\.dea-cafe-icon/);
+ assert.ok(!home.includes('<span aria-hidden="true">☕</span>'));
+ assert.ok(icon.includes('<svg'));
+ assert.match(icon,/vaso de café/i);
+ assert.ok(icon.includes('>DEA</text>'));
+ assert.ok(css.includes('.dea-cafe-sign>.dea-cafe-icon'));
  assert.ok(build.includes("'cafe-vaso-dea.svg'"));
 });
 test('Cafetería restaurada en Web Pública y NEW verde en Equipo DEA',()=>{

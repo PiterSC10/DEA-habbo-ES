@@ -54,7 +54,7 @@ test('No se sobrescribe un expediente previo incompatible',()=>{
 
 test('10P solo puede elegirla el propietario autenticado y no se asigna al consultar',()=>{const {api,db}=fixture();assert.equal(db.IDENTIDADES_DEA.length,1);api.deaRegistrarIdentidad('master','Propietario','10P','','');assert.equal(db.IDENTIDADES_DEA.at(-1)[2],'10P');});
 
-test('Primer registro unificado: 39 reglas de autorización, identidad y cierre Founder',()=>{const FACTORY=new Function('env','with(env){'+source+';return {deaRegistroInicial,deaInitialMeta_,deaResolverSolicitud,deaInitialOptions_,deaFindIdentity_,deaInitialEnrich_};}');const result=(()=>{
+test('Primer registro unificado: 39 reglas de autorización, identidad y cierre Founder',()=>{const FACTORY=new Function('env','with(env){'+source+';return {deaRegistroInicial,deaInitialMeta_,deaResolverSolicitud,deaInitialOptions_,deaFindIdentity_,deaInitialEnrich_,deaMasterCorregirRango,deaMasterRevocarAltaErronea};}');const result=(()=>{
  const checks=[];const ok=(n,v)=>{if(!v)throw Error(n);checks.push(n)},deny=(n,f)=>{let no=false;try{f()}catch(e){no=true;}ok(n,no)};
  const headers=['discord_id','habbo_nick','firma','avatar_file_id','fecha_alta_utc','fecha_actualizacion_utc','estado'];
  const db={IDENTIDADES_DEA:[headers],SOLICITUDES:[[]],AGENTES:[[]],FOUNDERS:[[],['10PEDRO','FOUNDER','Master','626463210249125928','Activo',''],['lesslie.ar','FOUNDER','Coordinadora','','Pendiente','']],AUDITORIA:[[]],AUTORIZACIONES_CARGOS:[[]]};

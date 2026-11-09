@@ -302,6 +302,12 @@ test('Neones en secciones interiores; el inicio público prioriza acceso y agenc
  assert.ok(!page('vip').includes('dea-public-neon-nav'));
  assert.ok(page('publico/jerarquia').includes('dea-public-neon-nav'));
 });
+test('Cabecera de la tabla de rangos: Tiempo de ascenso',()=>{
+ const table=page('publico/jerarquia');
+ assert.match(table,/<th>Tiempo de ascenso<\/th>/);
+ assert.doesNotMatch(table,/<th>Plazo mínimo<\/th>/);
+});
+
 test('Tabla completa: 70 rangos internos oficiales R1–R10',()=>{
  const h=page('publico/jerarquia');
  const table=h.match(/<table class="dea-rank-table">([\s\S]*?)<\/table>/)?.[1];

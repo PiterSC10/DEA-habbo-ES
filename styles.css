@@ -675,3 +675,11 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-join-guard-actions .btn.gold{background:linear-gradient(130deg,#e8c376,#b48b40);color:#09182b}
 .dea-join-guard-actions .btn.ghost{border:1px solid #75c1e6}
 @media(max-width:650px){.dea-join-guard{margin:12px 0 19px}.dea-join-important{padding:12px}.dea-join-guard-actions{gap:9px}.dea-join-guard-actions .btn{font-size:13px}}
+
+/* Directorio visible: Founders, Mánagers y Directores, sin efectos de censura. */
+.dea-rank-directory .dea-classified-stamp{transform:none;border:0;color:#8cdefa;font-size:11px;letter-spacing:.09em}
+.dea-rank-directory .dea-classified-art{width:100%;min-height:148px;color:#b5d1ed}
+.dea-rank-directory .dea-classified-art .icon{width:50px;height:50px;opacity:.65}
+.dea-rank-directory>strong{min-height:0;font-size:17px;color:#f8de9c}
+.dea-rank-directory>small{font-size:12px;letter-spacing:0;color:#d5e9f7}
+.dea-rank-directory .dea-classified-soon{font-size:9px;letter-spacing:.08em}

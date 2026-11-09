@@ -46,6 +46,35 @@ test('Código DEA2026 se solicita solo para nuevos agentes, no para VIP ni exped
  assert.match(src,/DEA_JOIN_ENTRY_CODE='DEA2026'/);
  assert.match(css,/\.dea-code-gate/);
 });
+test('Cafetería restaurada en Web Pública y NEW verde en Equipo DEA',()=>{
+ const home=page('inicio');
+ const pub=page('publico');
+ const cafe=page('publico/cafeteria');
+ const team=page('publico/founders');
+ const vip=page('vip');
+ assert.match(home,/dea-cafe-teaser dea-cafe-banner/);
+ assert.match(home,/dea-cafe-sign/);
+ assert.match(pub,/dea-cafe-public-tab/);
+ assert.match(pub,/href="\/cafeteria"/);
+ assert.match(pub,/dea-public-cafe-feature/);
+ assert.match(pub,/cafe-hero\.svg/);
+ assert.match(pub,/Apóyanos en Buy Me a Coffee/);
+ assert.match(pub,/href="#\/publico\/cafeteria"/);
+ for(const slug of ['founders','cafeteria']){
+  const tile=pub.match(new RegExp('<a class="dea-public-quick-link"[^>]*href="#/publico/'+slug+'"[^>]*>[\\s\\S]*?<\\/a>'));
+  assert.ok(tile,slug+' no está en los accesos públicos');
+  assert.match(tile[0],/dea-menu-new">NEW<\/small>/);
+  const side=pub.match(new RegExp('<a href="#/publico/'+slug+'"[^>]*class="side-item[^"]*"[\\s\\S]*?<\\/a>'));
+  assert.ok(side,slug+' no está en el menú lateral');
+  assert.match(side[0],/dea-menu-new">NEW<\/small>/);
+ }
+ assert.match(cafe,/cafe-public-premium/);
+ assert.match(team,/Equipo DEA/);
+ assert.doesNotMatch(vip,/dea-cafe-public-tab/);
+ assert.match(css,/\.dea-public-cafe-feature/);
+ assert.match(css,/\.dea-cafe-public-tab/);
+ assert.match(css,/\.dea-menu-new\{[^}]*#44ff9a/);
+});
 test('Siete páginas públicas sin errores de renderizado',()=>{
  for(const p of ['publico','publico/agencia','publico/jerarquia','publico/departamentos','publico/founders','publico/ingreso','publico/normativa'])
   assert.ok(page(p).length>1000,p);

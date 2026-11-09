@@ -51,13 +51,13 @@ function date(){return new Date().toISOString().slice(0,10)}
 function time(){return new Date().toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'})}
 const DEA_PORTAL="https://script.google.com/macros/s/AKfycbyhGqAW8AiwHt11JBT3jmf2In5do2MRpO-H_urxftlewpJgvmWdQV3mrbQQdtOnYndNEg/exec";
 // Identidad editorial en todas las secciones tras superar la puerta de preinauguración.
-const DEA_LEGAL_FOOTER="<div class=\"dea-credit-main\">© 2026 DEA HABBO ES <span aria-hidden=\"true\">·</span> Powered by <a href=\"https://yourdesigngpt.es/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"YourDesignGPT\">YourDesignGPT</a></div><div class=\"dea-credit-disclaimer\">Comunidad independiente de fans de Habbo Hotel. No afiliada, patrocinada ni respaldada por Habbo ni Sulake. Las marcas citadas pertenecen a sus respectivos titulares.</div><a href=\"/cafeteria\">☕ Apoya DEA en La Cafetería</a><div class=\"dea-footer-directory\" aria-label=\"Directorio DEA\"><div><strong>EXPLORAR DEA</strong><a href=\"#/publico/agencia\">La agencia</a><a href=\"#/publico/jerarquia\">Rangos y ascensos</a><a href=\"#/publico/departamentos\">Departamentos</a><a href=\"#/publico/founders\">Equipo DEA</a><a href=\"#/publico/normativa\">Normativa</a></div><div><strong>ACCESOS</strong><a href=\"#/identificacion/alta\">Únete a DEA</a><a href=\"#/publico\">Web pública</a><a href=\"https://www.habbo.es/\" target=\"_blank\" rel=\"noopener noreferrer\">Habbo.es · Oficial ↗</a><a href=\"mailto:deahabbo.dptweb@gmail.com?subject=Contacto%20desde%20DEA%20HABBO%20ES\">✉ Contacto</a></div></div>";
+const DEA_LEGAL_FOOTER="<div class=\"dea-credit-main\">© 2026 DEA HABBO ES <span aria-hidden=\"true\">·</span> Powered by <a href=\"https://yourdesigngpt.es/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"YourDesignGPT\">YourDesignGPT</a></div><div class=\"dea-credit-disclaimer\">Comunidad independiente de fans de Habbo Hotel. No afiliada, patrocinada ni respaldada por Habbo ni Sulake. Las marcas citadas pertenecen a sus respectivos titulares.</div><a href=\"/cafeteria\">☕ Apoya DEA en La Cafetería</a><div class=\"dea-footer-directory\" aria-label=\"Directorio DEA\"><div><strong>EXPLORAR DEA</strong><a href=\"/agencia-habbo/\">La agencia</a><a href=\"/rangos-habbo/\">Rangos y ascensos</a><a href=\"/departamentos/\">Departamentos</a><a href=\"/founders/\">Equipo DEA</a><a href=\"/normativa/\">Normativa</a></div><div><strong>ACCESOS</strong><a href=\"#/identificacion/alta\">Únete a DEA</a><a href=\"#/publico\">Web pública</a><a href=\"https://www.habbo.es/\" target=\"_blank\" rel=\"noopener noreferrer\">Habbo.es · Oficial ↗</a><a href=\"mailto:deahabbo.dptweb@gmail.com?subject=Contacto%20desde%20DEA%20HABBO%20ES\">✉ Contacto</a></div></div>";
 let sidebarOpen=true,mobileOpen=false,identity=null,connected=false,deaNewAgentAcknowledged=false;
 const pathname=()=>decodeURI(location.hash.replace(/^#\/?/,'').split('?')[0]||'').replace(/^\//,'')||'inicio';
 const route=(name)=>{location.hash='/'+name};
 function ruleFor(cat){const g=GROUPS.find(x=>x.id===cat);return g?{period:g.period,hours:g.hours,pay:g.pay}:{period:'Pendiente',hours:null,pay:null}}
 function publicEntryNav(){return '<nav class="dea-public-entry-nav" aria-label="Accesos oficiales"><a class="dea-entry-nav-new" href="#/publico/ingreso"><span>ÚNETE A DEA</span><small>Solo nuevos agentes</small></a><a class="dea-entry-nav-vip" href="#/vip"><span>ACCESO VIP</span><small>Ya tienes rango</small></a></nav>';}
-function publicEntryHero(){return '<section class="dea-public-entry-hero" aria-labelledby="dea-welcome-heading"><div class="dea-public-entry-intro"><span class="dea-public-entry-eyebrow">WEB PÚBLICA · ACCESO LIBRE</span><div class="dea-public-entry-brand"><img src="./aguila-dea-original.jpg" alt="Emblema del Departamento Especial de Agentes" loading="eager"><div><h1 id="dea-welcome-heading">DEA HABBO ES</h1><p>Disciplina · Honor · Lealtad</p></div></div><p>Estás en la web pública de la agencia. Consulta rangos, normativa, noticias y departamentos <strong>sin iniciar sesión</strong>.</p></div><div class="dea-public-entry-actions" aria-label="¿Qué acceso necesitas?"><a class="dea-entry-option dea-entry-option-new" href="#/publico/ingreso"><span>SOLO NUEVOS · SIN RANGO PREVIO</span><strong>'+I('user')+' ÚNETE A DEA</strong><small>Exclusivo para quienes empiezan desde cero tras sus 45 minutos de formación. El registro es para <b>Agente de Enlace I (R2)</b>.</small><em>SOY NUEVO · INICIAR REGISTRO →</em></a><a class="dea-entry-option dea-entry-option-vip" href="#/vip"><span>YA TIENES RANGO O CARGO</span><strong>'+I('crown')+' ACCESO VIP</strong><small>Para Founders, Mánagers, Directores y cualquier miembro con rango superior o ya asignado en DEA.</small><em>YA SOY MIEMBRO · ENTRAR →</em></a></div></section>';}
+function publicEntryHero(){return '<section class="dea-public-entry-hero" aria-labelledby="dea-welcome-heading"><div class="dea-public-entry-intro"><span class="dea-public-entry-eyebrow">WEB PÚBLICA · ACCESO LIBRE</span><div class="dea-public-entry-brand"><img src="./aguila-dea-original.jpg" alt="Emblema del Departamento Especial de Agentes" loading="eager"><div><h1 id="dea-welcome-heading">DEA HABBO ES</h1><p>Disciplina · Honor · Lealtad</p></div></div><p>DEA HABBO ES es una agencia independiente de fans en Habbo Hotel. Descubre nuestra <strong>formación de 45 minutos</strong>, rangos y ascensos, Equipo DEA y departamentos. La información pública se consulta <strong>sin iniciar sesión</strong>.</p></div><div class="dea-public-entry-actions" aria-label="¿Qué acceso necesitas?"><a class="dea-entry-option dea-entry-option-new" href="#/publico/ingreso"><span>SOLO NUEVOS · SIN RANGO PREVIO</span><strong>'+I('user')+' ÚNETE A DEA</strong><small>Exclusivo para quienes empiezan desde cero tras sus 45 minutos de formación. El registro es para <b>Agente de Enlace I (R2)</b>.</small><em>SOY NUEVO · INICIAR REGISTRO →</em></a><a class="dea-entry-option dea-entry-option-vip" href="#/vip"><span>YA TIENES RANGO O CARGO</span><strong>'+I('crown')+' ACCESO VIP</strong><small>Para Founders, Mánagers, Directores y cualquier miembro con rango superior o ya asignado en DEA.</small><em>YA SOY MIEMBRO · ENTRAR →</em></a></div></section>';}
 function layoutHome(){return internalShell('publico',publicContent('publico'))}
 const NAV_PUBLIC=[['publico','Inicio','home'],['publico/noticias','DEA Confidencial','book'],['publico/agencia','La agencia','shield'],['publico/sala','La sala DEA','home'],['publico/founders','Equipo DEA','users'],['publico/ingreso','Cómo ingresar','user'],['publico/como-trabajar','Cómo trabajar en DEA','book'],['publico/nominas','Nóminas y horarios','calendar'],['publico/jerarquia','Rangos y ascensos','list'],['publico/placas','Placas de beneficio','spark'],['publico/compra-rangos','Compra de rangos','wallet'],['publico/banderines','Banderines','shield'],['publico/departamentos','Departamentos','users'],['publico/normativa','Normativa DEA','book']];
 const NAV_VIP=[['vip','Acceso VIP','lock']];
@@ -159,31 +159,34 @@ async function validatePreview(form){
 // Titulares y descripciones editoriales de secciones preparadas para SEO.
 // La portada y las guías públicas están preparadas para la indexación; las operaciones privadas siguen en Apps Script.
 const PAGE_SEO={
- inicio:['DEA HABBO ES | Agencia Habbo, rangos y formación','Conoce DEA HABBO ES, comunidad independiente de Habbo Hotel. Formación, rangos e ingreso gratuito.'],
- publico:['DEA HABBO ES | Agencia Habbo y comunidad','Descubre DEA HABBO ES, su organización, normas, rangos y actividades en Habbo Hotel.'],
- 'publico/agencia':['La agencia DEA HABBO ES | Habbo Hotel','Conoce el Departamento Especial de Agentes, comunidad independiente de Habbo Hotel.'],
- 'publico/jerarquia':['Rangos y ascensos | DEA HABBO ES','Tabla completa de ascensos, plazos, nóminas y tarifas oficiales R1–R10.'],
+ inicio:['DEA HABBO ES | Agencia Habbo, rangos y cómo unirse','Descubre DEA HABBO ES, agencia independiente en Habbo Hotel: formación de 45 minutos, rangos, ascensos, Equipo DEA y acceso para miembros.'],
+ publico:['DEA HABBO ES | Agencia Habbo, rangos y cómo unirse','Descubre DEA HABBO ES, agencia independiente en Habbo Hotel: formación de 45 minutos, rangos, ascensos, Equipo DEA y acceso para miembros.'],
+ 'publico/agencia':['La agencia DEA HABBO ES | Comunidad de Habbo','Descubre qué es DEA HABBO ES, cómo funciona su agencia en Habbo Hotel y cómo se organizan la formación, los equipos y los departamentos.'],
+ 'publico/jerarquia':['Rangos y ascensos R1–R10 | DEA HABBO ES','Consulta la jerarquía DEA en Habbo: rangos R1–R10, requisitos de ascenso, plazos y quién puede autorizar cada promoción.'],
  'publico/placas':['Placas de beneficio | DEA HABBO ES','Catálogo de placas DEA: beneficios, precios y duración.'],
  'publico/noticias':['Noticias DEA HABBO ES','Noticias y comunicados de la agencia DEA HABBO ES.'],
  'publico/sala':['Sala DEA HABBO ES | Próximamente','Próximamente: presentación de la sede DEA dentro de Habbo Hotel.'],
  'publico/banderines':['Banderines DEA HABBO ES | Próximamente','Próximamente: catálogo público de banderines DEA.'],
- 'publico/departamentos':['Departamentos de DEA HABBO ES','Descubre los departamentos y la organización de nuestra comunidad dentro de Habbo Hotel.'],
+ 'publico/departamentos':['Departamentos de DEA HABBO ES | Organización','Explora los departamentos de DEA en Habbo Hotel: Ascensos, Marketing, Eventos, Publicidad, Recursos Humanos y Desarrollo Web.'],
  'publico/nominas':['Nóminas y horarios | DEA HABBO ES','Nóminas del miércoles y sábado a las 22:00 de España peninsular, horarios por país y condiciones de Guardapaga.'],
- 'publico/ingreso':['Cómo unirse gratis a DEA HABBO ES','Consulta cómo ingresar en DEA HABBO ES y comenzar la formación dentro de Habbo Hotel.'],
- 'publico/normativa':['Normativa de DEA HABBO ES | Habbo','Conoce las normas y el funcionamiento de DEA HABBO ES.'],
- 'publico/founders':['Equipo DEA | Organigrama oficial de DEA HABBO ES','Miembros y organigrama de DEA HABBO ES: Founders, Mánagers, Líderes, Secretarios y Directores en Habbo Hotel.'],
+ 'publico/ingreso':['Cómo unirse a DEA HABBO ES | Formación inicial','Empieza desde cero en DEA Habbo: formación presencial de 45 minutos, registro como Agente de Enlace I (R2) y aprobación.'],
+ 'publico/normativa':['Normativa de DEA HABBO ES | Reglas y convivencia','Consulta las normas de la agencia DEA en Habbo Hotel: respeto, formación, rangos, horarios, nóminas y acceso seguro.'],
+ 'publico/founders':['Equipo DEA | Organigrama y miembros de la agencia','Conoce al Equipo DEA: Founders, Mánagers, Líderes, Secretarios y Directores. Descubre sus cargos, firmas y avatares en Habbo Hotel.'],
  vip:['Acceso VIP privado | DEA HABBO ES','Zona privada de Founders autorizados.'],
  'identificacion/vip':['Identificación VIP | DEA HABBO ES','Identificación privada de Founders mediante Discord.'],
  'identificacion/alta':['Registro de agentes | DEA HABBO ES','Identificación de agentes mediante Discord para iniciar una solicitud.'],
  'identificacion/agente':['Mi expediente | DEA HABBO ES','Acceso privado al expediente individual de un agente.']
 };
 function updatePageSeo(path){
- const [title,description]=PAGE_SEO[path]||['DEA HABBO ES | Comunidad Habbo','DEA HABBO ES, comunidad independiente de Habbo Hotel.'];
+ const [title,description]=PAGE_SEO[path]||['DEA HABBO ES | Agencia Habbo','DEA HABBO ES es una comunidad independiente de Habbo Hotel.'];
  document.title=title;
- // Mejora la navegación y el texto compartido por visitantes; la indexación sigue bloqueada.
  if(typeof document.querySelector==='function'){
-  const meta=document.querySelector('meta[name="description"]');
-  if(meta)meta.setAttribute('content',description);
+  for(const selector of ['meta[name="description"]','meta[property="og:description"]','meta[name="twitter:description"]']){
+   const el=document.querySelector(selector);if(el)el.setAttribute('content',description);
+  }
+  for(const selector of ['meta[property="og:title"]','meta[name="twitter:title"]']){
+   const el=document.querySelector(selector);if(el)el.setAttribute('content',title);
+  }
  }
 }
 function render(){

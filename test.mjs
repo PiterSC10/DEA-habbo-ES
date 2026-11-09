@@ -46,6 +46,24 @@ test('Código DEA2026 se solicita solo para nuevos agentes, no para VIP ni exped
  assert.match(src,/DEA_JOIN_ENTRY_CODE='DEA2026'/);
  assert.match(css,/\.dea-code-gate/);
 });
+test('Opción 6: vaso DEA en todas las pestañas de La Cafetería',async()=>{
+ const home=page('inicio');
+ const pub=page('publico');
+ const cafeHtml=await readFile(new URL('./cafeteria/index.html',import.meta.url),'utf8');
+ const icon=await readFile(new URL('./cafe-vaso-dea.svg',import.meta.url),'utf8');
+ const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ for(const screen of [home,pub,cafeHtml]){
+  assert.match(screen,/class="dea-cafe-icon" src="\\/cafe-vaso-dea\\.svg"/);
+  assert.match(screen,/OPEN/);
+ }
+ assert.match(home,/dea-cafe-teaser dea-cafe-banner/);
+ assert.doesNotMatch(home,/<span aria-hidden="true">☕<\\/span>/);
+ assert.match(icon,/<svg/);
+ assert.match(icon,/vaso de café|Vaso de café/i);
+ assert.match(icon,/>DEA<\\/text>/);
+ assert.match(css,/\\.dea-cafe-sign>\\.dea-cafe-icon/);
+ assert.ok(build.includes("'cafe-vaso-dea.svg'"));
+});
 test('Cafetería restaurada en Web Pública y NEW verde en Equipo DEA',()=>{
  const home=page('inicio');
  const pub=page('publico');

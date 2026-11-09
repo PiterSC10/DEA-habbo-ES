@@ -75,6 +75,21 @@ test('Primer registro unificado: 39 reglas de autorización, identidad y cierre 
  for(const [k,n,rank,grant] of [['sup',3,'R5:Supervisor I',null],['dir',4,'R6:Director de Agentes','director'],['del',5,'R7:Delegado Dir. Cadetes',null],['mgr',6,'R10:Mánager de PBL','manager']]){add(k,n);submit(k,'Habbo'+k,'S'+n+'A',rank);deny(k+' no se autoaprueba',()=>approve(k,k));approve(k);ok(k+' rango directo verificado',latest('AGENTES').some(x=>x.row[2]===users[k].id&&x.row[5]===rank.split(':')[0]));const role=env.deaCargoAutorizacion_(users[k].id);ok(k+' permisos acordes al cargo',grant?role&&role[2]===grant:!role);}
  add('founder',7);users.founder.pendingLink=true;users.founder.app='f-test';deny('Founder limita nombre pendiente exacto',()=>submit('founder','Intruso','F07','FOUNDER:Founder'));submit('founder','lesslie.ar','F07','FOUNDER:Founder');ok('Founder continúa sin acceso antes de Master',!latest('FOUNDERS').find(x=>x.row[0]==='lesslie.ar').row[3]);approve('founder');ok('Master vincula Founder a Discord OAuth',latest('FOUNDERS').find(x=>x.row[0]==='lesslie.ar').row[3]===users.founder.id);ok('Founder se cierra automáticamente',!api.deaInitialOptions_(users.new).founderOpen);add('extra',8);deny('Founder cerrado también en servidor',()=>submit('extra','lesslie.ar','E08','FOUNDER:Founder'));
  add('reject',9);submit('reject','Rechazado','R09','R5:Supervisor I');api.deaResolverSolicitud('master',request('reject')[0],'rechazar',false,'No coincide');ok('Rechazo libera reservas sin borrar el historial',!api.deaFindIdentity_(users.reject.id));add('corrected',10);submit('corrected','Rechazado','R09','R5:Supervisor I');ok('Reserva rechazada reutilizable por expediente correcto',!!request('corrected'));ok('Rechazo no concede permisos',!latest('AGENTES').some(x=>x.row[2]===users.reject.id));ok('Auditoría de aprobación y rechazo',db.AUDITORIA.some(x=>x[2]==='ALTA_INICIAL_APROBADA')&&db.AUDITORIA.some(x=>x[2]==='ALTA_INICIAL_RECHAZADA'));
+
+ deny('Solo Master puede corregir rango',()=>api.deaMasterCorregirRango('boss',users.mgr.id,'R6:Director de Agentes',true,'Corrección verificada presencialmente'));
+ deny('La rectificación requiere comprobación en Habbo',()=>api.deaMasterCorregirRango('master',users.mgr.id,'R6:Director de Agentes',false,'Corrección verificada presencialmente'));
+ api.deaMasterCorregirRango('master',users.mgr.id,'R6:Director de Agentes',true,'Corrección verificada presencialmente');
+ ok('Cambio de rango actualiza el expediente activo',latest('AGENTES').some(x=>x.row[2]===users.mgr.id&&x.row[5]==='R6'&&x.row[6]==='Director de Agentes'));
+ ok('Cambio de Manager a Director revoca permiso superior anterior',db.AUTORIZACIONES_CARGOS.some(x=>x[0]===users.mgr.id&&x[3]==='REVOCADO'));
+ ok('Cambio verificado entrega permiso Director correcto',env.deaCargoAutorizacion_(users.mgr.id)?.[2]==='director');
+ deny('Un Founder no se cambia como agente',()=>api.deaMasterCorregirRango('master',users.founder.id,'R6:Director de Agentes',true,'No debe operar como agente'));
+ api.deaMasterRevocarAltaErronea('master',users.new.id,'Entrada inicial R2 por canal equivocado');
+ ok('Revocación mantiene expediente pero lo deja inactivo',latest('AGENTES').some(x=>x.row[2]===users.new.id&&x.row[9]==='Inactivo'));
+ ok('Revocación cierra la solicitud anterior',!latest('SOLICITUDES').some(x=>x.row[2]===users.new.id&&x.row[6]==='Aprobada'));
+ submit('new','Novato','N01','R6:Director de Agentes');
+ ok('Rectificación permite nueva solicitud con identidad y firma intactas',!!request('new')&&api.deaFindIdentity_(users.new.id).signature==='N01');
+ approve('new');
+ ok('Nueva solicitud bien canalizada puede aprobarse sin reactivar R2',latest('AGENTES').some(x=>x.row[2]===users.new.id&&x.row[5]==='R6'&&x.row[9]==='Activo'));
  const publicState={};api.deaInitialEnrich_(publicState,users.new);ok('Agente no recibe fotos o expedientes ajenos',!publicState.initialReviews);const masterState={};api.deaInitialEnrich_(masterState,users.master);ok('Revisión es exclusiva del Master',Array.isArray(masterState.initialReviews));
  return {ok:true,checks,isolated:true,productionWrites:0};
-})();assert.equal(result.ok,true);assert.equal(result.checks.length,39);});
+})();assert.equal(result.ok,true);assert.equal(result.checks.length,49);});

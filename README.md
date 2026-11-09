@@ -34,6 +34,11 @@ Los accesos ACCESO VIP y ÚNETE A DEA abren el portal Apps Script. La informaci�
 - No se automatizan misiones en Habbo ni transferencias de créditos.
 - No se inventan rangos internos de R7–R10 ni importes pendientes.
 
+## Acceso de nuevos agentes · filtro de cortesía
+- En la web pública, **ÚNETE A DEA** muestra una pantalla de código `DEA2026` antes de iniciar el alta R2. También aparece si se introduce directamente `#/unete` o `#/identificacion/alta`.
+- **Acceso VIP y Mi expediente no piden este código.** Una vez introducido, el desbloqueo dura durante la pestaña mediante `sessionStorage` (solo se guarda un indicador, no una credencial).
+- **Advertencia:** es una barrera de cortesía JavaScript, con código visible en la web pública; no sirve para bloquear bots sofisticados ni acceso directo al Apps Script. Para bloquear registros no autorizados, validar el código y el usuario en el backend Apps Script. No habilitar altas automáticas por tener el código.
+
 ## Organigrama y sesiones
 - **Equipo DEA** muestra el organigrama público y conserva los enlaces antiguos de `/founders/` y `#/publico/founders`.
 - Las tarjetas de Mánagers se presentan en orden de incorporación: Fr4nn_23, MAYERGRHG, Bibhi, aaitaanaa; avatares dinámicos de Habbo `size=l`, cargos y firmas individuales.

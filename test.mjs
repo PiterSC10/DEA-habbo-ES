@@ -61,7 +61,8 @@ test('Opción 6: vaso DEA en todas las pestañas de La Cafetería',async()=>{
  assert.ok(icon.includes('<svg'));
  assert.match(icon,/vaso de café/i);
  assert.ok(icon.includes('>DEA</text>'));
- assert.ok(css.includes('.dea-cafe-sign>.dea-cafe-icon'));
+ const cafeCss=await readFile(new URL('./cafeteria.css',import.meta.url),'utf8');
+ assert.ok(cafeCss.includes('.dea-cafe-sign>.dea-cafe-icon'));
  assert.ok(build.includes("'cafe-vaso-dea.svg'"));
 });
 test('Cafetería restaurada en Web Pública y NEW verde en Equipo DEA',()=>{

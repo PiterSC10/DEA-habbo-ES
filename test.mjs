@@ -481,6 +481,7 @@ test('Habboween: Founders públicos con adornos limitados; original y VIP sin es
  for(const n of ['Guauagatabig','Primera al mando','Jefa del Departamento de Comunicación'])assert.ok(f.includes(n),n);
  assert.doesNotMatch(f,/CARGO PUBLICADO|CLASIFICADO · DEA|IDENTIDAD RESERVADA/);
  assert.match(f,/habbo-imaging\/avatarimage/);
+ assert.doesNotMatch(src,/name==='Fr4nn_23'\?'\.\/assets\/dea\/manager-fr4nn23\.png'/);
  assert.doesNotMatch(page('publico/jerarquia'),/dea-rank-chip">R11/);
 });
 

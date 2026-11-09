@@ -11,7 +11,7 @@
  const title='DEA CONTROL APP FOUNDER (NO COMPARTIR)';
  const portal='https://script.google.com/macros/s/AKfycbyhGqAW8AiwHt11JBT3jmf2In5do2MRpO-H_urxftlewpJgvmWdQV3mrbQQdtOnYndNEg/exec';
  const actions=[['nominaMiercoles','Pagar nómina · miércoles','wallet','22:00 España peninsular'],['guardaMiercoles','Guardapaga · miércoles','wallet','Reservas y recogidas · 48 horas'],['nominaSabado','Pagar nómina · sábado','wallet','22:00 España peninsular'],['guardaSabado','Guardapaga · sábado','wallet','Reservas y recogidas · 48 horas'],['ventas','Compra de rango','coins','Comprador con expediente activo'],['cobros','Placas','coins','Registrar entrega presencial'],['guardapagaPlaca','Placa Guardapaga','coins','20 c · duración de un mes'],['ascensos','Registrar ascenso','trending-up','Verificación presencial'],['baneados','Incidencias','shield-alert','Anotar sin eliminar'],['auditoria','Mi historial','history','Solo consulta'],['solicitudes','Solicitudes pendientes','clipboard-list','🔔 Revisar en la miniapp privada']];
- if(isMaster) actions.push(['agentes','Directorio general','users','Supervisión Master'],['rangos','Jerarquía y rangos','crown','Consulta de normativa']);
+ if(isMaster) actions.push(['agentes','Directorio general','users','Supervisión Master'],['correccion-rangos','Corrección de rangos','shield-alert','Revocar aprobaciones erróneas · requiere backend autorizado'],['rangos','Jerarquía y rangos','crown','Consulta de normativa']);
  const icon={ 'clipboard-list':'📋','trending-up':'↗','wallet':'💰','gift':'🎁','shield-alert':'🛡','coins':'🪙','history':'📚','users':'👥','crown':'👑'};
  const el=(id)=>document.getElementById(id);
  el('founder-name').textContent=founder;

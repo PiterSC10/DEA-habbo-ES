@@ -266,7 +266,7 @@ test('SEO de preinauguración: canónica Vercel y fichas sociales sin datos pers
  const ld=JSON.parse(match[1]);
  assert.equal(ld['@type'],'WebSite');
  assert.equal(ld.url,'https://dea-habbo-es.vercel.app/');
- assert.equal(ld.name,'DEA HABBO ES');
+ assert.equal(ld.name,'AGENCIA D.E.A. ES');
 });
 
 test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
@@ -293,8 +293,8 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
 
 
 test('Metadatos principales SEO claros, marca y fallback HTML indexable',()=>{
- assert.match(html,/<title>DEA HABBO ES \| Agencia Habbo, rangos y cómo unirse<\/title>/);
- assert.match(html,/<meta property="og:site_name" content="DEA HABBO ES">/);
+ assert.match(html,/<title>AGENCIA D\.E\.A\. ES \| Comunidad independiente<\/title>/);
+ assert.match(html,/<meta property="og:site_name" content="AGENCIA D\.E\.A\. ES">/);
  assert.match(html,/favicon-48\.png/);
  assert.match(html,/"@type":"WebSite"/);
  assert.match(html,/dea-seo-fallback/);

@@ -203,3 +203,44 @@ function deaMasterVincularDiscordExistente(token,habbo,discordDestino,verificado
   return {ok:true,message:'Discord reasignado al expediente existente. Accede de nuevo mediante OAuth Discord.'};
  });
 }
+
+/**
+ * Directorio completo para administración: expedientes activos y solicitudes.
+ * El registro pendiente aparece automáticamente sin crear un segundo AGENTE
+ * ni conceder permisos por el simple hecho de autenticarse con Discord.
+ * Solo disponible para el Founder Master autenticado.
+ */
+function deaDirectorioTotal(token){
+ const me=deaRequire_(token,false);
+ if(!deaIsMaster_(me))throw Error('Directorio completo reservado a Founder Master');
+ const agents=deaRows_(deaTab_('AGENTES'));
+ const requests=deaRows_(deaTab_('SOLICITUDES'));
+ const identities=deaIdentityRows_();
+ const byDiscord=new Map(),byHabbo=new Map(),items=[];
+ function add(record){
+  const discord=String(record.discordId||'').trim(),habbo=String(record.habbo||'').trim();
+  const key=habbo.toLowerCase();
+  const existing=(discord&&byDiscord.get(discord))||(key&&byHabbo.get(key));
+  if(existing){
+   if(record.source==='AGENTES'&&existing.source!=='AGENTES')Object.assign(existing,record);
+   return;
+  }
+  items.push(record);
+  if(discord)byDiscord.set(discord,record);
+  if(key)byHabbo.set(key,record);
+ }
+ agents.forEach(x=>{
+  const r=x.row;
+  add({source:'AGENTES',id:String(r[0]||''),discordId:String(r[2]||''),habbo:String(r[4]||''),categoria:String(r[5]||''),rango:String(r[6]||''),estado:String(r[9]||''),autorizado:r[9]==='Activo'});
+ });
+ requests.forEach(x=>{
+  const r=x.row;
+  if(r[6]==='Rechazada')return;
+  add({source:'SOLICITUDES',id:String(r[0]||''),discordId:String(r[2]||''),habbo:String(r[4]||''),categoria:String(r[10]||''),rango:String(r[11]||''),estado:String(r[6]||'Pendiente'),autorizado:false});
+ });
+ identities.forEach(r=>{
+  if(r[6]==='RECHAZADA')return;
+  add({source:'IDENTIDADES_DEA',id:'',discordId:String(r[0]||''),habbo:String(r[1]||''),categoria:'',rango:'',estado:String(r[6]||'PENDIENTE'),autorizado:false});
+ });
+ return {ok:true,total:items.length,agentes:items};
+}

@@ -3,6 +3,14 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
 const source=readFileSync(new URL('./integraciones/apps-script/registro-discord.gs',import.meta.url),'utf8');
+test('Direct OAuth preserves a validated miniapp and rejects unknown destinations',()=>{
+ let claim;
+ const context=vm.createContext({deaFounderApp_:x=>x==='founder',deaCargoApp_:x=>x==='m-managers',deaBeginLogin:x=>{claim=x;return 'https://discord.com/oauth2/authorize';},deaRebindEscape_:x=>x,HtmlService:{createHtmlOutput:x=>x}});
+ vm.runInContext(readFileSync(new URL('./integraciones/apps-script/entrada-discord.gs',import.meta.url),'utf8'),context);
+ context.deaDirectLogin_('m-managers');assert.equal(claim.app,'m-managers');assert.equal(claim.remember,true);
+ context.deaDirectLogin_('founder');assert.equal(claim.app,'founder');
+ assert.throws(()=>context.deaDirectLogin_('untrusted'),/Miniapp no disponible/);
+});
 test('OAuth registry is idempotent and never grants a role',()=>{
  const rows=[['discord_id','discord_usuario','fecha_alta_utc','origen']],audits=[];
  const sheet={getRange:()=>({getDisplayValues:()=>[rows[0]]}),getDataRange:()=>({getDisplayValues:()=>rows}),appendRow:r=>rows.push(r)};

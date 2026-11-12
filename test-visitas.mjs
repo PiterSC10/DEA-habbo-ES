@@ -4,37 +4,17 @@ import {createHandler} from './api/visitas.js';
 import {readFile} from 'node:fs/promises';
 import {runInNewContext} from 'node:vm';
 import {webcrypto} from 'node:crypto';
-const original={version:3,total:12,days:{'2026-10-23':12},sessions:{old:1}};
-function fixture({baseline=original,legacy=[],records=[]}={}){
- let now=Date.parse('2026-10-23T19:00:00Z');const files=new Map(records.map(path=>[path,'{}'])),writes=[];
- const storage={async get(path){assert.equal(path,'dea-visitas/v3/contador.json');return baseline?{stream:new Response(JSON.stringify(baseline)).body}:null},async list({prefix,cursor,limit}){const all=[...legacy,...[...files.keys()].map(pathname=>({pathname}))].filter(b=>b.pathname.startsWith(prefix));const start=Number(cursor)||0;return {blobs:all.slice(start,start+limit),hasMore:start+limit<all.length,cursor:String(start+limit)}},async put(path,body,options){assert.equal(options.allowOverwrite,false);assert.equal(options.addRandomSuffix,false);assert.equal(options.access,'private');assert.ok(path.startsWith('dea-visitas/v4/'));if(files.has(path))throw Error('Blob already exists');files.set(path,body);writes.push(path)}};
- function handler(){return createHandler({storage,configured:()=>true,clock:()=>now})}
- async function call(h,token,overrides={}){let status,body;const headers={};await h({method:token?'POST':'GET',body:{session:token},headers:{},...overrides},{status(s){status=s},setHeader(k,v){headers[k]=v},end(v){body=v?JSON.parse(v):null}});return {status,body,headers}}
- return {handler,call,files,writes,set now(v){now=v}};
-}
-test('Cada carga nueva suma y conserva el total anterior sin sobrescribirlo',async()=>{
- const snapshot=JSON.stringify(original),f=fixture(),h=f.handler();assert.equal((await f.call(h)).body.total,12);
- assert.equal((await f.call(h,'a'.repeat(32))).body.total,13);assert.equal((await f.call(h,'b'.repeat(32))).body.total,14);assert.equal((await f.call(f.handler())).body.total,14);assert.equal(JSON.stringify(original),snapshot);assert.equal(f.writes.length,2);assert.ok(!f.writes.join('').includes('a'.repeat(32)));
-});
-test('Una petición duplicada no duplica el mismo registro',async()=>{
- const f=fixture(),id='a'.repeat(32);assert.equal((await f.call(f.handler(),id)).body.registrada,true);const again=await f.call(f.handler(),id);assert.equal(again.status,200);assert.equal(again.body.total,13);assert.equal(again.body.registrada,false);assert.equal(f.writes.length,1);
-});
-test('Entradas simultáneas se añaden sin competir por un archivo compartido',async()=>{
- const f=fixture();const replies=await Promise.all(['a','b','c','a','d'].map(x=>f.call(f.handler(),x.repeat(32))));assert.ok(replies.every(x=>x.status===200));assert.equal(f.files.size,4);assert.equal((await f.call(f.handler())).body.total,16);
-});
-test('Hoy cambia a medianoche de Madrid y el total se conserva',async()=>{
- const f=fixture();await f.call(f.handler(),'a'.repeat(32));f.now=Date.parse('2026-10-23T22:01:00Z');const r=await f.call(f.handler(),'b'.repeat(32));assert.equal(r.body.fecha,'2026-10-24');assert.equal(r.body.hoy,1);assert.equal(r.body.total,14);
-});
-test('Paginación completa y recuperación del historial v1/v2 cuando no existe v3',async()=>{
- const records=Array.from({length:1005},(_,i)=>'dea-visitas/v4/2026-10-23/'+i+'.json');const f=fixture({baseline:null,records,legacy:[{pathname:'dea-visitas/v1/2026-10-22/old.json'},{pathname:'dea-visitas/v2/2026-10-23/other.json'}]});const r=await f.call(f.handler());assert.equal(r.body.total,1007);assert.equal(r.body.hoy,1006);assert.equal(f.writes.length,0);
-});
-test('La API valida método, ID y origen; un fallo no inventa cifras',async()=>{
- const f=fixture(),h=f.handler();assert.equal((await f.call(h,'invalid')).status,400);assert.equal((await f.call(h,'a'.repeat(32),{headers:{origin:'https://other.example',host:'dea-habbo-es.vercel.app'}})).status,403);assert.equal((await f.call(h,null,{method:'PUT'})).status,405);
-});
+async function call(h,method='GET',body={},query={},headers={}){let status,value;const responseHeaders={};await h({method,body,query,headers},{status(s){status=s},setHeader(k,v){responseHeaders[k]=v},end(v){value=v?JSON.parse(v):null}});return {status,body:value,headers:responseHeaders};}
+const aggregate={total:685,hoy:0,fecha:'2026-11-12',historicoCompleto:false};
+test('Sheets proxy preserves recovered totals and explicit incomplete status',async()=>{let target;const h=createHandler({fetcher:async u=>{target=u;return {ok:true,json:async()=>({...aggregate,secret:'never expose'})}}});const r=await call(h);assert.equal(r.status,200);assert.equal(r.body.total,685);assert.equal(r.body.historicoCompleto,false);assert.equal(r.body.secret,undefined);assert.equal(target.searchParams.get('public'),'visitas');assert.equal(target.searchParams.has('session'),false);});
+test('POST forwards only the validated visit ID and requires backend acknowledgement',async()=>{const h=createHandler({fetcher:async u=>{assert.equal(u.searchParams.get('session'),'a'.repeat(32));return {ok:true,json:async()=>({...aggregate,total:686,hoy:1,registrada:false})}}});const r=await call(h,'POST',{session:'a'.repeat(32),total:999999});assert.equal(r.body.total,686);assert.equal(r.body.registrada,false);});
+test('Stats preserve daily recovered history',async()=>{const h=createHandler({fetcher:async u=>{assert.equal(u.searchParams.get('stats'),'1');return {ok:true,json:async()=>({...aggregate,historial:[{fecha:'2026-10-23',visitas:25}],desde:'2026-10-23',historialCompleto:false})}}});const r=await call(h,'GET',{}, {stats:'1'});assert.equal(r.body.historial[0].visitas,25);assert.equal(r.body.historialCompleto,false);});
+test('Invalid methods, origins and identifiers never contact backend',async()=>{const h=createHandler({fetcher:async()=>{throw Error('must not call')}});assert.equal((await call(h,'POST',{session:'bad'})).status,400);assert.equal((await call(h,'PUT')).status,405);assert.equal((await call(h,'GET',{}, {},{origin:'https://evil.example'})).status,403);assert.equal((await call(h,'OPTIONS',{}, {},{origin:'https://pitersc10.github.io'})).status,204);});
+test('Backend errors and missing figures never invent a total',async()=>{for(const value of [{error:'unavailable'}, {...aggregate,total:-1}, {...aggregate,historicoCompleto:undefined}]){const h=createHandler({fetcher:async()=>({ok:true,json:async()=>value})});const r=await call(h);assert.equal(r.status,503);assert.equal(r.body.total,undefined);}});
 const src=await readFile(new URL('./visitas.js',import.meta.url),'utf8');
-function client({fail=false}={}){
+function client({fail=false,partial=false}={}){
  const requests=[],timers=new Map(),total={textContent:''},label={textContent:''};let seq=0;
- const context={Intl,Uint8Array,crypto:webcrypto,Number,JSON,AbortController,setTimeout(fn,ms){const id=++seq;timers.set(id,{fn,ms});return id},clearTimeout(id){timers.delete(id)},document:{getElementById:()=>null,querySelectorAll:()=>[{querySelector:s=>s==='.dea-stats-inline'?{}:s.includes('strong')?total:label}]},fetch:async(url,opts)=>{requests.push(opts);if(fail)throw Error('network');return {ok:true,json:async()=>({total:13,hoy:13})}}};runInNewContext(src,context);return {requests,total,label,timers,flush:()=>new Promise(r=>setImmediate(r))};
+ const context={Intl,Uint8Array,crypto:webcrypto,Number,JSON,AbortController,setTimeout(fn,ms){const id=++seq;timers.set(id,{fn,ms});return id},clearTimeout(id){timers.delete(id)},document:{getElementById:()=>null,querySelectorAll:()=>[{querySelector:s=>s==='.dea-stats-inline'?{}:s.includes('strong')?total:label}]},fetch:async(url,opts)=>{requests.push(opts);if(fail)throw Error('network');return {ok:true,json:async()=>({total:13,hoy:13,...(partial?{historicoCompleto:false}:{})})}}};runInNewContext(src,context);return {requests,total,label,timers,flush:()=>new Promise(r=>setImmediate(r))};
 }
 test('Cliente clásico: entrar y recargar generan IDs nuevos y una sola petición',async()=>{
  const a=client(),b=client();assert.equal(a.label.textContent,'Consultando visitas reales…');await a.flush();await b.flush();assert.equal(a.requests.length,1);assert.equal(b.requests.length,1);assert.notEqual(a.requests[0].body,b.requests[0].body);assert.equal(a.total.textContent,'13');assert.equal(a.timers.size,0);
@@ -44,10 +24,17 @@ test('Sin reintentos automáticos, botones ni almacenamiento de sesiones',async(
  const app=await readFile(new URL('./app.js',import.meta.url),'utf8');assert.match(app,/CONTROL DE VISITAS DEA/);assert.doesNotMatch(app,/data-visitas-retry/);
 });
 
-test('GitHub Pages usa la API oficial: CORS permite lectura, alta y preflight sin añadir visitas',async()=>{
- const f=fixture(),h=f.handler(),headers={origin:'https://pitersc10.github.io',host:'dea-habbo-es.vercel.app'};
- const pre=await f.call(h,null,{method:'OPTIONS',headers});assert.equal(pre.status,204);assert.equal(pre.headers['Access-Control-Allow-Origin'],'*');assert.match(pre.headers['Access-Control-Allow-Headers'],/Content-Type/);assert.equal(f.writes.length,0);
- const post=await f.call(h,'a'.repeat(32),{headers});assert.equal(post.status,200);assert.equal(post.body.total,13);assert.equal(post.headers['Access-Control-Allow-Origin'],'*');assert.equal(f.writes.length,1);
- assert.equal((await f.call(h,'b'.repeat(32),{headers:{...headers,origin:'https://evil.example'}})).status,403);
- const source=await readFile(new URL('./visitas.js',import.meta.url),'utf8');assert.match(source,/fetch\('https:\/\/dea-habbo-es\.vercel\.app\/api\/visitas'/);
-});
+
+const gs=await readFile(new URL('./integraciones/apps-script/contador-dea.gs',import.meta.url),'utf8');
+function gasFixture(){
+ const tabs=new Map();
+ function sheet(rows){return {getDataRange:()=>({getValues:()=>rows.map(r=>[...r]),getDisplayValues:()=>rows.map(r=>r.map(String))}),getRange:()=>({getDisplayValues:()=>[[...rows[0]]]}),appendRow(r){rows.push(r)},setFrozenRows(){}};}
+ tabs.set('VISITAS_WEB_RECUPERACION',sheet([['date','count'],['2026-10-23',685],['TOTAL_V4',685]]));
+ const book={getSheetByName:n=>tabs.get(n),insertSheet:n=>{const s=sheet([]);tabs.set(n,s);return s}};
+ const context={Date:class extends Date{constructor(...args){super(...(args.length?args:['2026-11-12T17:00:00Z']))}},Utilities:{formatDate:d=>d.toISOString().slice(0,10),DigestAlgorithm:{SHA_256:'sha256'},computeDigest:()=>Array(32).fill(42)},deaBook_:()=>book,deaTab_:n=>tabs.get(n),SpreadsheetApp:{flush(){}},LockService:{getScriptLock:()=>({tryLock:()=>true,releaseLock(){}})},ContentService:{MimeType:{JSON:'json'},createTextOutput:s=>({setMimeType:()=>JSON.parse(s)})}};
+ runInNewContext(gs,context);return {context,tabs};
+}
+test('Apps Script retains recovered days, counts a visit once and preserves data on duplicate',()=>{const {context}=gasFixture();const first=context.deaVisitsPublic_({session:'a'.repeat(32)});const repeat=context.deaVisitsPublic_({session:'a'.repeat(32)});assert.equal(first.total,686);assert.equal(first.hoy,1);assert.equal(first.registrada,true);assert.equal(repeat.total,686);assert.equal(repeat.registrada,false);assert.equal(first.historicoCompleto,false);const read=context.deaVisitsPublic_({stats:'1'});assert.equal(read.total,686);assert.equal(read.historial[0].visitas,685);});
+test('Apps Script can add the recovered v3 baseline later without resetting new visits',()=>{const {context,tabs}=gasFixture();context.deaVisitsPublic_({session:'a'.repeat(32)});tabs.get('VISITAS_WEB_BASELINE').appendRow(['total_v3',100]);tabs.get('VISITAS_WEB_BASELINE').appendRow(['dia:2026-10-23',100]);tabs.get('VISITAS_WEB_BASELINE').appendRow(['completo',true]);const read=context.deaVisitsPublic_({stats:'1'});assert.equal(read.total,786);assert.equal(read.hoy,1);assert.equal(read.historicoCompleto,true);assert.equal(read.historial[0].visitas,785);});
+
+test('El mínimo recuperado nunca se presenta como total completo',async()=>{const c=client({partial:true});await c.flush();assert.equal(c.total.textContent,'13+');assert.match(c.label.textContent,/HISTÓRICO EN RECUPERACIÓN/);});

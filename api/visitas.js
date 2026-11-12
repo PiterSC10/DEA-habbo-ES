@@ -1,46 +1,28 @@
-import {get, list, put} from '@vercel/blob';
-import {createHash} from 'node:crypto';
-
-const PREFIX='dea-visitas/v4/',BASE='dea-visitas/v3/contador.json';
-const dayOf=now=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(now));
-const exists=e=>e?.status===409||e?.statusCode===409||/already exists/i.test(e?.message||'');
-
-// Immutable visit files: no shared-file overwrite, ETag or update contention.
-// The previous aggregate is read only and remains the historical baseline.
-export function createHandler({storage={get,list,put},clock=Date.now,configured=()=>Boolean(process.env.BLOB_READ_WRITE_TOKEN||process.env.BLOB_STORE_ID)}={}){
- let baselinePromise,cached;
- async function scan(prefix){const blobs=[];let cursor;do{const page=await storage.list({prefix,limit:1000,...(cursor?{cursor}:{})});blobs.push(...page.blobs);cursor=page.hasMore?page.cursor:undefined}while(cursor);return blobs}
- async function baseline(){
-  baselinePromise ||= (async()=>{
-   const file=await storage.get(BASE,{access:'private',useCache:false});
-   if(file){const state=await new Response(file.stream).json();if(state.version!==3||!Number.isSafeInteger(state.total)||state.total<0||!state.days)throw Error('Invalid historical count');return {total:state.total,days:state.days}}
-   const state={total:0,days:{}};
-   for(const prefix of ['dea-visitas/v1/','dea-visitas/v2/'])for(const blob of await scan(prefix)){state.total++;const date=blob.pathname.match(/\/(\d{4}-\d{2}-\d{2})\//)?.[1];if(date)state.days[date]=(state.days[date]||0)+1}
-   return state;
-  })().catch(e=>{baselinePromise=null;throw e});return baselinePromise;
- }
- async function count(withHistory=false){const previous=await baseline(),today=dayOf(clock()),files=await scan(PREFIX);const data={total:previous.total+files.length,hoy:(previous.days[today]||0)+files.filter(b=>b.pathname.startsWith(PREFIX+today+'/')).length,fecha:today,zona:'Europe/Madrid',criterio:'Cada entrada o recarga de la página cuenta una visita'};if(withHistory){const days={...previous.days};for(const b of files){const date=b.pathname.match(/^dea-visitas\/v4\/(\d{4}-\d{2}-\d{2})\//)?.[1];if(date)days[date]=(days[date]||0)+1}const first=Object.keys(days).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort()[0]||today;const start=new Date(first+'T12:00:00Z').getTime(),end=new Date(today+'T12:00:00Z').getTime();const dates=Array.from({length:Math.min(7300,Math.floor((end-start)/86400000)+1)},(_,i)=>dayOf(start+i*86400000));data.desde=first;data.historial=dates.map(fecha=>({fecha,visitas:days[fecha]||0}));data.historialCompleto=first===today||dates.length<7300;}cached={data:{total:data.total,hoy:data.hoy,fecha:data.fecha,zona:data.zona,criterio:data.criterio},at:clock()};return data}
+// Public aggregate counter. All durable data lives in the existing DEA Sheets backend.
+const BACKEND='https://script.google.com/macros/s/AKfycbyhGqAW8AiwHt11JBT3jmf2In5do2MRpO-H_urxftlewpJgvmWdQV3mrbQQdtOnYndNEg/exec';
+const validCount=n=>Number.isSafeInteger(n)&&n>=0;
+export function createHandler({fetcher=fetch,endpoint=BACKEND}={}){
  return async function handler(req,res){
-  function send(status,data){res.status(status);res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');if(status===200&&req.method==='GET')res.setHeader('Vercel-CDN-Cache-Control','public, s-maxage=60');res.end(JSON.stringify(data))}
-    const origin=req.headers?.origin,allowed=!origin||origin==='https://dea-habbo-es.vercel.app'||origin==='https://pitersc10.github.io'||origin==='https://'+req.headers?.host;
-  if(!allowed)return send(403,{error:'Origen no permitido'});
-  // Public totals only; no credentials, user records or private panel data.
-  res.setHeader('Access-Control-Allow-Origin','*');
-  res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers','Content-Type');
-  res.setHeader('Access-Control-Max-Age','86400');
-  if(req.method==='OPTIONS'){res.status(204);return res.end()}
-  if(!['GET','POST'].includes(req.method)){res.setHeader('Allow','GET, POST, OPTIONS');return send(405,{error:'Método no permitido'})}
-  if(!configured())return send(503,{error:'Contador no configurado'});
+  const send=(status,data)=>{res.status(status);res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');if(status===200&&req.method==='GET')res.setHeader('Vercel-CDN-Cache-Control','public, s-maxage=60');res.end(JSON.stringify(data));};
+  const origin=req.headers?.origin;
+  if(origin&&!['https://dea-habbo-es.vercel.app','https://pitersc10.github.io','https://'+req.headers?.host].includes(origin))return send(403,{error:'Origen no permitido'});
+  res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS');res.setHeader('Access-Control-Allow-Headers','Content-Type');res.setHeader('Access-Control-Max-Age','86400');
+  if(req.method==='OPTIONS'){res.status(204);return res.end();}
+  if(!['GET','POST'].includes(req.method)){res.setHeader('Allow','GET, POST, OPTIONS');return send(405,{error:'Método no permitido'});}
   const token=req.body?.session;
   if(req.method==='POST'&&(typeof token!=='string'||!/^[a-f0-9]{32}$/.test(token)))return send(400,{error:'Identificador inválido'});
+  const url=new URL(endpoint);url.searchParams.set('public','visitas');
+  if(req.method==='POST')url.searchParams.set('session',token);
+  if(req.method==='GET'&&req.query?.stats==='1')url.searchParams.set('stats','1');
   try{
-   if(req.method==='GET')return send(200,req.query?.stats==='1'?await count(true):cached&&clock()-cached.at<60000&&cached.data.fecha===dayOf(clock())?cached.data:await count());
-   await baseline(); // Never add a visit if its historical baseline cannot be read.
-   const id=createHash('sha256').update(token).digest('hex'),path=PREFIX+dayOf(clock())+'/'+id+'.json';let registered=true;
-   try{await storage.put(path,'{}',{access:'private',addRandomSuffix:false,allowOverwrite:false,contentType:'application/json'})}catch(e){if(!exists(e))throw e;registered=false}
-   return send(200,{...await count(),registrada:registered});
-  }catch(e){console.error('DEA visits:',e?.constructor?.name||'StorageError');return send(503,{error:'No se pudieron consultar las visitas'})}
+   const response=await fetcher(url,{redirect:'follow',signal:AbortSignal.timeout(25000)});if(!response.ok)throw Error('Backend unavailable');
+   const data=await response.json();
+   if(data.error||!validCount(data.total)||!validCount(data.hoy)||data.hoy>data.total||!/^\d{4}-\d{2}-\d{2}$/.test(data.fecha)||typeof data.historicoCompleto!=='boolean')throw Error('Invalid aggregate');
+   const out={total:data.total,hoy:data.hoy,fecha:data.fecha,zona:'Europe/Madrid',historicoCompleto:data.historicoCompleto,criterio:'Cada entrada o recarga de la página cuenta una visita'};
+   if(req.method==='POST'){if(typeof data.registrada!=='boolean')throw Error('Missing write confirmation');out.registrada=data.registrada;}
+   if(url.searchParams.has('stats')){if(!Array.isArray(data.historial)||data.historial.length>7300||!data.historial.every(r=>/^\d{4}-\d{2}-\d{2}$/.test(r.fecha)&&validCount(r.visitas)))throw Error('Invalid history');out.historial=data.historial.map(r=>({fecha:r.fecha,visitas:r.visitas}));out.desde=data.desde;out.historialCompleto=data.historialCompleto===true;}
+   return send(200,out);
+  }catch{return send(503,{error:'No se pudieron consultar las visitas'});}
  };
 }
 export default createHandler();

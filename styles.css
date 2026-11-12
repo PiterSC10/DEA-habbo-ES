@@ -808,5 +808,7 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 @media(max-width:440px){.dea-public-cafe-feature .dea-cafe-banner{padding-right:13px!important}.dea-public-cafe-feature .dea-cafe-banner>img{width:90px;height:110px}.dea-public-cafe-feature .dea-cafe-banner>span{min-width:calc(100% - 116px)}.dea-cafe-public-tab{flex:1 1 100%;padding:8px 10px}}
 
 /* Portada pública temporal: una sola entrada, manteniendo el águila original. */
-.dea-home-entry{display:flex;justify-content:center;margin:32px auto;max-width:440px}
-.dea-home-enter{width:100%;justify-content:center;padding:20px 30px;font-size:18px;border-radius:14px;gap:14px}
+.dea-home-single{grid-template-columns:minmax(0,1fr);width:100%;max-width:480px;margin:30px auto}
+.dea-home-single .choice.public{--choice-accent:#65caff;--choice-aura:#218ac448;--choice-shadow:#56beff;min-height:245px;text-align:left}
+.dea-home-single .choice.public strong{font-size:22px}
+.dea-home-single .dea-choice-cta{width:100%}

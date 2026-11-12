@@ -7,13 +7,14 @@ const catalogs=await readFile(new URL('./catalogo-publico.js',import.meta.url),'
 const experience=await readFile(new URL('./dea-experience.js',import.meta.url),'utf8');
 const css=await readFile(new URL('./styles.css',import.meta.url),'utf8');
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');
-function page(route,unlocked=true,joinUnlocked=true){
+function page(route,unlocked=true,joinUnlocked=true,accessEnabled=true){
  const root={innerHTML:'',addEventListener(){},querySelector(){return null}};
  const location={hash:'#/inicio'};
  const document={addEventListener(){},getElementById(){return root},title:''};
  const window={addEventListener(){}};
  const sessionStorage={getItem(key){if(key==='dea_join_unlocked_v1')return joinUnlocked?'yes':null;return unlocked?'yes':null},setItem(){},removeItem(){}};
- const runtime=unlocked?src:src.replace('const PUBLIC_SITE_LIVE=true','const PUBLIC_SITE_LIVE=false');
+ const configured=accessEnabled?src.replace('const DEA_ENTRY_ACCESS_ENABLED=false','const DEA_ENTRY_ACCESS_ENABLED=true'):src;
+ const runtime=unlocked?configured:configured.replace('const PUBLIC_SITE_LIVE=true','const PUBLIC_SITE_LIVE=false');
  const app=runInNewContext(catalogs+'\n'+experience+'\n'+runtime+'\n({render})',{document,location,window,sessionStorage});
  location.hash='#/'+route;app.render();return root.innerHTML;
 }
@@ -609,4 +610,15 @@ test('Altas confirmadas aparecen en ambos árboles sin datos privados',async()=>
   for(const view of [publicPage,staticPage]){assert.ok(view.includes(nick),nick);assert.ok(view.includes(rank),rank);assert.equal((view.match(new RegExp('<strong>'+nick.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'</strong>','g'))||[]).length,1,nick+' duplicado');}
  }
  for(const view of [publicPage,staticPage])assert.doesNotMatch(view,/discord_id|aprobado_por_discord_id|\b\d{17,20}\b/);
+});
+
+test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
+ const home=page('inicio',true,true,false);
+ assert.match(home,/aguila-dea-original.jpg/);assert.match(home,/Entrar en la web/);
+ assert.doesNotMatch(home,/href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
+ assert.doesNotMatch(home,/choice join|choice vip|WEB PÚBLICA/);
+ for(const route of ['vip','unete','identificacion/vip','identificacion/alta','ficha']){
+  const html=page(route,true,true,false);assert.match(html,/app-area-publico/);
+  assert.doesNotMatch(html,/discord-login-button|dea-public-entry-nav|href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
+ }
 });

@@ -575,7 +575,7 @@ test('Habboween: Founders públicos con adornos limitados; original y VIP sin es
 });
 test('Cargos reales y firmas individuales en el organigrama de DEA',()=>{
  const f=page('publico/founders');
- for(const [nick,cargo,firma] of [['Bibhi','Mánager de Enseñanza','BIH'],['MAYERGRHG','Mánager de PBL','MAY'],['aaitaanaa','Mánager de RRHH','AVC'],['Fr4nn_23','Mánager de MKT','LS2'],['kevinAndres','Secretario Base','KVN']]){
+ for(const [nick,cargo,firma] of [['Bibhi','Mánager en Formación','BIH'],['MAYERGRHG','Mánager de PBL','MAY'],['aaitaanaa','Mánager de RRHH','AVC'],['kevinAndres','Secretario Base','KVN']]){
   assert.ok(f.includes(nick),nick);
   assert.ok(f.includes(cargo),cargo);
   assert.ok(f.includes('['+firma+']'),firma);
@@ -590,8 +590,8 @@ test('Cargos reales y firmas individuales en el organigrama de DEA',()=>{
 test('Fichas compactas: cuatro mánagers, líder, secretario y siete directores',()=>{
  const f=page('publico/founders');
  const sections=[...f.matchAll(/<section class="dea-confirmed-staff">([\s\S]*?)<\/section>/g)].map(x=>x[1]);
- assert.equal(sections.length,4);
- for(const [i,count] of [[0,4],[1,1],[2,1],[3,7]])assert.equal((sections[i].match(/class="dea-classified-card/g)||[]).length,count);
+ assert.equal(sections.length,6);
+ for(const [i,count] of [[0,4],[1,2],[2,1],[3,7],[4,1],[5,1]])assert.equal((sections[i].match(/class="dea-classified-card/g)||[]).length,count);
  for(const section of sections.slice(0,3)){assert.match(section,/<img/);assert.doesNotMatch(section,/CARGO PUBLICADO/);}
  assert.match(sections[3],/Sin titular confirmado/);
  assert.match(css,/\.dea-staff-signature/);
@@ -600,3 +600,13 @@ test('Fichas compactas: cuatro mánagers, líder, secretario y siete directores'
 test('Nóminas públicas: dos jornadas, banderas y horarios por fecha, sin pagas extra',()=>{const view=page('publico/nominas');for(const value of ['22:00','miércoles','sábado','Argentina','Ciudad de México','Colombia','Ecuador','República Dominicana','Puerto Rico','Chile','Uruguay','Guardapaga','20 créditos','48 horas'])assert.ok(view.includes(value),value);assert.doesNotMatch(view,/pagas? extra/i);assert.ok(page('publico').includes('#/publico/nominas'));});
 
 test('Cuba utiliza UTC-4 en invierno según IANA 2026f',()=>{const value=runInNewContext(catalogs+";deaPayrollTimes('2026-11-04').find(x=>x.zone==='America/Havana').time",{});assert.equal(value,'17:00');});
+
+
+test('Altas confirmadas aparecen en ambos árboles sin datos privados',async()=>{
+ const publicPage=page('publico/founders');
+ const staticPage=await readFile(new URL('./founders/index.html',import.meta.url),'utf8');
+ for(const [nick,rank] of [['elartifex','Director de Cadetes'],['MARTINGARRIX41','Líder en Formación'],['Keviinn.','Coordinador I'],['Larisa.malarisa','Agente de Enlace I']]){
+  for(const view of [publicPage,staticPage]){assert.ok(view.includes(nick),nick);assert.ok(view.includes(rank),rank);assert.equal((view.match(new RegExp('<strong>'+nick.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'</strong>','g'))||[]).length,1,nick+' duplicado');}
+ }
+ for(const view of [publicPage,staticPage])assert.doesNotMatch(view,/discord_id|aprobado_por_discord_id|\b\d{17,20}\b/);
+});

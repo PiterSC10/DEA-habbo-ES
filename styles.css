@@ -812,3 +812,30 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-home-single .choice.public{--choice-accent:#65caff;--choice-aura:#218ac448;--choice-shadow:#56beff;min-height:245px;text-align:left}
 .dea-home-single .choice.public strong{font-size:22px}
 .dea-home-single .dea-choice-cta{width:100%}
+
+/* Inauguración DEA: decoración permanente de portada, sin interruptores. */
+.dea-opening-scene{position:relative;isolation:isolate;width:min(640px,100%);margin:0 auto 26px;padding:4px 55px 0}
+.dea-opening-scene .hero-eagle{width:min(440px,100%);margin:0 auto;z-index:1}
+.dea-opening-orbit{position:absolute;inset:8% 13% 4%;border:1px solid #e6c77b55;border-radius:50%;transform:rotate(-18deg);box-shadow:0 0 32px #55bfff20,inset 0 0 30px #e2c27b0c;pointer-events:none}
+.dea-opening-orbit:after{content:"";position:absolute;inset:9% -8%;border:1px solid #66c9ff26;border-radius:50%;transform:rotate(35deg)}
+.dea-opening-balloons{position:absolute;top:15%;width:95px;height:240px;z-index:2;pointer-events:none;animation:dea-balloon-float 5s ease-in-out infinite}
+.dea-opening-left{left:0;transform:rotate(-9deg)}.dea-opening-right{right:0;transform:rotate(9deg);animation-delay:-2.5s}
+.dea-opening-balloons i{position:absolute;display:block;width:46px;height:61px;border-radius:50% 50% 47% 47%;background:radial-gradient(circle at 30% 23%,#fff9 0,#fff2 12%,transparent 32%),linear-gradient(120deg,#fff0bc,#d5a94b 50%,#80601e);box-shadow:inset -6px -5px 12px #0005,0 0 20px #d9b55b20;border:1px solid #f7dea288}
+.dea-opening-balloons i:after{content:"";position:absolute;top:100%;left:50%;width:1px;height:115px;background:linear-gradient(#e0ca85aa,transparent);transform:rotate(-4deg);transform-origin:top}
+.dea-opening-balloons i:nth-child(1){left:22px;top:0;background:radial-gradient(circle at 30% 23%,#fff9,transparent 35%),linear-gradient(120deg,#65caff,#17689a 52%,#05233b);border-color:#70cbff8a}
+.dea-opening-balloons i:nth-child(2){left:0;top:53px}.dea-opening-balloons i:nth-child(3){left:46px;top:75px;width:39px;height:52px;background:radial-gradient(circle at 30% 23%,#fff9,transparent 35%),linear-gradient(120deg,#f0f5ff,#9dacc0 55%,#4b5d72);border-color:#dce6f299}
+.dea-opening-star{position:absolute;color:#f5d88e;text-shadow:0 0 14px #ffd56a80;animation:dea-opening-spark 3.6s ease-in-out infinite;pointer-events:none;z-index:2}.dea-star-one{top:7%;left:20%;font-size:28px}.dea-star-two{top:32%;right:17%;font-size:40px;animation-delay:-1.3s}.dea-star-three{bottom:9%;left:16%;font-size:19px;animation-delay:-2.2s}
+.dea-opening-announcement{position:relative;width:min(540px,100%);margin:-22px auto 26px;padding:19px 24px 21px;border:1px solid #dec17a9c;border-radius:16px;background:linear-gradient(115deg,#0a2036ed,#123b59ed,#0a2036ed);box-shadow:0 0 35px #67c7ff15,inset 0 1px #fff2;z-index:3}
+.dea-opening-eyebrow{display:block;font-size:9px;letter-spacing:3px;font-weight:800;color:#9ddaff}.dea-opening-announcement h2{font-size:clamp(23px,4vw,37px);line-height:1.2;letter-spacing:2px;margin:8px 0;color:#f4d694;text-shadow:0 0 22px #e9bd4935}.dea-opening-announcement p{margin:5px 0;color:#fff;font-weight:800;font-size:clamp(17px,3vw,22px)}.dea-opening-announcement small{color:#b7ccdf;font-size:12px}
+@keyframes dea-balloon-float{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@keyframes dea-opening-spark{0%,100%{opacity:.45;scale:.9}50%{opacity:1;scale:1.08}}
+/* El estado se enciende únicamente cuando responde el contador. */
+.dea-plate .dea-counter-copy{flex:1}.dea-plate .dea-counter-status{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:1.5px;color:#9cb9cc}
+.dea-counter-status:before{content:"";width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#d7b96f}
+.dea-counter-status[data-state="online"]{color:#9ae8c1}.dea-counter-status[data-state="online"]:before{background:#67edac;box-shadow:0 0 9px #67edac99;animation:dea-counter-pulse 2.6s ease-in-out infinite}
+.dea-counter-status[data-state="offline"]:before{background:#d29878}
+.dea-plate .dea-counter-copy>strong{font-size:clamp(27px,4vw,34px);color:#ffe2a0;text-shadow:0 0 18px #ecc66b38;line-height:1.1}
+.dea-counter-thanks{font-size:11px;font-style:normal;color:#b9cedf;line-height:1.5}
+@keyframes dea-counter-pulse{0%,100%{box-shadow:0 0 5px #67edac77;opacity:.75}50%{box-shadow:0 0 13px #67edacbb;opacity:1}}
+@media(max-width:540px){.dea-opening-scene{padding:8px 35px 0;margin-bottom:19px}.dea-opening-balloons{width:64px;height:160px;top:16%}.dea-opening-balloons i{width:32px;height:43px}.dea-opening-balloons i:nth-child(1){left:15px}.dea-opening-balloons i:nth-child(2){top:38px}.dea-opening-balloons i:nth-child(3){left:29px;top:58px;width:29px;height:38px}.dea-opening-balloons i:after{height:80px}.dea-star-two{font-size:29px}.dea-opening-announcement{margin-top:-14px;padding:15px 12px 17px}.dea-opening-eyebrow{font-size:8px;letter-spacing:2px}.dea-plate .dea-counter-status{font-size:8px;letter-spacing:1px}.dea-plate .dea-counter-copy{gap:5px}.dea-counter-thanks{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.dea-opening-balloons,.dea-opening-star,.dea-counter-status[data-state="online"]:before{animation:none}}

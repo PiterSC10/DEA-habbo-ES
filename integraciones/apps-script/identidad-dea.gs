@@ -158,3 +158,48 @@ function deaRegistroRangoSuperior(token,nickname,signature,photo,mime,rankKey,re
  if(rank.categoria==='R2')throw Error('Un Agente de Enlace nuevo debe usar el acceso Únete a DEA');
  return deaRegistroInicial(token,nickname,signature,photo,mime,rankKey,responsibility,false);
 }
+
+
+/**
+ * Reasignación controlada de Discord para un expediente de cargo existente.
+ * Solo Founder Master, con verificación presencial y motivo auditado.
+ * No es un endpoint público ni concede cargos nuevos.
+ */
+function deaMasterVincularDiscordExistente(token,habbo,discordDestino,verificado,motivo){
+ return deaWithLock_(()=>{
+  const {me,id,reason}=deaMasterActor_(token,discordDestino,motivo);
+  if(verificado!==true)throw Error('Verifica presencialmente la titularidad de Habbo y Discord');
+  const nick=deaNick_(habbo);
+  const key=nick.toLowerCase();
+  const agents=deaRows_(deaTab_('AGENTES')).filter(x=>x.row[9]==='Activo'&&String(x.row[4]).toLowerCase()===key);
+  if(agents.length!==1)throw Error('Debe existir exactamente un expediente activo para este Habbo');
+  const entry=agents[0],old=entry.row.slice(),oldId=String(old[2]||'');
+  if(old[5]!=='R10'||old[6]!=='Mánager de MKT')throw Error('El cargo no coincide con el esperado; revisión manual');
+  if(oldId===id)return {ok:true,message:'Este Discord ya está vinculado al expediente'};
+  if(deaRows_(deaTab_('AGENTES')).some(x=>x.row[9]==='Activo'&&x.row[2]===id))throw Error('Discord destino ya tiene otro expediente activo');
+  if(deaRows_(deaTab_('FOUNDERS')).some(x=>x.row[3]===id&&x.row[4]==='Activo'))throw Error('Discord destino pertenece a un Founder');
+  const grants=deaRows_(deaTab_('AUTORIZACIONES_CARGOS'));
+  if(grants.some(x=>x.row[0]===id&&x.row[3]==='ACTIVO'))throw Error('Discord destino ya tiene permisos activos');
+  const oldGrants=grants.filter(x=>x.row[0]===oldId&&x.row[3]==='ACTIVO');
+  if(oldGrants.length>1||oldGrants.some(x=>x.row[2]!=='manager'))throw Error('Autorizaciones anteriores inconsistentes');
+  const identities=deaIdentityRows_();
+  if(identities.some(x=>x[0]===id&&String(x[1]).toLowerCase()!==key))throw Error('Discord destino ya está registrado con otro Habbo');
+  if(identities.some(x=>String(x[1]).toLowerCase()===key&&x[0]!==oldId&&x[0]!==id))throw Error('Identidad Habbo vinculada a un tercero');
+  if(deaRows_(deaTab_('SOLICITUDES')).some(x=>x.row[2]===id&&x.row[6]==='Pendiente'))throw Error('Discord destino tiene una solicitud pendiente; resolver antes');
+  const now=deaNow_();
+  deaAudit_('VINCULACION_DISCORD_PREPARADA','AGENTES',old[0],{discordId:oldId,habbo:nick,rango:old[6]},{discordId:id,habbo:nick,rango:old[6]},me,reason);
+  const next=old.slice();next[2]=id;next[3]='Discord verificado';next[11]='Discord reasignado por Founder Master: '+reason;
+  deaSnapshot_('AGENTES',next);
+  oldGrants.forEach(x=>{const g=x.row.slice();g[3]='REVOCADO';g[7]='Discord reasignado: '+reason;deaSnapshot_('AUTORIZACIONES_CARGOS',g);});
+  deaTab_('AUTORIZACIONES_CARGOS').appendRow([id,nick,'manager','ACTIVO',me.id,now,'VINCULACION-'+old[0],reason]);
+  const existing=identities.find(x=>x[0]===oldId&&String(x[1]).toLowerCase()===key);
+  if(existing){
+   const sheet=deaIdentitySheet_();
+   sheet.appendRow([oldId,nick,existing[2],existing[3],existing[4],now,'RECHAZADA']);
+   sheet.appendRow([id,nick,existing[2],existing[3],existing[4],now,'REGISTRADA']);
+  }
+  deaAudit_('VINCULACION_DISCORD_CONFIRMADA','AGENTES',old[0],{discordId:oldId},{discordId:id,habbo:nick,cargo:'Mánager de MKT'},me,reason);
+  SpreadsheetApp.flush();
+  return {ok:true,message:'Discord reasignado al expediente existente. Accede de nuevo mediante OAuth Discord.'};
+ });
+}

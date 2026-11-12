@@ -1,11 +1,11 @@
 # Contador DEA · migración del 12/11/2026
 
-Backend publicado: Apps Script SISTEMA CENTRAL, versión 48; misma implementación.
+Backend publicado: Apps Script SISTEMA CENTRAL, versión 49; misma implementación.
 
 El módulo `contador-dea.gs` utiliza exclusivamente hojas del libro central existente:
 
 - `VISITAS_WEB_RECUPERACION`: 685 eventos v4 recuperados, por fecha, sin duplicar la fila TOTAL_V4.
-- `VISITAS_WEB_EVENTOS`: nuevas cargas, fecha Europe/Madrid e identificador SHA-256; bloqueo de script y deduplicación por fecha e ID.
+- `VISITAS_WEB_EVENTOS`: nuevas cargas, fecha Europe/Madrid e identificador SHA-256; bloqueo de script y deduplicación por fecha e ID. Acepta tanto fechas nativas de Sheets como texto ISO.
 - `VISITAS_WEB_BASELINE`: reservado al acumulado v3. No inicializar con cero ni marcar completo hasta recuperar el original.
 
 En Código.gs se añadió únicamente esta ruta a doGet, antes de noticias:

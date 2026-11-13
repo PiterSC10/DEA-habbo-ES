@@ -531,7 +531,7 @@ test('Menú móvil: fondo dentro del layout, abrir, cerrar, Escape y navegar',()
  const context={document:{getElementById(){return root}},location,window:{addEventListener(type,fn){windowHandlers[type]=fn},scrollTo(){}},innerWidth:390,sessionStorage:{getItem(){return 'yes'}}};
  runInNewContext(catalogs+'\n'+src,context);
  const action=name=>handlers.click.forEach(fn=>fn({stopPropagation(){},target:{closest(selector){return selector==='[data-route],[data-action]'?{dataset:{action:name}}:null}}}));
- assert.match(root.innerHTML,/^<div class="app-layout app-area-publico"><div class="mobile-overlay/);
+ assert.match(root.innerHTML,/^<div class="app-layout app-area-publico(?: dea-premium-public)?"><div class="mobile-overlay/);
  action('mobile-menu');
  assert.match(root.innerHTML,/class="mobile-overlay active"/);
  assert.match(root.innerHTML,/class="side expanded mobile-open"/);
@@ -614,11 +614,21 @@ test('Altas confirmadas aparecen en ambos árboles sin datos privados',async()=>
 
 test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
  const home=page('inicio',true,true,false);
- assert.match(home,/aguila-dea-original.jpg/);assert.match(home,/Entrar en la web/);
+ assert.match(home,/premium-reception.webp/);assert.match(home,/ENTRAR A DEA/);
  assert.doesNotMatch(home,/href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
  assert.doesNotMatch(home,/choice join|choice vip|WEB PÚBLICA/);
  for(const route of ['vip','unete','identificacion/vip','identificacion/alta','ficha']){
   const html=page(route,true,true,false);assert.match(html,/app-area-publico/);
   assert.doesNotMatch(html,/discord-login-button|dea-public-entry-nav|href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
  }
+});
+
+
+test('Skin premium conserva secciones y publica imágenes ligeras sin accesos privados',async()=>{
+ const home=page('inicio',true,true,false),dash=page('publico',true,true,false);
+ assert.match(home,/Tu próxima misión/);assert.match(home,/fetchpriority="high"/);
+ for(const path of ['agencia','founders','jerarquia','nominas','placas','normativa','sala','noticias','departamentos','como-trabajar','ingreso','compra-rangos','banderines'])assert.ok(dash.includes('#/publico/'+path),path);
+ for(const path of ['premium-reception','premium-control'])for(const suffix of ['','-mobile'])await access(new URL('./assets/dea/'+path+suffix+'.webp',import.meta.url));
+ assert.match(dash,/Miércoles y sábado/);assert.match(dash,/22:00 España peninsular/);
+ const skin=await readFile(new URL('./premium.css',import.meta.url),'utf8');assert.match(skin,/prefers-reduced-motion/);assert.match(skin,/max-width:680px/);assert.match(skin,/focus-visible/);
 });

@@ -366,7 +366,7 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
 test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
  const h=page('publico/placas');
  const cards=[...h.matchAll(/<article class="dea-plaque-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
- assert.equal(cards.length,7);
+ assert.equal(cards.length,8);
  for(const [title,benefit] of [['Hour Skip [HS]','Reduce un 50 % tus horas.'],['Bonus Day [BD]','Añade un día extra de bonificación cada semana (7 créditos extra).']]){
   const card=cards.find(c=>c.includes(`<h3>[DEA] ${title}`));
   assert.ok(card,title);

@@ -73,3 +73,5 @@
 }
 @media(max-width:360px){.dea-premium-public .topbar-title{font-size:10px}.dea-premium-public .topbar .dea-cafe-public-tab .cafe-sign-copy{display:none}.dea-premium-public .side-item{gap:4px;padding:7px!important}.dea-premium-public .side-item>span:not(.dea-launch-new){font-size:9px}.dea-premium-dashboard-heading h1{font-size:27px}}
 @media(prefers-reduced-motion:reduce){.dea-premium-public .side{transition:none!important}}
+
+.dea-plaque-regular{font-size:13px;font-weight:400;color:#a3b3c5;margin-left:9px;white-space:nowrap}.dea-plaque-emblem{object-fit:contain}

@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const canonical='https://agenciaoficialdea.es/musica/';
+const canonical='https://agenciaoficialdea.es/musica';
 const share=document.getElementById('music-share'),status=document.getElementById('music-share-status');
 share?.addEventListener?.('click',async()=>{
  if(navigator.share){try{await navigator.share({title:'DEA MUSIC · Agencia Oficial DEA',text:'Escucha la banda sonora de nuestra agencia.',url:canonical});return;}catch(e){if(e?.name==='AbortError')return;}}

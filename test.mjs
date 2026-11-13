@@ -117,11 +117,11 @@ test('Jerarquía R1-R10 visible y nombres oficiales',()=>{
  assert.match(h,/Jefe de Dirección/);
 });
 test('Imágenes originales y estilos en la distribución pública',async()=>{
- for(const f of ['styles.css','aguila-dea-original.jpg','logo-dea-es.png','og-image.jpg','icon-192.png','icon-512.png'])
+ for(const f of ['styles.css','aguila-dea-original.jpg','logo-dea-es.png','og-dea-oficial.jpg','icon-192.png','icon-512.png'])
   await access(new URL('./'+f,import.meta.url));
  assert.match(css,/\.shell-home/);
  assert.match(html,/\.\/styles\.css/);
- assert.match(html,/https:\/\/agenciaoficialdea\.es\/og-image\.jpg/);
+ assert.match(html,/https:\/\/agenciaoficialdea\.es\/og-dea-oficial\.jpg/);
 });
 
 test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
@@ -257,8 +257,8 @@ test('Los cuatro lanzadores Founder conservan créditos sin firma personal ni fr
 test('SEO del dominio propio: canónica .es y fichas sociales sin datos personales',async()=>{
  assert.match(html,/<link rel="canonical" href="https:\/\/agenciaoficialdea\.es\/"/);
  assert.match(html,/<meta property="og:url" content="https:\/\/agenciaoficialdea\.es\/"/);
- assert.match(html,/<meta property="og:image" content="https:\/\/agenciaoficialdea\.es\/og-image\.jpg"/);
- assert.match(html,/<meta name="twitter:image" content="https:\/\/agenciaoficialdea\.es\/og-image\.jpg"/);
+ assert.match(html,/<meta property="og:image" content="https:\/\/agenciaoficialdea\.es\/og-dea-oficial\.jpg"/);
+ assert.match(html,/<meta name="twitter:image" content="https:\/\/agenciaoficialdea\.es\/og-dea-oficial\.jpg"/);
  assert.match(html,/<meta property="og:locale" content="es_ES"/);
  assert.doesNotMatch(html,/pitersc10\.github\.io|YourDesignGPT|10PEDRO/);
  const match=html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);

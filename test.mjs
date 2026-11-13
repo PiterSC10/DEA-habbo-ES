@@ -592,7 +592,7 @@ test('Fichas compactas: cuatro mánagers, líder, secretario y siete directores'
  const f=page('publico/founders');
  const sections=[...f.matchAll(/<section class="dea-confirmed-staff">([\s\S]*?)<\/section>/g)].map(x=>x[1]);
  assert.equal(sections.length,6);
- for(const [i,count] of [[0,4],[1,2],[2,1],[3,7],[4,1],[5,1]])assert.equal((sections[i].match(/class="dea-classified-card/g)||[]).length,count);
+ for(const [i,count] of [[0,7],[1,2],[2,1],[3,7],[4,1],[5,1]])assert.equal((sections[i].match(/class="dea-classified-card/g)||[]).length,count);
  for(const section of sections.slice(0,3)){assert.match(section,/<img/);assert.doesNotMatch(section,/CARGO PUBLICADO/);}
  assert.match(sections[3],/Sin titular confirmado/);
  assert.match(css,/\.dea-staff-signature/);

@@ -29,3 +29,5 @@ for(const name of ['premium-headquarters.webp','premium-headquarters-mobile.webp
 // Individually optimized launch art: responsive images, no stretched atlas.
 for(const key of ['agencia','founders','jerarquia','nominas','placas','normativa'])for(const suffix of ['','-small'])await copyFile(join('assets','dea','launch-'+key+suffix+'.webp'),join('dist','assets','dea','launch-'+key+suffix+'.webp'));
 for(const size of ['960','1440','mobile'])for(const ext of ['webp','avif'])await copyFile(join('assets','dea','launch-hero-'+size+'.'+ext),join('dist','assets','dea','launch-hero-'+size+'.'+ext));
+
+await copyFile(join('assets','dea','inauguracion-flyer-original.webp'),join('dist','assets','dea','inauguracion-flyer-original.webp'));

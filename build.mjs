@@ -7,7 +7,7 @@ for(const name of await readdir('.'))if(allow.has(name))await copyFile(name,join
 console.log(`Preparados ${allow.size} archivos web públicos. Backend Apps Script, datos privados y secretos fuera de dist/.`);
 
 // Publicar guías HTML con URLs reales para Google; no empaquetar paneles ni backend privado.
-const seoDirs=['cafeteria','agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders'];
+const seoDirs=['musica','cafeteria','agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders'];
 for(const dir of seoDirs){
  await mkdir(join('dist',dir),{recursive:true});
  await copyFile(join(dir,'index.html'),join('dist',dir,'index.html'));
@@ -33,3 +33,6 @@ for(const size of ['960','1440','mobile'])for(const ext of ['webp','avif'])await
 await copyFile(join('assets','dea','inauguracion-flyer-original.webp'),join('dist','assets','dea','inauguracion-flyer-original.webp'));
 
 for(const suffix of ['','-small'])await copyFile(join('assets','dea','inauguracion-tarta'+suffix+'.webp'),join('dist','assets','dea','inauguracion-tarta'+suffix+'.webp'));
+
+for(const name of ['music.css','music.js'])await copyFile(join('musica',name),join('dist','musica',name));
+for(const name of ['music-studio.webp','music-studio-small.webp'])await copyFile(join('assets','dea',name),join('dist','assets','dea',name));

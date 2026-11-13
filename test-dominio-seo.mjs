@@ -6,14 +6,14 @@ const base='https://agenciaoficialdea.es';
 const read=p=>readFile(new URL(p,import.meta.url),'utf8');
 test('Todas las URL del sitemap tienen canónica, robots, imagen social y JSON-LD coherentes',async()=>{
  const xml=await read('sitemap.xml');const urls=[...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]);
- assert.equal(urls.length,8);assert.equal(new Set(urls).size,8);
+ assert.equal(urls.length,9);assert.equal(new Set(urls).size,9);
  for(const url of urls){
   assert.equal(new URL(url).origin,base);assert.ok(!url.includes('#'));assert.ok(!/founder-|webapp|api\//.test(url));
   const path=new URL(url).pathname;const html=await read(path==='/'?'index.html':path.slice(1)+'index.html');
   assert.ok(html.includes(`rel="canonical" href="${url}"`),url);
   assert.match(html,/<meta name="robots" content="index,follow/);
   assert.ok(html.includes(`property="og:url" content="${url}"`),url);
-  assert.ok(html.includes(`content="${base}/og-image.jpg"`));assert.match(html,/<title>[^<]+<\/title>/);assert.match(html,/<h1[\s>]/);
+  assert.ok(html.includes(`content="${base}/${path==='/musica/'?'assets/dea/music-studio.webp':'og-image.jpg'}"`));assert.match(html,/<title>[^<]+<\/title>/);assert.match(html,/<h1[\s>]/);
   const blocks=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];assert.ok(blocks.length);
   for(const block of blocks){const obj=JSON.parse(block[1]);assert.equal(obj['@context'],'https://schema.org');assert.ok(!block[1].includes('dea-habbo-es.vercel.app'));}
  }

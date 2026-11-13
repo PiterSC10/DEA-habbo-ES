@@ -15,10 +15,10 @@ async function shareLink(url,title,label){
  if(navigator.share){try{await navigator.share({title,text:'Escucha DEA Music · La banda sonora de Agencia Oficial DEA',url});if(feedback)feedback.textContent='¡Gracias por compartir DEA Music!';return;}catch(e){if(e?.name==='AbortError')return;}}
  await copyLink(url,label);
 }
-document.getElementById('share-playlist')?.addEventListener('click',()=>shareLink(playlistUrl,'Playlist oficial DEA','la playlist'));
-document.getElementById('share-page')?.addEventListener('click',()=>shareLink(pageUrl,'DEA Music · Agencia Oficial DEA','DEA Music'));
-document.getElementById('copy-playlist')?.addEventListener('click',()=>copyLink(playlistUrl,'la playlist'));
-document.getElementById('copy-page')?.addEventListener('click',()=>copyLink(pageUrl,'DEA Music'));
+document.getElementById('share-playlist')?.addEventListener?.('click',()=>shareLink(playlistUrl,'Playlist oficial DEA','la playlist'));
+document.getElementById('share-page')?.addEventListener?.('click',()=>shareLink(pageUrl,'DEA Music · Agencia Oficial DEA','DEA Music'));
+document.getElementById('copy-playlist')?.addEventListener?.('click',()=>copyLink(playlistUrl,'la playlist'));
+document.getElementById('copy-page')?.addEventListener?.('click',()=>copyLink(pageUrl,'DEA Music'));
 
 // Stop the third-party player before leaving, including back/forward cache navigation.
 const frame=document.querySelector('iframe'),source=frame?.getAttribute('src');

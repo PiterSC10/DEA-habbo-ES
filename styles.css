@@ -839,3 +839,17 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 @keyframes dea-counter-pulse{0%,100%{box-shadow:0 0 5px #67edac77;opacity:.75}50%{box-shadow:0 0 13px #67edacbb;opacity:1}}
 @media(max-width:540px){.dea-opening-scene{padding:8px 35px 0;margin-bottom:19px}.dea-opening-balloons{width:64px;height:160px;top:16%}.dea-opening-balloons i{width:32px;height:43px}.dea-opening-balloons i:nth-child(1){left:15px}.dea-opening-balloons i:nth-child(2){top:38px}.dea-opening-balloons i:nth-child(3){left:29px;top:58px;width:29px;height:38px}.dea-opening-balloons i:after{height:80px}.dea-star-two{font-size:29px}.dea-opening-announcement{margin-top:-14px;padding:15px 12px 17px}.dea-opening-eyebrow{font-size:8px;letter-spacing:2px}.dea-plate .dea-counter-status{font-size:8px;letter-spacing:1px}.dea-plate .dea-counter-copy{gap:5px}.dea-counter-thanks{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.dea-opening-balloons,.dea-opening-star,.dea-counter-status[data-state="online"]:before{animation:none}}
+
+/* DEA Music · accesos visuales oficiales */
+.dea-music-top-tab{display:flex;align-items:center;gap:12px;padding:8px 14px;border:1px solid #c9a65d;border-radius:19px;background:linear-gradient(125deg,#081a31,#102d4b);color:#fff;text-decoration:none;min-height:74px;box-shadow:0 0 20px #b48c3826}
+.dea-music-top-tab img{width:65px;height:54px;object-fit:cover;border-radius:9px}
+.dea-music-top-tab span{font-size:1.15rem;font-weight:900;letter-spacing:.05em}
+.dea-music-top-tab small{display:block;font-size:.6rem;letter-spacing:.13em;color:#e7c57d;margin-bottom:3px}
+.dea-music-top-tab:hover,.dea-music-feature a:hover{box-shadow:0 0 25px #d9b76a80;transform:translateY(-2px)}
+.dea-music-feature{display:grid;grid-template-columns:minmax(180px,40%) 1fr;align-items:center;gap:22px;margin:20px 0;padding:16px;background:linear-gradient(120deg,#071a32,#143455);border:1px solid #cda95e;border-radius:20px;color:#f7f5ef;overflow:hidden}
+.dea-music-feature>img{width:100%;height:220px;object-fit:cover;border-radius:13px}
+.dea-music-feature small{color:#e4bf75;font-weight:800;letter-spacing:.12em}
+.dea-music-feature h2{font-size:clamp(1.3rem,2.4vw,2rem);margin:10px 0}
+.dea-music-feature p{color:#d0deec;line-height:1.5}
+.dea-music-feature a{display:inline-block;margin-top:8px;padding:12px 17px;border:1px solid #cda95e;border-radius:12px;color:#f2d18a;text-decoration:none;font-weight:800}
+@media(max-width:700px){.dea-music-top-tab{min-height:60px;padding:7px;gap:6px}.dea-music-top-tab img{width:42px;height:42px}.dea-music-top-tab span{font-size:.8rem}.dea-music-top-tab small{font-size:.48rem}.dea-music-feature{grid-template-columns:1fr;padding:12px}.dea-music-feature>img{height:160px}}

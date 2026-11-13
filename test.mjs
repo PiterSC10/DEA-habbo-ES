@@ -531,7 +531,7 @@ test('Menú móvil: fondo dentro del layout, abrir, cerrar, Escape y navegar',()
  const context={document:{getElementById(){return root}},location,window:{addEventListener(type,fn){windowHandlers[type]=fn},scrollTo(){}},innerWidth:390,sessionStorage:{getItem(){return 'yes'}}};
  runInNewContext(catalogs+'\n'+src,context);
  const action=name=>handlers.click.forEach(fn=>fn({stopPropagation(){},target:{closest(selector){return selector==='[data-route],[data-action]'?{dataset:{action:name}}:null}}}));
- assert.match(root.innerHTML,/^<div class="app-layout app-area-publico(?: dea-premium-public)?"><div class="mobile-overlay/);
+ assert.match(root.innerHTML,/^<div class="app-layout app-area-publico(?: dea-premium-public)?(?: dea-launch-skin)?"><div class="mobile-overlay/);
  action('mobile-menu');
  assert.match(root.innerHTML,/class="mobile-overlay active"/);
  assert.match(root.innerHTML,/class="side expanded mobile-open"/);
@@ -614,7 +614,7 @@ test('Altas confirmadas aparecen en ambos árboles sin datos privados',async()=>
 
 test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
  const home=page('inicio',true,true,false);
- assert.match(home,/premium-headquarters.webp/);assert.match(home,/ENTRAR A DEA/);
+ assert.match(home,/launch-hero-1440.webp/);assert.match(home,/ENTRAR A DEA/);
  assert.doesNotMatch(home,/href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
  assert.doesNotMatch(home,/choice join|choice vip|WEB PÚBLICA/);
  for(const route of ['vip','unete','identificacion/vip','identificacion/alta','ficha','publico/ingreso']){

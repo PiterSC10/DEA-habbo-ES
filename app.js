@@ -28,6 +28,7 @@ const DEA_PUBLIC_STAFF=Object.freeze([
  {"cat":"R10","rank":"Miembro DEA · cargo por confirmar","name":"KietsyAndrea","habbo":"KietsyAndrea","signature":"KAM"},
  {"cat":"R10","rank":"Miembro DEA · cargo por confirmar","name":"10PEDRO","habbo":"10PEDRO","signature":"10P"},
  {"cat":"R10","rank":"Miembro DEA · cargo por confirmar","name":"XPE_34","habbo":"XPE_34","signature":"XP3"},
+ {"cat":"R5","rank":"Coordinador · LS2 · SB9","name":":SWAGBOY:","habbo":":SWAGBOY:"},
  {"cat":"R9","rank":"Líder en Formación","name":"MARTINGARRIX41","habbo":"MARTINGARRIX41","signature":"AAA"},
  {"cat":"R9","rank":"Líder en Formación","name":"Guauagatabig","habbo":"Guauagatabig","signature":"M26"},
  {"cat":"R8","rank":"Secretario Base","name":"kevinAndres","habbo":"kevinAndres","signature":"KVN"},

@@ -31,3 +31,5 @@ for(const key of ['agencia','founders','jerarquia','nominas','placas','normativa
 for(const size of ['960','1440','mobile'])for(const ext of ['webp','avif'])await copyFile(join('assets','dea','launch-hero-'+size+'.'+ext),join('dist','assets','dea','launch-hero-'+size+'.'+ext));
 
 await copyFile(join('assets','dea','inauguracion-flyer-original.webp'),join('dist','assets','dea','inauguracion-flyer-original.webp'));
+
+for(const suffix of ['','-small'])await copyFile(join('assets','dea','inauguracion-tarta'+suffix+'.webp'),join('dist','assets','dea','inauguracion-tarta'+suffix+'.webp'));

@@ -83,5 +83,35 @@
 <script defer src="./visitas.js?v=20261024-public-stats"></script>
 <script src="./dea-radio.js?v=20261024-public-open" defer></script>
 <script src="./dea-promo.js?v=20261029" defer></script>
+<style>
+#dea-party-overlay{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;background:rgba(1,9,25,.87);padding:16px;overflow:hidden;backdrop-filter:blur(8px)}
+#dea-party-overlay[hidden]{display:none}
+.dea-party-card{position:relative;width:min(94vw,520px);max-height:92dvh;display:flex;flex-direction:column;border:2px solid #d9ad58;border-radius:18px;background:#06172d;box-shadow:0 0 60px #bd8b3766;overflow:hidden;z-index:2}
+.dea-party-card img{width:100%;min-height:0;object-fit:contain}
+.dea-party-close{position:absolute;right:9px;top:9px;z-index:5;border:1px solid #d8b66e;background:#071b35;color:white;border-radius:50%;font-size:24px;width:42px;height:42px;cursor:pointer}
+.dea-party-action{border:0;background:linear-gradient(120deg,#d5a348,#fff0b1,#c38d33);color:#071323;font-weight:900;padding:13px;cursor:pointer}
+.dea-party-piece{position:absolute;top:-12vh;left:var(--x);width:var(--w);height:var(--h);background:var(--c);opacity:.95;transform:rotate(var(--r));animation:deaPartyFall var(--d) linear var(--delay) infinite;pointer-events:none}
+@keyframes deaPartyFall{to{transform:translate3d(var(--drift),115vh,0) rotate(850deg)}}
+.dea-party-balloon{position:absolute;bottom:-160px;left:var(--x);font-size:clamp(35px,6vw,75px);animation:deaBalloonRise var(--d) ease-in var(--delay) infinite;pointer-events:none}
+@keyframes deaBalloonRise{to{transform:translate3d(var(--drift),-130vh,0) rotate(12deg)}}
+@media(prefers-reduced-motion:reduce){.dea-party-piece,.dea-party-balloon{animation:none;display:none}}
+</style>
+<script>
+(function(){
+function launchDEA(){
+if(sessionStorage.getItem('dea-party-seen-20261113'))return;
+const overlay=document.createElement('div');overlay.id='dea-party-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Fiesta de inauguración DEA');
+overlay.innerHTML='<section class="dea-party-card"><button type="button" class="dea-party-close" aria-label="Cerrar invitación">×</button><img src="/assets/dea/inauguracion-flyer-original.webp" alt="Invitación a la fiesta de inauguración DEA, viernes 13 de noviembre a las 23:00 hora española"><button type="button" class="dea-party-action">¡ENTRAR A LA AGENCIA DEA!</button></section>';
+document.body.appendChild(overlay);
+const colors=['#e7ba53','#f6e9bd','#2b83e6','#ffffff','#7cb6ff'];
+for(let i=0;i<75;i++){const el=document.createElement('i');el.className='dea-party-piece';el.style.cssText='--x:'+Math.random()*100+'%;--w:'+(5+Math.random()*8)+'px;--h:'+(7+Math.random()*12)+'px;--c:'+colors[i%colors.length]+';--r:'+Math.random()*360+'deg;--d:'+(3+Math.random()*5)+'s;--delay:-'+Math.random()*8+'s;--drift:'+(Math.random()*200-100)+'px';overlay.appendChild(el)}
+for(let i=0;i<9;i++){const el=document.createElement('span');el.className='dea-party-balloon';el.textContent=['🎈','🎈','🎈'][i%3];el.style.cssText='--x:'+(i*11+Math.random()*8)+'%;--d:'+(7+Math.random()*5)+'s;--delay:-'+Math.random()*12+'s;--drift:'+(Math.random()*130-65)+'px';overlay.appendChild(el)}
+const close=()=>{sessionStorage.setItem('dea-party-seen-20261113','1');overlay.remove();document.removeEventListener('keydown',esc)};
+const esc=e=>{if(e.key==='Escape')close()};
+overlay.querySelectorAll('button').forEach(b=>b.addEventListener('click',close));document.addEventListener('keydown',esc);overlay.querySelector('.dea-party-close').focus();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',launchDEA);else launchDEA();
+})();
+</script>
 </body>
 </html>

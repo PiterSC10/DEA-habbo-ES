@@ -293,7 +293,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
 
 
 test('Metadatos principales SEO claros, marca y fallback HTML indexable',()=>{
- assert.match(html,/<title>Agencia Oficial DEA \| Habbo ES<\/title>/);
+ assert.match(html,/<title>Agencia Oficial DEA \| Disciplina · Honor · Lealtad<\/title>/);
  assert.match(html,/<meta property="og:site_name" content="Agencia Oficial DEA">/);
  assert.match(html,/favicon-48\.png/);
  assert.match(html,/"@type":"WebSite"/);

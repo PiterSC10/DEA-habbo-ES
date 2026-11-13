@@ -227,17 +227,17 @@ test('La contraseña no figura en claro en JavaScript y la puerta no suplanta Di
 test('Pie 2026 visible con Powered by enlazado y sin firma personal ni frase de Founders',()=>{
  for(const p of ['inicio','vip','identificacion/vip','identificacion/alta','identificacion/agente','unete','ficha','publico','publico/agencia','publico/jerarquia','publico/placas','publico/departamentos','publico/founders','publico/ingreso','publico/normativa']){
   const screen=page(p,true);
-  assert.match(screen,/© 2026 DEA HABBO ES/);
+  assert.match(screen,/© 2026 Agencia Oficial DEA/);
   assert.match(screen,/Powered by <a href="https:\/\/yourdesigngpt\.es\/"/);
   assert.doesNotMatch(screen,/YourDesignGPT<\/a>[^<]*<span[^>]*>·<\/span> 10PEDRO/);
-  assert.doesNotMatch(screen,/dea-credit-founders|DEA HABBO ES es un proyecto de sus cuatro Founders/);
+  assert.doesNotMatch(screen,/dea-credit-founders|Agencia Oficial DEA es un proyecto de sus cuatro Founders/);
   assert.match(screen,/No afiliada, patrocinada ni respaldada por Habbo ni Sulake/);
  }
 });
 test('En la pantalla de contraseña NO aparecen créditos, Founders ni pie editorial',()=>{
  for(const p of ['inicio','vip','identificacion/vip','identificacion/alta','publico/jerarquia']){
   const gate=page(p,false);
-  assert.match(gate,/DEA HABBO ES · Preinauguración/);
+  assert.match(gate,/Agencia Oficial DEA · Preinauguración/);
   assert.doesNotMatch(gate,/© 2026|YourDesignGPT|10PEDRO|KietsyAndrea|lesslie\.ar|XPE_34|No afiliada/);
  }
 });
@@ -246,7 +246,7 @@ test('Los cuatro lanzadores Founder conservan créditos sin firma personal ni fr
   const launcher=await readFile(new URL('./founder-'+slug+'.html',import.meta.url),'utf8');
   const footer=launcher.match(/<footer class="dea-founder-footer">([\s\S]*?)<\/footer>/)?.[1];
   assert.ok(footer,'Falta pie en '+slug);
-  assert.match(footer,/© 2026 DEA HABBO ES/);
+  assert.match(footer,/© 2026 Agencia Oficial DEA/);
   assert.match(footer,/href="https:\/\/yourdesigngpt\.es\/"/);
   assert.doesNotMatch(footer,/<a[^>]+>10PEDRO<\/a>/);
   assert.doesNotMatch(footer,/10PEDRO|KietsyAndrea|lesslie\.ar|XPE_34|dea-credit-founders/);
@@ -266,7 +266,7 @@ test('SEO de preinauguración: canónica Vercel y fichas sociales sin datos pers
  const ld=JSON.parse(match[1]);
  assert.equal(ld['@type'],'WebSite');
  assert.equal(ld.url,'https://dea-habbo-es.vercel.app/');
- assert.equal(ld.name,'AGENCIA D.E.A. ES');
+ assert.equal(ld.name,'Agencia Oficial DEA');
 });
 
 test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
@@ -293,8 +293,8 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
 
 
 test('Metadatos principales SEO claros, marca y fallback HTML indexable',()=>{
- assert.match(html,/<title>AGENCIA D\.E\.A\. ES \| Comunidad independiente<\/title>/);
- assert.match(html,/<meta property="og:site_name" content="AGENCIA D\.E\.A\. ES">/);
+ assert.match(html,/<title>Agencia Oficial DEA \| Comunidad independiente<\/title>/);
+ assert.match(html,/<meta property="og:site_name" content="Agencia Oficial DEA">/);
  assert.match(html,/favicon-48\.png/);
  assert.match(html,/"@type":"WebSite"/);
  assert.match(html,/dea-seo-fallback/);
@@ -309,7 +309,7 @@ test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portad
  for(const item of ['publico/agencia','publico/jerarquia','publico/ingreso','publico/normativa']){
   assert.ok(src.includes("'"+item+"'"),item);
  }
- assert.match(src,/document\.title='Preinauguración \| DEA HABBO ES'/);
+ assert.match(src,/document\.title='Preinauguración \| Agencia Oficial DEA'/);
  assert.match(page('inicio',false),/PREINAUGURACIÓN/);
  assert.match(page('inicio',true),/class="shell-home"/);
 });
@@ -443,7 +443,7 @@ test('Dos miniapps generales de Directores y Managers con límites acumulativos 
   assert.match(html,/La identidad y los límites se comprueban en Google Apps Script/);
   assert.match(html,/Acceso operativo mediante Discord/);
   assert.doesNotMatch(html,/name="discord_id"|role="founder"|data-form="ascenso"/);
-  assert.match(html,/© 2026 DEA HABBO ES/);
+  assert.match(html,/© 2026 Agencia Oficial DEA/);
   assert.match(html,/Habbo ni Sulake/);
   assert.match(html,/noindex,nofollow,noarchive,nosnippet/);
  }
@@ -495,7 +495,7 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
   assert.ok(page(route,true).includes('dea-credit-main'),route);
  }
  assert.doesNotMatch(page('inicio',false),/WEB CHECK SCAN/);
- assert.match(page('inicio',false),/DEA HABBO ES · Preinauguración/);
+ assert.match(page('inicio',false),/Agencia Oficial DEA · Preinauguración/);
 });
 
 test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
@@ -515,7 +515,7 @@ test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
   assert.ok(p.includes('<meta name="robots" content="index,follow'),slug);
   assert.ok(p.includes('<link rel="canonical" href="https://dea-habbo-es.vercel.app/'+slug+'/">'),slug);
   assert.ok(p.includes('<h1>'),slug);
-  assert.ok(p.includes('DEA HABBO ES'),slug);
+  assert.ok(p.includes('Agencia Oficial DEA'),slug);
   assert.ok(!p.includes('DISCORD_CLIENT_SECRET')&&!p.includes('google.script.run'),slug);
   assert.ok(build.includes("'"+slug+"'"),slug);
  }

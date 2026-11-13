@@ -33,7 +33,7 @@
    const arrow=document.createElement('span');arrow.className='founder-action-arrow';arrow.textContent='↗';
    a.append(i,content,arrow);grid.append(a);
  });
- el('founder-room').textContent='Sala oficial DEA HABBO ES · nombre por confirmar';
+ el('founder-room').textContent='Sala oficial Agencia Oficial DEA · nombre por confirmar';
  el('notice-title').textContent=title;
  const mobile=document.querySelector('meta[name=apple-mobile-web-app-title]');
  if(mobile)mobile.content='DEA '+founder;

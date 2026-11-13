@@ -617,7 +617,7 @@ test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
  assert.match(home,/premium-reception.webp/);assert.match(home,/ENTRAR A DEA/);
  assert.doesNotMatch(home,/href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
  assert.doesNotMatch(home,/choice join|choice vip|WEB PÚBLICA/);
- for(const route of ['vip','unete','identificacion/vip','identificacion/alta','ficha']){
+ for(const route of ['vip','unete','identificacion/vip','identificacion/alta','ficha','publico/ingreso']){
   const html=page(route,true,true,false);assert.match(html,/app-area-publico/);
   assert.doesNotMatch(html,/discord-login-button|dea-public-entry-nav|href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
  }
@@ -627,8 +627,10 @@ test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
 test('Skin premium conserva secciones y publica imágenes ligeras sin accesos privados',async()=>{
  const home=page('inicio',true,true,false),dash=page('publico',true,true,false);
  assert.match(home,/Tu próxima misión/);assert.match(home,/fetchpriority="high"/);
- for(const path of ['agencia','founders','jerarquia','nominas','placas','normativa','sala','noticias','departamentos','como-trabajar','ingreso','compra-rangos','banderines'])assert.ok(dash.includes('#/publico/'+path),path);
+ for(const path of ['agencia','founders','jerarquia','nominas','placas','normativa','sala','noticias','departamentos','como-trabajar','compra-rangos','banderines'])assert.ok(dash.includes('#/publico/'+path),path);
  for(const path of ['premium-reception','premium-control'])for(const suffix of ['','-mobile'])await access(new URL('./assets/dea/'+path+suffix+'.webp',import.meta.url));
  assert.match(dash,/Miércoles y sábado/);assert.match(dash,/22:00 España peninsular/);
  const skin=await readFile(new URL('./premium.css',import.meta.url),'utf8');assert.match(skin,/prefers-reduced-motion/);assert.match(skin,/max-width:680px/);assert.match(skin,/focus-visible/);
 });
+
+test('Modo público oculta también el acceso de ingreso en todos los apartados',()=>{for(const route of ['inicio','publico','publico/agencia','publico/founders','publico/jerarquia','publico/placas','publico/ingreso','vip','identificacion/alta']){const h=page(route,true,true,false);assert.doesNotMatch(h,/href="(?:\/)?#\/(?:publico\/ingreso|vip|unete|identificacion|ficha)/);assert.doesNotMatch(h,/ÚNETE A DEA|Únete a DEA|ACCESO VIP|discord-login-button/);}});

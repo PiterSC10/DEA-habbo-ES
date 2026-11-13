@@ -853,3 +853,16 @@ img.dea-vip-original{width:100px;height:100px;margin:auto}
 .dea-music-feature p{color:#d0deec;line-height:1.5}
 .dea-music-feature a{display:inline-block;margin-top:8px;padding:12px 17px;border:1px solid #cda95e;border-radius:12px;color:#f2d18a;text-decoration:none;font-weight:800}
 @media(max-width:700px){.dea-music-top-tab{min-height:60px;padding:7px;gap:6px}.dea-music-top-tab img{width:42px;height:42px}.dea-music-top-tab span{font-size:.8rem}.dea-music-top-tab small{font-size:.48rem}.dea-music-feature{grid-template-columns:1fr;padding:12px}.dea-music-feature>img{height:160px}}
+
+/* Portada principal: dos tarjetas de acceso musical y cafetería */
+.dea-premium-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.dea-premium-header-actions .dea-premium-header-cafe{flex-shrink:0}
+.dea-premium-header-music{display:flex;align-items:center;gap:12px;min-height:106px;padding:13px 17px;border:1px solid #d2ae65;border-radius:27px;background:linear-gradient(130deg,#102b47,#08192d);color:#f4e3bc;text-decoration:none;box-shadow:0 5px 24px #0004;transition:transform .2s,box-shadow .2s}
+.dea-premium-header-music:hover{transform:translateY(-3px);box-shadow:0 8px 30px #d2ae6550}
+.dea-premium-header-music img{width:58px;height:65px;object-fit:cover;border-radius:11px}
+.dea-premium-header-music span{display:flex;flex-direction:column;gap:5px}
+.dea-premium-header-music small{font-size:.7rem;letter-spacing:.12em;color:#c7d8e5}
+.dea-premium-header-music strong{font-size:1.35rem;color:#f5d894;white-space:nowrap}
+.dea-premium-header-music em{font-style:normal;font-size:.76rem;letter-spacing:.12em;color:#85edbb}
+@media(max-width:950px){.dea-premium-header-actions{justify-content:center;width:100%}.dea-premium-header-music{min-height:85px;padding:10px 12px}.dea-premium-header-music strong{font-size:1.05rem}}
+@media(max-width:460px){.dea-premium-header-actions{gap:7px}.dea-premium-header-music{flex:1;min-width:0;gap:6px}.dea-premium-header-music img{width:38px;height:48px}.dea-premium-header-music strong{font-size:.85rem}.dea-premium-header-music small{font-size:.52rem}.dea-premium-header-music em{font-size:.6rem}.dea-premium-header-actions .dea-premium-header-cafe{flex:1;min-width:0}}

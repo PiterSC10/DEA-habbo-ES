@@ -71,5 +71,18 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "dea-habbo-es.vercel.app"
+        }
+      ],
+      "destination": "https://agenciaoficialdea.es/:path*",
+      "permanent": true
+    }
   ]
 }

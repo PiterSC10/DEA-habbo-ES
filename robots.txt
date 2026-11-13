@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dea-habbo-es.vercel.app/sitemap.xml
+Sitemap: https://agenciaoficialdea.es/sitemap.xml

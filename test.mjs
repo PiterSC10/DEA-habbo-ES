@@ -121,7 +121,7 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
   await access(new URL('./'+f,import.meta.url));
  assert.match(css,/\.shell-home/);
  assert.match(html,/\.\/styles\.css/);
- assert.match(html,/https:\/\/dea-habbo-es\.vercel\.app\/og-image\.jpg/);
+ assert.match(html,/https:\/\/agenciaoficialdea\.es\/og-image\.jpg/);
 });
 
 test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
@@ -254,18 +254,18 @@ test('Los cuatro lanzadores Founder conservan créditos sin firma personal ni fr
  }
 });
 
-test('SEO de preinauguración: canónica Vercel y fichas sociales sin datos personales',async()=>{
- assert.match(html,/<link rel="canonical" href="https:\/\/dea-habbo-es\.vercel\.app\/"/);
- assert.match(html,/<meta property="og:url" content="https:\/\/dea-habbo-es\.vercel\.app\/"/);
- assert.match(html,/<meta property="og:image" content="https:\/\/dea-habbo-es\.vercel\.app\/og-image\.jpg"/);
- assert.match(html,/<meta name="twitter:image" content="https:\/\/dea-habbo-es\.vercel\.app\/og-image\.jpg"/);
+test('SEO del dominio propio: canónica .es y fichas sociales sin datos personales',async()=>{
+ assert.match(html,/<link rel="canonical" href="https:\/\/agenciaoficialdea\.es\/"/);
+ assert.match(html,/<meta property="og:url" content="https:\/\/agenciaoficialdea\.es\/"/);
+ assert.match(html,/<meta property="og:image" content="https:\/\/agenciaoficialdea\.es\/og-image\.jpg"/);
+ assert.match(html,/<meta name="twitter:image" content="https:\/\/agenciaoficialdea\.es\/og-image\.jpg"/);
  assert.match(html,/<meta property="og:locale" content="es_ES"/);
  assert.doesNotMatch(html,/pitersc10\.github\.io|YourDesignGPT|10PEDRO/);
  const match=html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
  assert.ok(match,'JSON-LD existente');
  const ld=JSON.parse(match[1]);
  assert.equal(ld['@type'],'WebSite');
- assert.equal(ld.url,'https://dea-habbo-es.vercel.app/');
+ assert.equal(ld.url,'https://agenciaoficialdea.es/');
  assert.equal(ld.name,'AGENCIA D.E.A. ES');
 });
 
@@ -284,7 +284,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
  }
  const crawler=await readFile(new URL('./robots.txt',import.meta.url),'utf8');
  assert.ok(crawler.includes('User-agent: *'));
- assert.ok(crawler.includes('Sitemap: https://dea-habbo-es.vercel.app/sitemap.xml'));
+ assert.ok(crawler.includes('Sitemap: https://agenciaoficialdea.es/sitemap.xml'));
  assert.ok(src.includes('const PUBLIC_SITE_LIVE=true'));
  assert.ok(page('inicio',true).includes('shell-home'));
  assert.ok(page('publico/jerarquia',true).includes('dea-catalog-window'));
@@ -508,12 +508,12 @@ test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
  assert.ok(build.includes("'sitemap.xml'"));
  assert.ok(build.includes("'seo-public.css'"));
  assert.ok(cssSEO.includes('@media(max-width:640px)'));
- assert.ok(sitemap.includes('https://dea-habbo-es.vercel.app/'));
+ assert.ok(sitemap.includes('https://agenciaoficialdea.es/'));
  for(const slug of ['agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders']){
   const p=await readFile(new URL('./'+slug+'/index.html',import.meta.url),'utf8');
-  assert.ok(sitemap.includes('https://dea-habbo-es.vercel.app/'+slug+'/'),slug);
+  assert.ok(sitemap.includes('https://agenciaoficialdea.es/'+slug+'/'),slug);
   assert.ok(p.includes('<meta name="robots" content="index,follow'),slug);
-  assert.ok(p.includes('<link rel="canonical" href="https://dea-habbo-es.vercel.app/'+slug+'/">'),slug);
+  assert.ok(p.includes('<link rel="canonical" href="https://agenciaoficialdea.es/'+slug+'/">'),slug);
   assert.ok(p.includes('<h1>'),slug);
   assert.ok(p.includes('DEA HABBO ES'),slug);
   assert.ok(!p.includes('DISCORD_CLIENT_SECRET')&&!p.includes('google.script.run'),slug);

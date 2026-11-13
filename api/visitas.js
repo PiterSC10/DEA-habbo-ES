@@ -5,7 +5,7 @@ export function createHandler({fetcher=fetch,endpoint=BACKEND}={}){
  return async function handler(req,res){
   const send=(status,data)=>{res.status(status);res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');if(status===200&&req.method==='GET')res.setHeader('Vercel-CDN-Cache-Control','public, s-maxage=60');res.end(JSON.stringify(data));};
   const origin=req.headers?.origin;
-  if(origin&&!['https://dea-habbo-es.vercel.app','https://pitersc10.github.io','https://'+req.headers?.host].includes(origin))return send(403,{error:'Origen no permitido'});
+  if(origin&&!['https://agenciaoficialdea.es','https://www.agenciaoficialdea.es','https://dea-habbo-es.vercel.app','https://pitersc10.github.io','https://'+req.headers?.host].includes(origin))return send(403,{error:'Origen no permitido'});
   res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS');res.setHeader('Access-Control-Allow-Headers','Content-Type');res.setHeader('Access-Control-Max-Age','86400');
   if(req.method==='OPTIONS'){res.status(204);return res.end();}
   if(!['GET','POST'].includes(req.method)){res.setHeader('Allow','GET, POST, OPTIONS');return send(405,{error:'Método no permitido'});}

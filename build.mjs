@@ -23,3 +23,9 @@ await copyFile(join('assets','dea','promo-sala.webp'),join('dist','assets','dea'
 console.log('Insignias DEA y avatar XPE_34 incluidos en dist/assets/dea/.');
 
 for(const name of ['premium-reception','premium-control'])for(const suffix of ['','-mobile'])await copyFile(join('assets','dea',name+suffix+'.webp'),join('dist','assets','dea',name+suffix+'.webp'));
+
+for(const name of ['premium-headquarters.webp','premium-headquarters-mobile.webp','premium-sections.webp'])await copyFile(join('assets','dea',name),join('dist','assets','dea',name));
+
+// Individually optimized launch art: responsive images, no stretched atlas.
+for(const key of ['agencia','founders','jerarquia','nominas','placas','normativa'])for(const suffix of ['','-small'])await copyFile(join('assets','dea','launch-'+key+suffix+'.webp'),join('dist','assets','dea','launch-'+key+suffix+'.webp'));
+for(const size of ['960','1440','mobile'])for(const ext of ['webp','avif'])await copyFile(join('assets','dea','launch-hero-'+size+'.'+ext),join('dist','assets','dea','launch-hero-'+size+'.'+ext));

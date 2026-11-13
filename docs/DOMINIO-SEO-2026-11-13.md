@@ -1,6 +1,6 @@
 # Migración a agenciaoficialdea.es
 
-Estado: preparada, pendiente de autenticación adicional de STRATO. No fusionar ni activar la redirección hasta resolver el pedido 708349490 y comprobar DNS y HTTPS. La web actual conserva su despliegue de producción.
+Estado: preparada e integrada con los últimos cambios de marca y diseño de main. STRATO ha activado el contrato 10232911, pero el dominio sigue «en proceso», sin controles DNS disponibles. No fusionar ni activar la redirección hasta comprobar DNS y HTTPS. La web actual conserva su despliegue de producción.
 
 ## Configurado
 
@@ -13,7 +13,7 @@ Estado: preparada, pendiente de autenticación adicional de STRATO. No fusionar 
 
 ## DNS pendiente
 
-STRATO mantiene el pedido sin activar por autenticación adicional (correo aportado por el titular). Solo yourdesigngpt.es aparece administrable; no se ha tocado ese dominio.
+STRATO ha activado el contrato 10232911. Comprobado en el panel el 13/11/2026: agenciaoficialdea.es aparece «en proceso» y su administración todavía no presenta controles DNS. Los nameservers públicos ya son docks04.rzone.de y shades05.rzone.de. No se ha tocado yourdesigngpt.es.
 
 Vercel indicó el 13/11/2026:
 

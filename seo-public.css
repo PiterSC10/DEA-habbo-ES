@@ -31,3 +31,5 @@
 .seo-links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 17px;margin:12px 0}
 .seo-links a{color:#aacee4}
 @media(max-width:640px){.seo-site{padding:0 12px 35px}.seo-header{padding:13px 0}.seo-brand{font-size:16px}.seo-header .seo-label{font-size:10px;margin-left:0}.seo-nav a{font-size:11px;padding:8px}.seo-panel{padding:16px}.seo-table{font-size:12px}.seo-table th,.seo-table td{padding:9px}}
+/* Pestañas públicas coherentes con Agencia Oficial DEA. */
+.seo-nav a{position:relative;background:linear-gradient(135deg,#15334a,#0b2033);border-color:#b59a6144;padding:11px 15px;transition:background .22s,border-color .22s,box-shadow .22s,transform .22s}.seo-nav a:hover,.seo-nav a:focus-visible{transform:translateY(-2px);border-color:#72d5e2;color:#f4f8fc;box-shadow:0 4px 18px #66d7e51a}.seo-nav a[aria-current=page]{border-color:#d8bd7b;background:linear-gradient(135deg,#3c3e35,#102b40);box-shadow:inset 0 -2px #d8bd7b;color:#f4dfa8}.seo-nav a:focus-visible{outline:2px solid #75d7e4;outline-offset:3px}@media(prefers-reduced-motion:reduce){.seo-nav a{transition:none}.seo-nav a:hover,.seo-nav a:focus-visible{transform:none}}

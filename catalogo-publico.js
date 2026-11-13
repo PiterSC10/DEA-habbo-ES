@@ -36,6 +36,7 @@ function publicPlaqueImage(item){
  return `<img src="${esc(safe?url:'./logo-dea-es.png')}" loading="lazy" alt="${safe?'Logo oficial de '+esc(item.nombre):'Emblema DEA provisional, placa sin logo definido'}">`;
 }
 const DEA_PUBLIC_PLAQUES=[
+ {image:'exclusive-benefits',title:'Exclusive Benefits [EB]',price:30,promoPrice:15,promoUntil:'2026-11-30T23:00:00Z',benefit:'Reúne Chat Privilege [CP] y Free Outfit [FO]: usa chat de color, mayúsculas y el look que quieras.'},
  {image:'beneficio-gold',title:'Beneficio Gold',price:100,benefit:'Usa la ropa que quieras sin importar el rango, disfruta de chat libre y accede a los beneficios PS, HS, RN y BD.'},
  {image:'reduccion-nomina',title:'Reducción de Nómina [RN]',price:40,benefit:'Reduce un 50 % las horas requeridas para cobrar la nómina.'},
  {image:'payment-security',title:'Payment Security [PS]',price:20,benefit:'Guardapaga: si cumples los requisitos, puedes reservar tu nómina del miércoles o sábado y recogerla hasta 48 horas después de las 22:00 (hora peninsular española) de esa jornada.'},
@@ -45,13 +46,13 @@ const DEA_PUBLIC_PLAQUES=[
  {image:'beneficio-vip',title:'VIP',price:35,permanent:true,benefit:'Entra y sal de la sala DEA como visitante, sin rango, sin trabajar y sin permisos de gestión.'}
 ];
 function publicPlaques(){
- const cards=DEA_PUBLIC_PLAQUES.map(({image,title,price,permanent,benefit})=>`<article class="dea-plaque-card">
+ const cards=DEA_PUBLIC_PLAQUES.map(({image,title,price,promoPrice,promoUntil,permanent,benefit})=>{const offer=promoPrice!=null&&Date.now()<Date.parse(promoUntil);return `<article class="dea-plaque-card">
  <div class="dea-plaque-image">${image?`<img class="dea-plaque-emblem" src="/assets/dea/insignias/${image}.png" width="120" height="120" alt="">`:'<strong>Emblema: próximamente</strong>'}</div>
  <div class="dea-plaque-details"><h3>[DEA] ${title}${permanent?' <span class="dea-rank-code dea-rank-code-benefit">BENEFICIO · SIN RANGO</span>':''}</h3>
- <strong class="dea-plaque-price">${price==null?'Precio: próximamente':`${price} créditos`}</strong>
- ${price==null?'':'<p>Precio de inauguración</p>'}
+ <strong class="dea-plaque-price">${price==null?'Precio: próximamente':`${offer?promoPrice:price} créditos`}${offer?` <del class="dea-plaque-regular">${price} créditos</del>`:''}</strong>
+ ${promoUntil?(offer?'<p>Oferta de inauguración · hasta el 30 de noviembre de 2026</p>':'<p>Precio habitual</p>'):(price==null?'':'<p>Precio de inauguración</p>')}
  <p><b>Duración:</b> ${permanent?'permanente':'un mes desde la compra'}.</p>
- <p><b>Beneficio:</b> ${benefit}</p></div></article>`).join('');
+ <p><b>Beneficio:</b> ${benefit}</p></div></article>`}).join('');
  return catalogWindow('Placas de beneficio',head('CATÁLOGO DEA','Placas de beneficio','Consulta el precio, la duración y el beneficio de cada placa.')+`<section class="dea-tariff-info"><h2>Ofertas de inauguración</h2><p>Aprovecha los precios de lanzamiento de las placas con precio publicado. Cuando termine la promoción, volverán a sus precios habituales.</p></section><div class="dea-plaque-grid">${cards}</div><section class="dea-tariff-info"><h2>Compra y registro</h2><p>La compra y la entrega se hacen en Habbo con un Founder. Si ya tienes expediente, la compra se registra allí: no te registres de nuevo. No se realizan pagos desde esta web.</p></section>`);
 }
 /* Horarios de cada jornada: Europe/Madrid es la referencia oficial. */

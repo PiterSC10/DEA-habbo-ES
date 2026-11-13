@@ -227,17 +227,17 @@ test('La contraseña no figura en claro en JavaScript y la puerta no suplanta Di
 test('Pie 2026 visible con Powered by enlazado y sin firma personal ni frase de Founders',()=>{
  for(const p of ['inicio','vip','identificacion/vip','identificacion/alta','identificacion/agente','unete','ficha','publico','publico/agencia','publico/jerarquia','publico/placas','publico/departamentos','publico/founders','publico/ingreso','publico/normativa']){
   const screen=page(p,true);
-  assert.match(screen,/© 2026 DEA HABBO ES/);
+  assert.match(screen,/© 2026 Agencia Oficial DEA/);
   assert.match(screen,/Powered by <a href="https:\/\/yourdesigngpt\.es\/"/);
   assert.doesNotMatch(screen,/YourDesignGPT<\/a>[^<]*<span[^>]*>·<\/span> 10PEDRO/);
-  assert.doesNotMatch(screen,/dea-credit-founders|DEA HABBO ES es un proyecto de sus cuatro Founders/);
+  assert.doesNotMatch(screen,/dea-credit-founders|Agencia Oficial DEA es un proyecto de sus cuatro Founders/);
   assert.match(screen,/No afiliada, patrocinada ni respaldada por Habbo ni Sulake/);
  }
 });
 test('En la pantalla de contraseña NO aparecen créditos, Founders ni pie editorial',()=>{
  for(const p of ['inicio','vip','identificacion/vip','identificacion/alta','publico/jerarquia']){
   const gate=page(p,false);
-  assert.match(gate,/DEA HABBO ES · Preinauguración/);
+  assert.match(gate,/Agencia Oficial DEA · Preinauguración/);
   assert.doesNotMatch(gate,/© 2026|YourDesignGPT|10PEDRO|KietsyAndrea|lesslie\.ar|XPE_34|No afiliada/);
  }
 });
@@ -246,7 +246,7 @@ test('Los cuatro lanzadores Founder conservan créditos sin firma personal ni fr
   const launcher=await readFile(new URL('./founder-'+slug+'.html',import.meta.url),'utf8');
   const footer=launcher.match(/<footer class="dea-founder-footer">([\s\S]*?)<\/footer>/)?.[1];
   assert.ok(footer,'Falta pie en '+slug);
-  assert.match(footer,/© 2026 DEA HABBO ES/);
+  assert.match(footer,/© 2026 Agencia Oficial DEA/);
   assert.match(footer,/href="https:\/\/yourdesigngpt\.es\/"/);
   assert.doesNotMatch(footer,/<a[^>]+>10PEDRO<\/a>/);
   assert.doesNotMatch(footer,/10PEDRO|KietsyAndrea|lesslie\.ar|XPE_34|dea-credit-founders/);
@@ -266,7 +266,7 @@ test('SEO del dominio propio: canónica .es y fichas sociales sin datos personal
  const ld=JSON.parse(match[1]);
  assert.equal(ld['@type'],'WebSite');
  assert.equal(ld.url,'https://agenciaoficialdea.es/');
- assert.equal(ld.name,'AGENCIA D.E.A. ES');
+ assert.equal(ld.name,'Agencia Oficial DEA');
 });
 
 test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
@@ -293,8 +293,8 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
 
 
 test('Metadatos principales SEO claros, marca y fallback HTML indexable',()=>{
- assert.match(html,/<title>AGENCIA D\.E\.A\. ES \| Comunidad independiente<\/title>/);
- assert.match(html,/<meta property="og:site_name" content="AGENCIA D\.E\.A\. ES">/);
+ assert.match(html,/<title>Agencia Oficial DEA \| Comunidad independiente<\/title>/);
+ assert.match(html,/<meta property="og:site_name" content="Agencia Oficial DEA">/);
  assert.match(html,/favicon-48\.png/);
  assert.match(html,/"@type":"WebSite"/);
  assert.match(html,/dea-seo-fallback/);
@@ -309,7 +309,7 @@ test('SEO: títulos propios por sección y sin renunciar al bloqueo de la portad
  for(const item of ['publico/agencia','publico/jerarquia','publico/ingreso','publico/normativa']){
   assert.ok(src.includes("'"+item+"'"),item);
  }
- assert.match(src,/document\.title='Preinauguración \| DEA HABBO ES'/);
+ assert.match(src,/document\.title='Preinauguración \| Agencia Oficial DEA'/);
  assert.match(page('inicio',false),/PREINAUGURACIÓN/);
  assert.match(page('inicio',true),/class="shell-home"/);
 });
@@ -366,7 +366,7 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
 test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
  const h=page('publico/placas');
  const cards=[...h.matchAll(/<article class="dea-plaque-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
- assert.equal(cards.length,7);
+ assert.equal(cards.length,8);
  for(const [title,benefit] of [['Hour Skip [HS]','Reduce un 50 % tus horas.'],['Bonus Day [BD]','Añade un día extra de bonificación cada semana (7 créditos extra).']]){
   const card=cards.find(c=>c.includes(`<h3>[DEA] ${title}`));
   assert.ok(card,title);
@@ -443,7 +443,7 @@ test('Dos miniapps generales de Directores y Managers con límites acumulativos 
   assert.match(html,/La identidad y los límites se comprueban en Google Apps Script/);
   assert.match(html,/Acceso operativo mediante Discord/);
   assert.doesNotMatch(html,/name="discord_id"|role="founder"|data-form="ascenso"/);
-  assert.match(html,/© 2026 DEA HABBO ES/);
+  assert.match(html,/© 2026 Agencia Oficial DEA/);
   assert.match(html,/Habbo ni Sulake/);
   assert.match(html,/noindex,nofollow,noarchive,nosnippet/);
  }
@@ -495,7 +495,7 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
   assert.ok(page(route,true).includes('dea-credit-main'),route);
  }
  assert.doesNotMatch(page('inicio',false),/WEB CHECK SCAN/);
- assert.match(page('inicio',false),/DEA HABBO ES · Preinauguración/);
+ assert.match(page('inicio',false),/Agencia Oficial DEA · Preinauguración/);
 });
 
 test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
@@ -515,7 +515,7 @@ test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
   assert.ok(p.includes('<meta name="robots" content="index,follow'),slug);
   assert.ok(p.includes('<link rel="canonical" href="https://agenciaoficialdea.es/'+slug+'/">'),slug);
   assert.ok(p.includes('<h1>'),slug);
-  assert.ok(p.includes('DEA HABBO ES'),slug);
+  assert.ok(p.includes('Agencia Oficial DEA'),slug);
   assert.ok(!p.includes('DISCORD_CLIENT_SECRET')&&!p.includes('google.script.run'),slug);
   assert.ok(build.includes("'"+slug+"'"),slug);
  }
@@ -531,7 +531,7 @@ test('Menú móvil: fondo dentro del layout, abrir, cerrar, Escape y navegar',()
  const context={document:{getElementById(){return root}},location,window:{addEventListener(type,fn){windowHandlers[type]=fn},scrollTo(){}},innerWidth:390,sessionStorage:{getItem(){return 'yes'}}};
  runInNewContext(catalogs+'\n'+src,context);
  const action=name=>handlers.click.forEach(fn=>fn({stopPropagation(){},target:{closest(selector){return selector==='[data-route],[data-action]'?{dataset:{action:name}}:null}}}));
- assert.match(root.innerHTML,/^<div class="app-layout app-area-publico(?: dea-premium-public)?"><div class="mobile-overlay/);
+ assert.match(root.innerHTML,/^<div class="app-layout app-area-publico(?: dea-premium-public)?(?: dea-launch-skin)?"><div class="mobile-overlay/);
  action('mobile-menu');
  assert.match(root.innerHTML,/class="mobile-overlay active"/);
  assert.match(root.innerHTML,/class="side expanded mobile-open"/);
@@ -614,7 +614,7 @@ test('Altas confirmadas aparecen en ambos árboles sin datos privados',async()=>
 
 test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
  const home=page('inicio',true,true,false);
- assert.match(home,/premium-reception.webp/);assert.match(home,/ENTRAR A DEA/);
+ assert.match(home,/launch-hero-1440.webp/);assert.match(home,/ENTRAR A DEA/);
  assert.doesNotMatch(home,/href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
  assert.doesNotMatch(home,/choice join|choice vip|WEB PÚBLICA/);
  for(const route of ['vip','unete','identificacion/vip','identificacion/alta','ficha','publico/ingreso']){
@@ -626,7 +626,7 @@ test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
 
 test('Skin premium conserva secciones y publica imágenes ligeras sin accesos privados',async()=>{
  const home=page('inicio',true,true,false),dash=page('publico',true,true,false);
- assert.match(home,/Tu próxima misión/);assert.match(home,/fetchpriority="high"/);
+ assert.match(home,/Agencia Oficial<br>/);assert.match(home,/fetchpriority="high"/);
  for(const path of ['agencia','founders','jerarquia','nominas','placas','normativa','sala','noticias','departamentos','como-trabajar','compra-rangos','banderines'])assert.ok(dash.includes('#/publico/'+path),path);
  for(const path of ['premium-reception','premium-control'])for(const suffix of ['','-mobile'])await access(new URL('./assets/dea/'+path+suffix+'.webp',import.meta.url));
  assert.match(dash,/Miércoles y sábado/);assert.match(dash,/22:00 España peninsular/);

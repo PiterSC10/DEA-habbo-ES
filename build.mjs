@@ -36,3 +36,5 @@ for(const suffix of ['','-small'])await copyFile(join('assets','dea','inauguraci
 
 for(const name of ['music.css','music.js'])await copyFile(join('musica',name),join('dist','musica',name));
 for(const name of ['music-studio.webp','music-studio-small.webp'])await copyFile(join('assets','dea',name),join('dist','assets','dea',name));
+
+for(const name of ['primera-paga-20261114.webp','pagas-semanales.webp'])await copyFile(join('assets','dea',name),join('dist','assets','dea',name));

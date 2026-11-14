@@ -95,20 +95,21 @@
 .dea-party-balloon{position:absolute;bottom:-160px;left:var(--x);font-size:clamp(35px,6vw,75px);animation:deaBalloonRise var(--d) ease-in var(--delay) infinite;pointer-events:none}
 @keyframes deaBalloonRise{to{transform:translate3d(var(--drift),-130vh,0) rotate(12deg)}}
 @media(prefers-reduced-motion:reduce){.dea-party-piece,.dea-party-balloon{animation:none;display:none}}
+.dea-party-card{width:min(94vw,1040px);overflow-y:auto}.dea-payroll-popup-head{text-align:center;padding:23px 50px 12px;color:#f4d28b}.dea-payroll-popup-head h2{font-size:clamp(18px,3vw,26px);margin:8px 0}.dea-payroll-popup-head p{color:#dae5f1;font-size:14px}.dea-payroll-posters{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:12px 20px 20px}.dea-payroll-posters img{display:block;height:auto;border-radius:12px}.dea-party-action{display:block;text-align:center;text-decoration:none}.dea-payroll-annexes{display:grid;grid-template-columns:1fr 1fr;gap:20px}.dea-payroll-annexes img{width:100%;height:auto;border-radius:12px}.dea-payroll-annexes figure{margin:0}.dea-payroll-annexes figcaption{padding:10px;color:#dec78e}.dea-payroll-brief{line-height:1.8}.dea-payroll-brief strong{color:#efd191}@media(max-width:650px){.dea-payroll-posters,.dea-payroll-annexes{grid-template-columns:1fr}.dea-payroll-popup-head{padding-top:46px}.dea-payroll-posters{padding:10px 12px}.dea-party-close{position:sticky;top:8px;align-self:flex-end;margin-bottom:-42px}}
 </style>
 <script>
 (function(){
 function launchDEA(){
-if(sessionStorage.getItem('dea-party-seen-20261113'))return;
-const overlay=document.createElement('div');overlay.id='dea-party-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Fiesta de inauguración DEA');
-overlay.innerHTML='<section class="dea-party-card"><button type="button" class="dea-party-close" aria-label="Cerrar invitación">×</button><img src="/assets/dea/inauguracion-flyer-original.webp" alt="Invitación a la fiesta de inauguración DEA, viernes 13 de noviembre a las 23:00 hora española"><button type="button" class="dea-party-action">¡ENTRAR A LA AGENCIA DEA!</button></section>';
+if(sessionStorage.getItem('dea-payroll-seen-20261114'))return;
+const overlay=document.createElement('div');overlay.id='dea-party-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Primera paga DEA · sábado 14 de noviembre de 2026');
+overlay.innerHTML='<section class="dea-party-card"><button type="button" class="dea-party-close" aria-label="Cerrar aviso">×</button><header class="dea-payroll-popup-head"><small>COMUNICADO DEA</small><h2>Primera paga · sábado 14 de noviembre de 2026</h2><p>Completa tus TIMES y solicita tus placas de nómina y bonificación.</p></header><div class="dea-payroll-posters"><a href="/assets/dea/primera-paga-20261114.webp" target="_blank" rel="noopener" aria-label="Ampliar aviso de primera paga"><img src="/assets/dea/primera-paga-20261114.webp" alt="Primera paga DEA, sábado 14 de noviembre de 2026"></a><a href="/assets/dea/pagas-semanales.webp" target="_blank" rel="noopener" aria-label="Ampliar tabla de pagas semanales"><img src="/assets/dea/pagas-semanales.webp" alt="Pagas semanales DEA: nóminas por rango y bonificaciones"></a></div><a href="#/publico/nominas" class="dea-party-action">CONSULTAR NÓMINAS Y HORARIOS →</a></section>';
 document.body.appendChild(overlay);
 const colors=['#e7ba53','#f6e9bd','#2b83e6','#ffffff','#7cb6ff'];
 for(let i=0;i<75;i++){const el=document.createElement('i');el.className='dea-party-piece';el.style.cssText='--x:'+Math.random()*100+'%;--w:'+(5+Math.random()*8)+'px;--h:'+(7+Math.random()*12)+'px;--c:'+colors[i%colors.length]+';--r:'+Math.random()*360+'deg;--d:'+(3+Math.random()*5)+'s;--delay:-'+Math.random()*8+'s;--drift:'+(Math.random()*200-100)+'px';overlay.appendChild(el)}
 for(let i=0;i<9;i++){const el=document.createElement('span');el.className='dea-party-balloon';el.textContent=['🎈','🎈','🎈'][i%3];el.style.cssText='--x:'+(i*11+Math.random()*8)+'%;--d:'+(7+Math.random()*5)+'s;--delay:-'+Math.random()*12+'s;--drift:'+(Math.random()*130-65)+'px';overlay.appendChild(el)}
-const close=()=>{sessionStorage.setItem('dea-party-seen-20261113','1');overlay.remove();document.removeEventListener('keydown',esc)};
+const close=()=>{sessionStorage.setItem('dea-payroll-seen-20261114','1');overlay.remove();document.removeEventListener('keydown',esc)};
 const esc=e=>{if(e.key==='Escape')close()};
-overlay.querySelectorAll('button').forEach(b=>b.addEventListener('click',close));document.addEventListener('keydown',esc);overlay.querySelector('.dea-party-close').focus();
+overlay.querySelectorAll('button,.dea-party-action').forEach(b=>b.addEventListener('click',close));document.addEventListener('keydown',esc);overlay.querySelector('.dea-party-close').focus();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',launchDEA);else launchDEA();
 })();

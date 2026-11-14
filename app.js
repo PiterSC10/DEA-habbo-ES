@@ -28,6 +28,7 @@ const DEA_PUBLIC_STAFF=Object.freeze([
  {"cat":"R5","rank":"Coordinador · LS2 · SB9","name":":SWAGBOY:","habbo":":SWAGBOY:"},
  {"cat":"R9","rank":"Líder en Formación","name":"MARTINGARRIX41","habbo":"MARTINGARRIX41","signature":"AAA"},
  {"cat":"R9","rank":"Líder en Formación","name":"Guauagatabig","habbo":"Guauagatabig","signature":"M26"},
+ {"cat":"R9","rank":"Líder en Formación","name":"Catalina.x12","habbo":"Catalina.x12","signature":"LYN","responsibleSignature":"LYS"},
  {"cat":"R8","rank":"Secretario Base","name":"kevinAndres","habbo":"kevinAndres","signature":"KVN"},
  {"cat":"R6","rank":"Director de Cadetes","name":"elartifex","habbo":"elartifex"},
  {"cat":"R6","rank":"Director de Agentes","name":null},
@@ -42,8 +43,9 @@ const DEA_PUBLIC_STAFF=Object.freeze([
 function deaStaffCard(x){
  const category=({R10:'MÁNAGER',R9:'LÍDER',R8:'SECRETARIO',R6:'DIRECTOR',R5:'SUPERVISIÓN',R2:'AGENTE'})[x.cat]||x.cat;
  const img=x.name?'<img src="'+esc(deaAvatarUrl(x.habbo))+'" alt="Avatar Habbo de '+esc(x.habbo)+'" loading="lazy" referrerpolicy="no-referrer">':I('user',true);
+ const responsible=x.responsibleSignature?'<span class="dea-staff-signature" aria-label="Firma de responsable">Responsable: ['+esc(x.responsibleSignature)+']</span>':'';
  const sig=x.signature?'<span class="dea-staff-signature" aria-label="Firma personal">['+esc(x.signature)+']</span>':'';
- return '<article class="dea-classified-card dea-team-visible dea-rank-directory'+(x.name?' dea-post-filled':' dea-post-pending')+'"><span class="dea-classified-stamp">'+category+'</span><div class="dea-classified-art">'+img+'</div><strong>'+esc(x.name||'Sin titular confirmado')+'</strong><small>'+esc(x.rank)+'</small>'+sig+'</article>';
+ return '<article class="dea-classified-card dea-team-visible dea-rank-directory'+(x.name?' dea-post-filled':' dea-post-pending')+'"><span class="dea-classified-stamp">'+category+'</span><div class="dea-classified-art">'+img+'</div><strong>'+esc(x.name||'Sin titular confirmado')+'</strong><small>'+esc(x.rank)+'</small>'+sig+responsible+'</article>';
 }
 
 function deaRankMission(cat,name){const aliases={'Aspirante a Operador':'Aspirante a Op','Supervisor de Unidad':'Sup. de Unidad','Director de Cadetes':'Dir. Cadetes','Director de Agentes':'Dir. Agentes','Director de Cuerpo Élite':'Dir. Cuerpo Elite','Director de Logística':'Dir. Logística','Director de Base':'Dir. Base','Director Advisor':'Dir. Advisor','Jefe de Dirección':'Jefe de Dir'};const signer={R1:'DIRECTOR DE CADETES',R2:'DIRECTOR DE AGENTES',R3:'DIRECTOR DE CUERPO ELITE',R4:'DIRECTOR DE LOGÍSTICA',R5:'DIRECTOR DE BASE',R6:'MNG',R7:'MNG',R8:'F'}[cat];return '[DEA] '+(aliases[name]||name)+(signer?' [FIRMA DE '+signer+']':'')}

@@ -13,7 +13,7 @@ test('Todas las URL del sitemap tienen canónica, robots, imagen social y JSON-L
   assert.ok(html.includes(`rel="canonical" href="${url}"`),url);
   assert.match(html,/<meta name="robots" content="index,follow/);
   assert.ok(html.includes(`property="og:url" content="${url}"`),url);
-  assert.ok(html.includes(`content="${base}/${path==='/musica/'?'assets/dea/music-studio.webp':path==='/'?'og-dea-oficial.jpg':'og-image.jpg'}"`));assert.match(html,/<title>[^<]+<\/title>/);assert.match(html,/<h1[\s>]/);
+  assert.ok(html.includes(`content="${base}/${path==='/musica/'?'assets/dea/music-studio.webp':'og-dea-premium-20261114.jpg'}"`));assert.match(html,/<title>[^<]+<\/title>/);assert.match(html,/<h1[\s>]/);
   const blocks=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];assert.ok(blocks.length);
   for(const block of blocks){const obj=JSON.parse(block[1]);assert.equal(obj['@context'],'https://schema.org');assert.ok(!block[1].includes('dea-habbo-es.vercel.app'));}
  }

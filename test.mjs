@@ -594,7 +594,7 @@ test('Fichas compactas: cuatro mánagers, líder, secretario y siete directores'
  assert.equal(sections.length,7);
  for(const section of sections)assert.ok((section.match(/class="dea-classified-card/g)||[]).length>=1);
  for(const section of sections.slice(0,3)){assert.match(section,/<img/);assert.doesNotMatch(section,/CARGO PUBLICADO/);}
- assert.match(sections[3],/Sin titular confirmado/);
+ assert.match(sections.find(x=>x.includes('◆ DIRECTORES')),/Sin titular confirmado/);
  assert.match(css,/\.dea-staff-signature/);
 });
 

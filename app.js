@@ -43,6 +43,7 @@ const DEA_PUBLIC_STAFF=Object.freeze([
  {"cat":"R5","rank":"Coordinador I","name":"Keviinn.","habbo":"Keviinn."},
  {"cat":"R2","rank":"Agente Distinguida","name":"Margaretti666","habbo":"Margaretti666"},
  {"cat":"R2","rank":"Agente de Enlace II","name":"JorgeMarcos","habbo":"JorgeMarcos"},
+ {"cat":"R2","rank":"Agente de Enlace I","name":"GachoXD","habbo":"GachoXD","responsibleSignature":"10P"},
  {"cat":"R2","rank":"Agente de Enlace I","name":"Larisa.malarisa","habbo":"Larisa.malarisa"},
 ]);
 function deaStaffCard(x){

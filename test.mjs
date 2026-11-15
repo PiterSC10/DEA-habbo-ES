@@ -328,11 +328,11 @@ test('Cabecera de la tabla de rangos: Tiempo de ascenso',()=>{
  assert.doesNotMatch(table,/<th>Plazo mínimo<\/th>/);
 });
 
-test('Tabla completa: 70 rangos internos oficiales R1–R10',()=>{
+test('Tabla completa: 80 rangos internos oficiales R1–R10',()=>{
  const h=page('publico/jerarquia');
  const table=h.match(/<table class="dea-rank-table">([\s\S]*?)<\/table>/)?.[1];
  assert.ok(table,'Falta la tabla R1–R10');
- assert.equal(table.split('class="dea-rank-chip"').length-1,70);
+ assert.equal(table.split('class="dea-rank-chip"').length-1,80);
  for(const x of ['Cadete','Agente de Enlace','Instructor en Jefe','Estratega en División','Supervisor de Unidad','Jefe de Dirección','R7','R8','R9','R10','130 c','240 c','500 c'])assert.ok(h.includes(x),x);
  assert.ok(h.includes('Cerrar ventana'));
 });

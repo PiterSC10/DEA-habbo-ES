@@ -877,3 +877,6 @@ main,.content,.dea-catalog-window,.dea-payroll-schedule{min-width:0}.dea-catalog
 /* Placas aprobadas: recorte visual del original, sin alterar su emblema. */
 .dea-plaque-image .dea-comeback-emblem{position:static;display:block;width:120px;height:120px;flex:none;padding:0;border:0;border-radius:8px;background:#91a4b2 url('/assets/dea/insignias/comeback-pass-original.png') -87px -65px no-repeat}
 .dea-badges-banner{margin:24px 0;border:1px solid #a78a4e;border-radius:16px;overflow:hidden;background:#071727;text-align:center}.dea-badges-banner img{display:block;width:100%;max-width:700px;height:auto;margin:auto;image-rendering:pixelated}.dea-badges-banner figcaption{padding:12px;color:#f7d08c;font-weight:700}
+
+/* Fotografía actual de la sala, completa y sin oscurecer. */
+.dea-room-gallery .dea-room-photo{display:block;width:100%;height:auto;max-height:none;object-fit:contain;filter:none;image-rendering:pixelated}

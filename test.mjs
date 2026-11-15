@@ -366,15 +366,14 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
 test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
  const h=page('publico/placas');
  const cards=[...h.matchAll(/<article class="dea-plaque-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
- assert.equal(cards.length,8);
- for(const [title,benefit] of [['Hour Skip [HS]','Reduce un 50 % tus horas.'],['Bonus Day [BD]','Añade un día extra de bonificación cada semana (7 créditos extra).']]){
-  const card=cards.find(c=>c.includes(`<h3>[DEA] ${title}`));
-  assert.ok(card,title);
-  for(const copy of ['Emblema: próximamente','Precio: próximamente','un mes desde la compra',benefit])assert.ok(card.includes(copy),copy);
-  assert.doesNotMatch(card,/<img|Precio de inauguración/);
- }
+ assert.equal(cards.length,7);
+ assert.doesNotMatch(h,/<del|Emblema: próximamente|Precio: próximamente|Oferta de inauguración/);
+ const comeback=cards.find(c=>c.includes('<h3>[DEA] ComebackPASS'));
+ assert.match(comeback,/30 créditos/);
+ assert.match(comeback,/conserves las placas/);
+ assert.match(h,/banderines-original.png/);
  for(const [image,title,price,permanent] of [
-  ['beneficio-gold','Beneficio Gold',100,false],['reduccion-nomina','Reducción de Nómina [RN]',40,false],
+  ['exclusive-benefits','Exclusive Benefits [EB]',30,false],['beneficio-gold','Beneficio Gold',100,false],['reduccion-nomina','Reducción de Nómina [RN]',40,false],
   ['payment-security','Payment Security [PS]',20,false],['fast-pay','Fast Pay [FP]',30,false],['beneficio-vip','VIP',35,true]
  ]){
   const card=cards.find(c=>c.includes(`<h3>[DEA] ${title}`));
@@ -385,10 +384,10 @@ test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
   assert.equal(png.readUInt32BE(16),120);
   assert.equal(png.readUInt32BE(20),120);
   assert.ok(card.includes(`${price} créditos`));
-  assert.match(card,/Precio de inauguración/);
+  assert.match(card,/Precio en sala/);
   assert.ok(card.includes(permanent?'permanente.':'un mes desde la compra.'));
  }
- assert.match(h,/Ofertas de inauguración[\s\S]*volverán a sus precios habituales/);
+ assert.doesNotMatch(h,/<h3>\[DEA\] (Hour Skip|Bonus Day)/);
  assert.match(h,/PLACAS DE BENEFICIO <b class="dea-menu-new">NEW<\/b>/);
  assert.match(h,/Guardapaga:[\s\S]*48 horas después de las 22:00/);
  assert.match(h,/como visitante, sin rango, sin trabajar/);

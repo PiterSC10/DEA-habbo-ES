@@ -40,3 +40,5 @@ for(const name of ['music-studio.webp','music-studio-small.webp'])await copyFile
 for(const name of ['primera-paga-20261114.webp','pagas-semanales.webp'])await copyFile(join('assets','dea',name),join('dist','assets','dea',name));
 
 await copyFile(join('assets','dea','rec-completo-20261115.webp'),join('dist','assets','dea','rec-completo-20261115.webp'));
+
+await copyFile(join('assets','dea','agencias-20261115.png'),join('dist','assets','dea','agencias-20261115.png'));

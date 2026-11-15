@@ -42,6 +42,8 @@ const DEA_PUBLIC_STAFF=Object.freeze([
  {"cat":"R5","rank":"Coordinador base","name":"Ashleeeeyy","habbo":"Ashleeeeyy","signature":"ASH"},
  {"cat":"R5","rank":"Coordinador Base","name":"xImSmaug","habbo":"xImSmaug","signature":"SMG"},
  {"cat":"R5","rank":"Coordinador Base","name":"Martuski05","habbo":"Martuski05","signature":"M11"},
+ {"cat":"R5","rank":"Coordinador base","name":"Gardenia2023","habbo":"Gardenia2023","signature":"GAR"},
+ {"cat":"R5","rank":"Coordinador de Base","name":"andrea06090","habbo":"andrea06090","signature":"MGA"},
  {"cat":"R5","rank":"Coordinador I","name":"Keviinn.","habbo":"Keviinn."},
  {"cat":"R2","rank":"Agente Distinguida","name":"Margaretti666","habbo":"Margaretti666"},
  {"cat":"R2","rank":"Agente de Enlace II","name":"JorgeMarcos","habbo":"JorgeMarcos"},

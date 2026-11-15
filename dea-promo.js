@@ -1,6 +1,8 @@
 /* Promoción pública. No recibe datos de cuentas, ventas ni comisiones. */
 (()=>{
  'use strict';
+ // Promoción conservada, sin ventanas automáticas de entrada.
+ const ENTRY_POPUPS_ENABLED=false;
  const KEY='dea-promo-noviembre-2026-cerrada';
  const END=Date.parse('2026-12-01T00:00:00+01:00');
  let dismissed=false,timer;
@@ -16,7 +18,7 @@
   card.querySelectorAll('a').forEach(link=>link.addEventListener('click',close));
   document.body.append(card);
  }
- function sync(){clearTimeout(timer);if(!eligible()){document.getElementById('dea-promo')?.remove();return;}if(!dismissed)timer=setTimeout(show,3500);}
+ function sync(){if(!ENTRY_POPUPS_ENABLED)return;clearTimeout(timer);if(!eligible()){document.getElementById('dea-promo')?.remove();return;}if(!dismissed)timer=setTimeout(show,3500);}
  window.addEventListener('hashchange',sync);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
  sync();

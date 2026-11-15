@@ -100,6 +100,8 @@
 <script>
 (function(){
 function launchDEA(){
+// Avisos de entrada desactivados; las novedades se indican con NEW.
+return;
 if(sessionStorage.getItem('dea-payroll-seen-20261114'))return;
 const overlay=document.createElement('div');overlay.id='dea-party-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Primera paga DEA · sábado 14 de noviembre de 2026');
 overlay.innerHTML='<section class="dea-party-card"><button type="button" class="dea-party-close" aria-label="Cerrar aviso">×</button><header class="dea-payroll-popup-head"><small>COMUNICADO DEA</small><h2>Primera paga · sábado 14 de noviembre de 2026</h2><p>Completa tus TIMES y solicita tus placas de nómina y bonificación.</p></header><div class="dea-payroll-posters"><a href="/assets/dea/primera-paga-20261114.webp" target="_blank" rel="noopener" aria-label="Ampliar aviso de primera paga"><img src="/assets/dea/primera-paga-20261114.webp" alt="Primera paga DEA, sábado 14 de noviembre de 2026"></a><a href="/assets/dea/pagas-semanales.webp" target="_blank" rel="noopener" aria-label="Ampliar tabla de pagas semanales"><img src="/assets/dea/pagas-semanales.webp" alt="Pagas semanales DEA: nóminas por rango y bonificaciones"></a></div><a href="#/publico/nominas" class="dea-party-action">CONSULTAR NÓMINAS Y HORARIOS →</a></section>';

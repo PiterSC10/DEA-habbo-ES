@@ -52,3 +52,5 @@ await copyFile(join('assets','dea','sala-actual-20261115.webp'),join('dist','ass
 await copyFile(join('assets','dea','confidencial-guardapaga-header.webp'),join('dist','assets','dea','confidencial-guardapaga-header.webp'));
 
 await copyFile(join('assets','dea','momentos-after-party-20261116.webp'),join('dist','assets','dea','momentos-after-party-20261116.webp'));
+
+await copyFile(join('assets','dea','miembros-semana-20261116.jpg'),join('dist','assets','dea','miembros-semana-20261116.jpg'));

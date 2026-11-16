@@ -61,34 +61,6 @@ document.addEventListener('click',e=>{if(!root.contains(e.target))closeDropdown(
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!overlay.hidden){overlay.hidden=true;focusBefore?.focus?.()}closeDropdown()}});
 
 audio.addEventListener('playing',()=>{playing=true;status.textContent='Escuchando '+stations[selected][0];paint()});audio.addEventListener('pause',()=>{playing=false;paint()});audio.addEventListener('error',()=>{playing=false;status.textContent='Señal no disponible. Prueba otra emisora.';paint()});paint();
-/* Welcome invitation, once per session, after any existing entrance notice. */
-function welcomeRadio(){
- const key='dea-radio-welcome-20261117';
- try{if(sessionStorage.getItem(key))return}catch(e){}
- const previous=document.activeElement;
- const welcome=document.createElement('div');
- welcome.className='dr-overlay';welcome.style.zIndex='100000';
- welcome.innerHTML='<section class="dr-panel" role="dialog" aria-modal="true" aria-labelledby="dr-welcome-title"><div class="dr-panel-head"><strong id="dr-welcome-title">TU RADIO. TU ESTILO.</strong><button type="button" class="dr-close" data-welcome-close aria-label="Cerrar bienvenida de radio">×</button></div><img src="/assets/dea/radio-dj-vip-20261116.png" alt="DJ estilo Habbo en la radio DEA" width="1536" height="1024" style="display:block;width:100%;height:auto;max-height:42dvh;object-fit:contain;border-radius:12px"><p style="color:#e1ecf7;line-height:1.6">Selecciona tu radio y estilo favorito, dale al play y disfruta mientras navegas por DEA.</p><button type="button" class="dr-picker" data-welcome-choose style="justify-content:center;font-weight:800">🎧 ELEGIR MI EMISORA</button><button type="button" class="dr-picker" data-welcome-close style="justify-content:center;margin-top:10px">Seguir navegando</button></section>';
- root.appendChild(welcome);
- try{sessionStorage.setItem(key,'1')}catch(e){}
- function close(){welcome.remove();document.removeEventListener('keydown',keys);previous?.focus?.()}
- function keys(e){
-  if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();close();return}
-  if(e.key==='Tab'){const buttons=[...welcome.querySelectorAll('button')];const first=buttons[0],last=buttons[buttons.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
- }
- welcome.addEventListener('click',e=>{if(e.target.closest('[data-welcome-choose]')){close();$('[data-expand]').click()}else if(e.target===welcome||e.target.closest('[data-welcome-close]'))close()});
- document.addEventListener('keydown',keys,true);
- // Remove the capturing listener on dismissal as well.
- welcome.querySelector('[data-welcome-close]').focus();
- const cleanup=new MutationObserver(()=>{if(!welcome.isConnected){document.removeEventListener('keydown',keys,true);cleanup.disconnect()}});
- cleanup.observe(root,{childList:true});
-}
-function queueWelcome(){
- if(!document.getElementById('dea-party-overlay')){welcomeRadio();return}
- const observer=new MutationObserver(()=>{if(!document.getElementById('dea-party-overlay')){observer.disconnect();welcomeRadio()}});
- observer.observe(document.body,{childList:true});
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(queueWelcome,0),{once:true});else setTimeout(queueWelcome,0);
 
 }
 mountRadio();

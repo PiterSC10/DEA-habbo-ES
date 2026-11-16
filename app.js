@@ -190,8 +190,8 @@ async function validatePreview(form){
 // Titulares y descripciones editoriales de secciones preparadas para SEO.
 // La portada y las guías públicas están preparadas para la indexación; las operaciones privadas siguen en Apps Script.
 const PAGE_SEO={
- inicio:['Agencia Oficial DEA | Comunidad Habbo ES','Consulta el equipo, rangos, formación, nóminas y novedades de Agencia Oficial DEA, comunidad independiente de Habbo Hotel. Disciplina · Honor · Lealtad.'],
- publico:['Agencia Oficial DEA | Comunidad Habbo ES','Consulta el equipo, rangos, formación, nóminas y novedades de Agencia Oficial DEA, comunidad independiente de Habbo Hotel. Disciplina · Honor · Lealtad.'],
+ inicio:['DEA Habbo | Agencia Oficial DEA · Rangos y nóminas','DEA Habbo: web de Agencia Oficial DEA en Habbo ES. Consulta rangos, formación, equipo y nóminas de miércoles y sábado a las 22:00, hora de España.'],
+ publico:['DEA Habbo | Agencia Oficial DEA · Rangos y nóminas','DEA Habbo: web de Agencia Oficial DEA en Habbo ES. Consulta rangos, formación, equipo y nóminas de miércoles y sábado a las 22:00, hora de España.'],
  'publico/agencia':['La agencia Agencia Oficial DEA | Comunidad de Habbo','Descubre qué es Agencia Oficial DEA, cómo funciona su agencia en Habbo Hotel y cómo se organizan la formación, los equipos y los departamentos.'],
  'publico/jerarquia':['Rangos y ascensos R1–R10 | Agencia Oficial DEA','Consulta la jerarquía DEA en Habbo: rangos R1–R10, requisitos de ascenso, plazos y quién puede autorizar cada promoción.'],
  'publico/placas':['Placas de beneficio | Agencia Oficial DEA','Catálogo de placas DEA: beneficios, precios y duración.'],

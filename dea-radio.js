@@ -39,7 +39,7 @@ const details=[
 const logo=i=>'https://www.google.com/s2/favicons?domain='+encodeURIComponent(details[i][2])+'&sz=128';
 const badge=i=>'<span class="dr-logo"><img src="'+logo(i)+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.textContent=\'DEA\'"></span>';
 const root=document.createElement('section');root.id='dea-radio';root.setAttribute('aria-label','DEA Radio Station');
-root.innerHTML=`<div class="dr-dock">
+root.innerHTML=`<aside class="dr-invite" aria-label="Disfruta de la radio DEA"><img src="/assets/dea/radio-dj-vip-20261116.png" alt="DJ estilo Habbo con auriculares y mesa de mezclas, señalando hacia el selector" width="1536" height="1024"><div><span>DEA RADIO · AMBIENTE VIP</span><strong>TU RADIO. TU ESTILO.</strong><p>Selecciona tu radio y estilo favorito, dale al play y disfruta mientras navegas por DEA.</p></div></aside><div class="dr-dock">
 <div class="dr-top"><div class="dr-identity"><span class="dr-mark" data-current-logo>DEA</span><div class="dr-brand"><strong>DEA RADIO STATION</strong><small data-current-name>01 · Colombia Lounge</small></div></div><button type="button" class="dr-play" data-play aria-label="Reproducir emisora">▶</button></div>
 <div class="dr-bottom"><div class="dr-select-wrap"><button type="button" class="dr-picker" data-picker aria-expanded="false" aria-controls="dr-stations">01 · Colombia Lounge <span aria-hidden="true">⌄</span></button><div class="dr-dropdown" id="dr-stations" data-dropdown hidden></div></div><button type="button" class="dr-expand" data-expand aria-label="Abrir las quince emisoras" title="Ver quince emisoras">15</button></div>
 </div>

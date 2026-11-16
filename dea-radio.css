@@ -80,3 +80,12 @@
 #dea-radio .dr-picker{padding:6px 8px!important}
 #dea-radio .dr-expand{width:35px!important;height:35px!important;flex:0 0 35px!important;font-size:17px}
 @media(max-width:800px){#dea-radio .dr-dock{grid-template-areas:"top" "bottom"!important;gap:5px!important;padding:7px 10px!important}#dea-radio .dr-top{gap:7px!important}}
+
+/* Banner unido al reproductor persistente; no tapa los controles. */
+#dea-radio .dr-invite{max-width:1120px;margin:0 auto 7px;display:flex;align-items:center;gap:16px;border:1px solid #bd9853;border-radius:13px;background:linear-gradient(110deg,#0b2037,#102e49);overflow:hidden;color:#eaf3ff;min-width:0}
+#dea-radio .dr-invite>img{display:block;width:144px;height:96px;object-fit:cover;object-position:left center;flex:none}
+#dea-radio .dr-invite>div{padding:9px 16px 9px 0;min-width:0}
+#dea-radio .dr-invite span{display:block;font-size:9px;font-weight:800;letter-spacing:1.4px;color:#b9eddf}
+#dea-radio .dr-invite strong{display:block;font-size:clamp(15px,2vw,22px);letter-spacing:.04em;color:#f7d38b;margin:4px 0}
+#dea-radio .dr-invite p{font-size:12px;line-height:1.5;color:#e1ecf7;margin:0}
+@media(max-width:600px){#dea-radio .dr-invite{gap:10px}#dea-radio .dr-invite>img{width:86px;height:92px}#dea-radio .dr-invite>div{padding:8px 8px 8px 0}#dea-radio .dr-invite span{font-size:8px;letter-spacing:.8px}#dea-radio .dr-invite strong{font-size:15px}#dea-radio .dr-invite p{font-size:10px;line-height:1.45}}

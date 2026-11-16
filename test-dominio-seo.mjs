@@ -6,7 +6,7 @@ const base='https://agenciaoficialdea.es';
 const read=p=>readFile(new URL(p,import.meta.url),'utf8');
 test('Todas las URL del sitemap tienen canónica, robots, imagen social y JSON-LD coherentes',async()=>{
  const xml=await read('sitemap.xml');const urls=[...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]);
- assert.equal(urls.length,9);assert.equal(new Set(urls).size,9);
+ assert.equal(urls.length,10);assert.equal(new Set(urls).size,10);assert.ok(urls.includes(base+'/faq-dea/'));
  for(const url of urls){
   assert.equal(new URL(url).origin,base);assert.ok(!url.includes('#'));assert.ok(!/founder-|webapp|api\//.test(url));
   const path=new URL(url).pathname;const html=await read(path==='/'?'index.html':path.slice(1)+'index.html');

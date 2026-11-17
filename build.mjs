@@ -58,3 +58,5 @@ await copyFile(join('assets','dea','miembros-semana-20261116.jpg'),join('dist','
 await copyFile(join('assets','dea','radio-dj-vip-20261116.png'),join('dist','assets','dea','radio-dj-vip-20261116.png'));
 
 await copyFile(join('assets','dea','calculadora-genio.webp'),join('dist','assets','dea','calculadora-genio.webp'));
+
+await copyFile(join('assets','dea','calculadora-banner.webp'),join('dist','assets','dea','calculadora-banner.webp'));

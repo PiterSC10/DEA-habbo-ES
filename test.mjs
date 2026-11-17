@@ -633,3 +633,21 @@ test('Skin premium conserva secciones y publica imágenes ligeras sin accesos pr
 });
 
 test('Modo público oculta también el acceso de ingreso en todos los apartados',()=>{for(const route of ['inicio','publico','publico/agencia','publico/founders','publico/jerarquia','publico/placas','publico/ingreso','vip','identificacion/alta']){const h=page(route,true,true,false);assert.doesNotMatch(h,/href="(?:\/)?#\/(?:publico\/ingreso|vip|unete|identificacion|ficha)/);assert.doesNotMatch(h,/ÚNETE A DEA|Únete a DEA|ACCESO VIP|discord-login-button/);}});
+
+test('Mapa de nóminas: 27 ciudades con banderas locales y equivalencias sin perder zonas',async()=>{
+ const rows=runInNewContext(catalogs+";deaPayrollRows('2026-11-18')",{});
+ assert.equal(rows.length,27);assert.equal(rows.find(r=>r.zone==='Europe/Madrid').time,'22:00');
+ const html=runInNewContext(catalogs+";deaPayrollScheduleHtml(null,'2026-11-18')",{});
+ assert.equal((html.match(/class="pay-map-pin"/g)||[]).length,27);
+ assert.equal((html.match(/class="pay-time-card"/g)||[]).length,new Set(rows.map(r=>r.time+'|'+r.date)).size);
+ for(const r of rows){assert.ok(r.px>=0&&r.px<=100&&r.py>=0&&r.py<=100);await access(new URL('./assets/dea/payroll/'+r.code+'.webp',import.meta.url));assert.ok(html.includes(r.city));}
+ assert.doesNotMatch(html,/<table/);assert.match(html,/data-payroll-day=/);assert.match(html,/role="status" aria-live="polite"/);
+});
+test('Horarios visuales: cada jornada usa su propia fecha, incluidos cambios estacionales',()=>{
+ for(const day of ['2026-11-18','2026-11-21','2027-03-27','2027-03-31']){
+  const rows=runInNewContext(catalogs+`;deaPayrollRows('${day}')`,{});
+  const madrid=rows.find(r=>r.zone==='Europe/Madrid');assert.equal(madrid.time,'22:00');
+  const html=runInNewContext(catalogs+`;deaPayrollScheduleHtml(null,'${day}')`,{});assert.ok(html.includes(`data-payroll-date="${day}"`));
+  for(const r of rows)assert.ok(html.includes(r.time));
+ }
+});

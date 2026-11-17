@@ -1,0 +1,2 @@
+Map: Natural Earth ne_110m_land, public domain, https://www.naturalearthdata.com/
+Flags: flag-icons by lipis, MIT License, https://github.com/lipis/flag-icons

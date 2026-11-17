@@ -60,3 +60,5 @@ await copyFile(join('assets','dea','radio-dj-vip-20261116.png'),join('dist','ass
 await copyFile(join('assets','dea','calculadora-genio.webp'),join('dist','assets','dea','calculadora-genio.webp'));
 
 await copyFile(join('assets','dea','calculadora-banner.webp'),join('dist','assets','dea','calculadora-banner.webp'));
+
+await cp(join('assets','dea','payroll'),join('dist','assets','dea','payroll'),{recursive:true});

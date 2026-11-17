@@ -7,7 +7,7 @@ for(const name of await readdir('.'))if(allow.has(name))await copyFile(name,join
 console.log(`Preparados ${allow.size} archivos web públicos. Backend Apps Script, datos privados y secretos fuera de dist/.`);
 
 // Publicar guías HTML con URLs reales para Google; no empaquetar paneles ni backend privado.
-const seoDirs=['faq-dea','musica','cafeteria','agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders'];
+const seoDirs=['calculadora','faq-dea','musica','cafeteria','agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders'];
 for(const dir of seoDirs){
  await mkdir(join('dist',dir),{recursive:true});
  await copyFile(join(dir,'index.html'),join('dist',dir,'index.html'));
@@ -56,3 +56,5 @@ await copyFile(join('assets','dea','momentos-after-party-20261116.webp'),join('d
 await copyFile(join('assets','dea','miembros-semana-20261116.jpg'),join('dist','assets','dea','miembros-semana-20261116.jpg'));
 
 await copyFile(join('assets','dea','radio-dj-vip-20261116.png'),join('dist','assets','dea','radio-dj-vip-20261116.png'));
+
+await copyFile(join('assets','dea','calculadora-genio.webp'),join('dist','assets','dea','calculadora-genio.webp'));

@@ -540,7 +540,7 @@ test('Menú móvil: fondo dentro del layout, abrir, cerrar, Escape y navegar',()
  action('close-mobile');assert.doesNotMatch(root.innerHTML,/mobile-open/);
  action('mobile-menu');handlers.keydown.forEach(fn=>fn({key:'Escape'}));assert.doesNotMatch(root.innerHTML,/mobile-open/);
  action('mobile-menu');location.hash='#/publico/founders';windowHandlers.hashchange();
- assert.doesNotMatch(root.innerHTML,/mobile-open/);assert.match(root.innerHTML,/KietsyAndrea/);
+ assert.doesNotMatch(root.innerHTML,/mobile-open/);assert.match(root.innerHTML,/lesslie\.ar/);assert.match(root.innerHTML,/XPE_34/);assert.doesNotMatch(root.innerHTML,/KietsyAndrea/);
 });
 
 test('Habboween: Founders públicos con adornos limitados; original y VIP sin escena',async()=>{

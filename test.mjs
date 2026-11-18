@@ -366,7 +366,9 @@ test('Normativa no invade Placas, preinauguración ni la portada principal',()=>
 test('Catálogo de placas con precios, emblemas y vigencias',async()=>{
  const h=page('publico/placas');
  const cards=[...h.matchAll(/<article class="dea-plaque-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
- assert.equal(cards.length,7);
+ assert.equal(cards.length,8);
+ const anti=cards.find(c=>c.includes('<h3>[DEA] AntiCheck'));
+ assert.ok(anti,'AntiCheck');assert.match(anti,/50 créditos/);assert.match(anti,/Mantiene tu tiempo activo/);
  assert.doesNotMatch(h,/<del|Emblema: próximamente|Precio: próximamente|Oferta de inauguración/);
  const comeback=cards.find(c=>c.includes('<h3>[DEA] ComebackPASS'));
  assert.match(comeback,/30 créditos/);

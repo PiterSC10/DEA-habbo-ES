@@ -47,7 +47,7 @@ const DEA_PUBLIC_PLAQUES=[
 ];
 function publicPlaques(){
  const cards=DEA_PUBLIC_PLAQUES.map(({image,title,price,permanent,benefit})=>{return `<article class="dea-plaque-card">
- <div class="dea-plaque-image">${image==='anticheck'?'<span class="dea-anticheck-emblem" role="img" aria-label="Insignia AntiCheck">◆</span>':image==='comeback-pass-original'?'<span class="dea-comeback-emblem" role="img" aria-label="Insignia ComebackPASS"></span>':`<img class="dea-plaque-emblem" src="/assets/dea/insignias/${image}.png" width="120" height="120" alt="Insignia ${title}" loading="lazy">`}</div>
+ <div class="dea-plaque-image">${image==='anticheck'?'<img class="dea-plaque-emblem" src="/assets/dea/insignias/anticheck.svg" width="120" height="120" alt="Insignia AntiCheck" loading="lazy">':image==='comeback-pass-original'?'<span class="dea-comeback-emblem" role="img" aria-label="Insignia ComebackPASS"></span>':`<img class="dea-plaque-emblem" src="/assets/dea/insignias/${image}.png" width="120" height="120" alt="Insignia ${title}" loading="lazy">`}</div>
  <div class="dea-plaque-details"><h3>[DEA] ${title}${permanent?' <span class="dea-rank-code dea-rank-code-benefit">BENEFICIO · SIN RANGO</span>':''}</h3>
  <strong class="dea-plaque-price">${price} créditos</strong>
  <p>Precio en sala</p>

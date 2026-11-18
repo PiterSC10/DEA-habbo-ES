@@ -121,7 +121,7 @@ document.body.appendChild(overlay);
 const colors=['#e7ba53','#f6e9bd','#2b83e6','#ffffff','#7cb6ff'];
 for(let i=0;i<75;i++){const el=document.createElement('i');el.className='dea-party-piece';el.style.cssText='--x:'+Math.random()*100+'%;--w:'+(5+Math.random()*8)+'px;--h:'+(7+Math.random()*12)+'px;--c:'+colors[i%colors.length]+';--r:'+Math.random()*360+'deg;--d:'+(3+Math.random()*5)+'s;--delay:-'+Math.random()*8+'s;--drift:'+(Math.random()*200-100)+'px';overlay.appendChild(el)}
 for(let i=0;i<9;i++){const el=document.createElement('span');el.className='dea-party-balloon';el.textContent=['🎈','🎈','🎈'][i%3];el.style.cssText='--x:'+(i*11+Math.random()*8)+'%;--d:'+(7+Math.random()*5)+'s;--delay:-'+Math.random()*12+'s;--drift:'+(Math.random()*130-65)+'px';overlay.appendChild(el)}
-const close=()=>{sessionStorage.setItem('dea-miembros-semana-20261116-v1','1');overlay.remove();document.removeEventListener('keydown',esc)};
+const close=()=>{sessionStorage.setItem('dea-miembros-semana-20261116-v1','1');overlay.remove();window.dispatchEvent(new Event('dea:initial-popup-closed'));document.removeEventListener('keydown',esc)};
 const esc=e=>{if(e.key==='Escape')close()};
 overlay.querySelectorAll('button,.dea-party-action,.dea-team-invite-link').forEach(b=>b.addEventListener('click',close));document.addEventListener('keydown',esc);overlay.querySelector('.dea-party-close').focus();
 }

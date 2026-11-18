@@ -74,6 +74,11 @@
   ],
   "redirects": [
     {
+      "source": "/cafeteria",
+      "destination": "/cafeteria/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {

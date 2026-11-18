@@ -20,7 +20,8 @@ test('Todas las URL del sitemap tienen canónica, robots, imagen social y JSON-L
  assert.ok((await read('robots.txt')).includes('Sitemap: '+base+'/sitemap.xml'));
 });
 test('La redirección conserva rutas y solo afecta al antiguo host público',async()=>{
- const config=JSON.parse(await read('vercel.json'));const redirect=config.redirects[0];
+ const config=JSON.parse(await read('vercel.json'));const redirect=config.redirects.find(r=>r.source==='/:path*');
+ assert.ok(config.redirects.some(r=>r.source==='/cafeteria'&&r.destination==='/cafeteria/'&&r.permanent===true));
  assert.equal(redirect.source,'/:path*');assert.deepEqual(redirect.has,[{type:'host',value:'dea-habbo-es.vercel.app'}]);assert.equal(redirect.destination,base+'/:path*');assert.equal(redirect.permanent,true);
 });
 test('El contador utiliza la misma API local y acepta el dominio nuevo sin cambiar históricos',async()=>{

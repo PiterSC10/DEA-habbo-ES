@@ -36,6 +36,7 @@ function publicPlaqueImage(item){
  return `<img src="${esc(safe?url:'./logo-dea-es.png')}" loading="lazy" alt="${safe?'Logo oficial de '+esc(item.nombre):'Emblema DEA provisional, placa sin logo definido'}">`;
 }
 const DEA_PUBLIC_PLAQUES=[
+ {image:'anticheck',title:'AntiCheck',price:50,benefit:'Mantiene tu tiempo activo sin tener que verificarlo periódicamente.'},
  {image:'comeback-pass-original',title:'ComebackPASS',price:30,benefit:'Te permite reincorporarte al puesto que tenías después de una ausencia prolongada, siempre y cuando conserves las placas.'},
  {image:'exclusive-benefits',title:'Exclusive Benefits [EB]',price:30,benefit:'Reúne Chat Privilege [CP] y Free Outfit [FO]: usa chat de color, mayúsculas y el look que quieras.'},
  {image:'beneficio-gold',title:'Beneficio Gold',price:100,benefit:'Usa la ropa que quieras sin importar el rango, disfruta de chat libre y accede a los beneficios PS, HS, RN y BD.'},
@@ -46,7 +47,7 @@ const DEA_PUBLIC_PLAQUES=[
 ];
 function publicPlaques(){
  const cards=DEA_PUBLIC_PLAQUES.map(({image,title,price,permanent,benefit})=>{return `<article class="dea-plaque-card">
- <div class="dea-plaque-image">${image==='comeback-pass-original'?'<span class="dea-comeback-emblem" role="img" aria-label="Insignia ComebackPASS"></span>':`<img class="dea-plaque-emblem" src="/assets/dea/insignias/${image}.png" width="120" height="120" alt="Insignia ${title}" loading="lazy">`}</div>
+ <div class="dea-plaque-image">${image==='anticheck'?'<span class="dea-anticheck-emblem" role="img" aria-label="Insignia AntiCheck">◆</span>':image==='comeback-pass-original'?'<span class="dea-comeback-emblem" role="img" aria-label="Insignia ComebackPASS"></span>':`<img class="dea-plaque-emblem" src="/assets/dea/insignias/${image}.png" width="120" height="120" alt="Insignia ${title}" loading="lazy">`}</div>
  <div class="dea-plaque-details"><h3>[DEA] ${title}${permanent?' <span class="dea-rank-code dea-rank-code-benefit">BENEFICIO · SIN RANGO</span>':''}</h3>
  <strong class="dea-plaque-price">${price} créditos</strong>
  <p>Precio en sala</p>

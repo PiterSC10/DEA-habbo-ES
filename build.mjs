@@ -7,7 +7,7 @@ for(const name of await readdir('.'))if(allow.has(name))await copyFile(name,join
 console.log(`Preparados ${allow.size} archivos web públicos. Backend Apps Script, datos privados y secretos fuera de dist/.`);
 
 // Publicar guías HTML con URLs reales para Google; no empaquetar paneles ni backend privado.
-const seoDirs=['calculadora','faq-dea','musica','cafeteria','agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders'];
+const seoDirs=['calculadora','faq-dea','musica','cafeteria','agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders','privacidad'];
 for(const dir of seoDirs){
  await mkdir(join('dist',dir),{recursive:true});
  await copyFile(join(dir,'index.html'),join('dist',dir,'index.html'));

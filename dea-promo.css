@@ -5,19 +5,20 @@
 #dea-promo .dea-promo-close{position:absolute;right:13px;top:13px;z-index:10;width:43px;height:43px;display:grid;place-items:center;border:1px solid #f1d489;border-radius:50%;background:#081729e8;color:#fff;font-size:31px;line-height:1;cursor:pointer}
 #dea-promo .dea-promo-close:hover{background:#d5ad63;color:#071629}
 #dea-promo a:focus-visible,#dea-promo button:focus-visible{outline:3px solid #79ecff;outline-offset:2px}
-#dea-promo .dea-promo-scene{height:clamp(150px,24vw,230px);position:relative;overflow:hidden;background:linear-gradient(90deg,#06172ac7 0%,transparent 60%),linear-gradient(0deg,#091c32 0%,transparent 65%),url('/assets/dea/promo-sala.webp') center 46%/cover;border-bottom:1px solid #b18d53}
+#dea-promo .dea-promo-scene{height:clamp(220px,28vw,280px);position:relative;overflow:hidden;background:linear-gradient(90deg,#06172ac7 0%,transparent 60%),linear-gradient(0deg,#091c32 0%,transparent 65%),url('/assets/dea/promo-sala.webp') center 46%/cover;border-bottom:1px solid #b18d53}
 #dea-promo .dea-promo-scene:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(130deg,transparent 40%,#6adfff12 70%,transparent)}
 #dea-promo .dea-promo-brand{position:absolute;left:clamp(14px,4vw,32px);top:clamp(14px,3vw,27px);display:flex;align-items:center;gap:12px;z-index:2;padding:8px 16px 8px 7px;background:#051727c9;border:1px solid #cba461;border-radius:14px;box-shadow:0 10px 25px #0005}
 #dea-promo .dea-promo-brand img{width:clamp(52px,8vw,76px);height:auto;filter:drop-shadow(0 0 12px #d6b06a50)}
 #dea-promo .dea-promo-brand span{color:#fff;font-size:clamp(14px,2.5vw,23px);font-weight:900;letter-spacing:.8px;text-shadow:0 2px 9px #000}
 #dea-promo .dea-promo-brand small{display:block;color:#f3ce86;font-size:10px;letter-spacing:3px;margin-top:3px}
-#dea-promo .dea-promo-founders{position:absolute;right:10px;bottom:0;display:flex;align-items:flex-end;justify-content:flex-end;gap:clamp(0px,.5vw,5px);width:min(55%,415px);height:98%;z-index:1;pointer-events:none}
-#dea-promo .dea-promo-founders:before{content:"FOUNDERS DEA";position:absolute;right:10px;bottom:5px;padding:3px 8px;background:#061a2dcc;border:1px solid #deb66c;border-radius:6px;color:#ffe0a0;font-size:9px;letter-spacing:1px;font-weight:900;z-index:2}
-#dea-promo .dea-promo-avatar{position:relative;bottom:0;min-width:0;width:24%;height:92%;max-width:95px;object-fit:contain;object-position:bottom center;image-rendering:pixelated;filter:drop-shadow(2px 5px 3px #0009)}
-#dea-promo .dea-promo-founder-1{height:83%}
-#dea-promo .dea-promo-founder-2{height:90%}
-#dea-promo .dea-promo-founder-3{height:85%}
-#dea-promo .dea-promo-founder-4{height:100%}
+#dea-promo .dea-promo-crew{position:absolute;bottom:0;left:8px;right:8px;z-index:3;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;align-items:end;pointer-events:none}
+#dea-promo .dea-promo-crew-member{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0;min-height:129px;padding:2px 1px 4px;background:linear-gradient(0deg,#071a2de8,transparent 56%);border-bottom:3px solid #ddb361;border-radius:7px 7px 0 0}
+#dea-promo .dea-promo-crew-manager{border-bottom-color:#55d7e9}
+#dea-promo .dea-promo-crew-member:nth-child(even) .dea-promo-avatar{transform:translateY(-5px)}
+#dea-promo .dea-promo-avatar{width:auto;max-width:100%;height:91px;object-fit:contain;object-position:center bottom;image-rendering:pixelated;filter:drop-shadow(1px 3px 3px #000b)}
+#dea-promo .dea-promo-crew-label{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:white;text-shadow:0 1px 3px #000;font-size:clamp(8px,.9vw,11px);font-weight:850}
+#dea-promo .dea-promo-crew-role{color:#efd18c;font-size:clamp(7px,.75vw,9px);font-weight:900;letter-spacing:.4px}
+#dea-promo .dea-promo-crew-manager .dea-promo-crew-role{color:#88e8fa}
 #dea-promo .dea-promo-body{padding:20px clamp(15px,3vw,28px) 21px}
 #dea-promo .dea-promo-kicker{display:block;color:#8de6f5;font-size:11px;font-weight:900;letter-spacing:1.6px}
 #dea-promo h2{margin:6px 0 10px;color:#fff;font-size:clamp(30px,5vw,43px);line-height:1;font-weight:1000;letter-spacing:1px}
@@ -47,6 +48,6 @@
 #dea-promo .dea-promo-secondary{border:1px solid #7fa3ba;background:#19364f;color:#f8e2ab}
 #dea-promo .dea-promo-note{margin:12px 0 0;color:#aec4d6;text-align:center;font-size:10px;line-height:1.6}
 @keyframes deaPromoEnter{from{opacity:0}to{opacity:1}}
-@media(max-width:600px){#dea-promo{padding:8px;align-items:center}#dea-promo .dea-promo-panel{max-height:calc(100dvh - 16px);border-radius:14px}#dea-promo .dea-promo-scene{height:130px}#dea-promo .dea-promo-brand{top:10px;left:9px;gap:6px;padding:5px 7px}#dea-promo .dea-promo-brand span{font-size:12px}#dea-promo .dea-promo-brand small{font-size:8px}#dea-promo .dea-promo-brand img{width:43px}#dea-promo .dea-promo-founders{right:5px;width:58%;height:97%;gap:0}#dea-promo .dea-promo-founders:before{font-size:7px;right:2px;bottom:3px;padding:2px 4px}#dea-promo .dea-promo-avatar{width:25%;max-width:57px}#dea-promo .dea-promo-body{padding:12px}#dea-promo h2{font-size:28px}#dea-promo .dea-promo-date{font-size:9px;padding:5px}#dea-promo .dea-promo-ranks{gap:5px}#dea-promo .dea-promo-rank{padding:9px 3px}#dea-promo .dea-promo-rank em{font-size:7px}#dea-promo .dea-promo-rank small strong{font-size:20px}#dea-promo del{font-size:10px}#dea-promo .dea-promo-vip{padding:8px;gap:8px}#dea-promo .dea-promo-vip-emblem{width:32px;height:32px}#dea-promo .dea-promo-actions{gap:5px}#dea-promo .dea-promo-cta,#dea-promo .dea-promo-secondary{font-size:10px;padding:10px 5px}}
+@media(max-width:600px){#dea-promo{padding:8px;align-items:center}#dea-promo .dea-promo-panel{max-height:calc(100dvh - 16px);border-radius:14px}#dea-promo .dea-promo-scene{height:208px}#dea-promo .dea-promo-brand{top:10px;left:9px;gap:6px;padding:5px 7px}#dea-promo .dea-promo-brand span{font-size:12px}#dea-promo .dea-promo-brand small{font-size:8px}#dea-promo .dea-promo-brand img{width:43px}#dea-promo .dea-promo-crew{left:3px;right:3px;gap:1px}#dea-promo .dea-promo-crew-member{min-height:113px;padding:1px 0 3px}#dea-promo .dea-promo-avatar{height:75px}#dea-promo .dea-promo-crew-label{font-size:6px;letter-spacing:-.3px}#dea-promo .dea-promo-crew-role{font-size:6px;letter-spacing:0}#dea-promo .dea-promo-body{padding:12px}#dea-promo h2{font-size:28px}#dea-promo .dea-promo-date{font-size:9px;padding:5px}#dea-promo .dea-promo-ranks{gap:5px}#dea-promo .dea-promo-rank{padding:9px 3px}#dea-promo .dea-promo-rank em{font-size:7px}#dea-promo .dea-promo-rank small strong{font-size:20px}#dea-promo del{font-size:10px}#dea-promo .dea-promo-vip{padding:8px;gap:8px}#dea-promo .dea-promo-vip-emblem{width:32px;height:32px}#dea-promo .dea-promo-actions{gap:5px}#dea-promo .dea-promo-cta,#dea-promo .dea-promo-secondary{font-size:10px;padding:10px 5px}}
 @media(max-height:670px){#dea-promo .dea-promo-scene{height:105px}#dea-promo .dea-promo-body{padding-top:10px;padding-bottom:10px}#dea-promo .dea-promo-rank{padding-top:8px;padding-bottom:7px}}
 @media(prefers-reduced-motion:reduce){#dea-promo{animation:none}#dea-promo .dea-promo-rank{transition:none}}

@@ -330,11 +330,11 @@ ROOT.addEventListener('click',e=>{
  const button=e.target.closest('[data-dea-moment]');
  if(button&&ROOT.contains(button)){e.preventDefault();deaOpenMoment(Number(button.dataset.deaMoment),button);}
 });
-document.addEventListener('click',e=>{
+document.addEventListener?.('click',e=>{
  const overlay=document.getElementById('dea-moment-lightbox');
  if(overlay&&(e.target===overlay||e.target.closest('[data-dea-moment-close]')))deaCloseMoment();
 });
-document.addEventListener('keydown',e=>{
+document.addEventListener?.('keydown',e=>{
  const overlay=document.getElementById('dea-moment-lightbox');if(!overlay)return;
  if(e.key==='Escape'){e.preventDefault();deaCloseMoment();}
  if(e.key==='Tab'){

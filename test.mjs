@@ -274,7 +274,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
  const global=vercel.headers.find(h=>h.source==='/(.*)');
  assert.ok(global);
  assert.ok(!global.headers.some(h=>h.key==='X-Robots-Tag'),'Nunca noindex global');
- assert.ok(html.includes('content="index,follow,max-image-preview:large"'));
+ assert.ok(html.includes('content="index,follow,max-image-preview:large,max-snippet:-1"'));
  const privateFiles=['founder-10pedro.html','founder-kietsyandrea.html','founder-lesslie-ar.html','founder-xpe-34.html','directores-deawebapp.html','managers-deawebapp.html'];
  for(const f of privateFiles){
   const entry=vercel.headers.find(x=>x.source==='/'+f);
@@ -293,7 +293,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
 
 
 test('Metadatos principales SEO claros, marca y fallback HTML indexable',()=>{
- assert.match(html,/<title>DEA Habbo \| Agencia Oficial DEA · Rangos y nóminas<\/title>/);
+ assert.match(html,/<title>Agencia Oficial DEA \| Comunidad de Habbo Hotel<\/title>/);
  assert.match(html,/<meta property="og:site_name" content="Agencia Oficial DEA">/);
  assert.match(html,/favicon-48\.png/);
  assert.match(html,/"@type":"WebSite"/);
@@ -499,7 +499,7 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  assert.match(page('inicio',false),/Agencia Oficial DEA · Preinauguración/);
 });
 
-test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
+test('Search Console, portada como única URL del sitemap y guías públicas no indexables',async()=>{
  const verification=await readFile(new URL('./google8fa052a4ee6eb69c.html',import.meta.url),'utf8');
  const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
  const sitemap=await readFile(new URL('./sitemap.xml',import.meta.url),'utf8');
@@ -510,6 +510,8 @@ test('Search Console, sitemap y seis páginas de búsqueda públicos',async()=>{
  assert.ok(build.includes("'seo-public.css'"));
  assert.ok(cssSEO.includes('@media(max-width:640px)'));
  assert.ok(sitemap.includes('https://agenciaoficialdea.es/'));
+  assert.equal([...sitemap.matchAll(/<loc>/g)].length,1,'solo portada en el sitemap');
+  const v=JSON.parse(await readFile(new URL('./vercel.json',import.meta.url),'utf8'));
  for(const slug of ['agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders']){
   const p=await readFile(new URL('./'+slug+'/index.html',import.meta.url),'utf8');
   assert.ok(sitemap.includes('https://agenciaoficialdea.es/'+slug+'/'),slug);

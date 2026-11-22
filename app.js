@@ -28,7 +28,7 @@ const DEA_PUBLIC_STAFF=Object.freeze([
  {"cat":"R5","rank":"Coordinador · LS2 · SB9","name":":SWAGBOY:","habbo":":SWAGBOY:"},
  {"cat":"R9","rank":"Líder en Formación","name":"MARTINGARRIX41","habbo":"MARTINGARRIX41","signature":"AAA"},
  {"cat":"R9","rank":"Líder en Formación","name":"Guauagatabig","habbo":"Guauagatabig","signature":"M26"},
- {"cat":"R9","rank":"Líder en Formación","name":"D!orX","habbo":"D!orX","signature":"DIO"},
+ {"cat":"R2","rank":"Agente de Élite I","name":"Mantoj92","habbo":"Mantoj92","signature":"MGA"},
  {"cat":"R9","rank":"Líder en Formación","name":"Catalina.x12","habbo":"Catalina.x12","signature":"LYN"},
  {"cat":"R8","rank":"Secretario Base","name":"kevinAndres","habbo":"kevinAndres","signature":"KVN"},
  {"cat":"R7","rank":"Delegado Dir. Cadetes","name":"Jinn,","habbo":"Jinn,","signature":"JIN"},

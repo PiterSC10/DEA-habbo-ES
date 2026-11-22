@@ -39,6 +39,7 @@ const DEA_PUBLIC_STAFF=Object.freeze([
  {"cat":"R6","rank":"Director de Base","name":null},
  {"cat":"R6","rank":"Director Advisor","name":null},
  {"cat":"R6","rank":"Jefe de Dirección","name":null},
+ {"cat":"R5","rank":"Coordinador Base · LS2","name":"agustin993","habbo":"agustin993","signature":"BBR"},
  {"cat":"R5","rank":"Coordinador base","name":"Ashleeeeyy","habbo":"Ashleeeeyy","signature":"ASH"},
  {"cat":"R5","rank":"Coordinador Base","name":"xImSmaug","habbo":"xImSmaug","signature":"SMG"},
  {"cat":"R5","rank":"Coordinador Base","name":"Martuski05","habbo":"Martuski05","signature":"M11"},

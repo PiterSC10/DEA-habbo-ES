@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://agenciaoficialdea.es/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/agencia-habbo/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/rangos-habbo/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/departamentos/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/unirse-a-dea/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/normativa/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/founders/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/cafeteria/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/musica/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/faq-dea/</loc></url>
-  <url><loc>https://agenciaoficialdea.es/calculadora/</loc></url>
+  <url><loc>https://agenciaoficialdea.es/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
 </urlset>

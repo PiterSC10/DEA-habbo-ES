@@ -514,8 +514,8 @@ test('Search Console, portada como única URL del sitemap y guías públicas no 
   const v=JSON.parse(await readFile(new URL('./vercel.json',import.meta.url),'utf8'));
  for(const slug of ['agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders']){
   const p=await readFile(new URL('./'+slug+'/index.html',import.meta.url),'utf8');
-  assert.ok(sitemap.includes('https://agenciaoficialdea.es/'+slug+'/'),slug);
-  assert.ok(p.includes('<meta name="robots" content="index,follow'),slug);
+  assert.ok(!sitemap.includes('https://agenciaoficialdea.es/'+slug+'/'),slug);
+  assert.ok(v.headers.some(h=>h.source==='/'+slug+'/(.*)'&&h.headers.some(x=>x.key==='X-Robots-Tag'&&x.value==='noindex, follow')),slug);
   assert.ok(p.includes('<link rel="canonical" href="https://agenciaoficialdea.es/'+slug+'/">'),slug);
   assert.ok(p.includes('<h1>'),slug);
   assert.ok(p.includes('Agencia Oficial DEA'),slug);

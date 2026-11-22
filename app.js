@@ -51,7 +51,7 @@ const DEA_PUBLIC_STAFF=Object.freeze([
  {"cat":"R2","rank":"Agente de Enlace I","name":"Larisa.malarisa","habbo":"Larisa.malarisa"},
 ]);
 // Añadir aquí futuras fotografías aprobadas por Dirección, sin sobrescribir el archivo histórico.
-const DEA_ROOM_MOMENTS=[{image:'/assets/dea/momentos-after-party-20261116.webp',date:'2026-11-16',dateLabel:'16 de noviembre de 2026',title:'¡Aquí comenzó el after party! 🎉',copy:'Después del trabajo, seguimos haciendo comunidad. ¡Let’s go, DEA! 💙👑',alt:'Integrantes de DEA reunidos en la sala durante el after party'}];
+const DEA_ROOM_MOMENTS=[{image:'/assets/dea/momento-dea-navidad-20261122.webp',date:'2026-11-22',dateLabel:'22 de noviembre de 2026',title:'🎅 ¡ALLÁ VAMOS, SANTA CLAUS! 🎄',copy:'¡Arrancamos con los regalos! 🎁 La Navidad ya ha llegado a DEA. ¡Que comience la magia navideña!',alt:'Sala de Agencia Oficial DEA decorada para Navidad, con árbol, regalos y trineo'},{image:'/assets/dea/momentos-after-party-20261116.webp',date:'2026-11-16',dateLabel:'16 de noviembre de 2026',title:'¡Aquí comenzó el after party! 🎉',copy:'Después del trabajo, seguimos haciendo comunidad. ¡Let’s go, DEA! 💙👑',alt:'Integrantes de DEA reunidos en la sala durante el after party'}];
 function deaStaffCard(x){
  const category=({R10:'MÁNAGER',R9:'LÍDER',R8:'SECRETARIO',R7:'DELEGADO',R6:'DIRECTOR',R5:'SUPERVISIÓN',R2:'AGENTE'})[x.cat]||x.cat;
  const img=x.name?'<img src="'+esc(deaAvatarUrl(x.habbo))+'" alt="Avatar Habbo de '+esc(x.habbo)+'" loading="lazy" referrerpolicy="no-referrer">':I('user',true);

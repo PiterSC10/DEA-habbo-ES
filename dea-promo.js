@@ -2,7 +2,7 @@
 (()=>{
  'use strict';
  const ENTRY_POPUPS_ENABLED=true;
- const KEY='dea-promo-noviembre-2026-premium-v1';
+ const KEY='dea-promo-noviembre-2026-founders-v2';
  const END=Date.parse('2026-12-01T00:00:00+01:00');
  let dismissed=false,timer;
  try{dismissed=sessionStorage.getItem(KEY)==='1';}catch{}
@@ -22,7 +22,7 @@
   const offers=[['R5','Supervisor',130,25],['R6','Director',240,75],['R7','Delegado',500,180]];
   card.innerHTML=`<div class="dea-promo-panel">
    <button class="dea-promo-close" type="button" aria-label="Cerrar promociones">×</button>
-   <div class="dea-promo-scene" aria-hidden="true"><div class="dea-promo-brand"><img src="/logo-dea-es.png" alt="" width="92" height="92"><span>AGENCIA OFICIAL DEA <small>HABBO ES</small></span></div><img class="dea-promo-avatar dea-promo-avatar-one" src="/assets/dea/founder-xpe34.png" alt="" loading="eager"><img class="dea-promo-avatar dea-promo-avatar-two" src="/assets/dea/manager-fr4nn23.png" alt="" loading="eager"></div>
+   <div class="dea-promo-scene" aria-hidden="true"><div class="dea-promo-brand"><img src="/logo-dea-es.png" alt="" width="92" height="92"><span>AGENCIA OFICIAL DEA <small>HABBO ES</small></span></div><div class="dea-promo-founders" aria-label="Founders de DEA"><img class="dea-promo-avatar dea-promo-founder-1" src="https://www.habbo.es/habbo-imaging/avatarimage?user=10PEDRO&direction=2&head_direction=2&action=std&gesture=sml&size=l" alt="Avatar de 10PEDRO" title="10PEDRO" loading="eager" referrerpolicy="no-referrer"><img class="dea-promo-avatar dea-promo-founder-2" src="https://www.habbo.es/habbo-imaging/avatarimage?user=lesslie.ar&direction=2&head_direction=2&action=std&gesture=sml&size=l" alt="Avatar de lesslie.ar" title="lesslie.ar" loading="eager" referrerpolicy="no-referrer"><img class="dea-promo-avatar dea-promo-founder-3" src="https://www.habbo.es/habbo-imaging/avatarimage?user=KietsyAndrea&direction=2&head_direction=2&action=std&gesture=sml&size=l" alt="Avatar de KietsyAndrea" title="KietsyAndrea" loading="eager" referrerpolicy="no-referrer"><img class="dea-promo-avatar dea-promo-founder-4" src="/assets/dea/founder-xpe34.png" alt="Avatar de XPE_34" title="XPE_34" loading="eager" referrerpolicy="no-referrer"></div></div>
    <div class="dea-promo-body">
     <span class="dea-promo-kicker">✦ ESPECIAL INAUGURACIÓN · ÚLTIMOS DÍAS</span>
     <h2>OFERTAS <span>DEA</span></h2>

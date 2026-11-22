@@ -53,7 +53,7 @@
 <link rel="stylesheet" href="./dea-radio.css?v=20261117-compact-seo">
 <script src="./avatar-clean.js?v=20261024-clean-v1" defer></script>
 <script src="./dea-guias.js?v=20261029-nominas" defer></script>
-<link rel="stylesheet" href="./dea-promo.css?v=20261029">
+<link rel="stylesheet" href="./dea-promo.css?v=20261122-ofertas-premium">
 <link rel="stylesheet" href="/cafeteria.css?v=5-vaso-dea">
 <link rel="stylesheet" href="./inauguracion.css?v=20261112-apertura">
 <link rel="stylesheet" href="./premium.css?v=20261117-payroll-map">
@@ -93,7 +93,7 @@
 <script src="./web-check-scan.js?v=20261024-v7-valuation" defer></script>
 <script defer src="./visitas.js?v=20261024-public-stats"></script>
 <script src="./dea-radio.js?v=20261117-banner-only" defer></script>
-<script src="./dea-promo.js?v=20261029" defer></script>
+<script src="./dea-promo.js?v=20261122-ofertas-premium" defer></script>
 <style>
 #dea-party-overlay{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;background:rgba(1,9,25,.87);padding:16px;overflow:hidden;backdrop-filter:blur(8px)}
 #dea-party-overlay[hidden]{display:none}
@@ -111,23 +111,6 @@
 .dea-team-invite{margin:0 0 24px;padding:26px 18px;border:2px solid #e6bf66;border-radius:18px;background:radial-gradient(ellipse at top,#164e74,#091b30 75%);box-shadow:0 0 24px #35c8eb28;text-align:center}.dea-team-invite-badge{display:block;color:#9effcb;font-weight:900;font-size:12px;letter-spacing:2px}.dea-team-invite img{width:72px;height:72px;margin:16px auto 8px;border:0}.dea-team-invite h3{color:#fff!important;font-size:clamp(24px,5vw,34px)!important;margin:8px 0 14px}.dea-team-invite p{margin:10px 0;color:#e5f3ff}.dea-team-invite .btn{display:inline-flex;margin:14px auto}.dea-team-invite small{display:block;color:#bdd5e7}
 .dea-weekly-popup-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:0 18px 18px}.dea-weekly-popup-actions .dea-party-action{margin:0;font-size:13px;flex:1;min-width:200px;text-align:center}
 </style>
-<script>
-(function(){
-function launchDEA(){
-// Reconocimiento de la semana, una vez por sesión y edición.
-if(sessionStorage.getItem('dea-miembros-semana-20261116-v1'))return;
-const overlay=document.createElement('div');overlay.id='dea-party-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Miembros de la semana DEA: primera edición');
-overlay.innerHTML='<section class="dea-party-card dea-milestone-card"><button type="button" class="dea-party-close" aria-label="Cerrar reconocimiento">×</button><header class="dea-payroll-popup-head"><small>RECONOCIMIENTO DEA · 16 DE NOVIEMBRE DE 2026</small><h2>👑 Miembros de la semana</h2><p>Primera edición · El compromiso merece su reconocimiento.</p></header><div class="dea-milestone-body"><figure style="margin:0"><a href="/assets/dea/miembros-semana-20261116.jpg" target="_blank" rel="noopener" aria-label="Ampliar cartel de miembros de la semana"><img src="/assets/dea/miembros-semana-20261116.jpg" width="1536" height="1024" alt="Miembros de la semana DEA, primera edición: FR4NN_23 y MAYERGRHG"></a></figure><h3>¡Enhorabuena, FR4NN_23 y MAYERGRHG!</h3><p>Gracias por vuestra participación, compromiso y apoyo en los primeros pasos de DEA. 💙</p><strong>Juntos hacemos la diferencia.</strong></div><div class="dea-weekly-popup-actions"><a href="#/publico/noticias" class="dea-party-action">VER RECONOCIMIENTO →</a><a href="#/publico" class="dea-party-action">ENTRAR EN LA WEB →</a></div></section>';
-document.body.appendChild(overlay);
-const colors=['#e7ba53','#f6e9bd','#2b83e6','#ffffff','#7cb6ff'];
-for(let i=0;i<75;i++){const el=document.createElement('i');el.className='dea-party-piece';el.style.cssText='--x:'+Math.random()*100+'%;--w:'+(5+Math.random()*8)+'px;--h:'+(7+Math.random()*12)+'px;--c:'+colors[i%colors.length]+';--r:'+Math.random()*360+'deg;--d:'+(3+Math.random()*5)+'s;--delay:-'+Math.random()*8+'s;--drift:'+(Math.random()*200-100)+'px';overlay.appendChild(el)}
-for(let i=0;i<9;i++){const el=document.createElement('span');el.className='dea-party-balloon';el.textContent=['🎈','🎈','🎈'][i%3];el.style.cssText='--x:'+(i*11+Math.random()*8)+'%;--d:'+(7+Math.random()*5)+'s;--delay:-'+Math.random()*12+'s;--drift:'+(Math.random()*130-65)+'px';overlay.appendChild(el)}
-const close=()=>{sessionStorage.setItem('dea-miembros-semana-20261116-v1','1');overlay.remove();window.dispatchEvent(new Event('dea:initial-popup-closed'));document.removeEventListener('keydown',esc)};
-const esc=e=>{if(e.key==='Escape')close()};
-overlay.querySelectorAll('button,.dea-party-action,.dea-team-invite-link').forEach(b=>b.addEventListener('click',close));document.addEventListener('keydown',esc);overlay.querySelector('.dea-party-close').focus();
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',launchDEA);else launchDEA();
-})();
-</script>
+
 </body>
 </html>

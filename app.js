@@ -308,7 +308,40 @@ function deaFaqHtml(){
 }
 
 
-function deaRoomMoments(){return '<section class="dea-moments" aria-labelledby="dea-moments-title"><header><span class="section-kicker">EL ÁLBUM DE NUESTRA COMUNIDAD <b class="dea-menu-new">NEW</b></span><h2 id="dea-moments-title">Momentos DEA 📸</h2><p>Encuentros, celebraciones y recuerdos que forman parte de nuestra historia.</p></header><div class="dea-moments-grid">'+DEA_ROOM_MOMENTS.map(m=>'<article class="dea-moment-card"><a class="dea-moment-photo" href="'+esc(m.image)+'" target="_blank" rel="noopener" aria-label="Ampliar foto: '+esc(m.title)+'"><img src="'+esc(m.image)+'" alt="'+esc(m.alt)+'" width="1798" height="1100" loading="lazy"><span>VER FOTO COMPLETA ↗</span></a><div class="dea-moment-caption"><time datetime="'+esc(m.date)+'">'+esc(m.dateLabel)+'</time><h3>'+esc(m.title)+'</h3><p>'+esc(m.copy)+'</p></div></article>').join('')+'</div></section>';}
+function deaRoomMoments(){return '<section class="dea-moments" aria-labelledby="dea-moments-title"><header><span class="section-kicker">EL ÁLBUM DE NUESTRA COMUNIDAD <b class="dea-menu-new">NEW</b></span><h2 id="dea-moments-title">Momentos DEA 📸</h2><p>Encuentros, celebraciones y recuerdos que forman parte de nuestra historia.</p></header><div class="dea-moments-grid">'+DEA_ROOM_MOMENTS.map((m,i)=>'<article class="dea-moment-card"><button type="button" class="dea-moment-photo" data-dea-moment="'+i+'" aria-haspopup="dialog" aria-label="Ampliar foto: '+esc(m.title)+'"><img src="'+esc(m.image)+'" alt="'+esc(m.alt)+'" width="1798" height="1100" loading="lazy"><span>VER FOTO COMPLETA ⛶</span></button><div class="dea-moment-caption"><time datetime="'+esc(m.date)+'">'+esc(m.dateLabel)+'</time><h3>'+esc(m.title)+'</h3><p>'+esc(m.copy)+'</p></div></article>').join('')+'</div></section>';}
+let deaMomentPreviousFocus=null;
+function deaCloseMoment(){
+ const overlay=document.getElementById('dea-moment-lightbox');
+ if(!overlay)return;
+ overlay.remove();
+ document.body.classList.remove('dea-moment-open');
+ if(deaMomentPreviousFocus&&deaMomentPreviousFocus.isConnected)deaMomentPreviousFocus.focus();
+ deaMomentPreviousFocus=null;
+}
+function deaOpenMoment(index,trigger){
+ const m=DEA_ROOM_MOMENTS[index];if(!m)return;
+ deaCloseMoment();deaMomentPreviousFocus=trigger;
+ const overlay=document.createElement('div');overlay.id='dea-moment-lightbox';overlay.className='dea-moment-lightbox';overlay.setAttribute('role','presentation');
+ overlay.innerHTML='<section class="dea-moment-dialog" role="dialog" aria-modal="true" aria-labelledby="dea-moment-dialog-title" aria-describedby="dea-moment-dialog-date"><header class="dea-moment-dialog-head"><div><span class="dea-moment-dialog-kicker">MOMENTOS DEA · ÁLBUM OFICIAL</span><h2 id="dea-moment-dialog-title">'+esc(m.title)+'</h2><p id="dea-moment-dialog-date">'+esc(m.dateLabel)+'</p></div><button type="button" class="dea-moment-close" data-dea-moment-close aria-label="Cerrar fotografía">×</button></header><div class="dea-moment-image-wrap"><img src="'+esc(m.image)+'" alt="'+esc(m.alt)+'"></div><p class="dea-moment-dialog-copy">'+esc(m.copy)+'</p></section>';
+ document.body.appendChild(overlay);document.body.classList.add('dea-moment-open');
+ overlay.querySelector('.dea-moment-close').focus();
+}
+ROOT.addEventListener('click',e=>{
+ const button=e.target.closest('[data-dea-moment]');
+ if(button&&ROOT.contains(button)){e.preventDefault();deaOpenMoment(Number(button.dataset.deaMoment),button);}
+});
+document.addEventListener('click',e=>{
+ const overlay=document.getElementById('dea-moment-lightbox');
+ if(overlay&&(e.target===overlay||e.target.closest('[data-dea-moment-close]')))deaCloseMoment();
+});
+document.addEventListener('keydown',e=>{
+ const overlay=document.getElementById('dea-moment-lightbox');if(!overlay)return;
+ if(e.key==='Escape'){e.preventDefault();deaCloseMoment();}
+ if(e.key==='Tab'){
+  const btn=overlay.querySelector('.dea-moment-close');
+  e.preventDefault();btn.focus();
+ }
+});
 
 function deaWeeklyMembersNews(){return `<section class="dea-paper dea-classified dea-event-news" id="dea-miembros-semana-006" aria-labelledby="dea-weekly-title"><div class="dea-classified-desk"><div class="dea-classified-folder-tab">ARCHIVO CENTRAL · EXPEDIENTE 006</div><div class="dea-classified-sheet"><div class="dea-classified-stamp">CLASIFICADO</div><header class="dea-paper-masthead"><span>✦ Agencia Oficial DEA ✦</span><strong>DEA CONFIDENCIAL</strong><em>RECONOCIMIENTOS · MIEMBROS DE LA SEMANA</em><time datetime="2026-11-16">16 DE NOVIEMBRE DE 2026</time></header><div class="dea-paper-edition">EDICIÓN Nº 006 <span>PRIMERA EDICIÓN</span></div><article class="dea-paper-lead"><span>EL TRABAJO EN EQUIPO HACE LA DIFERENCIA</span><h2 id="dea-weekly-title">👑 FR4NN_23 y MAYERGRHG, miembros de la semana</h2><p>En DEA reconocemos y felicitamos a <strong>FR4NN_23 y MAYERGRHG</strong> por su destacada participación, compromiso y apoyo durante nuestros primeros pasos como agencia.</p><p>Su disposición, esfuerzo y colaboración han contribuido al crecimiento y al funcionamiento de nuestra comunidad. Este reconocimiento celebra a quienes suman cada día y ayudan a que DEA siga avanzando.</p><p>Estamos orgullosos de contar con vosotros. Que esta primera edición sea el comienzo de muchos reconocimientos compartidos.</p><p><strong>¡Felicidades a ambos y gracias por formar parte de la familia DEA! 💙</strong></p></article><figure class="dea-event-flyer"><span class="dea-event-evidence">ANEXO A · CARTEL ORIGINAL DEL RECONOCIMIENTO</span><a href="/assets/dea/miembros-semana-20261116.jpg" target="_blank" rel="noopener" aria-label="Ampliar cartel de FR4NN_23 y MAYERGRHG"><img src="/assets/dea/miembros-semana-20261116.jpg" width="1536" height="1024" alt="Cartel DEA Miembro de la semana, primera edición: FR4NN_23 y MAYERGRHG" loading="lazy" style="width:100%;height:auto"></a><figcaption>Miembros de la semana · Primera edición · 16/11/2026 · Pulsa para ampliar.</figcaption></figure><footer class="dea-paper-footer"><span>EXPEDIENTE 006 · RECONOCIMIENTOS DEA</span><p>JUNTOS HACEMOS LA DIFERENCIA.</p><a href="#/publico/founders" class="btn gold">Conocer al Equipo DEA ↗</a></footer></div></div></section>`;}
 

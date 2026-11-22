@@ -17,6 +17,7 @@ for(const dir of seoDirs){
 await mkdir(join('dist','assets','dea'),{recursive:true});
 await cp(join('assets','dea','insignias'),join('dist','assets','dea','insignias'),{recursive:true});
 await copyFile(join('assets','dea','founder-xpe34.png'),join('dist','assets','dea','founder-xpe34.png'));
+await copyFile(join('assets','dea','mantoj92-avatar.svg'),join('dist','assets','dea','mantoj92-avatar.svg'));
 await copyFile(join('assets','dea','sala-completa.webp'),join('dist','assets','dea','sala-completa.webp'));
 await copyFile(join('assets','dea','manager-fr4nn23.png'),join('dist','assets','dea','manager-fr4nn23.png'));
 await copyFile(join('assets','dea','promo-sala.webp'),join('dist','assets','dea','promo-sala.webp'));

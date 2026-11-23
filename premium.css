@@ -204,3 +204,33 @@
 .dea-directory-footnote{font-size:11px;text-align:center;color:#91acbe;margin-top:26px}
 @media(max-width:1120px){.dea-premium-directory .dea-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:590px){.dea-premium-directory .dea-directory-grid{grid-template-columns:1fr;gap:14px}.dea-premium-directory .dea-directory-grid>.dea-premium-card{padding:16px}.dea-premium-directory .dea-directory-grid .dea-premium-card-art{margin:-16px -16px 14px}.dea-premium-directory .dea-directory-grid .dea-premium-card h2{font-size:17px}}
+
+/* DEA · Menú superior prioritario: tres accesos relevantes en neón verde/azul. */
+.dea-premium-quicknav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 24px}
+.dea-neon-quick{--nea:#5df0c6;--neb:#103f43;position:relative;min-width:0;min-height:66px;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 17px;border:1px solid var(--nea);border-radius:12px;background:linear-gradient(115deg,#09293b,var(--neb));color:#eafff8;text-decoration:none;font-weight:800;box-shadow:inset 0 0 16px #2eedd215,0 0 15px #25c9ae20;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.dea-neon-quick svg{width:20px;height:20px;min-width:20px;color:var(--nea)}
+.dea-neon-quick strong{font-size:clamp(11px,1.2vw,14px);line-height:1.4;white-space:normal;text-align:center}
+.dea-neon-quick>span{margin-left:auto;color:var(--nea);font-weight:900}
+.dea-neon-quick.dea-neon-como-trabajar{--nea:#64d9f5;--neb:#0d3952}
+.dea-neon-quick.dea-neon-faq{--nea:#70fbd5;--neb:#125549}
+.dea-neon-quick:hover,.dea-neon-quick:focus-visible{transform:translateY(-2px);box-shadow:0 0 23px #54f1d94a, inset 0 -3px var(--nea);outline:2px solid #d9fff6;outline-offset:2px}
+.dea-premium-tabs-extended>a.dea-neon-top{--section-accent:#74e9d3;--section-rgb:102,232,202;background:linear-gradient(120deg,#104149,#092c42);border:1px solid #4deec6;color:#ddfff5;box-shadow:0 0 12px #33dcc82d}
+.dea-premium-tabs-extended>a.dea-neon-top[data-premium-section="como-trabajar"]{--section-accent:#67daf5;--section-rgb:103,218,245;background:linear-gradient(120deg,#10405a,#102b42);border-color:#59cde9}
+.dea-premium-tabs-extended>a.dea-neon-top[data-premium-section="faq"]{--section-accent:#86fad4;--section-rgb:134,250,212;background:linear-gradient(120deg,#135144,#103342);border-color:#7bf1d0}
+.dea-premium-tabs-extended>a.dea-neon-top span{color:var(--section-accent)}
+.dea-premium-tabs-extended>a.dea-neon-top:hover,.dea-premium-tabs-extended>a.dea-neon-top:focus-visible{box-shadow:0 0 20px rgba(var(--section-rgb),.35);border-color:#b9fff2}
+.dea-premium-tabs-extended>a.dea-neon-top[aria-current=page]{box-shadow:inset 0 -3px var(--section-accent),0 0 17px rgba(var(--section-rgb),.3)}
+.dea-premium-tabs-extended{scroll-padding-inline:8px}
+.dea-premium-tabs-extended>a{flex:0 0 auto;min-width:115px}
+.dea-premium-tabs-extended>a.dea-neon-top{min-width:157px}
+/* Las escenas van solas en la cabecera, sin texto, cifras ni distintivos flotantes. */
+.dea-premium-directory .dea-directory-grid .dea-premium-card-art{isolation:isolate;border-bottom:2px solid #b8965b;overflow:hidden;background:#0b2034}
+.dea-premium-directory .dea-directory-grid .dea-premium-card-art:after{display:none}
+.dea-premium-directory .dea-directory-grid .dea-premium-card-art img{display:block;object-fit:cover;object-position:50% 50%;width:100%;height:100%;aspect-ratio:640/416;filter:saturate(1.07)}
+.dea-premium-directory .dea-directory-grid>.dea-premium-card>.dea-launch-new{display:none}
+.dea-premium-directory .dea-directory-grid .dea-premium-card-top{position:relative;z-index:1;margin-top:0}
+.dea-premium-directory .dea-directory-grid .dea-premium-card h2{position:relative;z-index:1;margin:17px 0 9px;min-height:1.65em;color:#f0f7fd}
+.dea-premium-directory .dea-directory-grid .dea-premium-card p{margin-top:0}
+@media(max-width:920px){.dea-premium-quicknav{gap:9px}.dea-neon-quick{padding:10px;gap:7px;min-height:65px}.dea-neon-quick strong{font-size:11px}}
+@media(max-width:590px){.dea-premium-quicknav{grid-template-columns:1fr;gap:9px;margin:15px 0 20px}.dea-neon-quick{min-height:54px;justify-content:flex-start;gap:12px;padding:10px 15px}.dea-neon-quick strong{font-size:13px}.dea-premium-tabs-extended>a.dea-neon-top{min-width:145px}}
+@media(prefers-reduced-motion:reduce){.dea-neon-quick{transition:none}.dea-neon-quick:hover{transform:none}}

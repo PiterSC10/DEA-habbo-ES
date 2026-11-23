@@ -679,3 +679,24 @@ test('DEA Clasificado 009 conserva flyer, premios, horario y archivo de comunica
  assert.match(h,/AgenciaOficialDEA\.es/);
  assert.ok(h.indexOf('id="dea-lava-20261123"')<h.indexOf('id="dea-comandos-20261123"'),'El evento debe aparecer antes de los comunicados antiguos');
 });
+
+test('El flyer del expediente 009 ocupa la zona central y los anexos van debajo',async()=>{
+ const html=page('publico/noticias');
+ const start=html.indexOf('id="dea-lava-20261123"');
+ const end=html.indexOf('id="dea-comandos-20261123"');
+ const news=html.slice(start,end);
+ const top=news.indexOf('class="dea-lava-archive-intro"');
+ const main=news.indexOf('class="dea-lava-archive-evidence"');
+ const lower=news.indexOf('class="dea-lava-archive-record"');
+ assert.ok(start>0&&end>start,'El expediente 009 debe estar publicado al principio');
+ assert.ok(top>0&&main>top&&lower>main,'El orden debe ser: cabecera, flyer, anexos');
+ assert.equal(news.match(/class="dea-lava-flyer"/g)?.length,undefined,'La clase de flyer no debe quedar aislada');
+ assert.match(news,/class="dea-event-flyer dea-lava-flyer"/);
+ assert.equal((news.match(/5cd8f740-f527-474a-8b74-83ce01c91eb5\.webp/g)||[]).length,1,'El flyer debe aparecer una vez, no repetido en miniatura');
+ assert.match(news,/ANEXO A · FLYER OFICIAL/);
+ assert.match(news,/ANEXO B · DATOS DE LA CONVOCATORIA/);
+ const premium=await readFile(new URL('./premium.css',import.meta.url),'utf8');
+ assert.match(premium,/\.dea-lava-news \.dea-lava-flyer\{[^}]*max-width:900px/);
+ assert.match(premium,/\.dea-lava-news \.dea-lava-archive-grid\{[^}]*grid-template-columns:/);
+ assert.match(premium,/\.dea-lava-news \.dea-classified-sheet\{[^}]*transform:none/);
+});

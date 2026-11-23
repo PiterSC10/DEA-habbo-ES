@@ -1,4 +1,4 @@
-import {readdir,copyFile,mkdir,rm,cp,readFile} from 'node:fs/promises';
+import {readdir,copyFile,mkdir,rm,cp,readFile,writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 // Lista blanca: nunca incluir backend, claves, fuentes, archivos de pruebas ni documentación en la web pública.
 const allow=new Set(['1ee03705db884c5a9321dcf2a9dec38c.txt','mantenimiento.html','dea-consent.css','dea-consent.js','premium.css','inauguracion.css','cafe-hero.svg','cafe-vaso-dea.svg','buymeacoffee-logo.svg','cafeteria.css','dea-promo.js','dea-promo.css','dea-experience.js','dea-guias.js','index.html','app.js','catalogo-publico.js','web-check-scan.js','visitas.js','dea-radio.js','dea-radio.css','radio-dea.js','radio-dea.css','habboween-v2.js','habboween-v2.css','habboween-pumpkin.svg','habboween-ghost.svg','habboween-web.svg','habboween-skyline.svg','habboween-ornament.svg','habboween-candles.svg','habboween-skull.svg','habboween-bat.svg','styles.css','avatar-clean.js','founder-app.js','founder-app.css','founder-10pedro.html','founder-kietsyandrea.html','founder-lesslie-ar.html','founder-xpe-34.html','directores-deawebapp.html','managers-deawebapp.html','dea-cargos.js','dea-cargos.css','founder-10pedro.webmanifest','founder-kietsyandrea.webmanifest','founder-lesslie-ar.webmanifest','founder-xpe-34.webmanifest','site.webmanifest','robots.txt','ads.txt','seo-public.css','sitemap.xml','google8fa052a4ee6eb69c.html','aguila-dea-original.jpg','logo-dea-es.png','og-image.jpg','og-dea-oficial.jpg','og-dea-premium-20261114.jpg','favicon.ico','apple-touch-icon.png','icon-192.png','icon-512.png','favicon-16.png','favicon-32.png','favicon-48.png','favicon-64.png']);
@@ -11,6 +11,8 @@ const seoDirs=['calculadora','faq-dea','musica','cafeteria','agencia-habbo','ran
 for(const dir of seoDirs){
  await mkdir(join('dist',dir),{recursive:true});
  await copyFile(join(dir,'index.html'),join('dist',dir,'index.html'));
+ const output=join('dist',dir,'index.html');const page=await readFile(output,'utf8');
+ if(!page.includes('dea-consent.js'))await writeFile(output,page.replace('</head>','<link rel="stylesheet" href="/dea-consent.css"><script src="/dea-consent.js" defer></script></head>'));
 }
 
 // Imágenes públicas DEA: publicar únicamente insignias y avatar de Founder aprobados.

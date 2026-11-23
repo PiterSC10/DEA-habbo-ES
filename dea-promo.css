@@ -86,3 +86,44 @@
 #dea-promo .dea-welcome-update em{color:#b9d6e6;font-size:10px;font-style:normal;white-space:normal;line-height:1.35}
 #dea-promo .dea-welcome-update b{color:#ecc77e;font-size:19px;text-align:right}
 @media(max-width:440px){#dea-promo .dea-welcome-update{grid-template-columns:66px minmax(0,1fr) 12px;padding:7px;gap:7px}#dea-promo .dea-welcome-update img{width:66px;height:51px}#dea-promo .dea-welcome-update small{font-size:8px}#dea-promo .dea-welcome-update em{font-size:9px}}
+
+
+/* DEA · Evento El Suelo es Lava: tercera sección; mantiene FAQ y comandos. */
+#dea-promo .dea-welcome-event-open{width:min(870px,calc(100vw - 30px));max-height:88dvh;max-height:88svh}
+#dea-promo .dea-welcome-event-open .dea-welcome-scene{height:140px}
+#dea-promo .dea-welcome-event-open .dea-welcome-body{padding:16px 22px 18px}
+#dea-promo .dea-welcome-event-open .dea-welcome-body h2{margin:7px 0}
+#dea-promo .dea-welcome-event-open .dea-welcome-subtitle{margin-bottom:14px}
+#dea-promo .dea-welcome-with-event{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:stretch;gap:14px}
+#dea-promo .dea-welcome-links{display:flex;flex-direction:column;min-width:0}
+#dea-promo .dea-welcome-event-open .dea-welcome-links .dea-welcome-update{margin-top:11px;flex:1}
+#dea-promo .dea-welcome-lava{min-width:0;display:grid;grid-template-columns:minmax(105px,35%) minmax(0,1fr);gap:12px;padding:10px;border:1px solid #d9ad56;border-radius:13px;background:linear-gradient(130deg,#112a46,#081b32 70%);box-shadow:inset 3px 0 #ffd27b,0 6px 22px #01070c70;text-align:left}
+#dea-promo .dea-welcome-lava-preview{display:block;align-self:stretch;min-width:0;overflow:hidden;border-radius:8px;border:1px solid #f5b25188;background:#05111f}
+#dea-promo .dea-welcome-lava-preview img{display:block;width:100%;height:100%;max-height:228px;object-fit:cover;object-position:center top}
+#dea-promo .dea-welcome-lava-details{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:8px;justify-content:center}
+#dea-promo .dea-welcome-lava-kicker{color:#f7cc7b;letter-spacing:.07em;font-size:9px;line-height:1.3;font-weight:850}
+#dea-promo .dea-welcome-lava-details strong{font-size:clamp(16px,2.15vw,21px);line-height:1.15;color:#fff1c7;letter-spacing:.03em}
+#dea-promo .dea-welcome-lava-details p{margin:0;font-size:11px;line-height:1.45;color:#c6e2f3}
+#dea-promo .dea-welcome-lava-hours{display:flex;flex-direction:column;gap:3px;color:#e4eef8;font-size:10px;line-height:1.45}
+#dea-promo .dea-welcome-lava-hours b{color:#ffda8d}
+#dea-promo .dea-welcome-lava-action{width:100%;display:block;margin-top:auto;padding:9px 8px;border-radius:7px;background:linear-gradient(120deg,#ffe1a2,#d9a449);text-align:center;color:#091b2d;text-decoration:none;font-weight:900;font-size:10px;line-height:1.35;box-shadow:0 3px 12px #0008}
+#dea-promo .dea-welcome-lava-action:hover{filter:brightness(1.13)}
+#dea-promo .dea-welcome-event-open .dea-welcome-note{margin-top:11px}
+@media(max-width:700px){
+ #dea-promo .dea-welcome-event-open{max-height:91dvh;max-height:91svh;width:calc(100vw - 22px)}
+ #dea-promo .dea-welcome-event-open .dea-welcome-scene{height:105px}
+ #dea-promo .dea-welcome-event-open .dea-welcome-body{padding:11px 12px 14px}
+ #dea-promo .dea-welcome-event-open .dea-welcome-body h2{font-size:24px;margin:5px 0}
+ #dea-promo .dea-welcome-event-open .dea-welcome-subtitle{margin-bottom:10px;line-height:1.45;font-size:11px}
+ #dea-promo .dea-welcome-with-event{grid-template-columns:1fr;gap:10px}
+ #dea-promo .dea-welcome-event-open .dea-welcome-faq{min-height:55px}
+ #dea-promo .dea-welcome-event-open .dea-welcome-links .dea-welcome-update{margin-top:8px;min-height:65px}
+ #dea-promo .dea-welcome-lava{grid-template-columns:100px minmax(0,1fr);gap:10px;padding:9px}
+ #dea-promo .dea-welcome-lava-preview img{height:157px;max-height:157px}
+ #dea-promo .dea-welcome-lava-details{gap:5px}
+ #dea-promo .dea-welcome-lava-details strong{font-size:17px}
+ #dea-promo .dea-welcome-lava-details p{font-size:10px}
+ #dea-promo .dea-welcome-lava-kicker{font-size:8px}
+ #dea-promo .dea-welcome-lava-action{font-size:9px;padding:8px 5px}
+}
+@media(max-width:350px){#dea-promo .dea-welcome-lava{grid-template-columns:80px minmax(0,1fr)}#dea-promo .dea-welcome-lava-preview img{height:148px}#dea-promo .dea-welcome-lava-details p{font-size:9px}}

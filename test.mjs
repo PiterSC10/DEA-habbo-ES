@@ -121,7 +121,7 @@ test('Imágenes originales y estilos en la distribución pública',async()=>{
   await access(new URL('./'+f,import.meta.url));
  assert.match(css,/\.shell-home/);
  assert.match(html,/\.\/styles\.css/);
- assert.match(html,/https:\/\/agenciaoficialdea\.es\/og-dea-premium-20261114\.jpg/);
+ assert.match(html,/https:\/\/agenciaoficialdea\.es\/og-dea-portada-20261123\.jpg/);
 });
 
 test('Acceso de agentes conserva Habbo separado de Discord y ningún acceso VIP',()=>{
@@ -257,8 +257,8 @@ test('Los cuatro lanzadores Founder conservan créditos sin firma personal ni fr
 test('SEO del dominio propio: canónica .es y fichas sociales sin datos personales',async()=>{
  assert.match(html,/<link rel="canonical" href="https:\/\/agenciaoficialdea\.es\/"/);
  assert.match(html,/<meta property="og:url" content="https:\/\/agenciaoficialdea\.es\/"/);
- assert.match(html,/<meta property="og:image" content="https:\/\/agenciaoficialdea\.es\/og-dea-premium-20261114\.jpg"/);
- assert.match(html,/<meta name="twitter:image" content="https:\/\/agenciaoficialdea\.es\/og-dea-premium-20261114\.jpg"/);
+ assert.match(html,/<meta property="og:image" content="https:\/\/agenciaoficialdea\.es\/og-dea-portada-20261123\.jpg"/);
+ assert.match(html,/<meta name="twitter:image" content="https:\/\/agenciaoficialdea\.es\/og-dea-portada-20261123\.jpg"/);
  assert.match(html,/<meta property="og:locale" content="es_ES"/);
  assert.doesNotMatch(html,/pitersc10\.github\.io|YourDesignGPT|10PEDRO/);
  const match=html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
@@ -293,7 +293,7 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
 
 
 test('Metadatos principales SEO claros, marca y fallback HTML indexable',()=>{
- assert.ok(html.includes('<title>Agencia Oficial DEA | Comunidad en Habbo Hotel</title>'));
+ assert.ok(html.includes('<title>Agencia Oficial DEA | Comunidad independiente</title>'));
  assert.match(html,/<meta property="og:site_name" content="Agencia Oficial DEA">/);
  assert.match(html,/favicon-48\.png/);
  assert.match(html,/"@type":"WebSite"/);

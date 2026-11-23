@@ -907,5 +907,5 @@ body.dea-moment-open{overflow:hidden}
 .dea-ranking-evidence{margin:18px 0 25px;padding:15px;border:1px solid #bd9d60;border-radius:12px;background:linear-gradient(145deg,#153148,#091b2d)}
 .dea-ranking-evidence img{display:block;width:min(100%,700px);height:auto;max-height:400px;object-fit:contain;margin:auto;border:1px solid #67859a;border-radius:5px;image-rendering:auto}
 .dea-ranking-evidence figcaption{margin:10px 0 0;color:#c6d8e3;font-size:11px;line-height:1.55;text-align:center;letter-spacing:.02em}
-.dea-ranking-news .dea-paper-edition span{color:#a8efcd}
+.dea-ranking-news .dea-paper-edition span{color:#514435}
 @media(max-width:600px){.dea-ranking-evidence{padding:8px}.dea-ranking-evidence figcaption{font-size:10px}}

@@ -13,7 +13,7 @@
   document.getElementById('dea-promo')?.remove();
  }
  function show(){
-  if(dismissed||!eligible()||document.getElementById('dea-promo')||document.getElementById('dea-party-overlay'))return;
+  if(dismissed||!eligible()||document.getElementById('dea-promo')||document.getElementById('dea-party-overlay')||document.getElementById('dea-cookie-banner'))return;
   const card=document.createElement('aside');
   card.id='dea-promo';
   card.setAttribute('role','dialog');
@@ -53,6 +53,7 @@
  }
  window.addEventListener('hashchange',sync);
  window.addEventListener('dea:initial-popup-closed',sync);
+ document.addEventListener('dea:consent-change',sync);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
  sync();
 })();

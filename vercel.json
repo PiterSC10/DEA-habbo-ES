@@ -135,6 +135,15 @@
       ]
     },
     {
+      "source": "/cookies/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
       "source": "/favicon-48.png",
       "headers": [
         {

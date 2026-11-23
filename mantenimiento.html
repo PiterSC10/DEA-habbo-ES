@@ -6,33 +6,110 @@
 <meta name="theme-color" content="#061629">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>DEA en reformas · Mantenimiento</title>
-<meta name="description" content="Agencia Oficial DEA está realizando mejoras en la web.">
+<meta name="description" content="Agencia Oficial DEA está actualizando sus instalaciones y sistemas. Acceso temporalmente restringido.">
 <link rel="icon" href="/favicon-48.png" type="image/png">
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}html{min-height:100%;background:#05101e}body{margin:0;min-height:100vh;min-height:100dvh;display:grid;place-items:center;overflow-x:hidden;background:radial-gradient(ellipse at 50% 30%,#174365 0,#071a31 57%,#030b15 100%);color:#f5f7fa;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-body:before{content:"";position:fixed;inset:-20%;pointer-events:none;background:repeating-linear-gradient(110deg,transparent 0 40px,#3bd9fc0b 45px,transparent 60px);animation:moveGlow 28s linear infinite}
-.maint{z-index:1;width:min(1080px,calc(100% - 28px));margin:22px auto;text-align:center}
-.maint-head{margin:0 0 12px;color:#e8c480;letter-spacing:.22em;text-transform:uppercase;font-weight:900;font-size:clamp(10px,1.5vw,14px)}
-.frame{position:relative;overflow:hidden;border:2px solid #d2a64b;border-radius:20px;background:#081627;box-shadow:0 20px 90px #000b,0 0 32px #57d7ed32}
-.frame:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border:1px solid #fce7a252;border-radius:18px}
-.frame img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
-.beacon{position:absolute;left:3%;bottom:6%;width:9px;height:9px;border-radius:50%;background:#ffce60;box-shadow:0 0 16px 7px #e6ae4690;animation:blink 2s ease-in-out infinite;z-index:3}
-.maint-foot{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:15px auto 0;font-size:clamp(11px,1.4vw,14px);line-height:1.5;color:#bed2df}.maint-foot strong{color:#edcd82}.maint-status{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border:1px solid #6fdce366;border-radius:99px;background:#082238a8;color:#9aebf4;font-weight:700;letter-spacing:.06em}.maint-status:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#70e8ef;box-shadow:0 0 13px #58e0ee;animation:blink 2.1s ease-in-out infinite}
-.maint-note{font-size:11px;color:#8aa9bc;margin:12px 0 0}
-@keyframes blink{0%,100%{opacity:.35}50%{opacity:1}}@keyframes moveGlow{from{transform:translateX(-7%)}to{transform:translateX(7%)}}
-@media(max-width:620px){.maint{width:calc(100% - 16px);margin:10px auto}.frame{border-radius:12px}.frame:before{border-radius:10px}.frame img{aspect-ratio:4/5;object-fit:cover;object-position:center}.maint-foot{padding:0 7px}.maint-head{letter-spacing:.14em}}
-@media(prefers-reduced-motion:reduce){body:before,.beacon,.maint-status:before{animation:none}}
+:root{color-scheme:dark;--gold:#e9c474;--cyan:#74f5eb;--navy:#071626}
+*{box-sizing:border-box}
+html{min-height:100%;background:#040c17}
+body{margin:0;min-height:100vh;min-height:100dvh;display:grid;place-items:center;overflow-x:hidden;background:radial-gradient(ellipse at 50% 20%,#15405c 0%,#071a31 46%,#030a15 100%);color:#edf6fc;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body:before{content:"";position:fixed;inset:-30%;pointer-events:none;z-index:0;background:repeating-linear-gradient(110deg,transparent 0 45px,#3bd9fc08 48px,transparent 64px);animation:background-drift 35s linear infinite}
+body:after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent 0 4px,#0000000d 5px 6px);opacity:.25;pointer-events:none;z-index:9}
+.maint{position:relative;z-index:1;width:min(1180px,calc(100% - 30px));margin:20px auto;text-align:center}
+.maint-head{display:flex;justify-content:center;gap:11px;align-items:center;margin:0 0 13px;color:#e9cb8e;letter-spacing:.16em;text-transform:uppercase;font-weight:850;font-size:clamp(10px,1.3vw,13px)}
+.maint-head:before{content:"";width:8px;height:8px;border-radius:50%;background:#ffb956;box-shadow:0 0 17px #ffc44e;animation:beacon-pulse 2.1s ease-in-out infinite}
+.frame{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:1648/928;border:2px solid #dcad59;border-radius:18px;background:#081627;box-shadow:0 20px 90px #000b,0 0 38px #57d7ed30}
+.frame:before{content:"";position:absolute;inset:0;z-index:9;pointer-events:none;border:1px solid #fce7a252;border-radius:16px;box-shadow:inset 0 0 25px #0005}
+.frame img{display:block;width:100%;height:100%;object-fit:fill}
+.fx{position:absolute;pointer-events:none;z-index:2}
+.beacon{width:2.8%;aspect-ratio:1;opacity:.96;border-radius:50%;background:radial-gradient(circle,#fff8d2 0 10%,#ffe37e 12% 22%,#ffc34d99 24% 38%,#ffd95a33 40% 62%,transparent 70%);mix-blend-mode:screen;animation:beacon-pulse 2.25s ease-in-out infinite}
+.beacon.one{left:22.8%;top:76.1%}
+.beacon.two{left:73.9%;top:76.1%;animation-delay:-1.12s}
+.beacon:after{content:"";position:absolute;inset:-55%;border-radius:50%;background:radial-gradient(circle,#ffcc7650 0,transparent 67%);animation:halo 2.25s ease-in-out infinite}
+.spark-field{left:88.1%;top:19.0%;width:7.5%;height:16%;overflow:visible;z-index:5;filter:drop-shadow(0 0 3px #ffc453)}
+.spark-field:before{content:"";position:absolute;left:26%;top:28%;width:25%;aspect-ratio:1;border-radius:50%;background:#fff6d8;box-shadow:0 0 15px 5px #f5b32b;animation:weld-glow 1.7s ease-in-out infinite}
+.spark{position:absolute;left:37%;top:40%;width:clamp(1px,.17vw,3px);height:clamp(4px,1.1vw,12px);background:linear-gradient(#fff5cb,#ffb438,transparent);border-radius:1px;transform-origin:top;animation:spark-fly 1.7s linear infinite;animation-delay:var(--delay);--dx:8px;--dy:16px;--spin:90deg}
+.spark:nth-child(3n){background:linear-gradient(#b8faff,#36e3ed,transparent)}
+.spark:nth-child(2n){height:clamp(3px,.7vw,8px)}
+.monitor-scan{left:4.2%;top:14%;width:16.9%;height:12.5%;z-index:3;overflow:hidden;clip-path:polygon(0 0,100% 4%,100% 100%,0 100%)}
+.monitor-scan:before{content:"";position:absolute;left:-55%;top:0;width:45%;height:100%;background:linear-gradient(90deg,transparent,#87fdf436,transparent);transform:skewX(-14deg);animation:scan-screen 6.5s ease-in-out infinite}
+.monitor-scan:after{content:"";position:absolute;inset:0;border:1px solid #7affea22;box-shadow:inset 0 0 14px #4af5ec25;animation:screen-glow 3.8s ease-in-out infinite}
+.server-fx{left:77%;top:54%;width:14%;height:23%;z-index:3;background:radial-gradient(ellipse at 60% 52%,#53ffff20,transparent 67%);animation:server-pulse 4s ease-in-out infinite}
+.dust{position:absolute;z-index:4;pointer-events:none;width:3px;height:3px;border-radius:50%;background:#a5fbff;box-shadow:0 0 8px 2px #80f3ff75;animation:dust-float 7s ease-in-out infinite;animation-delay:var(--wait);opacity:.55}
+.smoke{right:5.3%;top:12%;width:14%;height:29%;z-index:2;border-radius:50%;background:radial-gradient(ellipse,#abc7d62c,transparent 65%);filter:blur(12px);animation:smoke-rise 7s ease-in-out infinite}
+.smoke.second{right:8%;top:15%;width:11%;animation-delay:-3.5s}
+.barrier-flash{left:14%;top:83.8%;width:72%;height:8%;z-index:4;opacity:.11;transform:skewX(-14deg);background:linear-gradient(105deg,transparent 0%,transparent 25%,#fff3bc 42%,transparent 53%,transparent 100%);background-size:260% 100%;animation:barrier-sheen 9s linear infinite;clip-path:polygon(0 40%,100% 40%,100% 90%,0 90%)}
+.tool-arm{position:absolute;z-index:5;right:10.0%;top:20.7%;width:5%;height:9%;pointer-events:none;transform-origin:13% 60%;animation:tool-work 1.7s ease-in-out infinite}
+.tool-arm svg{width:100%;height:100%;filter:drop-shadow(0 1px 2px #001)}
+/* El 72% del dibujo original se tapa con un panel real, SIN porcentajes ficticios. */
+.image-console{position:absolute;z-index:7;left:29.4%;top:55.0%;width:41.2%;height:9.6%;border:1.4px solid #2fdce4;border-radius:clamp(3px,.8vw,11px);background:linear-gradient(115deg,#05253b,#082339 60%,#071e32);box-shadow:inset 0 0 13px #1acdd020,0 0 5px #53fdf633;display:flex;align-items:center;gap:3%;padding:0 2.2%}
+.image-console .gear{width:9%;height:65%;flex:none;color:#9afbed;animation:gear-turn 14s linear infinite}
+.console-copy{min-width:0;flex:1;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:clamp(3px,.5vw,7px)}
+.console-caption{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#ddffff;font-size:clamp(5px,1.13vw,14px);font-weight:850;letter-spacing:.055em}
+.console-activity{height:clamp(3px,.8vw,10px);width:100%;overflow:hidden;border:1px solid #198a9b;border-radius:3px;background:repeating-linear-gradient(90deg,#0a4053 0 4.2%,#071b31 4.4% 5%);position:relative}
+.console-activity:after{content:"";position:absolute;inset:0;width:35%;background:linear-gradient(90deg,transparent,#52f5de,#b7ffff,#4ae9eb,transparent);filter:drop-shadow(0 0 4px #8afaff);animation:activity-sweep 4.7s ease-in-out infinite}
+.status-line{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px 14px;margin:18px auto 0}
+.status-badge{display:inline-flex;gap:9px;align-items:center;padding:10px 15px;border:1px solid #67d4df6b;border-radius:100px;background:#0b2a3dd9;color:#a9fcf1;font-weight:850;font-size:clamp(10px,1.1vw,13px);letter-spacing:.08em}
+.status-badge:before{content:"";width:9px;height:9px;flex:none;border-radius:50%;background:#9dfcf0;box-shadow:0 0 12px #59ffff;animation:beacon-pulse 1.8s ease-in-out infinite}
+.status-help{font-size:clamp(11px,1.1vw,13px);color:#c9d7e0;line-height:1.5}
+.status-help strong{color:#ecd295}
+.terminal{max-width:820px;margin:14px auto 0;border:1px solid #28576a;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 25px #38d9e50e;background:#061828de;text-align:left}
+.terminal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 15px;border-bottom:1px solid #245064;background:#102d42;color:#efd393;font-size:10px;font-weight:800;letter-spacing:.12em}
+.terminal-leds{display:flex;gap:6px}.terminal-leds i{display:block;width:7px;height:7px;border-radius:50%;background:#5be5d7;box-shadow:0 0 8px #5be5d7;animation:beacon-pulse 2.4s ease-in-out infinite}.terminal-leds i:nth-child(2){background:#e5bb63;animation-delay:-1s}.terminal-leds i:nth-child(3){animation-delay:-1.7s}
+.terminal-body{padding:12px 16px 13px}
+.command-prefix{font-size:12px;color:#e4c47d;font-weight:850;letter-spacing:.03em;margin-bottom:5px}
+.status-cycle{position:relative;height:22px;overflow:hidden}
+.status-cycle span{position:absolute;top:0;left:0;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;color:#a6fdf0;font:700 clamp(11px,1.7vw,14px) ui-monospace,SFMono-Regular,Consolas,monospace;opacity:0;animation:cycle-status 20s linear infinite}
+.status-cycle span:nth-child(2){animation-delay:5s}.status-cycle span:nth-child(3){animation-delay:10s}.status-cycle span:nth-child(4){animation-delay:15s}
+.status-cycle span:before{content:"> ";color:#e8c47b}
+.terminal-foot{font-size:10px;line-height:1.6;color:#88a8b8;margin:10px 0 0}
+@keyframes background-drift{from{transform:translateX(-5%)}to{transform:translateX(5%)}}
+@keyframes beacon-pulse{0%,100%{opacity:.35;filter:brightness(.7)}45%,55%{opacity:1;filter:brightness(1.7)}}
+@keyframes halo{0%,100%{transform:scale(.6);opacity:.18}50%{transform:scale(1.3);opacity:.85}}
+@keyframes weld-glow{0%,30%,55%,100%{opacity:.12;transform:scale(.45)}15%,42%,70%{opacity:.9;transform:scale(1.3)}}
+@keyframes spark-fly{0%,10%{opacity:0;transform:rotate(var(--spin)) translateY(0) scale(.5)}17%{opacity:1}50%{opacity:1;transform:rotate(var(--spin)) translateY(var(--dy)) translateX(var(--dx)) scale(1)}74%,100%{opacity:0;transform:rotate(var(--spin)) translateY(calc(var(--dy) * 1.8)) translateX(var(--dx)) scale(.35)}}
+@keyframes scan-screen{0%,15%{transform:translateX(0) skewX(-14deg)}75%,100%{transform:translateX(320%) skewX(-14deg)}}
+@keyframes screen-glow{0%,100%{opacity:.28}45%{opacity:.75}}
+@keyframes server-pulse{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes dust-float{0%,100%{transform:translate(0,5px);opacity:0}30%{opacity:.6}70%{opacity:.48}90%{transform:translate(28px,-35px);opacity:0}}
+@keyframes smoke-rise{0%,100%{transform:translateY(10px) scale(.7);opacity:.05}50%{transform:translateY(-18px) scale(1.25);opacity:.55}}
+@keyframes barrier-sheen{0%{background-position:200% 0}100%{background-position:-160% 0}}
+@keyframes tool-work{0%,100%{transform:rotate(2deg)}45%{transform:rotate(-6deg)}75%{transform:rotate(3deg)}}
+@keyframes gear-turn{to{transform:rotate(360deg)}}
+@keyframes activity-sweep{0%{transform:translateX(-100%)}65%,100%{transform:translateX(420%)}}
+@keyframes cycle-status{0%,2%{opacity:0}4%,22%{opacity:1}25%,100%{opacity:0}}
+@media(max-width:650px){.maint{width:calc(100% - 14px);margin:12px auto}.maint-head{font-size:9px;letter-spacing:.09em}.frame{border-radius:9px;border-width:1px}.frame:before{border-radius:8px}.image-console{border-width:1px}.console-caption{font-size:5px;letter-spacing:0}.console-activity{height:3px}.status-line{margin-top:14px}.terminal{margin-top:12px}.terminal-body{padding:12px}.status-cycle{height:26px}.status-badge{font-size:10px;padding:9px 12px}.tool-arm{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.status-cycle span{opacity:0}.status-cycle span:first-child{opacity:1}body:before{display:none}}
 </style>
 </head>
 <body>
 <main class="maint" aria-labelledby="title">
 <p class="maint-head" id="title">Agencia Oficial DEA · Intervención técnica</p>
-<div class="frame">
-<img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JG75h2Nju8XQikwbWBljGYXsX6/c41cf277-5f45-4c08-91b6-f162abad919e.png" alt="Ilustración estilo Habbo de la sede DEA en reformas, con operarios, vallas y escudo azul y dorado" width="1648" height="928" fetchpriority="high">
-<span class="beacon" aria-hidden="true"></span>
+<div class="frame" aria-label="La sede DEA está en reformas">
+<img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JG75h2Nju8XQikwbWBljGYXsX6/c41cf277-5f45-4c08-91b6-f162abad919e.png" alt="Ilustración pixel art de DEA en reformas: personal trabajando, vallas, luces y pantallas de la sede" width="1648" height="928" fetchpriority="high" decoding="async">
+<div class="fx beacon one" aria-hidden="true"></div><div class="fx beacon two" aria-hidden="true"></div>
+<div class="fx spark-field" aria-hidden="true">
+<i class="spark" style="--spin:0deg;--dx:-6px;--dy:12px;--delay:-0.00s"></i><i class="spark" style="--spin:137deg;--dx:-3px;--dy:16px;--delay:-0.23s"></i><i class="spark" style="--spin:274deg;--dx:0px;--dy:20px;--delay:-0.46s"></i><i class="spark" style="--spin:61deg;--dx:3px;--dy:24px;--delay:-0.69s"></i><i class="spark" style="--spin:198deg;--dx:6px;--dy:12px;--delay:-0.92s"></i><i class="spark" style="--spin:335deg;--dx:-6px;--dy:16px;--delay:-1.15s"></i><i class="spark" style="--spin:122deg;--dx:-3px;--dy:20px;--delay:-1.38s"></i><i class="spark" style="--spin:259deg;--dx:0px;--dy:24px;--delay:-1.61s"></i><i class="spark" style="--spin:46deg;--dx:3px;--dy:12px;--delay:-1.84s"></i><i class="spark" style="--spin:183deg;--dx:6px;--dy:16px;--delay:-2.07s"></i><i class="spark" style="--spin:320deg;--dx:-6px;--dy:20px;--delay:-2.30s"></i><i class="spark" style="--spin:107deg;--dx:-3px;--dy:24px;--delay:-2.53s"></i><i class="spark" style="--spin:244deg;--dx:0px;--dy:12px;--delay:-2.76s"></i><i class="spark" style="--spin:31deg;--dx:3px;--dy:16px;--delay:-2.99s"></i>
 </div>
-<div class="maint-foot"><span class="maint-status">REFORMAS EN CURSO</span><span><strong>Acceso temporalmente limitado.</strong> Estamos actualizando la web de DEA.</span></div>
-<p class="maint-note">La imagen representa una escena de mantenimiento. Su porcentaje es decorativo y no refleja el progreso real.</p>
+<div class="fx monitor-scan" aria-hidden="true"></div>
+<div class="fx server-fx" aria-hidden="true"></div>
+<div class="fx smoke" aria-hidden="true"></div><div class="fx smoke second" aria-hidden="true"></div>
+<div class="fx barrier-flash" aria-hidden="true"></div>
+<i class="dust" aria-hidden="true" style="left:13%;top:18%;--wait:-0.00s"></i><i class="dust" aria-hidden="true" style="left:30%;top:39%;--wait:-0.69s"></i><i class="dust" aria-hidden="true" style="left:47%;top:60%;--wait:-1.38s"></i><i class="dust" aria-hidden="true" style="left:64%;top:3%;--wait:-2.07s"></i><i class="dust" aria-hidden="true" style="left:81%;top:24%;--wait:-2.76s"></i><i class="dust" aria-hidden="true" style="left:3%;top:45%;--wait:-3.45s"></i><i class="dust" aria-hidden="true" style="left:20%;top:66%;--wait:-4.14s"></i><i class="dust" aria-hidden="true" style="left:37%;top:9%;--wait:-4.83s"></i><i class="dust" aria-hidden="true" style="left:54%;top:30%;--wait:-5.52s"></i><i class="dust" aria-hidden="true" style="left:71%;top:51%;--wait:-6.21s"></i><i class="dust" aria-hidden="true" style="left:88%;top:72%;--wait:-6.90s"></i>
+<div class="tool-arm" aria-hidden="true"><svg viewBox="0 0 80 80" role="presentation" xmlns="http://www.w3.org/2000/svg"><path d="M12 49L25 46 46 18 52 24 31 56 20 62Z" fill="#192b40" stroke="#d7a84d" stroke-width="4" stroke-linejoin="bevel"/><path d="M47 20L61 5M50 23L65 11" stroke="#ffe495" stroke-width="4" stroke-linecap="square"/></svg></div>
+<!-- Sustituye visualmente la barra 72% del arte estático por un terminal animado SIN porcentaje ficticio. -->
+<div class="image-console" aria-hidden="true">
+<svg class="gear" viewBox="0 0 50 50" fill="none" aria-hidden="true"><path d="M18 3h14l2 6 6 2 6-2 6 12-5 4v7l5 4-6 12-6-2-6 2-2 6H18l-2-6-6-2-6 2-6-12 5-4v-7l-5-4 6-12 6 2 6-2Z" transform="translate(5 4) scale(.76)" stroke="currentColor" stroke-width="4"/><circle cx="24" cy="25" r="8" stroke="currentColor" stroke-width="3"/></svg>
+<div class="console-copy"><span class="console-caption">ACTUALIZANDO SISTEMA DEA</span><span class="console-activity"></span></div>
+</div>
+</div>
+<div class="status-line"><span class="status-badge">REFORMAS EN CURSO</span><span class="status-help"><strong>Acceso temporalmente restringido.</strong> Estamos preparando mejoras en DEA.</span></div>
+<section class="terminal" aria-label="Estado del mantenimiento">
+<div class="terminal-head"><span>DEA · CENTRO DE CONTROL</span><span class="terminal-leds" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<div class="terminal-body"><div class="command-prefix">ESTADO DEL SISTEMA</div>
+<div class="status-cycle" aria-hidden="true"><span>Inspeccionando instalaciones DEA...</span><span>Reorganizando módulos internos...</span><span>Preparando nuevas funciones...</span><span>Reformas y mejoras en curso...</span></div>
+<p class="terminal-foot">Animación ilustrativa de mantenimiento. Los mensajes no indican tareas verificadas ni porcentajes reales de progreso.</p>
+</div></section>
 </main>
 </body>
 </html>

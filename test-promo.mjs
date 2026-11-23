@@ -17,13 +17,14 @@ test('Popup conserva FAQ y añade un enlace a nuevos comandos DEA',()=>{
  assert.equal(s.split('<a ').length-1,2);assert.ok(s.includes('href="#/publico/faq"'));assert.ok(s.includes('href="#/publico/noticias"'));assert.ok(s.includes('Nuevos comandos en DEA'));for(const c of [':membresias',':misiones',':traslados'])assert.ok(s.includes(c));
  for(const word of ['RANGOS EN OFERTA','VIP PERMANENTE','VER OFERTAS DE RANGO','Comprar rangos','35 c'])assert.ok(!s.includes(word),word);
 });
-test('Cerrar guarda la decisión durante la sesión y no reaparece',()=>{
- const x=start();x.flush();x.card.close();assert.equal(x.card,null);x.navigate('#/inicio');x.flush();assert.equal(x.card,null);
- const y=start({closed:true});y.flush();assert.equal(y.card,null);
+test('Cerrar evita repetición al navegar, pero una nueva carga vuelve a mostrar FAQ y comandos',()=>{
+ const x=start();x.flush();x.card.close();assert.equal(x.card,null);x.navigate('#/publico');x.flush();assert.equal(x.card,null);x.navigate('#/inicio');x.flush();assert.equal(x.card,null);
+ const y=start({closed:true});y.flush();assert.ok(y.card,'Las sesiones antiguas no deben ocultar el popup');
 });
-test('Se abre solo en portada, sin bloquear interiores ni identificación',()=>{
- for(const hash of ['#/publico','#/publico/faq','#/vip','#/identificacion/vip','#/unete','#/ficha','#/publico/compra-rangos']){const x=start({hash});x.flush();assert.equal(x.card,null,hash);}
- const x=start();x.flush();x.navigate('#/publico');assert.equal(x.card,null);
+test('Se abre al entrar en la portada exterior o interior, sin bloquear fichas ni secciones internas',()=>{
+ for(const hash of ['','#/','#/inicio','#/publico']){const x=start({hash});x.flush();assert.ok(x.card,hash);assert.match(x.card.innerHTML,/FAQ DEA/);assert.match(x.card.innerHTML,/Nuevos comandos/);}
+ for(const hash of ['#/publico/faq','#/vip','#/identificacion/vip','#/unete','#/ficha','#/publico/compra-rangos']){const x=start({hash});x.flush();assert.equal(x.card,null,hash);}
+ const x=start();x.flush();x.navigate('#/publico');assert.ok(x.card);x.card.close();x.navigate('#/inicio');x.flush();assert.equal(x.card,null);
 });
 test('La bienvenida no caduca después de noviembre y mantiene su escena Habbo',()=>{
  const x=start({now:'2026-12-02T11:00:00Z'});x.flush();assert.ok(x.card);assert.match(x.card.innerHTML,/dea-promo-scene/);assert.match(x.card.innerHTML,/logo-dea-es.png/);

@@ -72,34 +72,7 @@
       ]
     },
     {
-      "source": "/agencia-habbo/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, follow"
-        }
-      ]
-    },
-    {
-      "source": "/rangos-habbo/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, follow"
-        }
-      ]
-    },
-    {
       "source": "/departamentos/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, follow"
-        }
-      ]
-    },
-    {
-      "source": "/unirse-a-dea/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -136,15 +109,6 @@
     },
     {
       "source": "/musica/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, follow"
-        }
-      ]
-    },
-    {
-      "source": "/faq-dea/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",

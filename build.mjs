@@ -21,6 +21,7 @@ await copyFile(join('assets','dea','mantoj92-avatar.svg'),join('dist','assets','
 await copyFile(join('assets','dea','sala-completa.webp'),join('dist','assets','dea','sala-completa.webp'));
 await copyFile(join('assets','dea','manager-fr4nn23.png'),join('dist','assets','dea','manager-fr4nn23.png'));
 await copyFile(join('assets','dea','promo-sala.webp'),join('dist','assets','dea','promo-sala.webp'));
+for(const name of ['launch-sala.svg','launch-noticias.svg'])await copyFile(join('assets','dea',name),join('dist','assets','dea',name));
 console.log('Insignias DEA y avatar XPE_34 incluidos en dist/assets/dea/.');
 
 for(const name of ['premium-reception','premium-control'])for(const suffix of ['','-mobile'])await copyFile(join('assets','dea',name+suffix+'.webp'),join('dist','assets','dea',name+suffix+'.webp'));

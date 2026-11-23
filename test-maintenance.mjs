@@ -18,6 +18,18 @@ test('La pantalla especial contiene la ilustración, vallas y texto sin controle
  assert.match(page,/vallas/);
  assert.match(page,/c41cf277-5f45-4c08-91b6-f162abad919e\.png/);
  assert.match(page,/prefers-reduced-motion/);
+ assert.match(page,/spark-field/);
+ assert.match(page,/beacon one/);
+ assert.match(page,/monitor-scan/);
+ assert.match(page,/barrier-flash/);
+ assert.match(page,/tool-arm/);
+ assert.match(page,/status-cycle/);
+ assert.match(page,/image-console/);
+ assert.match(page,/activity-sweep/);
+ assert.doesNotMatch(page,/<button[\\s>]/i);
+ assert.doesNotMatch(page,/<input[\\s>]/i);
+ assert.match(page,/sin porcentaje ficticio/i);
+
  assert.match(page,/noindex,nofollow/);
  assert.doesNotMatch(page,/type="password"|ADMIN_TOKEN|maintenance-mode\.json/);
 });

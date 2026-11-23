@@ -74,3 +74,15 @@
 @media(max-width:600px){#dea-promo{padding:19px;align-items:center}#dea-promo .dea-welcome-panel{max-height:78dvh;width:calc(100vw - 38px);border-radius:16px}#dea-promo .dea-welcome-scene{height:150px}#dea-promo .dea-welcome-body{padding:15px 15px 17px}#dea-promo .dea-welcome-body h2{font-size:25px}#dea-promo .dea-welcome-faq{min-height:61px;padding:9px 11px}#dea-promo .dea-welcome-panel .dea-promo-brand img{width:38px;height:38px}#dea-promo .dea-welcome-panel .dea-promo-brand span{font-size:11px}}
 @media(max-height:600px){#dea-promo .dea-welcome-scene{height:95px}#dea-promo .dea-welcome-body{padding-top:10px;padding-bottom:12px}#dea-promo .dea-welcome-subtitle{margin-bottom:9px}#dea-promo .dea-welcome-panel{max-height:86dvh}}
 @media(prefers-reduced-motion:reduce){#dea-promo .dea-welcome-faq{transition:none}}
+
+
+/* Ampliación del pop-up existente: noticia secundaria sin sustituir FAQ DEA. */
+#dea-promo .dea-welcome-update{display:grid;grid-template-columns:89px minmax(0,1fr) 20px;align-items:center;gap:10px;min-height:82px;margin-top:11px;padding:7px 10px;border:1px solid #9a7a44;border-radius:10px;background:linear-gradient(105deg,#15293c,#0a1e32);box-shadow:inset 2px 0 #d7b66f;text-decoration:none;text-align:left;color:#fff;transition:border-color .2s,background .2s}
+#dea-promo .dea-welcome-update:hover,#dea-promo .dea-welcome-update:focus-visible{border-color:#ecd297;background:linear-gradient(105deg,#213b53,#112b45)}
+#dea-promo .dea-welcome-update img{width:89px;height:60px;display:block;object-fit:cover;object-position:center;border:1px solid #b89a69;border-radius:5px}
+#dea-promo .dea-welcome-update>span{display:flex;flex-direction:column;gap:4px;min-width:0}
+#dea-promo .dea-welcome-update small{color:#e8c584;font-size:9px;font-weight:900;letter-spacing:.5px}
+#dea-promo .dea-welcome-update strong{color:#f8f9fd;font-size:12px;line-height:1.35}
+#dea-promo .dea-welcome-update em{color:#b9d6e6;font-size:10px;font-style:normal;white-space:normal;line-height:1.35}
+#dea-promo .dea-welcome-update b{color:#ecc77e;font-size:19px;text-align:right}
+@media(max-width:440px){#dea-promo .dea-welcome-update{grid-template-columns:66px minmax(0,1fr) 12px;padding:7px;gap:7px}#dea-promo .dea-welcome-update img{width:66px;height:51px}#dea-promo .dea-welcome-update small{font-size:8px}#dea-promo .dea-welcome-update em{font-size:9px}}

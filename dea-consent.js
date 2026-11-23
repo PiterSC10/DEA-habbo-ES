@@ -9,6 +9,10 @@ function open(configure=false){hide();const panel=document.createElement('aside'
 const optional=panel.querySelector('#dea-cookie-optional');if(optional)optional.checked=!!read()?.optional;
 panel.addEventListener('click',e=>{const b=e.target.closest('[data-choice]');if(!b)return;const choice=b.dataset.choice;if(choice==='reject')save(false);if(choice==='accept')save(true);if(choice==='settings'){const prefs=panel.querySelector('.dea-cookie-preferences');if(prefs.hasAttribute('hidden')){prefs.removeAttribute('hidden');b.textContent='Guardar selección';b.dataset.choice='save';}else{prefs.setAttribute('hidden','');b.textContent='Configurar';}}if(choice==='save')save(!!optional?.checked)});
 }
-function init(){window.DEA_CookiePreferences=read()||{version:1,optional:false};document.addEventListener('click',e=>{if(e.target.closest('[data-dea-cookie-settings]')){e.preventDefault();open(true)}});if(!read())open();}
+function isCertifiedCmpPresent(){return typeof window.__tcfapi==='function'||!!document.querySelector('iframe[name="__tcfapiLocator"]');}
+function init(){window.DEA_CookiePreferences=read()||{version:1,optional:false};document.addEventListener('click',e=>{if(e.target.closest('[data-dea-cookie-settings]')){e.preventDefault();open(true)}});if(!read()&&!isCertifiedCmpPresent())open();
+// Evitar superponer el aviso local y el aviso certificado de Google si su CMP arranca después.
+let probes=0;const watcher=setInterval(()=>{if(isCertifiedCmpPresent()){hide();clearInterval(watcher);}else if(++probes>=24)clearInterval(watcher);},350);
+}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();

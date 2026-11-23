@@ -630,7 +630,7 @@ test('Skin premium conserva secciones y publica imágenes ligeras sin accesos pr
  assert.match(home,/<h1 id="premium-title">Agencia Oficial <em>DEA/);assert.match(home,/fetchpriority="high"/);
  for(const path of ['agencia','founders','jerarquia','nominas','placas','normativa','sala','noticias','departamentos','como-trabajar','compra-rangos','banderines'])assert.ok(dash.includes('#/publico/'+path),path);
  for(const path of ['premium-reception','premium-control'])for(const suffix of ['','-mobile'])await access(new URL('./assets/dea/'+path+suffix+'.webp',import.meta.url));
- assert.match(dash,/Miércoles y sábado/);assert.match(dash,/22:00 España peninsular/);
+ assert.match(dash,/href="#\/publico\/nominas"/);assert.doesNotMatch(dash,/class="pay-time-card"/);
  const skin=await readFile(new URL('./premium.css',import.meta.url),'utf8');assert.match(skin,/prefers-reduced-motion/);assert.match(skin,/max-width:680px/);assert.match(skin,/focus-visible/);
 });
 

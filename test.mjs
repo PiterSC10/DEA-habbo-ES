@@ -634,7 +634,7 @@ test('Skin premium conserva secciones y publica imágenes ligeras sin accesos pr
  const skin=await readFile(new URL('./premium.css',import.meta.url),'utf8');assert.match(skin,/prefers-reduced-motion/);assert.match(skin,/max-width:680px/);assert.match(skin,/focus-visible/);
 });
 
-test('Modo público oculta también el acceso de ingreso en todos los apartados',()=>{for(const route of ['inicio','publico','publico/agencia','publico/founders','publico/jerarquia','publico/placas','publico/ingreso','vip','identificacion/alta']){const h=page(route,true,true,false);assert.doesNotMatch(h,/href="(?:\/)?#\/(?:publico\/ingreso|vip|unete|identificacion|ficha)/);assert.doesNotMatch(h,/ÚNETE A DEA|Únete a DEA|ACCESO VIP|discord-login-button/);}});
+test('Modo público oculta también el acceso de ingreso en todos los apartados',()=>{for(const route of ['inicio','publico','publico/agencia','publico/founders','publico/jerarquia','publico/placas','publico/ingreso','vip','identificacion/alta']){const h=page(route,true,true,false);assert.doesNotMatch(h,/href="(?:\/)?#\/(?:publico\/ingreso|vip|unete|identificacion|ficha)/);assert.doesNotMatch(h,/ÚNETE A DEA|ACCESO VIP|discord-login-button/); // La guía pública «Únete a DEA» no habilita el registro privado.}});
 
 test('Mapa de nóminas: 27 ciudades con banderas locales y equivalencias sin perder zonas',async()=>{
  const rows=runInNewContext(catalogs+";deaPayrollRows('2026-11-18')",{});

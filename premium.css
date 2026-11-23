@@ -234,3 +234,34 @@
 @media(max-width:920px){.dea-premium-quicknav{gap:9px}.dea-neon-quick{padding:10px;gap:7px;min-height:65px}.dea-neon-quick strong{font-size:11px}}
 @media(max-width:590px){.dea-premium-quicknav{grid-template-columns:1fr;gap:9px;margin:15px 0 20px}.dea-neon-quick{min-height:54px;justify-content:flex-start;gap:12px;padding:10px 15px}.dea-neon-quick strong{font-size:13px}.dea-premium-tabs-extended>a.dea-neon-top{min-width:145px}}
 @media(prefers-reduced-motion:reduce){.dea-neon-quick{transition:none}.dea-neon-quick:hover{transform:none}}
+
+
+/* DEA Clasificado · Expediente 009 · El Suelo es Lava */
+.dea-lava-news .dea-classified-folder-tab{background:linear-gradient(100deg,#9a611b,#deb55f);color:#081e34;font-weight:900}
+.dea-lava-news .dea-paper-edition{border-bottom-color:#e0ad62}
+.dea-lava-news .dea-event-layout{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:22px;align-items:start}
+.dea-lava-news .dea-lava-flyer{order:0;background:linear-gradient(135deg,#0b2545,#040e1c);border:1px solid #e9bb69;border-radius:12px;box-shadow:0 13px 40px #0008}
+.dea-lava-news .dea-lava-flyer img{width:100%;height:auto;max-height:none;object-fit:contain;border:1px solid #d69a52;border-radius:6px}
+.dea-lava-news .dea-lava-report{order:1;min-width:0}
+.dea-lava-news .dea-lava-report h3{margin:21px 0 12px;color:#ffe2a0;font-size:clamp(17px,2vw,23px);line-height:1.3}
+.dea-lava-keyhours{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.dea-lava-keyhours>div{display:flex;flex-direction:column;gap:7px;padding:13px 10px;border:1px solid #deaf62;border-radius:10px;background:linear-gradient(140deg,#113454,#081928);text-align:center;box-shadow:inset 0 0 16px #329fdf19}
+.dea-lava-keyhours span{color:#f4ce86;font-size:10px;line-height:1.45;letter-spacing:.025em;font-weight:900}
+.dea-lava-keyhours strong{font-size:clamp(23px,3vw,35px);font-weight:950;color:#fff5d5}
+.dea-lava-keyhours small{font-size:10px;color:#abcbd8}
+.dea-lava-prizes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.dea-lava-prizes>div{display:flex;min-height:107px;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:9px 5px;border:1px solid #bda1697a;border-radius:9px;background:#0d2640;text-align:center}
+.dea-lava-prizes img{width:50px;height:50px;object-fit:contain;image-rendering:pixelated}
+.dea-lava-prizes>div>span{font-size:37px}
+.dea-lava-prizes strong{font-size:11px;line-height:1.35;color:#f2e5c9}
+.dea-lava-news .dea-lava-intro-hours{font-size:12px;line-height:1.65;color:#c9dae8}
+.dea-lava-schedule{list-style:none;padding:0;margin:12px 0 21px;border:1px solid #38566f;border-radius:10px;overflow:hidden;background:#0d2239}
+.dea-lava-schedule li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:8px;padding:9px 11px;border-bottom:1px solid #29445f;color:#d9e9f5;font-size:12px;line-height:1.4}
+.dea-lava-schedule li:last-child{border-bottom:0}
+.dea-lava-flag{font-size:22px}
+.dea-lava-schedule time{white-space:nowrap;color:#d4e5f3;font-variant-numeric:tabular-nums;font-size:11px}
+.dea-lava-schedule time strong{color:#ffe3a3;font-weight:850;font-size:13px}
+.dea-lava-invite{padding:12px 14px;border-left:3px solid #f3b65d;background:#182f44;color:#e5edf7;font-size:13px!important;line-height:1.7}
+.dea-lava-invite strong{color:#ffe1a4}
+@media(max-width:1000px){.dea-lava-news .dea-event-layout{grid-template-columns:1fr}.dea-lava-news .dea-lava-flyer{width:min(100%,600px);max-width:600px;margin:0 auto}.dea-lava-news .dea-lava-report{width:100%}}
+@media(max-width:460px){.dea-lava-keyhours span{font-size:9px}.dea-lava-keyhours strong{font-size:26px}.dea-lava-prizes{gap:5px}.dea-lava-prizes>div{padding:9px 3px;min-height:96px}.dea-lava-prizes strong{font-size:10px}.dea-lava-schedule li{grid-template-columns:26px minmax(0,1fr) auto;padding:8px 7px;gap:5px;font-size:11px}.dea-lava-schedule time{font-size:10px}.dea-lava-schedule time strong{font-size:11px}}

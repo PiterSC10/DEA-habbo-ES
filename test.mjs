@@ -655,3 +655,12 @@ test('Horarios visuales: cada jornada usa su propia fecha, incluidos cambios est
   for(const r of rows)assert.ok(html.includes(r.time));
  }
 });
+
+test('El menú público conserva las seis tarjetas y añade Sala y Confidencial con imágenes Habbo',async()=>{
+ const s=await readFile(new URL('./app.js',import.meta.url),'utf8');
+ const b=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
+ for(const key of ['agencia','founders','jerarquia','nominas','placas','normativa','sala','noticias'])assert.ok(s.includes("['"+key+"'," )||s.includes("['publico/"+key+"',"),key);
+ for(const name of ['launch-sala.svg','launch-noticias.svg']){const svg=await readFile(new URL('./assets/dea/'+name,import.meta.url),'utf8');assert.match(svg,/<svg /);assert.ok(b.includes("'"+name+"'"));}
+ assert.match(s,/function deaPremiumTabs/);
+ assert.match(s,/data-premium-section/);
+});

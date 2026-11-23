@@ -293,14 +293,14 @@ test('Apertura SEO pública y miniapps privadas siempre noindex',async()=>{
 
 
 test('Metadatos principales SEO claros, marca y fallback HTML indexable',()=>{
- assert.match(html,/<title>Agencia Oficial DEA \| Comunidad de Habbo Hotel<\/title>/);
+ assert.match(html,/<title>Agencia Oficial DEA \\| Comunidad en Habbo Hotel<\\/title>/);
  assert.match(html,/<meta property="og:site_name" content="Agencia Oficial DEA">/);
  assert.match(html,/favicon-48\.png/);
  assert.match(html,/"@type":"WebSite"/);
  assert.match(html,/dea-seo-fallback/);
- assert.match(html,/href="\/founders\/">Equipo DEA/);
+ assert.match(html,/href="#\/publico">ENTRAR EN LA WEB/);
  const schema=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
- assert.equal(schema.length,2);
+ assert.equal(schema.length,3);
  for(const item of schema)assert.equal(JSON.parse(item[1])['@context'],'https://schema.org');
 });
 

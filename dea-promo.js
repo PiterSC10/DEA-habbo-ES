@@ -1,15 +1,13 @@
-/* Agencia Oficial DEA: promoción de rango y VIP. No procesa pagos. */
+/* Agencia Oficial DEA: bienvenida pública con FAQ y comandos nuevos. Sin pagos. */
 (()=>{
  'use strict';
  const ENTRY_POPUPS_ENABLED=true;
- const KEY='dea-popup-bienvenida-faq-20261123-v1';
- const END=Infinity; // Pantalla de bienvenida sin fecha de caducidad; no muestra promociones.
+ // Se muestra una vez por carga de página, aunque haya sido cerrado en una visita anterior.
+ // No depender de sessionStorage: impedía ver el aviso al regresar a la web.
  let dismissed=false,timer;
- try{dismissed=sessionStorage.getItem(KEY)==='1';}catch{}
- const eligible=()=>Date.now()<END&&['','#/','#/inicio'].includes(location.hash);
+ const eligible=()=>['','#/','#/inicio','#/publico'].includes(location.hash);
  function close(){
   dismissed=true;
-  try{sessionStorage.setItem(KEY,'1');}catch{}
   document.getElementById('dea-promo')?.remove();
  }
  function show(){

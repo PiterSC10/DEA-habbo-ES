@@ -499,23 +499,21 @@ test('WEB CHECK SCAN V6 está integrado en el layout principal sin una página n
  assert.match(page('inicio',false),/Agencia Oficial DEA · Preinauguración/);
 });
 
-test('Search Console, portada como única URL del sitemap y guías públicas no indexables',async()=>{
+test('SEO: portada de marca y páginas útiles indexables, resto de servicios protegidos',async()=>{
  const verification=await readFile(new URL('./google8fa052a4ee6eb69c.html',import.meta.url),'utf8');
  const build=await readFile(new URL('./build.mjs',import.meta.url),'utf8');
  const sitemap=await readFile(new URL('./sitemap.xml',import.meta.url),'utf8');
  const cssSEO=await readFile(new URL('./seo-public.css',import.meta.url),'utf8');
+ const v=JSON.parse(await readFile(new URL('./vercel.json',import.meta.url),'utf8'));
  assert.equal(verification.trim(),'google-site-verification: google8fa052a4ee6eb69c.html');
- assert.ok(build.includes("'google8fa052a4ee6eb69c.html'"));
- assert.ok(build.includes("'sitemap.xml'"));
- assert.ok(build.includes("'seo-public.css'"));
+ for(const f of ['google8fa052a4ee6eb69c.html','sitemap.xml','seo-public.css'])assert.ok(build.includes("'"+f+"'"));
  assert.ok(cssSEO.includes('@media(max-width:640px)'));
- assert.ok(sitemap.includes('https://agenciaoficialdea.es/'));
-  assert.equal([...sitemap.matchAll(/<loc>/g)].length,1,'solo portada en el sitemap');
-  const v=JSON.parse(await readFile(new URL('./vercel.json',import.meta.url),'utf8'));
- for(const slug of ['agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders']){
+ const indexed=['agencia-habbo','rangos-habbo','unirse-a-dea','faq-dea'];
+ assert.equal([...sitemap.matchAll(/<loc>/g)].length,1+indexed.length);
+ for(const slug of ['agencia-habbo','rangos-habbo','departamentos','unirse-a-dea','normativa','founders','faq-dea']){
   const p=await readFile(new URL('./'+slug+'/index.html',import.meta.url),'utf8');
-  assert.ok(!sitemap.includes('https://agenciaoficialdea.es/'+slug+'/'),slug);
-  assert.ok(v.headers.some(h=>h.source==='/'+slug+'/(.*)'&&h.headers.some(x=>x.key==='X-Robots-Tag'&&x.value==='noindex, follow')),slug);
+  assert.equal(sitemap.includes('https://agenciaoficialdea.es/'+slug+'/'),indexed.includes(slug),slug);
+  assert.equal(v.headers.some(h=>h.source==='/'+slug+'/(.*)'&&h.headers.some(x=>x.key==='X-Robots-Tag'&&x.value==='noindex, follow')),!indexed.includes(slug),slug);
   assert.ok(p.includes('<link rel="canonical" href="https://agenciaoficialdea.es/'+slug+'/">'),slug);
   assert.ok(p.includes('<h1>'),slug);
   assert.ok(p.includes('Agencia Oficial DEA'),slug);

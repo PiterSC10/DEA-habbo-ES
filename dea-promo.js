@@ -33,6 +33,7 @@
         <span><strong>FAQ DEA</strong><small>Todas tus dudas resueltas</small></span>
         <span class="dea-welcome-faq-arrow" aria-hidden="true">→</span>
       </a>
+      <a class="dea-welcome-update" href="#/publico/noticias" aria-label="Leer en DEA Confidencial el comunicado oficial sobre los nuevos comandos"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JG75h2Nju8XQikwbWBljGYXsX6/209b40e4-91a2-4de7-8764-b49fc023ee0a.webp" alt="" width="140" height="80" loading="lazy" decoding="async"><span><small>NUEVO · DEA CONFIDENCIAL</small><strong>¡Nuevos comandos en DEA!</strong><em>:membresias · :misiones · :traslados</em></span><b aria-hidden="true">↗</b></a>
       <p class="dea-welcome-note">Cierra esta ventana para descubrir la portada de DEA y entrar en la web.</p>
     </div>
   </div>`;

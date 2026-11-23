@@ -18,7 +18,7 @@ test('Todas las URL del sitemap tienen canónica, robots, imagen social y JSON-L
   for(const block of blocks){const obj=JSON.parse(block[1]);assert.equal(obj['@context'],'https://schema.org');assert.ok(!block[1].includes('dea-habbo-es.vercel.app'));}
  }
  const v=JSON.parse(await read('vercel.json'));
- for(const slug of ['departamentos','normativa','founders','cafeteria','musica','calculadora','privacidad']){
+ for(const slug of ['departamentos','normativa','founders','cafeteria','musica','calculadora','privacidad','cookies']){
   assert.ok(v.headers.some(h=>h.source==='/'+slug+'/(.*)'&&h.headers.some(x=>x.key==='X-Robots-Tag'&&x.value==='noindex, follow')),slug);
  }
  for(const slug of ['agencia-habbo','rangos-habbo','unirse-a-dea','faq-dea'])assert.ok(!v.headers.some(h=>h.source==='/'+slug+'/(.*)'&&h.headers.some(x=>x.key==='X-Robots-Tag'&&/noindex/.test(x.value))),slug+' debe estar indexable');
@@ -48,4 +48,11 @@ test('La portada SEO entrega el logotipo, el nombre oficial y no inyecta una seg
  assert.match(app,/TIENDA DEA/);
  assert.match(app,/SOLICITAR EN LA SALA/);
  assert.doesNotMatch(app,/function layoutHome\(\)\{return \(DEA_ENTRY_ACCESS_ENABLED\?layoutHomeOriginal\(\):deaPremiumHome\(\)\)\+deaSeoAboutHtml/);
+});
+
+test('La política de cookies publicada resuelve el enlace legal de privacidad',async()=>{
+ const b=await read('build.mjs');const cookie=await read('cookies/index.html');const privacy=await read('privacidad/index.html');
+ assert.ok(b.includes("'cookies'"));
+ assert.match(cookie,/<h1>Política de cookies<\/h1>/);
+ assert.ok(privacy.includes('href="/cookies/"'));
 });

@@ -664,3 +664,5 @@ test('El menú público conserva las seis tarjetas y añade Sala y Confidencial 
  assert.match(s,/function deaPremiumTabs/);
  assert.match(s,/data-premium-section/);
 });
+
+test('Las ilustraciones premium de Sala DEA y Confidencial cargan sus escenas Habbo nuevas',async()=>{const s=await readFile(new URL('./app.js',import.meta.url),'utf8');assert.ok(s.includes('555a6b8c-cfa8-439d-815b-e50d55aae785.png'));assert.ok(s.includes('2f597ef2-6b2d-407e-bfec-374eafbf4bc9.png'));assert.ok(!s.includes('launch-${key}.svg'));});

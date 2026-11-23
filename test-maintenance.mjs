@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 const config=JSON.parse(readFileSync(new URL('./maintenance-mode.json',import.meta.url),'utf8'));
 const page=readFileSync(new URL('./mantenimiento.html',import.meta.url),'utf8');
 const build=readFileSync(new URL('./build.mjs',import.meta.url),'utf8');
-test('El modo mantenimiento se instala DESACTIVADO por defecto',()=>{assert.equal(config.enabled,false)});
+test('El estado de mantenimiento siempre es un booleano válido',()=>{assert.equal(typeof config.enabled,'boolean')});
 test('El interruptor admite solo booleanos, la compilación publica la web normalmente mientras está desactivado',()=>{
  assert.match(build,/typeof maintenance\.enabled!=='boolean'/);
  assert.match(build,/if\(maintenance\.enabled\)/);

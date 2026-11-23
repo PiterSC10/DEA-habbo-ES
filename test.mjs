@@ -674,8 +674,8 @@ test('DEA Clasificado 009 conserva flyer, premios, horario y archivo de comunica
  for(const name of ['Cajas HC','Reducción de Nómina','Payment Security'])assert.ok(h.includes(name),name);
  for(const clock of ['17:00','18:00','19:00','20:00','00:00','24/11'])assert.ok(h.includes(clock),clock);
  for(const country of ['México','Colombia','Perú','Ecuador','Venezuela','Bolivia','Argentina','Chile','España'])assert.ok(h.includes(country),country);
- assert.match(h,/5cd8f740-f527-474a-8b74-83ce01c91eb5\\.webp/);
- assert.match(h,/937ea5ee-8ab4-44a3-baaf-35ece4007a24\\.png/);
- assert.match(h,/AgenciaOficialDEA\\.es/);
+ assert.match(h,/5cd8f740-f527-474a-8b74-83ce01c91eb5\.webp/);
+ assert.match(h,/937ea5ee-8ab4-44a3-baaf-35ece4007a24\.png/);
+ assert.match(h,/AgenciaOficialDEA\.es/);
  assert.ok(h.indexOf('id="dea-lava-20261123"')<h.indexOf('id="dea-comandos-20261123"'),'El evento debe aparecer antes de los comunicados antiguos');
 });

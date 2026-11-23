@@ -265,3 +265,87 @@
 .dea-lava-invite strong{color:#ffe1a4}
 @media(max-width:1000px){.dea-lava-news .dea-event-layout{grid-template-columns:1fr}.dea-lava-news .dea-lava-flyer{width:min(100%,600px);max-width:600px;margin:0 auto}.dea-lava-news .dea-lava-report{width:100%}}
 @media(max-width:460px){.dea-lava-keyhours span{font-size:9px}.dea-lava-keyhours strong{font-size:26px}.dea-lava-prizes{gap:5px}.dea-lava-prizes>div{padding:9px 3px;min-height:96px}.dea-lava-prizes strong{font-size:10px}.dea-lava-schedule li{grid-template-columns:26px minmax(0,1fr) auto;padding:8px 7px;gap:5px;font-size:11px}.dea-lava-schedule time{font-size:10px}.dea-lava-schedule time strong{font-size:11px}}
+
+
+/* DEA Clasificado · Expediente 009: flyer protagonista · misma estética de archivos */
+.dea-lava-news .dea-classified-sheet{transform:none;background:repeating-linear-gradient(0deg,transparent 0 38px,#8d734c0e 39px),linear-gradient(135deg,#faf1df,#e7d5b5);border-color:#b79a6a;color:#2c241c;box-shadow:0 7px 0 #7f6746,0 22px 30px #0008}
+.dea-lava-news .dea-classified-stamp{color:#8a2921;border-color:#8a2921;opacity:1}
+.dea-lava-news .dea-paper-masthead{border-color:#786040}
+.dea-lava-news .dea-paper-masthead>span,
+.dea-lava-news .dea-paper-masthead strong,
+.dea-lava-news .dea-paper-masthead time{color:#31251b}
+.dea-lava-news .dea-paper-masthead em{color:#853325}
+.dea-lava-news .dea-paper-edition{color:#672e21;border-color:#80664b}
+.dea-lava-news .dea-paper-edition span{color:#34281e}
+.dea-lava-news .dea-lava-archive-intro{margin:24px 0 22px;padding:19px 21px 20px;background:#f9efd9;border-left:5px solid #875a33;border-top:1px solid #b39a70;border-right:1px solid #b39a70;border-bottom:1px solid #b39a70;box-shadow:0 3px 0 #a78c5e38}
+.dea-lava-news .dea-lava-archive-label,
+.dea-lava-news .dea-lava-archive-section-head>span,
+.dea-lava-news .dea-lava-subfile{display:block;color:#713021;font-size:11px;font-weight:900;letter-spacing:.09em;line-height:1.5}
+.dea-lava-news .dea-lava-archive-intro h2{margin:9px 0 11px;color:#251c17;font-size:clamp(23px,3.5vw,39px);line-height:1.16;font-weight:950;letter-spacing:0}
+.dea-lava-news .dea-lava-archive-intro p{margin:0;color:#30251d;font-size:clamp(14px,1.35vw,16px);line-height:1.75;max-width:880px}
+.dea-lava-news .dea-lava-archive-intro strong{color:#542718}
+.dea-lava-news .dea-lava-archive-evidence{margin:0 0 28px;padding:clamp(9px,2.5vw,22px);border:4px double #a9814a;background:linear-gradient(145deg,#0b1b30,#172f47 55%,#09192e);box-shadow:0 12px 32px #130e08a6}
+.dea-lava-news .dea-lava-evidence-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:9px;margin:0 0 14px;padding:0 3px 12px;border-bottom:1px solid #b89b61;color:#ffe3a4;font-size:10px;font-weight:900;letter-spacing:.08em}
+.dea-lava-news .dea-lava-evidence-head span:last-child{color:#dbedf7;font-weight:700}
+.dea-lava-news .dea-lava-flyer{display:block;margin:0 auto;width:100%;max-width:900px;min-width:0;padding:clamp(5px,1vw,11px);background:#0a1624;border:1px solid #d5b470;border-radius:5px;box-shadow:0 0 0 4px #07152580,0 12px 28px #0008;transform:none;order:unset}
+.dea-lava-news .dea-lava-flyer .dea-event-evidence{font-size:10px;color:#ffdfa3;font-weight:800;letter-spacing:.07em;padding:3px 0 10px}
+.dea-lava-news .dea-lava-flyer img{width:100%;height:auto;max-height:none;aspect-ratio:1122 / 1402;object-fit:contain;border:1px solid #aa8551;border-radius:2px;background:#0a1b2f}
+.dea-lava-news .dea-lava-flyer a{display:block}
+.dea-lava-news .dea-lava-flyer figcaption{color:#eaf1f5;font-size:12px;line-height:1.55;padding:10px 2px 2px}
+.dea-lava-news .dea-lava-archive-record{margin-top:22px}
+.dea-lava-news .dea-lava-archive-section-head{padding:20px;border:2px solid #98774f;background:#f9efdc;box-shadow:inset 0 0 0 4px #eadac1}
+.dea-lava-news .dea-lava-archive-section-head h3{margin:9px 0 10px;color:#251d17;font-size:clamp(22px,2.6vw,30px);line-height:1.25}
+.dea-lava-news .dea-lava-archive-section-head p{margin:0;color:#32271e;line-height:1.7;font-size:14px}
+.dea-lava-news .dea-lava-archive-section-head strong{color:#692d1b}
+.dea-lava-news .dea-lava-keyhours{margin:13px 0 18px;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dea-lava-news .dea-lava-keyhours>div{padding:18px 10px;background:linear-gradient(155deg,#0c243d,#173852);border:2px solid #c5a064;box-shadow:inset 0 0 20px #0004}
+.dea-lava-news .dea-lava-keyhours span{color:#ffe4ab;font-size:clamp(10px,1.25vw,13px);font-weight:900}
+.dea-lava-news .dea-lava-keyhours strong{color:#fffaf0;font-size:clamp(27px,3.6vw,39px)}
+.dea-lava-news .dea-lava-keyhours small{color:#deebf0;font-size:12px}
+.dea-lava-news .dea-lava-archive-grid{display:grid;grid-template-columns:minmax(0,.83fr) minmax(0,1.17fr);gap:15px;margin-top:18px;align-items:start}
+.dea-lava-news .dea-lava-archive-prize-panel,
+.dea-lava-news .dea-lava-archive-schedule-panel{min-width:0;min-height:100%;padding:18px 15px;background:#fff8e8;border:2px solid #96734a;color:#29231d;box-shadow:3px 4px 0 #bda47b70}
+.dea-lava-news .dea-lava-archive-grid h4{margin:7px 0 16px;color:#281c15;font-size:clamp(20px,2.3vw,26px);line-height:1.25}
+.dea-lava-news .dea-lava-prizes{grid-template-columns:1fr;gap:9px}
+.dea-lava-news .dea-lava-prizes>div{flex-direction:row;justify-content:flex-start;min-height:72px;padding:10px 12px;gap:14px;background:#f1e4c7;border:1px solid #aa8351;color:#251d15;text-align:left;box-shadow:none}
+.dea-lava-news .dea-lava-prizes>div img{flex:0 0 53px;width:53px;height:53px}
+.dea-lava-news .dea-lava-prizes>div>span{flex:0 0 53px;text-align:center;color:#271d14;font-size:35px}
+.dea-lava-news .dea-lava-prizes strong{color:#272019;font-size:clamp(14px,1.7vw,17px);line-height:1.4}
+.dea-lava-news .dea-lava-archive-prize-panel>p{color:#443329;font-size:13px;line-height:1.7;margin:18px 0 0}
+.dea-lava-news .dea-lava-schedule{margin:0;background:#fff7e7;border:1px solid #b29b78;border-radius:2px}
+.dea-lava-news .dea-lava-schedule li{grid-template-columns:27px minmax(0,1fr) auto;padding:9px 10px;border-bottom:1px solid #c8b496;background:#fff9ed;color:#30251d;font-size:13px;gap:9px}
+.dea-lava-news .dea-lava-schedule li:nth-child(even){background:#f0e2c8}
+.dea-lava-news .dea-lava-schedule time{color:#35261d;font-size:12px}
+.dea-lava-news .dea-lava-schedule time strong{color:#5c2718;font-size:14px}
+.dea-lava-news .dea-lava-archive-close{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px;padding:19px 20px;border-top:3px double #a37f4e;border-bottom:3px double #a37f4e;background:#f5e5c5}
+.dea-lava-news .dea-lava-archive-close p{color:#34261c;margin:0;line-height:1.75;font-size:15px}
+.dea-lava-news .dea-lava-archive-close strong{color:#6b3020}
+.dea-lava-news .dea-lava-archive-close .btn{flex:none;text-align:center}
+.dea-lava-news .dea-paper-footer{border-top:2px solid #796347}
+.dea-lava-news .dea-paper-footer>span{color:#7a3023}
+.dea-lava-news .dea-paper-footer p{color:#423225}
+@media(max-width:850px){.dea-lava-news .dea-lava-archive-grid{grid-template-columns:1fr}.dea-lava-news .dea-lava-prizes{grid-template-columns:repeat(3,minmax(0,1fr))}.dea-lava-news .dea-lava-prizes>div{flex-direction:column;text-align:center;min-height:116px;padding:11px 6px;gap:6px}.dea-lava-news .dea-lava-prizes>div img,.dea-lava-news .dea-lava-prizes>div>span{flex:none}.dea-lava-news .dea-lava-archive-close{flex-direction:column;align-items:stretch}.dea-lava-news .dea-lava-archive-close .btn{display:block}}
+@media(max-width:480px){
+ .dea-lava-news .dea-classified-sheet{padding:12px 10px;border-width:4px}
+ .dea-lava-news .dea-lava-archive-intro{margin:16px 0;padding:14px 12px}
+ .dea-lava-news .dea-lava-archive-intro h2{font-size:25px}
+ .dea-lava-news .dea-lava-archive-intro p{font-size:14px}
+ .dea-lava-news .dea-lava-evidence-head{font-size:9px;letter-spacing:0}
+ .dea-lava-news .dea-lava-archive-evidence{padding:7px;border-width:3px}
+ .dea-lava-news .dea-lava-flyer{padding:5px;border-width:1px}
+ .dea-lava-news .dea-lava-flyer .dea-event-evidence{font-size:9px}
+ .dea-lava-news .dea-lava-flyer figcaption{font-size:11px}
+ .dea-lava-news .dea-lava-archive-section-head{padding:14px 11px}
+ .dea-lava-news .dea-lava-archive-section-head h3{font-size:23px}
+ .dea-lava-news .dea-lava-keyhours{gap:6px}
+ .dea-lava-news .dea-lava-keyhours>div{padding:10px 5px}
+ .dea-lava-news .dea-lava-keyhours strong{font-size:27px}
+ .dea-lava-news .dea-lava-keyhours small{font-size:10px}
+ .dea-lava-news .dea-lava-archive-prize-panel,.dea-lava-news .dea-lava-archive-schedule-panel{padding:12px 9px}
+ .dea-lava-news .dea-lava-prizes>div{min-height:107px;padding:9px 3px}
+ .dea-lava-news .dea-lava-prizes strong{font-size:11px}
+ .dea-lava-news .dea-lava-schedule li{grid-template-columns:25px minmax(0,1fr) auto;font-size:11px;padding:8px 5px;gap:5px}
+ .dea-lava-news .dea-lava-schedule time{font-size:10px}
+ .dea-lava-news .dea-lava-schedule time strong{font-size:11px}
+ .dea-lava-news .dea-lava-archive-close{padding:15px 12px}
+}

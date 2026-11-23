@@ -36,8 +36,8 @@ const DEA_PUBLIC_PLAQUES=[
  {image:'anticheck',title:'AntiCheck',price:50,benefit:'Mantiene tu tiempo activo sin tener que verificarlo periódicamente.'},
  {image:'comeback-pass-original',title:'ComebackPASS',price:30,benefit:'Te permite reincorporarte al puesto que tenías después de una ausencia prolongada, siempre y cuando conserves las placas.'},
  {image:'exclusive-benefits',title:'Exclusive Benefits [EB]',price:30,benefit:'Reúne Chat Privilege [CP] y Free Outfit [FO]: usa chat de color, mayúsculas y el look que quieras.'},
- {image:'beneficio-gold',title:'Beneficio Gold',price:100,benefit:'Usa la ropa que quieras sin importar el rango, disfruta de chat libre y accede a los beneficios PS, HS, RN y BD.'},
- {image:'reduccion-nomina',title:'Reducción de Nómina [RN]',price:40,benefit:'Reduce un 50 % las horas requeridas para cobrar la nómina.'},
+ {image:'beneficio-gold',title:'Beneficio Gold',price:100,benefit:'Usa ropa y chat libres; incluye PS, HS, RN y BD. La reducción RN disminuye un 50 % las horas ordinarias de nómina y reduce de 2 horas a 1 hora y 30 minutos el tiempo extra exigido para cobrar la bonificación de 3 c, donde proceda.'},
+ {image:'reduccion-nomina',title:'Reducción de Nómina [RN]',price:40,benefit:'Reducción de Tiempo: reduce un 50 % las horas ordinarias para cobrar la nómina. También baja de 2 horas a 1 hora y 30 minutos la exigencia para conseguir la bonificación de 3 c por paga, si el rango tiene derecho a ella.'},
  {image:'payment-security',title:'Payment Security [PS]',price:20,benefit:'Guardapaga: si cumples los requisitos, puedes reservar tu nómina del miércoles o sábado y recogerla hasta 48 horas después de las 22:00 (hora peninsular española) de esa jornada.'},
  {image:'fast-pay',title:'Fast Pay [FP]',price:30,benefit:'Accede a una fila preferente para cobrar la nómina.'},
  {image:'beneficio-vip',title:'VIP',price:35,permanent:true,benefit:'Entra y sal de la sala DEA como visitante, sin rango, sin trabajar y sin permisos de gestión.'}

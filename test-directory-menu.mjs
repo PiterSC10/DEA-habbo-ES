@@ -11,11 +11,11 @@ test('Directorio DEA reúne 18 tarjetas y cada acceso conserva ruta real',async(
  assert.equal(new Set(entries.map(x=>x[0])).size,18);
  for(const route of ['publico/como-unirse','publico/como-trabajar','publico/faq'])assert.ok(entries.find(x=>x[0]===route));
 });
-test('Las nueve escenas nuevas sustituyen las imágenes con números y títulos incrustados',async()=>{
+test('Cada sección tiene una ilustración independiente y las nuevas sustituyen duplicados',async()=>{
  const s=await read('app.js'),css=await read('premium.css');
  const art=JSON.parse(s.match(/const DEA_CARD_ART=(\{[^;]+\});/)[1]);
- assert.equal(Object.keys(art).length,9);
- assert.equal(new Set(Object.values(art)).size,9);
+ assert.equal(Object.keys(art).length,10);
+ assert.equal(new Set(Object.values(art)).size,10);
  for(const [key,url] of Object.entries(art)){assert.match(url,/\.webp$/);assert.ok(!url.includes('2cf5d19c-6ae1'),key);}
  assert.match(css,/\.dea-premium-directory \.dea-directory-grid \.dea-premium-card-art:after\{display:none\}/);
 });

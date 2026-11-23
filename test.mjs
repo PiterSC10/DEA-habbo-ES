@@ -342,19 +342,15 @@ test('Escalafón PDF: 26 nuevos rangos R7–R10 visibles',()=>{
  assert.equal(names.length,26);
  for(const n of names)assert.ok(h.includes(n),'Falta: '+n);
 });
-test('Rangos y ascensos: autoridad acumulativa hasta R5, R7 y R10 en tabla y sección final',()=>{
+test('Rangos y ascensos: normativa SUP+ / DIR+ / DELEGADO+ / SECRETARIO+ con control de permisos',()=>{
  const view=page('publico/jerarquia');
  assert.match(view,/¿Quién puede ascender a quién\?/);
- assert.match(view,/Permisos <strong>acumulativos<\/strong>/);
  assert.match(view,/Quién puede autorizar/);
- assert.match(view,/DIRECTORES[\s\S]*?Ascensos hasta R5 incluido/);
- assert.match(view,/MANAGERS[\s\S]*?Ascensos hasta R7 incluido/);
- assert.match(view,/FOUNDERS[\s\S]*?Ascensos hasta R10 incluido/);
- assert.match(view,/Directores · Managers · Founders/);
- assert.match(view,/Managers · Founders/);
- assert.match(view,/Formación presencial en Habbo/);
- assert.match(view,/R7, R8, R9 y R10:[\s\S]*?nombres internos ya están publicados/);
- assert.match(view,/verificación del permiso en el servidor mediante Discord/);
+ assert.match(view,/SUPERVISOR\+/);
+ assert.match(view,/DIRECTOR \/ DELEGADO\+/);
+ assert.match(view,/SECRETARIO\+/);
+ assert.match(view,/R7–R10: autorizaciones no especificadas/);
+ assert.match(view,/servidor/);
  assert.ok(view.indexOf('Ingreso gratuito o compra presencial')<view.indexOf('¿Quién puede ascender a quién?'),'La normativa queda al final');
 });
 test('Normativa no invade Placas, preinauguración ni la portada principal',()=>{

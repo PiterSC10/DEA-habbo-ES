@@ -1,4 +1,4 @@
 {
-  "enabled": true,
+  "enabled": false,
   "description": "Activación controlada del modo mantenimiento DEA. Cambiar únicamente tras orden explícita del propietario."
 }

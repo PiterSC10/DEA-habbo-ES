@@ -14,7 +14,7 @@ function start({hash='#/inicio',now='2026-11-23T08:00:00Z',closed=false}={}){
 test('Popup compacto da la bienvenida y únicamente ofrece acceso FAQ DEA',()=>{
  const x=start();assert.equal(x.card,null);x.flush();const s=x.card.innerHTML;
  assert.match(s,/dea-welcome-panel/);assert.match(s,/BIENVENIDO A/);assert.match(s,/FAQ DEA/);assert.match(s,/Todas tus dudas resueltas/);
- assert.equal((s.match(/<a\s/g)||[]).length,1);assert.match(s,/href="#\/publico\/faq"/);
+ assert.equal((s.match(/<a\\s/g)||[]).length,2);assert.match(s,/href="#\\/publico\\/faq"/);assert.match(s,/href="#\\/publico\\/noticias"/);assert.match(s,/Nuevos comandos en DEA/);for(const c of [':membresias',':misiones',':traslados'])assert.ok(s.includes(c));
  for(const word of ['RANGOS EN OFERTA','VIP PERMANENTE','VER OFERTAS DE RANGO','Comprar rangos','35 c'])assert.ok(!s.includes(word),word);
 });
 test('Cerrar guarda la decisión durante la sesión y no reaparece',()=>{

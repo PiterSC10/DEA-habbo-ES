@@ -617,7 +617,7 @@ test('Altas confirmadas aparecen en ambos árboles sin datos privados',async()=>
 
 test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
  const home=page('inicio',true,true,false);
- assert.match(home,/launch-hero-1440.webp/);assert.match(home,/ENTRAR A DEA/);
+ assert.match(home,/launch-hero-1440.webp/);assert.match(home,/ENTRAR EN LA WEB/);
  assert.doesNotMatch(home,/href="(?:\/)?#\/(?:vip|unete|identificacion|ficha)/);
  assert.doesNotMatch(home,/choice join|choice vip|WEB PÚBLICA/);
  for(const route of ['vip','unete','identificacion/vip','identificacion/alta','ficha','publico/ingreso']){
@@ -629,7 +629,7 @@ test('Modo público temporal: entrada única y rutas de registro pausadas',()=>{
 
 test('Skin premium conserva secciones y publica imágenes ligeras sin accesos privados',async()=>{
  const home=page('inicio',true,true,false),dash=page('publico',true,true,false);
- assert.match(home,/Agencia Oficial<br>/);assert.match(home,/fetchpriority="high"/);
+ assert.match(home,/<h1 id="premium-title">Agencia Oficial <em>DEA/);assert.match(home,/fetchpriority="high"/);
  for(const path of ['agencia','founders','jerarquia','nominas','placas','normativa','sala','noticias','departamentos','como-trabajar','compra-rangos','banderines'])assert.ok(dash.includes('#/publico/'+path),path);
  for(const path of ['premium-reception','premium-control'])for(const suffix of ['','-mobile'])await access(new URL('./assets/dea/'+path+suffix+'.webp',import.meta.url));
  assert.match(dash,/Miércoles y sábado/);assert.match(dash,/22:00 España peninsular/);
@@ -666,3 +666,5 @@ test('El menú público conserva las seis tarjetas y añade Sala y Confidencial 
 });
 
 test('Las ilustraciones premium de Sala DEA y Confidencial cargan sus escenas Habbo nuevas',async()=>{const s=await readFile(new URL('./app.js',import.meta.url),'utf8');assert.ok(s.includes('555a6b8c-cfa8-439d-815b-e50d55aae785.png'));assert.ok(s.includes('2f597ef2-6b2d-407e-bfec-374eafbf4bc9.png'));assert.ok(!s.includes('launch-${key}.svg'));});
+
+test('Portada premium reducida a una entrada, sin menú ni accesos privados',()=>{const home=page('inicio',true,true,false);assert.match(home,/dea-entry-landing/);assert.equal((home.match(/href="#\/publico"/g)||[]).length,1);assert.match(home,/ENTRAR EN LA WEB/);assert.doesNotMatch(home,/dea-premium-home-links|dea-tools-grid|dea-launch-nav|dea-premium-header-actions|dea-footer-directory|href="#\/identificacion\/alta"/);const pub=page('publico',true,true,false);assert.match(pub,/TIENDA DEA/);assert.match(pub,/dea-side-shop/);for(const rank of ['Supervisor','Director','Delegado'])assert.match(page('publico\/compra-rangos',true,true,false),new RegExp(rank));});

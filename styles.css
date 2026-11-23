@@ -909,3 +909,16 @@ body.dea-moment-open{overflow:hidden}
 .dea-ranking-evidence figcaption{margin:10px 0 0;color:#c6d8e3;font-size:11px;line-height:1.55;text-align:center;letter-spacing:.02em}
 .dea-ranking-news .dea-paper-edition span{color:#514435}
 @media(max-width:600px){.dea-ranking-evidence{padding:8px}.dea-ranking-evidence figcaption{font-size:10px}}
+
+
+/* DEA Confidencial · Expediente 008: comunicado de nuevos comandos. */
+.dea-command-news .dea-paper-edition span{color:#514435}
+.dea-command-news .dea-command-poster{margin:20px auto 12px;max-width:1020px;overflow:hidden;border:5px solid #d4b577;background:#08182d;box-shadow:0 7px 18px #07192a26}
+.dea-command-news .dea-command-poster img{display:block;width:100%;height:auto;aspect-ratio:7/4;object-fit:contain;background:#07192d}
+.dea-command-news .dea-command-poster figcaption{padding:10px 15px;font:700 10px/1.4 Arial,sans-serif;letter-spacing:1.4px;color:#4d443a;text-align:center;background:#ece3cf}
+.dea-command-news .dea-command-details{max-width:920px;margin:15px auto 27px;padding:20px 24px;border-block:1px solid #9f835c;background:#f4ecd9;color:#372f24}
+.dea-command-news .dea-command-details-kicker{display:block;font-size:11px;font-weight:900;letter-spacing:1.2px;color:#66513b;text-align:center}
+.dea-command-news .dea-command-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:17px 0 22px}
+.dea-command-news .dea-command-list code{display:block;padding:13px 8px;background:#102a40;border:2px solid #af8b4a;border-radius:8px;color:#f4dfaa;text-align:center;font:800 clamp(12px,1.8vw,18px)/1.3 monospace;overflow-wrap:anywhere}
+.dea-command-news .dea-command-details p{margin:9px 0;font-size:clamp(13px,1.65vw,16px);line-height:1.65;color:#3a3126}
+@media(max-width:620px){.dea-command-news .dea-command-poster{margin:16px auto 8px;border-width:3px}.dea-command-news .dea-command-details{padding:15px 11px}.dea-command-news .dea-command-list{gap:6px}.dea-command-news .dea-command-list code{padding:9px 4px;font-size:clamp(10px,2.65vw,13px)}}

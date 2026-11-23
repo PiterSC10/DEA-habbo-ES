@@ -135,3 +135,34 @@
 .dea-premium-card[data-premium-section="sala"] .dea-premium-card-art img,.dea-premium-card[data-premium-section="noticias"] .dea-premium-card-art img{width:100%;height:100%;object-fit:cover;object-position:center;image-rendering:auto;display:block}
 .dea-premium-card[data-premium-section="sala"]{--section-accent:#7edce9;--section-rgb:126,220,233}
 .dea-premium-card[data-premium-section="noticias"]{--section-accent:#d6b575;--section-rgb:214,181,117}
+
+/* Portada de una sola acción: pop-up de bienvenida → portada → menú interior */
+.dea-entry-landing{display:flex;flex-direction:column;min-height:100dvh;overflow:clip}
+.dea-entry-landing .dea-entry-header{width:100%;max-width:1440px;min-height:86px;padding-top:13px;padding-bottom:13px}
+.dea-entry-header-note{font-size:10px;letter-spacing:.14em;font-weight:750;color:#b9a8a0}
+.dea-entry-main{flex:1;display:flex;flex-direction:column}
+.dea-entry-hero{flex:1;width:100%;min-height:min(720px,calc(100dvh - 155px))}
+.dea-entry-hero .dea-premium-hero-copy{position:relative;z-index:1}
+.dea-entry-hero .dea-premium-hero-copy>p{max-width:455px}
+.dea-entry-footer{padding:18px 5%;text-align:center;background:#061323;border-top:1px solid #bda06e55;color:#bac8d8}
+.dea-entry-footer a{color:#ebcb89}
+.dea-shop-category{color:#e8c77f!important;border-top:1px solid #b18b4e55;margin-top:20px!important;padding-top:15px!important}
+.dea-premium-public .side-item.dea-side-shop{border:1px solid #bf9a566e;background:linear-gradient(110deg,#3d3123b8,#14283a);color:#f3d28b;font-weight:800}
+.dea-premium-public .side-item.dea-side-shop:hover,.dea-premium-public .side-item.dea-side-shop.active{border-color:#f0ce85;background:linear-gradient(100deg,#53402a,#1b3547);box-shadow:inset 3px 0 #dfbd77}
+.dea-premium-store{margin:12px 0 35px}
+.dea-store-hero{position:relative;display:flex;align-items:center;justify-content:space-between;gap:18px;overflow:hidden;border:1px solid #d4b06b;border-radius:14px;padding:20px 24px;background:linear-gradient(110deg,#092038,#16354c);color:#f0d59b}
+.dea-store-hero>div{position:relative;z-index:1}
+.dea-store-hero h2{font-size:clamp(23px,3vw,32px);margin:8px 0;color:#f4d78f}
+.dea-store-hero p{font-size:12px;line-height:1.65;color:#d9e3ea;max-width:580px}
+.dea-store-hero img{width:min(30%,160px);height:auto;border:2px solid #bfa061;border-radius:10px;object-fit:cover}
+.dea-store-disclaimer{font-size:12px;line-height:1.7;color:#bbcee2;margin:16px 2px 24px}
+.dea-premium-store .dea-store-card{border:1px solid #b89a66;background:linear-gradient(145deg,#16334c,#081a2e);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.dea-premium-store .dea-store-card h3{color:#f4d994;margin:2px 0 7px;font-size:21px}
+.dea-store-rank-chip{align-self:flex-start;border:1px solid #d6b67975;color:#f4d994;border-radius:6px;padding:4px 9px;letter-spacing:.1em;font-size:10px;font-weight:900}
+.dea-premium-store .dea-store-card .dea-offer-price{color:#f2d17d;font-size:clamp(27px,3vw,38px)}
+.dea-premium-store .dea-store-card .dea-offer-price small{font-size:12px}
+.dea-premium-store .dea-store-card>small{color:#b8c9d8;font-size:11px;line-height:1.6}
+.dea-store-action{display:block;margin-top:auto;padding:12px 10px;border-radius:8px;border:1px solid #e5c27b;background:linear-gradient(120deg,#f1d597,#d0a85f);color:#0a1b30!important;font-size:11px;font-weight:850;text-align:center;text-decoration:none;transition:transform .15s,filter .15s}
+.dea-store-action:hover{filter:brightness(1.09);transform:translateY(-2px)}
+@media(max-width:680px){.dea-entry-header{flex-wrap:nowrap;gap:5px}.dea-entry-header-note{display:none}.dea-entry-hero{min-height:calc(100dvh - 158px)}.dea-entry-hero .dea-premium-hero-copy{padding:240px 21px 40px}.dea-entry-footer{font-size:10px;padding:14px 20px}.dea-store-hero{padding:15px;gap:10px}.dea-store-hero img{width:90px}.dea-premium-store .dea-store-card{padding:17px}}
+@media(prefers-reduced-motion:reduce){.dea-store-action{transition:none}}

@@ -51,3 +51,26 @@
 @media(max-width:600px){#dea-promo{padding:8px;align-items:center}#dea-promo .dea-promo-panel{max-height:calc(100dvh - 16px);border-radius:14px}#dea-promo .dea-promo-scene{height:208px}#dea-promo .dea-promo-brand{top:10px;left:9px;gap:6px;padding:5px 7px}#dea-promo .dea-promo-brand span{font-size:12px}#dea-promo .dea-promo-brand small{font-size:8px}#dea-promo .dea-promo-brand img{width:43px}#dea-promo .dea-promo-crew{left:3px;right:3px;gap:1px}#dea-promo .dea-promo-crew-member{min-height:113px;padding:1px 0 3px}#dea-promo .dea-promo-avatar{height:75px}#dea-promo .dea-promo-crew-label{font-size:6px;letter-spacing:-.3px}#dea-promo .dea-promo-crew-role{font-size:6px;letter-spacing:0}#dea-promo .dea-promo-body{padding:12px}#dea-promo h2{font-size:28px}#dea-promo .dea-promo-date{font-size:9px;padding:5px}#dea-promo .dea-promo-ranks{gap:5px}#dea-promo .dea-promo-rank{padding:9px 3px}#dea-promo .dea-promo-rank em{font-size:7px}#dea-promo .dea-promo-rank small strong{font-size:20px}#dea-promo del{font-size:10px}#dea-promo .dea-promo-vip{padding:8px;gap:8px}#dea-promo .dea-promo-vip-emblem{width:32px;height:32px}#dea-promo .dea-promo-actions{gap:5px}#dea-promo .dea-promo-cta,#dea-promo .dea-promo-secondary{font-size:10px;padding:10px 5px}}
 @media(max-height:670px){#dea-promo .dea-promo-scene{height:105px}#dea-promo .dea-promo-body{padding-top:10px;padding-bottom:10px}#dea-promo .dea-promo-rank{padding-top:8px;padding-bottom:7px}}
 @media(prefers-reduced-motion:reduce){#dea-promo{animation:none}#dea-promo .dea-promo-rank{transition:none}}
+
+/* DEA · Popup de bienvenida compacto. Único acceso: FAQ DEA. */
+#dea-promo{padding:clamp(20px,6vw,68px);background:rgba(2,10,23,.68);backdrop-filter:blur(6px)}
+#dea-promo .dea-welcome-panel{width:min(515px,calc(100vw - 40px));max-height:min(77dvh,660px);overflow:auto;border:2px solid #d4af6e;border-radius:18px;box-shadow:0 22px 90px #000a,0 0 33px #d4b26b28}
+#dea-promo .dea-welcome-scene{height:205px;background-position:center 48%}
+#dea-promo .dea-welcome-scene:after{background:linear-gradient(0deg,#08172e95,transparent 55%)}
+#dea-promo .dea-welcome-panel .dea-promo-brand{top:15px;left:15px;padding:6px 12px 6px 5px;gap:9px}
+#dea-promo .dea-welcome-panel .dea-promo-brand img{width:56px;height:56px}
+#dea-promo .dea-welcome-body{padding:20px 24px 22px;text-align:center}
+#dea-promo .dea-welcome-body .dea-promo-kicker{font-size:10px;color:#e7ca86;letter-spacing:1.3px}
+#dea-promo .dea-welcome-body h2{font-size:clamp(24px,3.5vw,33px);line-height:1.15;margin:11px 0}
+#dea-promo .dea-welcome-subtitle{font-size:12px;line-height:1.65;color:#d3e1e8;margin:0 auto 17px;max-width:405px}
+#dea-promo .dea-welcome-faq{display:flex;align-items:center;gap:13px;min-height:68px;text-decoration:none;text-align:left;padding:11px 15px;border:1px solid #6dffda;border-radius:12px;background:linear-gradient(105deg,#0e4d4c,#114e68);color:#dffef6;box-shadow:inset 3px 0 #86ffe4,0 0 20px #39e5ca35;transition:transform .18s,box-shadow .18s}
+#dea-promo .dea-welcome-faq:hover,#dea-promo .dea-welcome-faq:focus-visible{transform:translateY(-2px);border-color:#d5ffea;box-shadow:inset 3px 0 #a9ffdb,0 0 25px #45f6cf65}
+#dea-promo .dea-welcome-faq-icon{flex:none;display:grid;place-items:center;width:40px;height:40px;border:1px solid #7dfbe1;border-radius:10px;background:#073c4c;color:#a9ffef;font-size:27px;font-weight:900}
+#dea-promo .dea-welcome-faq>span:nth-child(2){display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+#dea-promo .dea-welcome-faq strong{font-size:17px;letter-spacing:.03em}
+#dea-promo .dea-welcome-faq small{font-size:11px;color:#a2eadd;font-weight:600}
+#dea-promo .dea-welcome-faq-arrow{color:#b6ffec;font-size:26px;flex:none}
+#dea-promo .dea-welcome-note{font-size:10px;line-height:1.5;color:#9eb9cb;margin:13px auto 0}
+@media(max-width:600px){#dea-promo{padding:19px;align-items:center}#dea-promo .dea-welcome-panel{max-height:78dvh;width:calc(100vw - 38px);border-radius:16px}#dea-promo .dea-welcome-scene{height:150px}#dea-promo .dea-welcome-body{padding:15px 15px 17px}#dea-promo .dea-welcome-body h2{font-size:25px}#dea-promo .dea-welcome-faq{min-height:61px;padding:9px 11px}#dea-promo .dea-welcome-panel .dea-promo-brand img{width:38px;height:38px}#dea-promo .dea-welcome-panel .dea-promo-brand span{font-size:11px}}
+@media(max-height:600px){#dea-promo .dea-welcome-scene{height:95px}#dea-promo .dea-welcome-body{padding-top:10px;padding-bottom:12px}#dea-promo .dea-welcome-subtitle{margin-bottom:9px}#dea-promo .dea-welcome-panel{max-height:86dvh}}
+@media(prefers-reduced-motion:reduce){#dea-promo .dea-welcome-faq{transition:none}}

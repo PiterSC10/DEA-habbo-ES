@@ -720,3 +720,24 @@ test('Expediente 010: Danisol figura primero, imagen original grande y comunicad
  assert.match(css,/\.dea-danisol-news \.dea-danisol-flyer\{[^}]*max-width:760px/);
  assert.match(css,/\.dea-danisol-news \.dea-classified-sheet\{[^}]*transform:none/);
 });
+
+test('Expediente 011 DEA Confidencial: actividad de tarde, 17 usuarios y flyer como pieza principal',async()=>{
+ const html=page('publico/noticias');
+ const a=html.indexOf('id="dea-tarde-full-20261124"');
+ const b=html.indexOf('id="dea-miembro-semana-010"');
+ assert.ok(a>0&&b>a,'Expediente 011 debe estar primero y Danisol mantenerse archivado');
+ const section=html.slice(a,b);
+ for(const term of ['EXPEDIENTE 011','24 DE NOVIEMBRE DE 2026','¡DEA sigue a full esta tarde!','17 usuarios','Seguimos a full','AgenciaOficialDEA.es'])
+   assert.ok(section.toLowerCase().includes(term.toLowerCase()),'Falta '+term);
+ const header=section.indexOf('class="dea-afternoon-intro"');
+ const art=section.indexOf('class="dea-afternoon-evidence"');
+ const report=section.indexOf('class="dea-afternoon-report"');
+ assert.ok(header>0&&art>header&&report>art,'Título, flyer grande y texto debajo en ese orden');
+ assert.match(section,/36cfa460-0ad9-4b2a-9e04-b5fd0fcbd9d0\.webp/);
+ assert.match(section,/408f55f8-c4e4-4456-8c72-501944a66f86\.png/);
+ assert.equal((section.match(/class="dea-event-flyer dea-afternoon-flyer"/g)||[]).length,1);
+ assert.match(section,/Dato puntual de la captura compartida/);
+ const css=await readFile(new URL('./premium.css',import.meta.url),'utf8');
+ assert.match(css,/\.dea-afternoon-news \.dea-afternoon-flyer\{[^}]*max-width:800px/);
+ assert.match(css,/\.dea-afternoon-news \.dea-classified-sheet\{[^}]*transform:none/);
+});

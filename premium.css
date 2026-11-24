@@ -392,3 +392,51 @@
  .dea-danisol-news .dea-danisol-statement h3{font-size:20px}
  .dea-danisol-news .dea-danisol-statement p{font-size:14px;line-height:1.65}
 }
+
+
+/* DEA Confidencial — expediente 011: Seguimos a full, actualización de tarde. */
+.dea-afternoon-news .dea-classified-sheet{transform:none;background:repeating-linear-gradient(0deg,transparent 0 37px,#8a714c16 38px),linear-gradient(130deg,#fbf3df,#e7d2aa);color:#30251b;border-color:#b59b72}
+.dea-afternoon-news .dea-classified-stamp{color:#87312b;border-color:#87312b;opacity:.88}
+.dea-afternoon-news .dea-paper-masthead>span,.dea-afternoon-news .dea-paper-masthead strong,.dea-afternoon-news .dea-paper-masthead time{color:#2e241b}
+.dea-afternoon-news .dea-paper-masthead em{color:#823a2b}
+.dea-afternoon-news .dea-paper-edition{color:#753126;border-bottom-color:#916e46}
+.dea-afternoon-news .dea-paper-edition span{color:#3e3021}
+.dea-afternoon-news .dea-afternoon-intro{margin:23px 0;padding:21px 22px;background:#fff7e6;border-left:5px solid #9c7242;box-shadow:0 4px 11px #60452624}
+.dea-afternoon-news .dea-afternoon-kicker,.dea-afternoon-news .dea-afternoon-report-tag{display:block;color:#84382b;font-size:11px;font-weight:900;letter-spacing:.1em;line-height:1.55}
+.dea-afternoon-news .dea-afternoon-intro h2{font-size:clamp(26px,3.4vw,39px);line-height:1.2;color:#251d17;margin:10px 0 12px}
+.dea-afternoon-news .dea-afternoon-intro p{font-size:15px;line-height:1.75;color:#33291f;margin:0}
+.dea-afternoon-news .dea-afternoon-intro strong{color:#6c3023}
+.dea-afternoon-news .dea-afternoon-evidence{margin:14px 0 23px;padding:clamp(10px,2.6vw,22px);border:4px double #ceaa62;background:linear-gradient(145deg,#081c39,#163858 55%,#06142a);box-shadow:0 13px 30px #0009}
+.dea-afternoon-news .dea-afternoon-evidence-header{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;border-bottom:1px solid #bfa16d;padding-bottom:13px;margin-bottom:13px;color:#f9dea8;font-size:10px;font-weight:900;letter-spacing:.07em}
+.dea-afternoon-news .dea-afternoon-evidence-header span:last-child{color:#e2eff8;font-weight:700}
+.dea-afternoon-news .dea-afternoon-flyer{width:min(100%,800px);max-width:800px;min-width:0;margin:0 auto;padding:clamp(6px,1vw,11px);background:#081526;border:1px solid #d4b572;border-radius:5px;box-shadow:0 11px 25px #0008}
+.dea-afternoon-news .dea-afternoon-flyer a{display:block}
+.dea-afternoon-news .dea-afternoon-flyer img{display:block;width:100%;height:auto;max-height:none;aspect-ratio:1055/1491;object-fit:contain;border:1px solid #9e804f;background:#071528}
+.dea-afternoon-news .dea-afternoon-flyer figcaption{color:#ebf5ff;font-size:12px;line-height:1.6;padding:12px 2px 2px}
+.dea-afternoon-news .dea-afternoon-report{padding:22px clamp(15px,3vw,28px);background:#fff8e7;border:2px solid #9a7d54;box-shadow:inset 0 0 0 4px #e9dac0}
+.dea-afternoon-news .dea-afternoon-report h3{font-size:clamp(22px,2.8vw,30px);line-height:1.3;color:#2b2119;margin:10px 0 19px}
+.dea-afternoon-news .dea-afternoon-statrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:21px}
+.dea-afternoon-news .dea-afternoon-statrow>div{display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:13px 7px;border:2px solid #c69f5b;border-radius:6px;background:#0b2847;text-align:center}
+.dea-afternoon-news .dea-afternoon-statrow strong{color:#ffe4a7;font-size:clamp(23px,3vw,34px);font-weight:950;line-height:1.1}
+.dea-afternoon-news .dea-afternoon-statrow span{color:#f0f6fb;font-size:10px;line-height:1.5;font-weight:800;letter-spacing:.055em}
+.dea-afternoon-news .dea-afternoon-report p{font-size:clamp(14px,1.35vw,16px);line-height:1.85;color:#30261d;margin:15px 0}
+.dea-afternoon-news .dea-afternoon-report p strong{color:#743621}
+.dea-afternoon-news .dea-afternoon-highlight{padding:15px 18px;background:#0a3159;color:#fff0bb!important;border-left:5px solid #d7aa59;text-align:center;font-size:clamp(17px,2vw,23px)!important;font-weight:950}
+.dea-afternoon-news .dea-afternoon-report small{color:#574b3b;line-height:1.6;font-size:11px}
+.dea-afternoon-news .dea-paper-footer>span{color:#743024}
+.dea-afternoon-news .dea-paper-footer p{color:#3e3125}
+@media(max-width:480px){
+ .dea-afternoon-news .dea-classified-sheet{padding:12px 10px;border-width:4px}
+ .dea-afternoon-news .dea-afternoon-intro{padding:15px 12px;margin:16px 0}
+ .dea-afternoon-news .dea-afternoon-intro h2{font-size:27px}
+ .dea-afternoon-news .dea-afternoon-intro p{font-size:14px;line-height:1.65}
+ .dea-afternoon-news .dea-afternoon-evidence{padding:7px;border-width:3px}
+ .dea-afternoon-news .dea-afternoon-flyer{padding:5px}
+ .dea-afternoon-news .dea-afternoon-evidence-header{font-size:9px;letter-spacing:0}
+ .dea-afternoon-news .dea-afternoon-report{padding:14px 11px}
+ .dea-afternoon-news .dea-afternoon-report h3{font-size:22px}
+ .dea-afternoon-news .dea-afternoon-statrow{gap:5px}
+ .dea-afternoon-news .dea-afternoon-statrow>div{padding:10px 3px}
+ .dea-afternoon-news .dea-afternoon-statrow strong{font-size:24px}
+ .dea-afternoon-news .dea-afternoon-statrow span{font-size:8px}
+}

@@ -349,3 +349,46 @@
  .dea-lava-news .dea-lava-schedule time strong{font-size:11px}
  .dea-lava-news .dea-lava-archive-close{padding:15px 12px}
 }
+
+
+/* DEA Confidencial — expediente 010: Danisol, reconocimiento semanal #2. */
+.dea-danisol-news .dea-classified-sheet{transform:none;background:repeating-linear-gradient(0deg,transparent 0 38px,#88674414 39px),linear-gradient(125deg,#faf2dd,#e9d7b6);color:#281e17;border-color:#b69a6d}
+.dea-danisol-news .dea-classified-stamp{color:#973729;border-color:#973729;opacity:.85}
+.dea-danisol-news .dea-paper-edition{color:#743525}
+.dea-danisol-news .dea-paper-masthead>span,
+.dea-danisol-news .dea-paper-masthead strong,
+.dea-danisol-news .dea-paper-masthead time{color:#261d19}
+.dea-danisol-news .dea-paper-masthead em{color:#763524}
+.dea-danisol-news .dea-danisol-intro{padding:22px 20px;margin:23px 0;background:#fff6e4;border-left:5px solid #9a6b3d;box-shadow:0 3px 12px #75533925}
+.dea-danisol-news .dea-danisol-kicker,
+.dea-danisol-news .dea-danisol-statement-tag{display:block;color:#843b2b;font-size:11px;font-weight:900;letter-spacing:.1em;line-height:1.5}
+.dea-danisol-news .dea-danisol-intro h2{color:#221b17;margin:8px 0 12px;font-size:clamp(25px,3.2vw,38px);line-height:1.2}
+.dea-danisol-news .dea-danisol-intro p{color:#34261d;line-height:1.7;font-size:15px;margin:0;max-width:850px}
+.dea-danisol-news .dea-danisol-archive-evidence{margin:12px 0 24px;padding:clamp(10px,2.5vw,20px);border:4px double #d2ae64;background:linear-gradient(145deg,#081b38,#16365f 53%,#061629);box-shadow:0 13px 31px #0009}
+.dea-danisol-news .dea-danisol-evidence-header{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #bc9b5e;margin-bottom:14px;padding-bottom:11px;color:#ffe3a8;letter-spacing:.08em;font-size:10px;font-weight:900}
+.dea-danisol-news .dea-danisol-evidence-header span:last-child{color:#daeaf5;font-weight:750}
+.dea-danisol-news .dea-danisol-flyer{width:min(100%,760px);max-width:760px;margin:0 auto;padding:clamp(6px,1vw,10px);background:#071629;border:1px solid #c9a567;border-radius:7px;box-shadow:0 12px 25px #0008}
+.dea-danisol-news .dea-danisol-flyer a{display:block}
+.dea-danisol-news .dea-danisol-flyer img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:contain;border:1px solid #a47e42;border-radius:3px}
+.dea-danisol-news .dea-danisol-flyer figcaption{color:#edf5ff;font-size:12px;line-height:1.5;padding:11px 2px 2px}
+.dea-danisol-news .dea-danisol-statement{padding:22px clamp(13px,3vw,30px);background:#fff8e8;border:2px solid #a48b62;box-shadow:inset 0 0 0 4px #eadcc8}
+.dea-danisol-news .dea-danisol-statement h3{font-size:clamp(19px,2.5vw,30px);line-height:1.3;color:#1c2e4a;margin:13px 0 16px;text-align:center}
+.dea-danisol-news .dea-danisol-statement p{color:#29221c;font-size:clamp(14px,1.4vw,17px);line-height:1.85;margin:15px 0}
+.dea-danisol-news .dea-danisol-statement strong{color:#643420}
+.dea-danisol-news .dea-danisol-recognition-banner{padding:13px 16px;margin:20px 0;background:#0a2d59;border:2px solid #bf9144;color:#ffdf9c;text-align:center;font-size:clamp(17px,2.2vw,25px);letter-spacing:.05em;font-weight:950}
+.dea-danisol-news .dea-danisol-endline{font-weight:850;font-style:italic;color:#1e3f6a!important;text-align:center}
+.dea-danisol-news .dea-danisol-archive-link{display:inline-flex;align-items:center;padding:11px 16px;margin-top:5px;border:1px solid #ab8147;background:#f2dfb6;color:#253752!important;font-weight:900;text-decoration:none;border-radius:6px}
+.dea-danisol-news .dea-danisol-archive-link:hover{background:#ffe6af}
+.dea-danisol-news .dea-paper-footer span{color:#793527}
+.dea-danisol-news .dea-paper-footer p{color:#38271c}
+@media(max-width:480px){
+ .dea-danisol-news .dea-classified-sheet{padding:12px 10px;border-width:4px}
+ .dea-danisol-news .dea-danisol-intro{padding:15px 12px;margin:15px 0}
+ .dea-danisol-news .dea-danisol-intro h2{font-size:27px}
+ .dea-danisol-news .dea-danisol-archive-evidence{padding:8px;border-width:3px}
+ .dea-danisol-news .dea-danisol-flyer{padding:5px}
+ .dea-danisol-news .dea-danisol-evidence-header{font-size:9px;letter-spacing:0}
+ .dea-danisol-news .dea-danisol-statement{padding:15px 12px}
+ .dea-danisol-news .dea-danisol-statement h3{font-size:20px}
+ .dea-danisol-news .dea-danisol-statement p{font-size:14px;line-height:1.65}
+}

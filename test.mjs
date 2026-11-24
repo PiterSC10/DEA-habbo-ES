@@ -700,3 +700,23 @@ test('El flyer del expediente 009 ocupa la zona central y los anexos van debajo'
  assert.match(premium,/\.dea-lava-news \.dea-lava-archive-grid\{[^}]*grid-template-columns:/);
  assert.match(premium,/\.dea-lava-news \.dea-classified-sheet\{[^}]*transform:none/);
 });
+
+test('Expediente 010: Danisol figura primero, imagen original grande y comunicado íntegro después',async()=>{
+ const html=page('publico/noticias');
+ const a=html.indexOf('id="dea-miembro-semana-010"'),b=html.indexOf('id="dea-lava-20261123"');
+ assert.ok(a>0&&b>a,'Danisol debe ser el primer expediente; Lava se conserva como archivo');
+ const section=html.slice(a,b);
+ const intro=section.indexOf('class="dea-danisol-intro"');
+ const flyer=section.indexOf('class="dea-danisol-archive-evidence"');
+ const statement=section.indexOf('class="dea-danisol-statement"');
+ assert.ok(intro>0&&flyer>intro&&statement>flyer,'Orden de archivo: texto breve, flyer protagonista, felicitación debajo');
+ for(const text of ['DANISOL','MIEMBRO DE LA SEMANA #2','destacada participación','compromiso','¡Gracias por formar parte de esta gran familia','¡Sigue brillando','AgenciaOficialDEA.es']){
+  assert.ok(section.includes(text),text);
+ }
+ assert.match(section,/36365e41-8d76-4576-9fbc-2e03e3fb8e96\.webp/);
+ assert.match(section,/bff5130e-88ba-41fe-824c-8ee8f5b180e7\.webp/);
+ assert.equal((section.match(/class="dea-event-flyer dea-danisol-flyer"/g)||[]).length,1);
+ const css=await readFile(new URL('./premium.css',import.meta.url),'utf8');
+ assert.match(css,/\.dea-danisol-news \.dea-danisol-flyer\{[^}]*max-width:760px/);
+ assert.match(css,/\.dea-danisol-news \.dea-classified-sheet\{[^}]*transform:none/);
+});

@@ -1,1 +1,26 @@
-{"name":"Agencia Oficial DEA","short_name":"Agencia DEA","description":"Departamento Especial de Agentes · Habbo Hotel","start_url":"./","display":"standalone","background_color":"#071221","theme_color":"#071323","icons":[{"src":"./icon-192.png","sizes":"192x192","type":"image/png"},{"src":"./icon-512.png","sizes":"512x512","type":"image/png"}]}
+{
+  "name": "Agencia Oficial DEA",
+  "short_name": "Agencia DEA",
+  "description": "Agencia Oficial DEA es una comunidad independiente de Habbo Hotel. Conoce nuestra sala, rangos, nóminas, equipo, eventos y noticias de DEA Confidencial.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#071221",
+  "theme_color": "#071323",
+  "icons": [
+    {
+      "src": "/favicon-dea-20261125.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
